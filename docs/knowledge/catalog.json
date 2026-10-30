@@ -1,0 +1,55 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "id": "respect-project-package-contract",
+      "title": "프로젝트 선언과 lockfile로 설치 관리자를 정한다",
+      "lesson": "개인 전역 선호보다 저장소의 packageManager와 lockfile을 확인한다. 선언·lock·버전이 충돌하면 다른 관리자로 대체하지 않는다. 상위 workspace 선언이 있으면 설치 범위를 먼저 확인한다.",
+      "conditions": "이 하네스로 Node/Python 프로젝트의 의존성을 준비하거나 패키지 관리자를 선택할 때",
+      "exclusions": [
+        "관리자 전환 자체가 승인된 작업이면 별도 마이그레이션과 새 lock 검증을 수행한다.",
+        "Poetry와 복잡한 workspace/plugin은 프로젝트 전용 workflow를 확인한다."
+      ],
+      "project": null,
+      "topics": [
+        "environment",
+        "setup",
+        "package-manager"
+      ],
+      "paths": [
+        "*package.json",
+        "*package-lock.json",
+        "*pnpm-lock.yaml",
+        "*uv.lock"
+      ],
+      "sources": [
+        "tools/harness/docs/environment.md",
+        "https://docs.npmjs.com/cli/v11/commands/npm-ci/",
+        "https://docs.astral.sh/uv/concepts/projects/sync/"
+      ],
+      "state": "adopted",
+      "evidence": [
+        {
+          "path": "tools/harness/tests/test_environment.py",
+          "sha256": "d0be0095766b415701b9dfb3eaef1c829c517cccae397395d90b825d0180585d"
+        },
+        {
+          "path": "tools/harness/docs/environment.md",
+          "sha256": "89d561e98159465c95c1513f35b23f3bb393ccebc792e19f7353829371233e62"
+        }
+      ],
+      "history": [
+        {
+          "at": "2026-10-30T22:12:42.738607+00:00",
+          "action": "created"
+        },
+        {
+          "at": "2026-10-30T22:12:42.856822+00:00",
+          "action": "adopted",
+          "reason": "사용자 승인 방향·공식 관리자 계약과 충돌/버전/workspace 회귀 및 실제 오프라인 npm/uv 실행을 대조함",
+          "replacement": null
+        }
+      ]
+    }
+  ]
+}

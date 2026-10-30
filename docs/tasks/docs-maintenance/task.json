@@ -1,0 +1,108 @@
+{
+  "version": 2,
+  "kind": "research",
+  "goal": "공개 docs·LLM Wiki 사례를 조사해 프로젝트 문서 관리 스킬과 선택 연결을 만들고 검증한다",
+  "status": "complete",
+  "evidence": {
+    "S1": {
+      "type": "source",
+      "path": "tools/harness/docs/docs-maintenance-research.md",
+      "sha256": "1fd1486f6d7f0ae83bc2f2f2a4471dad5cce243c1d3c7d9602efc0a62bb4e8ba",
+      "description": "공개 사례 조사와 tomzx 출처 귀속 교정",
+      "recorded_at": "2026-10-30T22:11:30.984176+00:00",
+      "origin": "https://github.com/tomzx/agents/blob/main/skills/sync-documentation/SKILL.md",
+      "accessed_at": "2026-10-31"
+    },
+    "E1": {
+      "type": "artifact",
+      "path": ".runtime/docs-maintenance/skill-as-created.md",
+      "sha256": "4546996c86c57ab904810dd64b65c7e3221d0b3435474dd5de0672cf604582ab",
+      "description": "문서 구조·최신화·위키·검증의 조건부 진입점",
+      "recorded_at": "2026-10-30T22:11:31.044471+00:00"
+    },
+    "E2": {
+      "type": "artifact",
+      "path": ".runtime/docs-maintenance/validation.json",
+      "sha256": "d83fd27abd344177e5e39f62c80194c118c645bbd8c7a90d1196729176ce47ca",
+      "description": "실제 검증 결과와 고정 사본/현재 상태의 구분",
+      "recorded_at": "2026-10-30T22:11:31.100854+00:00"
+    },
+    "F1before": {
+      "type": "artifact",
+      "path": ".runtime/docs-maintenance/F1-before.md",
+      "sha256": "ab4e40b74ba01cdd8862caa24ce2eb651a81a38fa13d83e3d860bc30d4236302",
+      "description": "확인한 연구 오류의 수정 전 문장과 실패 판정",
+      "recorded_at": "2026-10-30T22:11:31.157748+00:00"
+    },
+    "F1case": {
+      "type": "artifact",
+      "path": ".runtime/docs-maintenance/F1-case.md",
+      "sha256": "0ebf3898f8aa98abd087f4675c8f289165d5b29b5a872e4a70b1e35b71b6b159",
+      "description": "정책 귀속 오류의 재사용 반례와 수정 후 관측",
+      "recorded_at": "2026-10-30T22:11:31.214259+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/docs-maintenance/review.json",
+    "sha256": "efe1b1d3be92d22ae1b5bfcf2cf48190ade0fa2c84f6fd82dca7c5e1760e2d82"
+  },
+  "created_at": "2026-10-30T22:09:48.797284+00:00",
+  "depends_on": [],
+  "inputs": [
+    "공개 스킬 원문·공식 문서",
+    "기존 하네스 지침·학습/검색/검증 도구"
+  ],
+  "scope": [
+    ".agents/skills/docs-maintenance/",
+    ".agents/context.toml",
+    "AGENTS.md",
+    "README.md",
+    ".agents/README.md",
+    ".agents/skills/research/SKILL.md",
+    ".agents/skills/plan-project/SKILL.md",
+    "tools/harness/docs/docs-maintenance-research.md",
+    "tools/harness/docs/skill-sources.md"
+  ],
+  "constraints": [
+    "원격 서버 읽기 전용; 커밋·푸시·배포 없음",
+    "기존 병렬 작업을 보존; 새 서비스·검색 인프라·자동 스케줄 미도입"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "공개 원문의 채택·조정·제외 이유와 확인 한계가 기록되어 있다",
+      "method": "같은 원문 조건을 재열람하고 교정 후 의미를 독립 검토한다",
+      "status": "passed",
+      "evidence": [
+        "S1",
+        "F1before",
+        "F1case"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "문서 구조·최신화·위키·검증 절차가 스킬과 읽기 조건에 연결되어 있다",
+      "method": "본문·상세 참조·등록 조건·진입점을 대조하고 실제 원문 선택을 확인한다",
+      "status": "passed",
+      "evidence": [
+        "E1"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "선택 조건과 실제 문서 작업을 검증하고 원본 보존 및 미확인 범위를 보고한다",
+      "method": "context 양성/음성 10개와 독립 문서 작업 3종, 원본 보존·질문 읽기 전용·고정 사본 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "E2"
+      ]
+    }
+  ],
+  "next_action": "최종 등록 검사와 근거 검토를 완료한다.",
+  "findings": [
+    "F1"
+  ],
+  "completed_at": "2026-10-30T22:11:57.915853+00:00"
+}

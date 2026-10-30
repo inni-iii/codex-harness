@@ -1,0 +1,89 @@
+# 실행 가능한 초기 정책. 추천 성능을 평가한 결과가 아닌 수정 가능한 휴리스틱이다.
+schema_version = "0.1"
+policy_version = "0.2.0-provisional"
+default_preference = "quality"
+
+[classification]
+# 분류 모델을 임의로 지정하지 않는다. 명령 옵션 또는 로컬 정책에서 설정한다.
+model = ""
+effort = ""
+# 운영상 대기 한도이며 품질 판정 기준이 아니다. --timeout으로 변경할 수 있다.
+timeout_seconds = 30
+
+[efforts]
+single_agent = ["low", "medium", "high", "xhigh", "max"]
+delegating = ["ultra"]
+
+# 모델 역할은 지원 목록과 대조하는 잠정 분류다. 새 세대의 능력을 자동 가정하지 않는다.
+[[model_roles]]
+pattern = '^gpt-(?:5\.6|6)-luna$'
+capability = 1
+priority = 0
+
+[[model_roles]]
+pattern = '^gpt-6\.1-terra$'
+capability = 2
+priority = 0
+
+[[model_roles]]
+pattern = '^gpt-5\.6-terra$'
+capability = 2
+priority = 1
+
+[[model_roles]]
+pattern = '^gpt-6\.1-sol$'
+capability = 3
+priority = 0
+
+[[model_roles]]
+pattern = '^gpt-(?:5\.6|6)-sol$'
+capability = 3
+priority = 1
+
+[[model_roles]]
+pattern = '^gpt-6-astra$'
+capability = 4
+priority = 0
+
+# 위에서부터 첫 일치 규칙을 적용한다. 선택 이유에 규칙명을 남긴다.
+[[requirements]]
+id = "complex_ambiguous_high_impact"
+when = {complexity = "high", ambiguity = "high", failure_impact = "high"}
+capability = 4
+effort = "max"
+
+[[requirements]]
+id = "complex_ambiguous"
+when = {complexity = "high", ambiguity = "high"}
+capability = 4
+effort = "xhigh"
+
+[[requirements]]
+id = "complex"
+when = {complexity = "high"}
+capability = 3
+effort = "high"
+
+[[requirements]]
+id = "high_impact"
+when = {failure_impact = "high"}
+capability = 3
+effort = "high"
+
+[[requirements]]
+id = "ambiguous"
+when = {ambiguity = "high"}
+capability = 3
+effort = "high"
+
+[[requirements]]
+id = "clear_small_task"
+when = {complexity = "low", ambiguity = "low", failure_impact = "low"}
+capability = 1
+effort = "low"
+
+[[requirements]]
+id = "routine"
+when = {}
+capability = 2
+effort = "medium"

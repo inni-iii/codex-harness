@@ -1,0 +1,28 @@
+# Local configuration, runtime state, and private task material
+config.local.toml
+.env
+.env.*
+!.env.example
+.runtime/
+.worktrees/
+.cache/
+logs/
+handoffs/
+
+# Python development artifacts
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+dist/
+build/
+.DS_Store
+
+# Optional browser dependencies
+.codex/auth.json
+node_modules/
+playwright-report/
+test-results/
+playwright/.auth/

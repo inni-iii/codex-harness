@@ -1,0 +1,776 @@
+{
+  "date": "2026-10-30",
+  "source_repository": "mitam-math",
+  "scope": "All 54 primary SKILL.md bodies, reusing prior full texts where identical and reading all changes; 42 secondary entries compared. Supporting resources are selectively read, not exhaustive.",
+  "skills": [
+    {
+      "skill": "ai-api-scaffold",
+      "path": ".agents/skills/ai-api-scaffold/SKILL.md",
+      "sha256": "969114de710474490e0f0d5f27e4f2a700cae6c226f8ad49cdc25a7ad3d4870b",
+      "lines": 937,
+      "review_method": "full_text_this_request",
+      "own_references": 2,
+      "missing_references": []
+    },
+    {
+      "skill": "api-design",
+      "path": ".agents/skills/api-design/SKILL.md",
+      "sha256": "07fd7e6a56dc0859cd316af2310f376e54d6c58110c12f6408363fd5f14b6d3b",
+      "lines": 487,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "api-designer",
+      "path": ".agents/skills/api-designer/SKILL.md",
+      "sha256": "27c26bb34b32a8fa6a2505d3e3b6f48362b5a5738428c7da4124107c074de0f3",
+      "lines": 90,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "architecture-designer",
+      "path": ".agents/skills/architecture-designer/SKILL.md",
+      "sha256": "7881238028b6c4bfae33881c66b0114aefb768bb0a2371c443d55479a4a83925",
+      "lines": 81,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "backend-patterns",
+      "path": ".agents/skills/backend-patterns/SKILL.md",
+      "sha256": "fb0da01f8a020f1be280f17e0f12ad22d482658324f89537b8304f42b265c4a5",
+      "lines": 1880,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "coding-standards",
+      "path": ".agents/skills/coding-standards/SKILL.md",
+      "sha256": "1e8ed6019183cd397f673c0cf68960eace2adbd8713a3d4ee3ca15a749137e18",
+      "lines": 545,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "configure-package",
+      "path": ".agents/skills/configure-package/SKILL.md",
+      "sha256": "3107e901ff15eb406070d377e417a058fb44a6ee18e94024ed5a119964d27082",
+      "lines": 346,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "continuous-learning-v2",
+      "path": ".agents/skills/continuous-learning-v2/SKILL.md",
+      "sha256": "a581213f38cf2e20a5ec4915dea5db7c276c98a5fcf6c967551c093ae9645b60",
+      "lines": 364,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "cost-aware-llm-pipeline",
+      "path": ".agents/skills/cost-aware-llm-pipeline/SKILL.md",
+      "sha256": "856efc494501e14cb9f481c3b271372ee577671a4425d60cc35d2f02975339d9",
+      "lines": 183,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "database-migrations",
+      "path": ".agents/skills/database-migrations/SKILL.md",
+      "sha256": "e24a9ecbc4de51407f1b88fda365c556cb5d4f6d665ada3a0a708ede613b6cc7",
+      "lines": 283,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "database-optimizer",
+      "path": ".agents/skills/database-optimizer/SKILL.md",
+      "sha256": "6e98d2110e8e96647c473f30004dc152d35ef63caef56055eaaacad3032e2cce",
+      "lines": 105,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "deployment-patterns",
+      "path": ".agents/skills/deployment-patterns/SKILL.md",
+      "sha256": "72bb1669f242e604414dbd1083da359c16eb3904274a8b8024dfecca999d5253",
+      "lines": 1551,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "devops-engineer",
+      "path": ".agents/skills/devops-engineer/SKILL.md",
+      "sha256": "0ed836d0d4b6b3e532dbfa8ab430a695fd684e247d3e2a3c5ba9fc00b46d81a7",
+      "lines": 585,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "docker-patterns",
+      "path": ".agents/skills/docker-patterns/SKILL.md",
+      "sha256": "d74cb07a21fca8aeea38fde93aa1331eb93724598ad88728986230816b4ff9d0",
+      "lines": 393,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "e2e-testing",
+      "path": ".agents/skills/e2e-testing/SKILL.md",
+      "sha256": "0f9c93d6c916aeb5195f43c52ea8fc7de1325b0fb57c4d1f0c749f7c689bb41d",
+      "lines": 324,
+      "review_method": "previous_identical_full_text",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "eval-harness",
+      "path": ".agents/skills/eval-harness/SKILL.md",
+      "sha256": "afdf727626b55b9a13495e03a27761cbba3be8e9007eebb57b2a1f1653ca6557",
+      "lines": 236,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "fastapi-expert",
+      "path": ".agents/skills/fastapi-expert/SKILL.md",
+      "sha256": "ff3d2a72af537bab1626cac9b4bf25d849e919633d3855153540b622ff432b12",
+      "lines": 532,
+      "review_method": "previous_identical_full_text",
+      "own_references": 12,
+      "missing_references": []
+    },
+    {
+      "skill": "frontend-patterns",
+      "path": ".agents/skills/frontend-patterns/SKILL.md",
+      "sha256": "83b4c71b618b3e10dc43f9b8b0fc5dd6eb28b791c302079adb3e1c6bad3d1b8f",
+      "lines": 2067,
+      "review_method": "previous_identical_full_text",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "ilta-port",
+      "path": ".agents/skills/ilta-port/SKILL.md",
+      "sha256": "e872a02552e7581e7912aba24c904ca92e4176b557463a12ce3559a02d041d9a",
+      "lines": 39,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "iterative-retrieval",
+      "path": ".agents/skills/iterative-retrieval/SKILL.md",
+      "sha256": "c3624040723d2d23b92e2dc8baea8eb289ad30a807397d7d4f962140f0c10845",
+      "lines": 211,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "monitoring-expert",
+      "path": ".agents/skills/monitoring-expert/SKILL.md",
+      "sha256": "78464f7dc2bf392e6764527bcdcbdbe3dea3cbfc1a0bcdc13fee85dfc7ba879f",
+      "lines": 77,
+      "review_method": "full_text_this_request",
+      "own_references": 8,
+      "missing_references": []
+    },
+    {
+      "skill": "playwright-expert",
+      "path": ".agents/skills/playwright-expert/SKILL.md",
+      "sha256": "40c693a631a8800a782e2f74eca8711d7b5cbbca73bdcd8c7ae9594539710a2a",
+      "lines": 80,
+      "review_method": "previous_identical_full_text",
+      "own_references": 5,
+      "missing_references": [
+        "references/api-mocking.md",
+        "references/configuration.md",
+        "references/debugging-flaky.md",
+        "references/page-object-model.md",
+        "references/selectors-locators.md"
+      ]
+    },
+    {
+      "skill": "postgres-patterns",
+      "path": ".agents/skills/postgres-patterns/SKILL.md",
+      "sha256": "eb9221100bc96ed0a804cefc72b1d634da0637f1ae8a7b8702dad6310c9ed618",
+      "lines": 154,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "postgres-pro",
+      "path": ".agents/skills/postgres-pro/SKILL.md",
+      "sha256": "2ecd5044b32ef8c7b44e151b2c6cdc1b8c2e44574989b24f8bff58ca88c1e5f2",
+      "lines": 87,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "project-guidelines-example",
+      "path": ".agents/skills/project-guidelines-example/SKILL.md",
+      "sha256": "141d69d86b4872ef77b2e4ca2108dc431d1e6919bf61c5a69a2a582211f702cf",
+      "lines": 357,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "prompt-engineer",
+      "path": ".agents/skills/prompt-engineer/SKILL.md",
+      "sha256": "94b8224db05a2e78de9dade7213cf5f5b20bca381d6cc05cd85c226b930f3790",
+      "lines": 88,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "python-patterns",
+      "path": ".agents/skills/python-patterns/SKILL.md",
+      "sha256": "ff76433a038aeb092bfcd4e2cf658a49e3a951734e982c10e5a972d425517993",
+      "lines": 742,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "python-pro",
+      "path": ".agents/skills/python-pro/SKILL.md",
+      "sha256": "27753fbeadf036b1217fedf30d6c9d358a4263064f26aa214b454eb50aed0a03",
+      "lines": 84,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "python-testing",
+      "path": ".agents/skills/python-testing/SKILL.md",
+      "sha256": "c3cf903e2969fd1b0506fe2a1eeabdb5586e18947466048e40d49477ddc3a29c",
+      "lines": 944,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "rag-architect",
+      "path": ".agents/skills/rag-architect/SKILL.md",
+      "sha256": "455fe3e2720b13ceb46239c0d147e918ee038a563c3dba5c1dee5981c1f696fb",
+      "lines": 88,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": []
+    },
+    {
+      "skill": "search-first",
+      "path": ".agents/skills/search-first/SKILL.md",
+      "sha256": "74869ec5b46a64b1145fc6128ba0f10e3e3478d7f86ada10d97a05ac277cb8c1",
+      "lines": 161,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "secure-code-guardian",
+      "path": ".agents/skills/secure-code-guardian/SKILL.md",
+      "sha256": "a95b03bc1950e53beb2052925ed9a43cdbd307c0702f9f8c8ec3693b4b68df23",
+      "lines": 83,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": [
+        "references/authentication.md",
+        "references/input-validation.md",
+        "references/owasp-prevention.md",
+        "references/security-headers.md",
+        "references/xss-csrf.md"
+      ]
+    },
+    {
+      "skill": "security-review",
+      "path": ".agents/skills/security-review/SKILL.md",
+      "sha256": "d6152d466d13e24f5d06b0ee05f4f1f3bc1011eb367c304fd5fee4160d1f5fc2",
+      "lines": 496,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "security-reviewer",
+      "path": ".agents/skills/security-reviewer/SKILL.md",
+      "sha256": "a5735d4b6e94e0ee4e5bf8bf721bde6cd1de2971d83c44baaba926648f7e4673",
+      "lines": 88,
+      "review_method": "full_text_this_request",
+      "own_references": 6,
+      "missing_references": [
+        "references/infrastructure-security.md",
+        "references/penetration-testing.md",
+        "references/report-template.md",
+        "references/sast-tools.md",
+        "references/secret-scanning.md",
+        "references/vulnerability-patterns.md"
+      ]
+    },
+    {
+      "skill": "security-scan",
+      "path": ".agents/skills/security-scan/SKILL.md",
+      "sha256": "e5a77b5a1673d85fa08687239d178fed773b1ff931b1de1c3d62baf09fdefd62",
+      "lines": 165,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-e2e",
+      "path": ".agents/skills/source-command-e2e/SKILL.md",
+      "sha256": "52f836500e21752bf2178528eb453b4f465f198ab513557dbb017f7228b2ae30",
+      "lines": 376,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-instinct-export",
+      "path": ".agents/skills/source-command-instinct-export/SKILL.md",
+      "sha256": "1cc64c7e16cd2e26dabf5dc5de43a53ecbe1fa78cb1ea670118094aed62d6fd1",
+      "lines": 71,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-instinct-import",
+      "path": ".agents/skills/source-command-instinct-import/SKILL.md",
+      "sha256": "270da70b1b8949a0ed1bc5169a7a766fe04df7d827e24f2695dcf46522ee877b",
+      "lines": 119,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-instinct-status",
+      "path": ".agents/skills/source-command-instinct-status/SKILL.md",
+      "sha256": "ffd17e913f3a41fce06bce9abade4224e263598c481c40d14ec421d9a71e3744",
+      "lines": 64,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-learn-eval",
+      "path": ".agents/skills/source-command-learn-eval/SKILL.md",
+      "sha256": "b3aef87494cc4dcde7a458a5ae59299a1420325833031b9074c2ca33f7bac0a4",
+      "lines": 98,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-plan",
+      "path": ".agents/skills/source-command-plan/SKILL.md",
+      "sha256": "26964f18743e79ad8f177166a068003c62737d760888937f5a90e9091bd0dd04",
+      "lines": 122,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-projects",
+      "path": ".agents/skills/source-command-projects/SKILL.md",
+      "sha256": "84c4cc67928777c6ff6ff0fa1bdb1d4f5920af416ca883cd3b8c73d197f24210",
+      "lines": 44,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-promote",
+      "path": ".agents/skills/source-command-promote/SKILL.md",
+      "sha256": "c37c8ce6b9e10cdf9ba0ec50edd7317ad9aa2a0068e3996547b60705b6a60dec",
+      "lines": 46,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-python-review",
+      "path": ".agents/skills/source-command-python-review/SKILL.md",
+      "sha256": "7501424e33a15ccdfa607d9c9f2710d8a204631212443c0a4812accd06dfbb10",
+      "lines": 290,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-setup-pm",
+      "path": ".agents/skills/source-command-setup-pm/SKILL.md",
+      "sha256": "60f8945d5482f235d0d333dab13d342a83c7af06a184079e0efd94fe4648f21e",
+      "lines": 86,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-skill-create",
+      "path": ".agents/skills/source-command-skill-create/SKILL.md",
+      "sha256": "4a78a4d06230036bc9cd7b63898b909337ad871d5e9483181f8a4980d5500f02",
+      "lines": 179,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "source-command-tdd",
+      "path": ".agents/skills/source-command-tdd/SKILL.md",
+      "sha256": "f8deb7ec33bbea77892d88687ee38d03fa1606bc35c8d0ffe3447964158cc1f9",
+      "lines": 334,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "sre-engineer",
+      "path": ".agents/skills/sre-engineer/SKILL.md",
+      "sha256": "dcbcc859a53757778223d93ae85e78a5c0d79874dbc38f61d21a2d280c5c06f7",
+      "lines": 87,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": [
+        "references/automation-toil.md",
+        "references/error-budget-policy.md",
+        "references/incident-chaos.md",
+        "references/monitoring-alerting.md",
+        "references/slo-sli-management.md"
+      ]
+    },
+    {
+      "skill": "strategic-compact",
+      "path": ".agents/skills/strategic-compact/SKILL.md",
+      "sha256": "b1dc93e9909374706fd1ac1fe146d23c2a4d4ad62d72af0685f12103dae21ed8",
+      "lines": 103,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "tdd-workflow",
+      "path": ".agents/skills/tdd-workflow/SKILL.md",
+      "sha256": "a1bc797ca21b3b03ad6880874153d004e1cdda335f9736c610e502b5ce4af6d1",
+      "lines": 411,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "test-master",
+      "path": ".agents/skills/test-master/SKILL.md",
+      "sha256": "822c948bb13dbef4170be6bbb083abb285c11a35cacfdbe32fb7b2283a21ca30",
+      "lines": 81,
+      "review_method": "full_text_this_request",
+      "own_references": 10,
+      "missing_references": [
+        "references/automation-frameworks.md",
+        "references/e2e-testing.md",
+        "references/integration-testing.md",
+        "references/performance-testing.md",
+        "references/qa-methodology.md",
+        "references/security-testing.md",
+        "references/tdd-iron-laws.md",
+        "references/test-reports.md",
+        "references/testing-anti-patterns.md",
+        "references/unit-testing.md"
+      ]
+    },
+    {
+      "skill": "typescript-pro",
+      "path": ".agents/skills/typescript-pro/SKILL.md",
+      "sha256": "58f0a7dfc7abf7e45487c1c058d561a1decd96bef6f207bc4517a9594efc7dea",
+      "lines": 85,
+      "review_method": "full_text_this_request",
+      "own_references": 5,
+      "missing_references": [
+        "references/advanced-types.md",
+        "references/configuration.md",
+        "references/patterns.md",
+        "references/type-guards.md",
+        "references/utility-types.md"
+      ]
+    },
+    {
+      "skill": "verification-loop",
+      "path": ".agents/skills/verification-loop/SKILL.md",
+      "sha256": "8b17440312a2083c1d9eb459bb615bfd999f44a289c71c9fdad6f0f18a8cf1ba",
+      "lines": 127,
+      "review_method": "previous_full_text_plus_complete_diff",
+      "own_references": 0,
+      "missing_references": []
+    },
+    {
+      "skill": "websocket-engineer",
+      "path": ".agents/skills/websocket-engineer/SKILL.md",
+      "sha256": "d8ca8b62ef07764cd1bb4305839e0ae555e9187cf21d1fba93c3ad79f77ff8ac",
+      "lines": 2550,
+      "review_method": "full_text_this_request",
+      "own_references": 0,
+      "missing_references": []
+    }
+  ],
+  "secondary_entries": [
+    {
+      "skill": "ai-api-scaffold",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "api-design",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "api-designer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "architecture-designer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "backend-patterns",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "coding-standards",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "configure-package",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "continuous-learning-v2",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "cost-aware-llm-pipeline",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "database-migrations",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "database-optimizer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "deployment-patterns",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "devops-engineer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "docker-patterns",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "e2e-testing",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "eval-harness",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "fastapi-expert",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "frontend-patterns",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "ilta-port",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "iterative-retrieval",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "monitoring-expert",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "playwright-expert",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "postgres-patterns",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "postgres-pro",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "project-guidelines-example",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "prompt-engineer",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "python-patterns",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "python-pro",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "python-testing",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "rag-architect",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "search-first",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "secure-code-guardian",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "security-review",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "security-reviewer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "security-scan",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "sre-engineer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "strategic-compact",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "tdd-workflow",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "test-master",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "typescript-pro",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    },
+    {
+      "skill": "verification-loop",
+      "identical": false,
+      "review_method": "complete_diff_against_reviewed_primary"
+    },
+    {
+      "skill": "websocket-engineer",
+      "identical": true,
+      "review_method": "identical_primary_reused"
+    }
+  ],
+  "additional_full_references": [
+    "ai-api-scaffold/references/retry-policy.md",
+    "python-pro/references/async-patterns.md",
+    "python-pro/references/packaging.md",
+    "monitoring-expert/references/structured-logging.md",
+    "architecture-designer/references/nfr-checklist.md",
+    "architecture-designer/references/adr-template.md"
+  ],
+  "isolated_example_reproductions": [
+    {
+      "source": "websocket-engineer/SKILL.md",
+      "result": "UserConnection inserted into set raises TypeError: unhashable type"
+    },
+    {
+      "source": "python-pro/references/async-patterns.md",
+      "result": "run_pipeline(0, 1) did not terminate within 0.05 seconds; consumers have no termination path"
+    }
+  ],
+  "source_repository_modified": false,
+  "application_date": "2026-10-31",
+  "applied_resources": [
+    "verify-work/references/security.md",
+    "verify-work/references/review.md",
+    "plan-project/references/handoff.md",
+    "plan-project/references/learning.md",
+    "plan-project/references/quality-requirements.md",
+    "python-backend/references/observability.md",
+    "python-backend/references/external-calls.md"
+  ]
+}

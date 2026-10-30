@@ -1,0 +1,124 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "검토 지식·스킬 관리·환경 준비·Codex 설정 감사의 레포 내 보강",
+  "status": "in_progress",
+  "evidence": {
+    "CHECK_A1": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/4b2f8db48af1404cb25e469688efad2d/checks/c7d1c9c573e04637883615d74dbb6ec3/report.json",
+      "sha256": "65e9dd99fc8f593bdc9b4167b396e423fba57a7d735ac49c955a05d7b8d5e803",
+      "description": "고정 소스의 전체 등록 검사: doctor/config/secrets 통과, unittest 302개·실패 0·환경 skip 1",
+      "recorded_at": "2026-10-30T22:15:53.180039+00:00",
+      "check": "python"
+    },
+    "CHECK_A2": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/4b2f8db48af1404cb25e469688efad2d/checks/c7d1c9c573e04637883615d74dbb6ec3/report.json",
+      "sha256": "65e9dd99fc8f593bdc9b4167b396e423fba57a7d735ac49c955a05d7b8d5e803",
+      "description": "고정 소스의 전체 등록 검사: doctor/config/secrets 통과, unittest 302개·실패 0·환경 skip 1",
+      "recorded_at": "2026-10-30T22:15:53.311812+00:00",
+      "check": "python"
+    },
+    "CHECK_A3": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/4b2f8db48af1404cb25e469688efad2d/checks/c7d1c9c573e04637883615d74dbb6ec3/report.json",
+      "sha256": "65e9dd99fc8f593bdc9b4167b396e423fba57a7d735ac49c955a05d7b8d5e803",
+      "description": "고정 소스의 전체 등록 검사: doctor/config/secrets 통과, unittest 302개·실패 0·환경 skip 1",
+      "recorded_at": "2026-10-30T22:15:53.406799+00:00",
+      "check": "python"
+    },
+    "CHECK_A4": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/4b2f8db48af1404cb25e469688efad2d/checks/c7d1c9c573e04637883615d74dbb6ec3/report.json",
+      "sha256": "65e9dd99fc8f593bdc9b4167b396e423fba57a7d735ac49c955a05d7b8d5e803",
+      "description": "고정 소스의 전체 등록 검사: doctor/config/secrets 통과, unittest 302개·실패 0·환경 skip 1",
+      "recorded_at": "2026-10-30T22:15:53.511151+00:00",
+      "check": "python"
+    },
+    "SOURCES": {
+      "type": "artifact",
+      "path": "tools/harness/docs/skill-sources.md",
+      "sha256": "7f0b849a22a8356cecd50771c4ee894296b983099b51a6f50c5e8cd9a8919bc7",
+      "description": "공식 문서·Codex 대안·원본 구현의 채택/제외 근거와 실엔진 미확인 범위",
+      "recorded_at": "2026-10-30T22:15:53.613319+00:00"
+    }
+  },
+  "review": null,
+  "findings": [
+    "K1",
+    "K2",
+    "K3",
+    "K4",
+    "K5"
+  ],
+  "created_at": "2026-10-30T22:11:22.422570+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents/skills/maintain-knowledge",
+    ".agents/skills/maintain-skills",
+    ".agents/skills/setup-environment",
+    "tools/harness/harness/knowledge.py",
+    "tools/harness/harness/knowledge_hooks.py",
+    "tools/harness/harness/skills.py",
+    "tools/harness/harness/environment.py",
+    "tools/harness/harness/agent_config.py",
+    ".codex/hooks.json",
+    "docs/knowledge/catalog.json"
+  ],
+  "constraints": [
+    "개인 전역 설정과 원본 레포를 수정하지 않는다.",
+    "원격 서버는 읽기 전용이며 외부 브라우저를 실행하지 않는다.",
+    "실제 모델 호출·백그라운드 수집·자동 신뢰 설정을 하지 않는다."
+  ],
+  "decisions": [
+    "공식 Codex native skills와 command hooks 계약을 사용한다.",
+    "새 지식/외부 공유는 candidate이며 적용 조건·근거 검토 후 채택한다.",
+    "AgentShield는 선택적 정적 CLI만 연결하며 미설치 상태를 성공으로 표시하지 않는다."
+  ],
+  "open_questions": [
+    "AgentShield npm 배포본/integrity·실엔진 스캔은 현재 DNS 제한으로 미확인.",
+    "Codex /hooks 신뢰 후 실제 compact 이벤트 실행은 미확인."
+  ],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "후보와 채택 지식의 범위·근거·공유·검색이 실제 CLI에서 동작한다",
+      "method": "KnowledgeTests의 실제 CLI 생명주기·scope·stale evidence·bundle conflict와 context entry 조회를 확인",
+      "status": "pending",
+      "evidence": [
+        "CHECK_A1"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "스킬 생성·등록과 공식 Codex 훅 계약을 로컬에서 검증한다",
+      "method": "SkillCreationTests와 실제 stdin 자식 프로세스의 PreCompact/SessionStart 계약을 확인; native 이벤트 활성화와 구분",
+      "status": "pending",
+      "evidence": [
+        "CHECK_A2"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "프로젝트 선언과 lock 기반 선택·충돌 거부·실제 오프라인 npm/uv 설치를 확인한다",
+      "method": "EnvironmentTests의 충돌/버전/workspace 거부 및 실제 오프라인 npm/uv 설치와 lock 보존을 확인",
+      "status": "pending",
+      "evidence": [
+        "CHECK_A3"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "AgentShield 선택 근거·정적 CLI 연결과 실제 엔진 미확인을 구분한다",
+      "method": "AgentConfigTests의 JSON/coverage/exit/location 검증·실제 fixture 자식 CLI와 미설치 거부를 확인; 실제 탐지 정확도와 구분",
+      "status": "pending",
+      "evidence": [
+        "CHECK_A4",
+        "SOURCES"
+      ]
+    }
+  ],
+  "next_action": "네트워크 가능한 로컬 환경에서 선택적 AgentShield 잠금/설치/스캔을 검증하고 Codex /hooks의 정의를 검토한다."
+}

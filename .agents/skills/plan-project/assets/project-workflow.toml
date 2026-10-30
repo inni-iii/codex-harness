@@ -1,0 +1,41 @@
+# All paths are repository-relative; generate with tools/harness/run.py project.
+version = 1
+name = "example"
+state = "draft"
+checks = []
+impacts = []
+
+[context]
+documents = ["docs/projects/example/index.md", "docs/projects/example/brief.md", "docs/projects/example/security.md"]
+
+[security]
+state = "draft"
+document = "docs/projects/example/security.md"
+document_sha256 = ""
+assets = []
+trust_boundaries = []
+controls = []
+# Active means runnable checks. Security review may continue in parallel.
+# Before closing affected work: review the document/hash and assess every
+# area as required, not_applicable (with reason), or pending (with scope).
+# See tools/harness/docs/project-workflows.md for [[security.controls]].
+
+# Optional domain-specific reading, after the actual document exists:
+# [[context.rules]]
+# paths = ["backend/**"]
+# documents = ["docs/projects/example/domain-rules.md"]
+
+# Read a checkpoint only when continuing prior work:
+# [[context.rules]]
+# topics = ["resume", "handoff"]
+# documents = ["docs/projects/example/checkpoint.md"]
+# when = "Restore decisions, failures, evidence and the next action."
+
+# Read evaluated lessons when debugging (create the file first):
+# [[context.rules]]
+# kinds = ["debug"]
+# documents = ["docs/projects/example/lessons.md"]
+
+# Add real [[checks]] and [[impacts]] using tools/harness/docs/project-workflows.md.
+# Remove the empty checks/impacts arrays before using arrays of tables.
+# Set state=active only after commands and coverage are configured.

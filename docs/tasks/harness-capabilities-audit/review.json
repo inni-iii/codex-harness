@@ -1,0 +1,168 @@
+{
+  "version": 2,
+  "task_contract": "aae483e70a54501420a7865e1c0a551bca5f9f4eb11634545b0f7e565f144e68",
+  "evidence_digest": "855acba2942491364c9db7cbe30ffd4cc63fd2811cd37b7d09186574efc649cb",
+  "reviewer": "Codex host agent: source/contract review and local tool verification",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "AGENTS/context/스킬/CLI/소비 모듈/훅/등록 검사의 연결을 실제 원문과 대조하고 result.md 및 architecture의 기존 지도에 정리했다.",
+      "evidence": [
+        "RESULT_A1"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "109개 Markdown의393개 로컬 링크와 앵커 후보0, 긴 동일 문단0을 확인했다. 절차/명세 중복과 현재/과거·학습/라우팅 책임 혼동을 원문/구현에 맞춰 보완했다.",
+      "evidence": [
+        "RESULT_A2",
+        "DOC_BEFORE",
+        "DOC_AFTER",
+        "DOC_LINKS"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "F1/F3/F4는 동일한 회귀 파일의 실제 수정 전 실패와 수정 후 통과를 연결했다. F2는 원문/실제 계약/수정 결과를 대조했다. 전체 등록 검사307개·실패0·환경skip1을 확인했다.",
+      "evidence": [
+        "RED",
+        "GREEN"
+      ]
+    }
+  ],
+  "limitations": [
+    "자체 검토이며 별도 모델의 독립 평가가 아니다. 필수 run은 분류용 CLI 초기화 권한 오류로 미실행이었다.",
+    "AgentShield 실엔진/훅 신뢰·실제 compact 이벤트는 미확인이며 이번 로컬 통과로 대체하지 않는다.",
+    "문서 전체의 정적 연결과 관련 문서의 의미를 대조했으며 브라우저 렌더·외부 URL 전체의 가용성은 검사하지 않았다.",
+    "기존 프로세스 종료 검사 1개는 실행 환경의 그룹 신호 제한으로 skip이다. 새 지식 관련19개는 전부 통과했다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "추가 기능을 중심으로 한 전체 레포 연결·문서 구조/중복과 발견F1~F4의 로컬 보완·회귀. 실모델/실엔진/실제 훅 활성화는 검토 범위의 미확인으로 구분.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "추가한 세 스킬/다섯 기능 모듈과 CLI/context/doctor/check/지식 catalog·문서의 역할과 실제 소비 경로를 대조했다."
+      },
+      {
+        "name": "defects",
+        "result": "checked",
+        "reason": "학습 훅의 조건 누락, 설명 책임/정본 불일치, 잘못된 지식 형식, 저장/내보내기 한도를 재현·보완했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "공통/프로젝트·후보/채택·지식/위키/task·학습 훅/라우팅 훅·기본 검사/선택적 엔진을 구분하고 다른 세션의 실행/문서/검토 요구를 보존했다."
+      },
+      {
+        "name": "evidence",
+        "result": "checked",
+        "reason": "수정 전 실패의 로그/수집과 동일 테스트 해시, 최종 고정 소스·종료 코드·307개 수집·환경skip, 문서 링크/선택 원문과 범위 한계를 확인했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "학습 훅이 제외 조건을 누락하고 부분 본문/조건을 전달함",
+        "cause": "필드별/최종 문자열 자르기로 의미 단위를 잃음",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_knowledge.py",
+          "test_id": "KnowledgeTests.test_hook_retains_complete_applicability_and_exclusions",
+          "sha256": "e3fe5b66b7e459c214de18d0a86d8fded68bf4a398b4f80a30569cbeeef7af39",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "현재 자동 실행·훅 책임·자연어 적용 조건·문서 정본의 설명이 실제 소비 경로와 혼동됨",
+        "cause": "새 기능 도입 뒤 일부 과거 문구/역할 지도가 남았고 작성 절차와 CLI 명세가 겹침",
+        "status": "fixed",
+        "regression": {
+          "mode": "manual",
+          "case": "DOC_BEFORE",
+          "before": "DOC_BEFORE",
+          "after": "DOC_AFTER",
+          "expected": "run/chat 및 학습/라우팅 훅·선택 조건·정본과 도구 계약의 역할을 구현과 일치시키고 문서 연결을 유지한다.",
+          "why_not_automated": "문장의 의미·권위·역할 중복은 단순 문자열 검사로 판정할 수 없어 원문/구현/수정 결과를 대조했다. 링크·선택·CLI는 별도 자동 검증했다."
+        }
+      },
+      {
+        "id": "F3",
+        "summary": "배열/객체 state와 history.action이 처리되지 않은 TypeError를 발생시킴",
+        "cause": "문자열 자료형 확인 전에 set membership을 수행함",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_knowledge.py",
+          "test_id": "KnowledgeTests.test_malformed_state_and_history_actions_are_value_errors",
+          "sha256": "e3fe5b66b7e459c214de18d0a86d8fded68bf4a398b4f80a30569cbeeef7af39",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      },
+      {
+        "id": "F4",
+        "summary": "허용된 bundle을 저장한 뒤 catalog가 한도를 넘어 재읽기에 실패함",
+        "cause": "compact JSON 크기와 실제 indented JSON 크기가 달랐고 export에도 한도가 없었음",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_knowledge.py",
+          "test_id": "KnowledgeTests.test_import_checks_serialized_storage_size_and_preserves_previous_catalog",
+          "sha256": "e3fe5b66b7e459c214de18d0a86d8fded68bf4a398b4f80a30569cbeeef7af39",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2",
+          "F3",
+          "F4"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "전체 연결과 관련 원문을 대조하고 학습 조건 누락·형식/용량 오류를 실제 반례/등록 검사로 재현했다.",
+        "evidence": [
+          "RED",
+          "DOC_BEFORE"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2",
+          "F3",
+          "F4"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "마지막 수정의 요구·오류·공유 경계·누락 소비자와 증거를 재검토했다. 동일 회귀/전체 검사와 문서 연결 통과 후 범위 내 새 결함은 확인하지 못했다.",
+        "evidence": [
+          "GREEN",
+          "DOC_AFTER",
+          "DOC_LINKS",
+          "RESULT_A1",
+          "RESULT_A2"
+        ]
+      }
+    ]
+  }
+}

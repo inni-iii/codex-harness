@@ -1,0 +1,117 @@
+{
+  "version": 2,
+  "kind": "review",
+  "goal": "추가한 지식·스킬·환경·감사 기능의 전체 레포 연결과 문서 구조·중복·현재 설명 검토",
+  "status": "complete",
+  "evidence": {
+    "RESULT_A1": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-capabilities-audit/result.md",
+      "sha256": "bd5cc4719ca60fc14993215f49d287314cf57ea3b5c7c1d133f3bf00a12350cb",
+      "description": "추가 기능의 소비 경로와 정본 연결",
+      "recorded_at": "2026-10-30T22:39:12.709082+00:00"
+    },
+    "RESULT_A2": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-capabilities-audit/result.md",
+      "sha256": "bd5cc4719ca60fc14993215f49d287314cf57ea3b5c7c1d133f3bf00a12350cb",
+      "description": "문서 구조/중복 판단과 보완",
+      "recorded_at": "2026-10-30T22:39:12.711996+00:00"
+    },
+    "DOC_BEFORE": {
+      "type": "artifact",
+      "path": ".runtime/capabilities-audit-docs-before.json",
+      "sha256": "683a44abc65d4ed30c7188e16ea656e37652a944d6d47d25ab9c977aeec4459c",
+      "description": "문서 반례의 원문·기대 계약",
+      "recorded_at": "2026-10-30T22:39:12.714890+00:00"
+    },
+    "DOC_AFTER": {
+      "type": "artifact",
+      "path": ".runtime/capabilities-audit-docs-after.json",
+      "sha256": "5ce388d9b34ae9e0174a603e0b3370ae88f44765840169c4078438cb5044c4ea",
+      "description": "문서 보완 관측과 실제 수정 원문",
+      "recorded_at": "2026-10-30T22:39:12.717210+00:00"
+    },
+    "DOC_LINKS": {
+      "type": "artifact",
+      "path": ".runtime/capabilities-doc-audit-final.json",
+      "sha256": "2c41b6fe446744b4271af14147a5c50a4f50514d9890dddb0307ee8e03ceb8de",
+      "description": "109개 문서/393개 링크·깨진 파일/앵커 후보0",
+      "recorded_at": "2026-10-30T22:39:12.719534+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/capabilities-audit-red/ee36bb657f984503b7a4d972157218a3/report.json",
+      "sha256": "3ec6baf13e08b1a9864a778b51a8d96b7a46e1e2ee5fb0a4e6942613b898aa37",
+      "description": "F1/F3/F4의 실제 실패 3건·오류4건, 실행/보고서 오류 없음",
+      "recorded_at": "2026-10-30T22:39:12.722436+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/2293aa137f534d12a5b85368e420411b/checks/8928bed8901e42d48deaf103129cea0e/report.json",
+      "sha256": "e3af4dc68c5318ccef91fc3fee958ea8856c57716f5dc985cc0941681b6bc0d5",
+      "description": "doctor/config/secrets/python 통과·307개·실패0·환경 skip1",
+      "recorded_at": "2026-10-30T22:39:12.725848+00:00",
+      "check": "python"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/harness-capabilities-audit/review.json",
+    "sha256": "9bef9827fe70f30bcd9c4d0bf7300a58e9a4b2d8eab7b278af4e9ca53662b894"
+  },
+  "findings": [
+    "F1",
+    "F2",
+    "F3",
+    "F4"
+  ],
+  "created_at": "2026-10-30T22:31:10.754650+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "지식·스킬·환경·설정 감사의 공통 지침/코드/설정/등록/문서/검사 연결",
+    "추가 기능에 영향 주는 전체 Markdown 문서와 모델 라우팅·검증 경계"
+  ],
+  "constraints": [
+    "SSH 서버와 과거 세션 원문은 읽기 전용",
+    "외부 브라우저·전역 신뢰·전역 설정 변경 없음",
+    "분류/실행 초기화 실패를 성공한 모델 라우팅으로 표시하지 않음"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "추가 기능의 지침·설명·설정·소비 코드·검사 경로를 대조해 역할을 설명한다",
+      "method": "전체 레포 지침/설정/CLI/소비 모듈/검사와 역할 지도를 대조",
+      "status": "passed",
+      "evidence": [
+        "RESULT_A1"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "문서 구조·중복·현재/과거 구분·링크와 명령을 확인하고 실제 불일치를 보완한다",
+      "method": "Markdown 전체의 로컬 링크/앵커 후보·동일 문단과 진입 경로를 정적으로 확인",
+      "status": "passed",
+      "evidence": [
+        "RESULT_A2",
+        "DOC_BEFORE",
+        "DOC_AFTER",
+        "DOC_LINKS"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "발견한 코드/연결 결함의 관련 회귀와 최종 검증·미확인을 남긴다",
+      "method": "고정 소스의 공통 전체 검사와 동일 회귀의 수정 후 통과를 대조",
+      "status": "passed",
+      "evidence": [
+        "RED",
+        "GREEN"
+      ]
+    }
+  ],
+  "next_action": "회귀를 추가해 F1/F3/F4의 실패를 보존한 뒤 수정하고 문서 F2의 설명/정본 연결을 맞춘다.",
+  "completed_at": "2026-10-30T22:40:12.533549+00:00"
+}

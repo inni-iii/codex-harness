@@ -1,0 +1,326 @@
+{
+  "version": 2,
+  "task_contract": "cc44c0b7e853de76c0eb74fa0ca8989018b499c302dda954fb7456602261f7cf",
+  "evidence_digest": "7923761114d1f6d4d5c1fddbd742db05f1313beec849f564334a47efed88b9d0",
+  "reviewer": "Codex security review in this session",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "같은 테스트 파일의 각 지정 사례가 수정 전 실제 FAIL이고 최종 python 로그에서 ok임을 대조한다.",
+      "evidence": [
+        "B1",
+        "B2",
+        "G1"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "관련 보안 미결은 보존하며 무관한 작업은 진행된다. 경합과 다른 사본/원본 상태의 근거 재사용은 거부되고 정상 대조군은 통과한다.",
+      "evidence": [
+        "G1",
+        "D1"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "doctor·agent-config·secret-patterns·303개 단위 회귀의 종료 상태를 확인했다. 1개 skip과 외부 조회 및 제품/모델의 미확인을 제한으로 기록했다.",
+      "evidence": [
+        "D1"
+      ]
+    }
+  ],
+  "limitations": [
+    "자체 검토이며 독립 보안 인증이 아니다.",
+    "실제 advisory 조회는 ENOTFOUND로 미완료. 실제 서비스 E2E·실제 모델 prompt injection 내성·native hook trust는 검증하지 않았다.",
+    "POSIX 그룹 신호 제한으로 자손 전체 종료 실측 1개가 건너뛰어졌으며 권한 거부 시 실패 처리는 별도 검증했다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "지원된 로컬 보안 검사·미결·경로·사본·출력·캐시/완료 근거 연결. 원격/운영 공격이나 실제 서비스·모델의 안전성은 범위에 포함하지 않는다.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "사용자 요구인 로컬 개발 보안·단일 보안 진입점·병렬 작업·명시적 완료 근거를 대조했다."
+      },
+      {
+        "name": "defects",
+        "result": "checked",
+        "reason": "12개 반례를 고립된 이전 모듈에 같은 테스트로 재현하고 현재 코드의 통과와 비교했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "워크플로·context·파일 경로·사본·native hook 메타데이터·검사 등록·완료 근거를 함께 확인했다."
+      },
+      {
+        "name": "evidence",
+        "result": "checked",
+        "reason": "최종 보고서와 원본 로그 해시, 현재 소스와 실행 권한·환경, 사례 이름과 전후 테스트 파일 해시를 대조했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "대소문자 별칭의 인증 미결 우회",
+        "cause": "실제 파일 이름과 경로 매칭 이름이 달랐다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_profiles.py",
+          "test_id": "test_case_aliases_on_case_insensitive_filesystems_cannot_bypass_security",
+          "sha256": "5283bd353292a1a6f25cbca49067a7aa7564a37d25cff6eed8d7522c4f05c06b",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "비정규 glob이 미결을 숨김",
+        "cause": "정규화된 파일과 ./·빈 조각이 있는 패턴이 맞지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_profiles.py",
+          "test_id": "test_noncanonical_patterns_cannot_silently_remove_pending_scope",
+          "sha256": "5283bd353292a1a6f25cbca49067a7aa7564a37d25cff6eed8d7522c4f05c06b",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F3",
+        "summary": "계획 직후 변경을 새 상태의 통과로 사용",
+        "cause": "계획보다 늦게 입력 지문을 수집했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_profiles.py",
+          "test_id": "test_review_change_immediately_after_planning_cannot_be_a_current_pass",
+          "sha256": "5283bd353292a1a6f25cbca49067a7aa7564a37d25cff6eed8d7522c4f05c06b",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F4",
+        "summary": "JUnit 구조/DTD 한도 누락",
+        "cause": "바이트 크기 외 파싱 구조를 제한하지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_workflows.py",
+          "test_id": "test_xml_declarations_depth_and_node_budget_fail_before_unbounded_parsing",
+          "sha256": "d9001a0adee0c23341733c97ea6b6be0c27f85d317a0173cb92c9b9ae1fa9bfd",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F5",
+        "summary": "기본 결과 링크를 통한 외부 쓰기",
+        "cause": "기본 runtime 경로의 링크를 거부하지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_default_runtime_symlink_is_rejected_before_execution",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F6",
+        "summary": "추적한 build 소스의 근거 누락",
+        "cause": "관례적인 디렉터리 이름으로 추적 소스도 제외했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_tracked_source_under_artifact_directory_participates_in_cache_and_evidence",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F7",
+        "summary": "압축본의 예제 환경 키 누락",
+        "cause": "모든 .env 접두사를 개인 입력으로 제외했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_environment_template_is_scanned_in_source_archives_without_echoing_secret",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F8",
+        "summary": "지문 없는 기존 입력을 넓은 검사로 덮음",
+        "cause": "coverage와 provenance 입력 집합을 대조하지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_excluded_existing_sources_are_not_silently_covered_by_a_broad_check",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F9",
+        "summary": "hook 상태 필드가 임의 본문을 복사",
+        "cause": "메타데이터 상태의 타입/열거값을 검사하지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_metadata_hook_rejects_payloads_hidden_inside_status",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B2",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F10",
+        "summary": "새 실행·지식 설정 검사 선택 누락",
+        "cause": "설정·도구 추가 시 실제 검사 경로 연결이 누락됐다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_execution_and_knowledge_configuration_select_behavioral_regressions",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B2",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F11",
+        "summary": "FIFO 읽기 무한 대기",
+        "cause": "내용을 읽기 전에 일반 파일 여부를 검사하지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_nonregular_inputs_are_rejected_without_waiting_for_a_writer",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      },
+      {
+        "id": "F12",
+        "summary": "실패 subTest 수를 잘못된 보고서로 오인",
+        "cause": "실패 이벤트 수가 부모 메서드 수를 넘을 수 있음을 고려하지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_security_final_boundaries.py",
+          "test_id": "test_failed_subtests_are_real_failures_not_invalid_runner_reports",
+          "sha256": "0432109404420aa955049eaebce33b9cf33de9bd45f8a0c610c70dc7dc056ad5",
+          "check": "python",
+          "before": "B1",
+          "after": "G1"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F8",
+          "F11"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "이전 수정의 경계와 새 경로·파서·파일·계획 반례를 확인하고 보완했다.",
+        "evidence": [
+          "B1",
+          "D1"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [
+          "F7",
+          "F9",
+          "F10"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "압축본/사본 입력과 새 기능의 메타데이터 및 검사 연결을 교차 확인했다.",
+        "evidence": [
+          "B1",
+          "B2",
+          "D1"
+        ]
+      },
+      {
+        "id": "R3",
+        "new_findings": [
+          "F12"
+        ],
+        "closed_findings": [
+          "F1",
+          "F2",
+          "F3",
+          "F4",
+          "F5",
+          "F6",
+          "F7",
+          "F8",
+          "F9",
+          "F10",
+          "F11",
+          "F12"
+        ],
+        "outcome": "new_findings",
+        "reason": "전후 실패를 parsed 보고서로 연결하며 subTest 실패 집계 문제를 추가 확인·수정했고 같은 사례의 최종 통과를 확인했다.",
+        "evidence": [
+          "B1",
+          "B2",
+          "G1"
+        ]
+      },
+      {
+        "id": "R4",
+        "new_findings": [],
+        "closed_findings": [],
+        "outcome": "no_new_findings",
+        "reason": "마지막 수정 뒤 요구·지원된 오류 경계·공유 영향·현재 소스/환경·원본 로그와 사례를 재대조했다. 지원 계약에서 추가 재현 결함이 없으며 미확인은 제한으로 남겼다.",
+        "evidence": [
+          "G1",
+          "D1"
+        ]
+      }
+    ]
+  }
+}

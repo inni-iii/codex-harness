@@ -1,0 +1,10 @@
+# Shared project tools and lifecycle hooks. No model, auth, trust or approval override.
+[mcp_servers.openaiDeveloperDocs]
+url = "https://developers.openai.com/mcp"
+
+[mcp_servers.svelte]
+url = "https://mcp.svelte.dev/mcp"
+
+[features]
+hooks = true
+

@@ -1,0 +1,8 @@
+{
+  "name": "harness-optional-agent-auditor",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {"node": ">=20"},
+  "description": "Optional static auditor. Resolve and review a lockfile before installing; currently unavailable offline.",
+  "dependencies": {"ecc-agentshield": "1.6.0"}
+}

@@ -1,0 +1,12 @@
+{
+  "name": "harness-browser-tools",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Optional repository-local browser MCP; no application framework",
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "@playwright/mcp": "0.0.79"
+  }
+}

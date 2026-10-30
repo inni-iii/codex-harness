@@ -1,0 +1,385 @@
+# Reading suggestions; native Codex skill discovery remains enabled.
+version = 1
+
+[[skills]]
+name = "maintain-knowledge"
+when = "재사용 교훈·사용자 정정·프로젝트/공통 지식의 검토·검색·공유"
+topics = ["knowledge", "memory", "learning", "knowledge-sharing"]
+paths = ["docs/knowledge/**", "tools/harness/harness/knowledge*.py"]
+
+[[skills]]
+name = "maintain-skills"
+when = "네이티브 스킬 작성·개선·등록·실제 사용 검증"
+topics = ["skill-authoring", "skill-maintenance"]
+paths = [".agents/skills/**", "tools/harness/harness/skills.py"]
+
+[[skills]]
+name = "setup-environment"
+when = "새 노트북·프로젝트 환경·패키지 관리자와 고정 의존성 설치"
+topics = ["environment", "setup", "package-manager"]
+paths = ["*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*uv.lock", "*poetry.lock", "tools/harness/harness/environment.py"]
+
+[[skills]]
+name = "docs-maintenance"
+when = "문서 구조 정리·구현/결정과 최신화 또는 출처 기반 LLM 위키 유지"
+topics = ["docs", "documentation", "docs-maintenance"]
+paths = ["docs/**", "tools/harness/docs/**", "README.md", ".agents/skills/docs-maintenance/**"]
+
+[[skills.references]]
+file = ".agents/skills/docs-maintenance/references/navigation.md"
+when = "작은 인덱스에서 관련 원문 선택·누락 검색·읽기 비용 확인"
+topics = ["docs-index", "docs-navigation"]
+paths = ["docs/index.md", "docs/projects/*/index.md", "docs/tasks/index.md", "tools/harness/docs/index.md"]
+
+[[skills.references]]
+file = ".agents/skills/docs-maintenance/references/organization.md"
+when = "문서 분류·목차·중복·병합·분할·이동과 원본 내용 보존"
+topics = ["docs-organization", "docs-restructure"]
+paths = [".agents/skills/docs-maintenance/references/organization.md"]
+
+[[skills.references]]
+file = ".agents/skills/docs-maintenance/references/synchronization.md"
+when = "구현·명령·API·설정·결정과 문서를 양방향 대조하고 최신화"
+topics = ["docs-sync", "docs-freshness"]
+paths = [".agents/skills/docs-maintenance/references/synchronization.md"]
+
+[[skills.references]]
+file = ".agents/skills/docs-maintenance/references/wiki.md"
+when = "LLM 위키 자료 반영·읽기 전용 질문·근거/모순/노후 점검"
+topics = ["wiki", "llm-wiki", "wiki-ingest", "wiki-query", "wiki-audit", "wiki-lint"]
+paths = [".agents/skills/docs-maintenance/references/wiki.md"]
+
+[[skills.references]]
+file = ".agents/skills/docs-maintenance/references/validation.md"
+when = "문서 편집·이동·위키 갱신 후 내용·연결·검증 근거 확인"
+topics = ["docs-check", "docs-validation"]
+paths = [".agents/skills/docs-maintenance/references/validation.md"]
+
+[[skills]]
+name = "research"
+when = "조사 질문·도구 비교"
+kinds = ["research"]
+topics = ["research","technical-choice","reuse"]
+
+[[skills.references]]
+file = ".agents/skills/research/references/evidence.md"
+when = "주장·비교 근거·반증 판단"
+kinds = ["research"]
+topics = ["research","technical-choice"]
+
+[[skills.references]]
+file = ".agents/skills/research/references/reuse.md"
+when = "새 도구·의존성·공통 기능 재사용 판단"
+topics = ["reuse","technical-choice"]
+
+[[skills.references]]
+file = ".agents/skills/research/references/retrieval.md"
+when = "큰 자료 집합·복합 질문·검색 누락 또는 RAG의 근거/평가를 다룰 때"
+topics = ["retrieval","rag","knowledge-base","research-search"]
+
+[[skills]]
+name = "experiment"
+when = "기준선과 비교하는 실험"
+kinds = ["experiment"]
+topics = ["experiment","harness-eval"]
+
+[[skills.references]]
+file = ".agents/skills/experiment/references/protocol.md"
+when = "실험 조건·예산·집계"
+kinds = ["experiment"]
+topics = ["experiment"]
+
+[[skills.references]]
+file = ".agents/skills/experiment/references/harness-evaluation.md"
+when = "스킬·프롬프트·하네스 품질 비교"
+topics = ["harness-eval"]
+
+[[skills]]
+name = "plan-project"
+when = "새 주제·큰 기능의 범위와 작업 연결"
+kinds = ["plan","design"]
+topics = ["planning","workflow","handoff","resume","context","learning","quality","collaboration","isolation","merge"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/project-lifecycle.md"
+when = "주제·조사·설계·선행 작업·구현/검증·다음 작업을 연결"
+topics = ["project-lifecycle", "project-start", "implementation-order"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/collaboration.md"
+when = "세션 격리·동시 변경·통합 검토와 충돌 판단"
+topics = ["collaboration","isolation","merge"]
+paths = ["tools/harness/harness/workspaces.py","tools/harness/tests/test_workspaces.py"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/workflow-setup.md"
+when = "프로젝트 자료와 검사 명령 연결"
+kinds = ["plan"]
+topics = ["workflow"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/task-patterns.md"
+when = "작업 종류별 입력·수행·완료"
+kinds = ["plan"]
+topics = ["planning","handoff"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/context-retrieval.md"
+when = "원인 탐색·큰 레포·이전 작업 이어하기"
+kinds = ["debug"]
+topics = ["context","handoff"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/handoff.md"
+when = "단계 전환·다른 세션/노트북에서 이어갈 상태와 근거를 남길 때"
+topics = ["handoff","resume"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/learning.md"
+when = "반복 실패·정정·비자명한 해결을 적용 조건이 있는 규칙으로 만들 때"
+topics = ["learning"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/quality-requirements.md"
+when = "새 주제·큰 선택의 성능·비용·복구 기준을 정할 때"
+kinds = ["plan","design"]
+topics = ["quality"]
+
+[[skills]]
+name = "svelte-frontend"
+when = "Svelte 컴포넌트·프론트 흐름"
+topics = ["frontend","reactivity","sveltekit","ui"]
+paths = ["frontend/**","*.svelte","*.svelte.ts"]
+
+[[skills.references]]
+file = ".agents/skills/svelte-frontend/references/state-and-lifecycle.md"
+requires_skill = true
+when = "반응성·요청 경합·구독 수명"
+topics = ["reactivity","async"]
+
+[[skills.references]]
+file = ".agents/skills/svelte-frontend/references/data-and-forms.md"
+when = "SvelteKit 선택 시 SSR·폼·데이터"
+topics = ["sveltekit"]
+
+[[skills.references]]
+file = ".agents/skills/svelte-frontend/references/ui-contracts.md"
+when = "화면 상태·컴포넌트·접근성"
+topics = ["frontend","ui"]
+paths = ["*.svelte","frontend/**"]
+
+[[skills]]
+name = "e2e-testing"
+when = "사용자 흐름의 실제 브라우저·API 통합 검사 작성·실행·분석"
+topics = ["e2e","playwright","browser","ui"]
+paths = ["frontend/**","*.svelte","*.svelte.ts","*playwright.config.*","*e2e/*.spec.*"]
+
+[[skills.references]]
+file = ".agents/skills/e2e-testing/references/scenarios.md"
+when = "변경된 사용자 흐름·회귀·데이터·mock 경계를 정할 때"
+topics = ["e2e","browser","ui"]
+paths = ["frontend/**","*.svelte","*e2e/*.spec.*"]
+
+[[skills.references]]
+file = ".agents/skills/e2e-testing/references/setup.md"
+when = "로컬 runner·서버·JUnit·프로젝트 검사 연결"
+topics = ["playwright"]
+paths = ["*playwright.config.*","tools/harness/scripts/run-playwright.mjs"]
+
+[[skills.references]]
+file = ".agents/skills/e2e-testing/references/failures.md"
+requires_skill = true
+when = "E2E 실패의 로그·trace·원인과 재검증 범위를 확인"
+kinds = ["debug"]
+
+[[skills]]
+name = "python-backend"
+when = "Python 서비스·API·패키지·외부 경계"
+topics = ["backend","python","api","resources","architecture","observability","external-api","llm","streaming"]
+paths = ["backend/**","*.py","pyproject.toml","*/pyproject.toml"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/structure.md"
+when = "패키지·import 경계·리팩터링"
+topics = ["architecture","python"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/resources.md"
+requires_skill = true
+when = "공유 자원·async·트랜잭션"
+topics = ["resources","async"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/api-contracts.md"
+when = "API schema·오류·인증·생성 타입"
+topics = ["api"]
+paths = ["*openapi*","*contracts/*"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/testing.md"
+when = "Python 행동·API·DB 테스트"
+topics = ["backend","testing"]
+paths = ["*test*.py","backend/tests/**"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/observability.md"
+requires_skill = true
+when = "서버 로그·실패 단계·소요 시간을 추적할 때"
+topics = ["observability"]
+paths = ["*logging*.py","*telemetry*.py"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/external-calls.md"
+requires_skill = true
+when = "외부 API·모델·스트림의 재시도·동시성·예산·취소를 정할 때"
+topics = ["external-api","llm","streaming"]
+
+[[skills.references]]
+file = ".agents/skills/python-backend/references/model-routing.md"
+when = "모델 라우팅·실행·프롬프트 훅·작업 인수인계를 구성하거나 검증할 때"
+topics = ["routing", "model-routing"]
+paths = ["tools/harness/harness/routing/**", "tools/harness/route_prompt.py", "tools/harness/tests/test_routed_execution.py"]
+
+[[skills]]
+name = "postgres"
+when = "PostgreSQL schema·SQL·migration·성능·실제 DB 경계 검증"
+topics = ["database","postgres","postgresql","schema","migration","migrations","query-performance","indexes","explain","database-testing"]
+paths = ["*.sql","*alembic*","*migrations/**","*models*.py","*database*.py","*repositories/*.py"]
+
+[[skills.references]]
+file = ".agents/skills/postgres/references/schema.md"
+when = "자료형·제약·권한·트랜잭션·SQL 입력 경계를 정할 때"
+topics = ["database","postgres","postgresql","schema"]
+paths = ["*.sql","*models*.py","*database*.py"]
+
+[[skills.references]]
+file = ".agents/skills/postgres/references/migrations.md"
+when = "스키마/기존 데이터 변경·revision·복구·잠금 경계를 검토할 때"
+topics = ["migration","migrations"]
+paths = ["*alembic*","*migrations/**"]
+
+[[skills.references]]
+file = ".agents/skills/postgres/references/performance.md"
+when = "느린 SQL·인덱스·실행 계획·풀/잠금 대기를 비교할 때"
+topics = ["query-performance","indexes","explain"]
+
+[[skills.references]]
+file = ".agents/skills/postgres/references/testing.md"
+when = "실제 PostgreSQL·migration·동시 요청의 검증을 연결할 때"
+topics = ["database-testing","migration","migrations"]
+paths = ["*test*database*.py","*test*postgres*.py","*alembic*","*migrations/**"]
+
+[[skills]]
+name = "verify-work"
+when = "요구 충족·변경 영향·완료 근거 확인"
+kinds = ["implement","debug","review"]
+topics = ["verification","testing","api","browser","commit","security","auth","uploads","secrets","review","ci","work-unit"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/follow-through.md"
+when = "한 요청 안의 검토·보완 반복과 확인한 결함의 회귀 증거 보존"
+kinds = ["implement","debug","review"]
+topics = ["verification","regression","repair-loop","completion"]
+paths = ["docs/tasks/*/review.json","tools/harness/harness/completion_review.py"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/completion.md"
+when = "작업 기록의 종류별 증거·리뷰·완료 판정"
+topics = ["completion","task-evidence"]
+paths = ["docs/tasks/*/task.json","tools/harness/harness/evidence.py","tools/harness/harness/tasks.py"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/checkpoints.md"
+when = "의미 있는 기능 묶음·검증 범위 사전 안내·E2E checkpoint"
+kinds = ["implement","debug","review"]
+topics = ["verification","work-unit"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/impact.md"
+when = "공유 경계·회귀의 검사 범위"
+kinds = ["implement","debug","review"]
+topics = ["verification","api","security"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/evidence.md"
+when = "종료 코드·테스트 수·보고서·캐시·index"
+kinds = ["implement","debug","review"]
+topics = ["verification","testing","commit"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/review.md"
+when = "코드 완료 검토에서 요구 충족과 결함·회귀를 구분할 때"
+kinds = ["review"]
+topics = ["review"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/browser.md"
+when = "사용자 흐름·화면·불안정 브라우저 검사"
+topics = ["browser","ui"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/ci.md"
+when = "CI workflow·필수 check·runner 조건을 검토할 때"
+topics = ["ci"]
+paths = [".github/workflows/**"]
+
+[[skills]]
+name = "security-review"
+when = "설계·코드 검토의 보안 영향 선별 또는 민감한 경계의 설계·구현·부정 테스트"
+kinds = ["plan","review"]
+topics = ["security","auth","uploads","secrets","dependencies","tool-responses","negative-testing","external-api","llm"]
+paths = [
+  "backend/**", "frontend/**", "*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs",
+  "*auth*", "*permission*", "*upload*", "*security*", ".env*", "*/.env*", "AGENTS.md", ".codex/**", ".agents/**",
+  "*package.json", "*package-lock.json", "*npm-shrinkwrap.json", "*pnpm-lock.yaml", "*pnpm-workspace.yaml",
+  "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock",
+  "*Pipfile*", "*pylock*.toml", "*setup.cfg", "*setup.py", "*.npmrc", "tools/harness/scripts/**"
+]
+
+[[skills.references]]
+file = ".agents/skills/security-review/references/design.md"
+when = "새 서비스·큰 기능에서 보호 자원과 신뢰 경계를 정할 때"
+kinds = ["plan"]
+topics = ["security-design"]
+
+[[skills.references]]
+file = ".agents/skills/security-review/references/application.md"
+when = "인증·자원 권한·입력·파일·로그·브라우저 보안 경계를 다룰 때"
+topics = ["security","auth","uploads","secrets"]
+paths = ["*auth*","*permission*","*upload*","*session*","*credential*","*cookie*","*csrf*","*cors*","*ssrf*",".env*","*/.env*"]
+
+[[skills.references]]
+file = ".agents/skills/security-review/references/tool-responses.md"
+when = "외부 API·MCP·모델 응답을 검증하거나 다음 실행에 사용할 때"
+topics = ["tool-responses","external-api","llm"]
+paths = ["tools/harness/harness/mcp.py","tools/harness/scripts/mcp-browser.mjs"]
+
+[[skills.references]]
+file = ".agents/skills/security-review/references/dependencies.md"
+when = "패키지 채택·manifest/잠금·설치 코드·취약점 조회 변경"
+topics = ["dependencies"]
+paths = ["*package.json","*package-lock.json","*npm-shrinkwrap.json","*pnpm-lock.yaml","*pnpm-workspace.yaml","*yarn.lock","*bun.lock","*bun.lockb","*pyproject.toml","*requirements*.txt","*uv.lock","*poetry.lock","*Pipfile*","*pylock*.toml","*setup.cfg","*setup.py","*.npmrc","tools/harness/harness/cli.py"]
+
+[[skills.references]]
+file = ".agents/skills/security-review/references/testing.md"
+when = "보안 검토의 실제 재현·공격 사례·수정 후 회귀"
+topics = ["security","negative-testing"]
+paths = ["*test*security*.py"]
+
+[[skills.references]]
+file = ".agents/skills/security-review/references/harness.md"
+when = "에이전트 지침·실행 설정·검사기·로그 경계 변경"
+topics = ["harness-security"]
+paths = ["AGENTS.md",".codex/**",".agents/**","tools/harness/harness/checks.py","tools/harness/harness/security.py","tools/harness/harness.toml"]
+
+[[skills]]
+name = "design-first"
+when = "승인 디자인 기준·토큰·공용 UI 계약"
+topics = ["design","ui","ui-design","design-system"]
+paths = ["*.svelte","*tokens*","*theme*"]
+
+[[skills.references]]
+file = ".agents/skills/design-first/references/contracts.md"
+when = "디자인 권위·토큰·컴포넌트 API·공통 UI"
+topics = ["design","ui","ui-design","design-system"]
+paths = ["*tokens*","*theme*"]

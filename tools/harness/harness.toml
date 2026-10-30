@@ -1,0 +1,46 @@
+version = 1
+
+[stack]
+frontend = "svelte"
+backend = "python"
+database = "postgresql"
+# Frameworks, ORM, database version/extensions, product theme and worker models remain project decisions.
+
+[[checks]]
+id = "doctor"
+command = ["{python}", "tools/harness/run.py", "doctor"]
+cwd = "."
+paths = ["**"]
+cacheable = false
+timeout = 60
+
+[[checks]]
+id = "agent-config"
+command = ["{python}", "tools/harness/run.py", "security", "config"]
+cwd = "."
+paths = [".codex/**", ".agents/**", "AGENTS.md", "tools/harness/harness/agent_config.py"]
+covers_behavior = false
+cacheable = false
+timeout = 30
+
+[[checks]]
+id = "secret-patterns"
+command = ["{python}", "tools/harness/run.py", "security", "secrets"]
+cwd = "."
+paths = ["**"]
+covers_behavior = false
+cacheable = false
+timeout = 60
+
+[[checks]]
+id = "python"
+command = ["{python}", "-m", "unittest", "discover", "-s", "tools/harness/tests", "-v"]
+cwd = "."
+paths = ["Makefile", "tools/harness/harness/**", "tools/harness/run.py", "tools/harness/scripts/**", "tools/harness/tests/**", "tools/harness/policies/**", "tools/harness/harness.toml", "tools/harness/browser/**", "tools/harness/security/**", ".agents/context.toml", ".agents/skills/*/assets/**", ".codex/hooks.json", "docs/knowledge/catalog.json", "tools/harness/route_prompt.py", ".codex/config.toml"]
+test_summary = "unittest"
+cacheable = true
+timeout = 180
+
+# Paths outside these groups require a check registration, rather than a false pass.
+[coverage]
+documentation = ["*.md", "tools/harness/docs/mitam-skill-audit.json", "docs/tasks/*/task.json", "docs/tasks/*/review.json", ".codex/config.toml", ".gitignore"]

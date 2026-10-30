@@ -1,0 +1,153 @@
+{
+  "version": 2,
+  "task_contract": "b2042d1f8d1f641963d9b0e68328829fe5b744a382d1cfe98d9dd361f25566e6",
+  "evidence_digest": "d027e9d6f1ed4337242dbf45e0169101267fa968cb6249fc8c930a2024209aeb",
+  "reviewer": "Codex primary agent; supported by independent docs_research and integration_review observations",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "최상위 지도는 1,058자로 영역만 분기하고 하네스 하위 지도는 현재 Markdown 27개를 연결한다. navigation은 관련 원문 선택·인덱스 누락/오래됨의 좁은 검색을 명시한다. 독립 사례에서 무관한 큰 본문 5개를 읽지 않고 관련 원문으로 답했다.",
+      "evidence": [
+        "DOCS",
+        "CHECK_A1",
+        "D1before",
+        "D1case"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "실제 project가 index/brief/security/workflow를 생성하고 기존 폴더를 덮지 않는다. lifecycle은 주제·설계·의존성·완료 근거·다음 작업을 연결한다. 독립 합성 사례에서 준비된 S1만 구현하고 기존 4개 테스트를 통과시켰으며 S2와 전체 완료는 남겼다.",
+      "evidence": [
+        "CHECK_A2"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "6개 새 회귀와 기존 관련 검사, 전체 313개 회귀(실패0 환경skip1)가 통과했다. 인덱스 중복·없음·외부 경로·보안 필수 본문 보존을 확인했고, 독립 읽기 전용 사례의 원본 11개가 불변이었다. 초기 artifact의 동일 내용/hash도 보존했다.",
+      "evidence": [
+        "CHECK_A3",
+        "VALIDATION",
+        "D2before",
+        "D2case"
+      ]
+    }
+  ],
+  "limitations": [
+    "보편적인 완벽성·모든 프로젝트의 자동 수행을 보증하지 않는다.",
+    "독립 사례는 synthetic 2개이며 fixture를 만든 에이전트가 수행했으므로 블라인드 벤치마크가 아니다.",
+    "읽기량 비교는 fixture docs본문 범위이며 공통 지침/과거 원문 비용을 제외한다. 모델 토큰/과금/정확도 감소를 측정하지 않았다.",
+    "실제 서비스 UI/API/DB·브라우저 E2E·사이트 렌더러·외부 URL은 검증 범위가 아니다.",
+    "전체 검사 중 프로세스 그룹 신호 제한 1개 skip이 있다. 새 인덱스/생성/선택 회귀는 모두 실행·통과했다.",
+    "context는 링크를 자동 확장하지 않는다. 명시된 필수 문서·보안·과거 세션 요구는 유지한다.",
+    "주 검토자는 작성자이므로 독립성 필드는 false이며 독립 에이전트 결과를 보조 근거로 사용했다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "현재 docs 스킬·계층 인덱스·프로젝트 생성·context 순서/선택·주제부터 설계/구현 단계 연결과 기존 호환·역사적 근거 보존",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "요청의 인덱스·선택 읽기·주제/설계/구현 순서 요구를 실제 파일과 생성/선택 결과 및 합성 수행에 대조했다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "인덱스 없는 legacy, 중복 등록, 외부 경로 symlink, 깨진 링크의 좁은 검색, 과거 근거의 mutable 경로를 확인했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "기존 explicit workflow 문서와 security 자동 선택을 보존했고 root/catalog와 project template 및 인덱스/스킬 링크를 함께 검사했다. 타 세션 라우팅 제거는 보존했다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "6개 요구 기반 신규 테스트, 기존 workflow 32/layout2, 전체 313개 고정 사본 검사를 수행했다. 초기 코드에서 새 요구 4개 실패도 관측했고 문서/기록 오류 D1/D2는 수동 반례·전후 근거를 보존했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "D1",
+        "summary": "기존 작업 기록이 있는데 README가 tasks를 첫 생성 예정으로 안내했다.",
+        "cause": "프로젝트 자료 안내가 현재 작업 폴더 생성 이후 갱신되지 않았다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "manual",
+          "case": "D1case",
+          "before": "D1before",
+          "after": "DOCS",
+          "expected": "기존 하네스 작업 기록의 존재를 인정하고 관련 task/notes로 선택해 읽게 한다.",
+          "why_not_automated": "문서 현재성과 독자 해석의 오류다. 실제 디렉터리/원문과 교정된 안내·링크를 검토하며 문구 일치 테스트를 사실성 증명으로 만들지 않았다."
+        }
+      },
+      {
+        "id": "D2",
+        "summary": "초기 완료가 mutable 현재 스킬 경로를 artifact로 참조해 정상 후속 편집 후 doctor가 실패했다.",
+        "cause": "과거 산출물의 해시는 고정했지만 경로는 계속 수정되는 파일이었다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "manual",
+          "case": "D2case",
+          "before": "D2before",
+          "after": "VALIDATION",
+          "expected": "생성 당시 파일과 동일한 bytes/hash를 보존하고 초기 완료와 현재 변경의 검증을 분리한다.",
+          "why_not_automated": "역사적 증거 보관 관계의 문서/메타데이터 수정이다. 실제 SHA 대조와 doctor를 사용했고 앱 동작 테스트로 꾸미지 않았다."
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "D1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "초기 문서와 실제 기록을 대조해 현재성 안내 오류를 확인하고 인덱스/단계 연결의 보강 범위를 정했다.",
+        "evidence": [
+          "D1before",
+          "D1case"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [
+          "D2"
+        ],
+        "closed_findings": [
+          "D1"
+        ],
+        "outcome": "new_findings",
+        "reason": "안내·인덱스를 고친 뒤 전체 점검에서 기존 완료 artifact의 mutable 경로 충돌을 확인했다.",
+        "evidence": [
+          "D1case",
+          "D2before",
+          "D2case"
+        ]
+      },
+      {
+        "id": "R3",
+        "new_findings": [],
+        "closed_findings": [
+          "D2"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "초기 증거 bytes/hash 보존 뒤 doctor와 전체 검사, 독립 탐색/단계 전환, 요구/공유경계를 최종 검토했다. 이번 범위의 추가 결함을 발견하지 않았다.",
+        "evidence": [
+          "DOCS",
+          "CHECK_A1",
+          "CHECK_A2",
+          "CHECK_A3",
+          "VALIDATION",
+          "D2case"
+        ]
+      }
+    ]
+  }
+}

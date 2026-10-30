@@ -1,0 +1,104 @@
+{
+  "version": 2,
+  "kind": "review",
+  "goal": "보안 검사기의 거짓 통과·경합·누락을 재현하고 검토한 소스 버전과 남은 환경 한계를 보고한다.",
+  "status": "complete",
+  "evidence": {
+    "B1": {
+      "type": "artifact",
+      "path": ".runtime/security-convergence-proofs/before-core/.runtime/checks/f71166659e71429995b50913054a2556/report.json",
+      "sha256": "93ac5abb6a2974c8c261376066ddaf17ec80ee886074d49f55a7b160919435fe",
+      "description": "경로·계획·XML·출력·소스·템플릿·FIFO 및 하위 실패 집계의 수정 전 보고서",
+      "recorded_at": "2026-10-30T22:21:48.250883+00:00"
+    },
+    "B2": {
+      "type": "artifact",
+      "path": ".runtime/security-convergence-proofs/before-integration/.runtime/checks/d651419f341d4f07ba49a178ae7faa85/report.json",
+      "sha256": "d28211a1bab5e29f3ec613eba6abe29c27b03b2f1ac93cd6dbfcfc5941b4cefa",
+      "description": "상태 본문 복사와 실행 설정 검사 누락의 수정 전 보고서",
+      "recorded_at": "2026-10-30T22:21:48.254322+00:00"
+    },
+    "G1": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/c57a1b4a5b514a3a87683a1d6ebdcd6f/checks/605652463eb943cbaff57ccd4a7486c2/report.json",
+      "sha256": "43a9400710dfadf61065561d09359c5474adbdb74e69813dfd001c4077b6b2e9",
+      "description": "현재 소스·환경과 일치하는 최종 303개 회귀 실행",
+      "recorded_at": "2026-10-30T22:21:48.257247+00:00",
+      "check": "python"
+    },
+    "D1": {
+      "type": "artifact",
+      "path": "tools/harness/docs/security-recheck-2026-10-31.md",
+      "sha256": "5e5c3f2ab71844860eb5c70086f2f45f2637a14f42d65568dcca230891812733",
+      "description": "수정과 신뢰 범위를 기록한 보안 재점검",
+      "recorded_at": "2026-10-30T22:21:48.401206+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/security-convergence-review/review.json",
+    "sha256": "3e5b132898f85a4ef97eaa4df85139294098e449532fb00705addb2d8bcd6f65"
+  },
+  "findings": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5",
+    "F6",
+    "F7",
+    "F8",
+    "F9",
+    "F10",
+    "F11",
+    "F12"
+  ],
+  "created_at": "2026-10-30T22:15:56.945654+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/security.py",
+    "tools/harness/harness/security_profiles.py",
+    "tools/harness/harness/checks.py",
+    "tools/harness/harness/core.py",
+    "tools/harness/harness/check_snapshots.py",
+    "tools/harness/harness/provenance.py",
+    "tools/harness/harness/knowledge_hooks.py"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "확인한 경계 결함에 수정 전 실패와 수정 후 회귀 결과를 연결한다.",
+      "method": "전체 등록 검사와 같은 사례의 정상·거부 결과를 실제 로그에서 확인",
+      "status": "passed",
+      "evidence": [
+        "B1",
+        "B2",
+        "G1"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "병렬 작업·보안 미결·검사 오류를 현재 완료 근거로 오인하지 않는다.",
+      "method": "경합·미결·사본 원본 차용 거부와 정상 대조군을 실제 회귀 이름과 결과에서 확인",
+      "status": "passed",
+      "evidence": [
+        "G1",
+        "D1"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "검토 버전의 등록 검사를 실행하고 미확인 환경과 실제 제품/모델 검증의 한계를 구분한다.",
+      "method": "지원 범위·반례·미실행 환경을 문서 및 실제 보고서와 대조",
+      "status": "passed",
+      "evidence": [
+        "D1"
+      ]
+    }
+  ],
+  "next_action": "최종 검토와 회귀 연결의 무결성을 확인한다.",
+  "completed_at": "2026-10-30T22:21:48.542041+00:00"
+}

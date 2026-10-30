@@ -1,0 +1,115 @@
+{
+  "version": 2,
+  "task_contract": "343f46d92cf3daca5914dd49d796e0328d70bc6e7f0ded110a730581bed9221e",
+  "evidence_digest": "f275805d5b8e52d78ab512968dbecbd326b531a6458d6c048d0f5fca0e98ef4b",
+  "reviewer": "Codex primary agent, using independent docs_research and integration_review observations",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "공개 스킬·공식 문서의 실제 절차와 레포 전용 조건을 비교해 채택/조정/제외·라이선스 확인 한계를 기록했다. F1 출처 귀속 오류는 원문 재열람과 독립 검토 후 교정했고 반례를 보존했다.",
+      "evidence": [
+        "S1",
+        "F1before",
+        "F1case"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "스킬 진입점이 구조·최신화·위키·검증 참조 4개와 기존 조사·학습 절차에 연결된다. context 등록과 AGENTS/README/기존 스킬의 연결을 읽고 live doctor와 원문 선택으로 확인했다.",
+      "evidence": [
+        "E1"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "독립 에이전트가 합성 문서 작업 3종을 수행했고 원본 9개 hash·링크 32개·query-only 25개 파일 불변을 확인했다. 실제 context 10개와 고정 사본 회귀 272개(실패0, 환경 skip1)를 확인했다. 현재 동시 변경 전체에 대한 과장된 통과 주장은 하지 않는다.",
+      "evidence": [
+        "E2"
+      ]
+    }
+  ],
+  "limitations": [
+    "공개 사례와 합성 작업은 범용 성능/정확성 보증이 아니다.",
+    "실제 앱·외부 저장 fixture URL·Markdown 렌더러는 검증하지 않았다.",
+    "고정 사본 회귀는 272개 실행/실패0/환경 skip1이며 이후 타 세션의 공유 파일 변경 전체를 검증했다고 주장하지 않는다. 이번 신규 스킬/조사 파일은 사본과 동일하고 live doctor/context는 별도 확인했다.",
+    "주 검토자는 작성자이므로 independent=false다. 독립 에이전트의 사례 수행과 출처 검토는 보조 근거다.",
+    "후속 인덱스 보강으로 스킬이 변경되어 초기 E1은 동일 SHA-256의 로컬 보존 사본으로 연결했다. 이 완료는 생성 당시 버전의 결과다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "요청한 docs 관리·LLM Wiki 스킬의 공개 사례 조사, 조건부 절차·발견/선택 연결, 문서 작업과 출처 반례 검증",
+    "areas": [
+      {
+        "name": "question_coverage",
+        "result": "checked",
+        "reason": "정리·최신화·위키 ingest/query/lint·검증과 기존 도구의 책임 구분을 사용자 요청에 대조했다."
+      },
+      {
+        "name": "source_conditions",
+        "result": "checked",
+        "reason": "실제 SKILL 원문·공식 문서의 확인일·적용 환경·라이선스 접근 한계를 기록하고 코드 사실과 승인 의도를 구분했다."
+      },
+      {
+        "name": "counterevidence",
+        "result": "checked",
+        "reason": "원문이 금지한 링크 자동 편집을 잘못 귀속한 F1을 발견·교정했다. 버전/플랫폼 충돌과 미결 정책은 합성 위키 작업에서 보존했다."
+      },
+      {
+        "name": "claim_limits",
+        "result": "checked",
+        "reason": "형식/링크 검증과 의미·실행 검증을 구분했다. 고정 사본 이후 타 세션 변경·sandbox skip·렌더러/실제 앱 미검증을 명시했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "조사 초안이 tomzx의 외부 링크 보고 정책을 자동 삭제로 잘못 귀속했다.",
+        "cause": "원문상 HEAD 판정, 보고 전용, 선택적 nav/build 절차를 구분하지 않고 과도하게 일반화했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "manual",
+          "case": "F1case",
+          "before": "F1before",
+          "after": "S1",
+          "expected": "외부 링크는 원문도 자동 편집하지 않음을 명시하고 broken 상태 판정과 삭제/설치 강제를 구분한다.",
+          "why_not_automated": "출처 정책의 의미를 판단하는 연구 반례여서 원문 재열람·독립 검토로 대조했다. 문자열 테스트를 사실성 증명으로 만들지 않는다."
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "병렬 조사 결과를 독립 재검토하면서 tomzx 원문과 조사 초안의 정책 귀속 차이를 발견했다.",
+        "evidence": [
+          "F1before",
+          "F1case"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "교정된 조사·스킬·등록과 독립 문서 작업 결과를 재검토했다. 요청 범위에서 추가 결함을 발견하지 않았고 타 세션의 미완성 등록도 원본 doctor에서 해소됨을 확인했다.",
+        "evidence": [
+          "S1",
+          "E1",
+          "E2",
+          "F1case"
+        ]
+      }
+    ]
+  }
+}

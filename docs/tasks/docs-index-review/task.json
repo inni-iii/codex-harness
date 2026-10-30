@@ -1,0 +1,141 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "문서 인덱스 우선 탐색과 주제부터 설계·순차 구현까지의 연결을 보완한다",
+  "status": "complete",
+  "evidence": {
+    "DOCS": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-review/final-documents.json",
+      "sha256": "4ee726e6a5acb1f4481e65e20121020bc193b1c600365be288df615276c0dce1",
+      "description": "검증 당시 인덱스·스킬·진행 절차의 정확한 원문과 해시",
+      "recorded_at": "2026-10-30T22:47:17.912886+00:00"
+    },
+    "CHECK_A1": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/144080cda442435eb791b0459bebeac6/checks/2e3267713c5b412b8a11f60a13977faf/report.json",
+      "sha256": "fce7da988b5861d1ebb257989dae9b1a77992f0f85563519a05d66d8a5111d39",
+      "description": "최종 고정 사본 313개 회귀 검사, 실패0 환경skip1",
+      "recorded_at": "2026-10-30T22:47:17.968215+00:00",
+      "check": "python"
+    },
+    "CHECK_A2": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/144080cda442435eb791b0459bebeac6/checks/2e3267713c5b412b8a11f60a13977faf/report.json",
+      "sha256": "fce7da988b5861d1ebb257989dae9b1a77992f0f85563519a05d66d8a5111d39",
+      "description": "project/context 생성과 단계 연결의 관련 회귀",
+      "recorded_at": "2026-10-30T22:47:18.151053+00:00",
+      "check": "python"
+    },
+    "CHECK_A3": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/144080cda442435eb791b0459bebeac6/checks/2e3267713c5b412b8a11f60a13977faf/report.json",
+      "sha256": "fce7da988b5861d1ebb257989dae9b1a77992f0f85563519a05d66d8a5111d39",
+      "description": "새6개 포함 기존 테스트와 경계 회귀",
+      "recorded_at": "2026-10-30T22:47:18.326997+00:00",
+      "check": "python"
+    },
+    "VALIDATION": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-review/validation.json",
+      "sha256": "610585bc71eb2fb75ae24d741ccefdadb95d51561882b5d9d9a0a7faa297d9ed",
+      "description": "최종 검사/독립 사례/정확한 읽기량과 역사적 근거 보존 관측",
+      "recorded_at": "2026-10-30T22:47:18.521945+00:00"
+    },
+    "D1before": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-review/D1-before.md",
+      "sha256": "ef3486f4b0be2f59fb456d57362fd08ffdfecf3d8976b526694982f810833071",
+      "description": "D1 수정 전 README 원문",
+      "recorded_at": "2026-10-30T22:47:18.576917+00:00"
+    },
+    "D1case": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-review/D1-case.md",
+      "sha256": "cd71703e10bfda4c36f47f41d3d0d30274966b5a16250c27a5fe63e054ded487",
+      "description": "D1의 재사용 문서 반례와 수정 후 관측",
+      "recorded_at": "2026-10-30T22:47:18.631335+00:00"
+    },
+    "D2before": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-review/D2-before.md",
+      "sha256": "6a1d143ee803c41d7b2f00954b8c2118a5ae428c6e84a117e5f41f52db3ecf84",
+      "description": "D2 수정 전 doctor 실패 관측 메모",
+      "recorded_at": "2026-10-30T22:47:18.683764+00:00"
+    },
+    "D2case": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-review/D2-case.md",
+      "sha256": "3a8c8fad7d2858bfd6d27e26f60833ee58491c0ceb22192f0cf6af7f26f6aa3f",
+      "description": "D2 보존 관계의 재사용 반례와 수정 후 관측",
+      "recorded_at": "2026-10-30T22:47:18.736395+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/docs-index-review/review.json",
+    "sha256": "cf347612a9541c51abfffcf70396b465051f9198d91e98b3d4f32c54783998b6"
+  },
+  "findings": [
+    "D1",
+    "D2"
+  ],
+  "created_at": "2026-10-30T22:42:08.940362+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "docs/index.md",
+    "docs/tasks/index.md",
+    "docs/projects/README.md",
+    "tools/harness/docs/index.md",
+    ".agents/skills/docs-maintenance/",
+    ".agents/skills/plan-project/",
+    ".agents/context.toml",
+    "tools/harness/harness/context.py",
+    "tools/harness/harness/workflows.py",
+    "tools/harness/tests/test_document_indexes.py"
+  ],
+  "constraints": [
+    "이번 요청은 사용자가 라우팅 필수 제거 의사를 명시해 직접 진행한다. 라우팅 설정은 타 세션에 맡기고 보존한다.",
+    "SSH 서버 읽기 전용, 커밋·푸시·외부 발행·새 검색 인프라 없음",
+    "기존 필수 프로젝트/보안 문서와 과거 세션 원문 확인을 줄이지 않는다."
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "docs 인덱스와 하위 지도로 관련 문서를 고르고 누락 시 좁게 검색할 수 있다",
+      "method": "같은 기록 존재 조건에서 교정된 안내·인덱스의 의미를 재검토한다",
+      "status": "passed",
+      "evidence": [
+        "DOCS",
+        "CHECK_A1",
+        "D1before",
+        "D1case"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "새 프로젝트에 인덱스가 생성되고 설계·선행 작업·검증·다음 단계가 연결된다",
+      "method": "실제 project 생성의 index/brief/security/workflow 연결·overwrite 거부를 자동 검사하고 독립 다음 단계 구현 사례를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "CHECK_A2"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "명시된 필수 문서는 보존하며 인덱스 중복·누락·과잉 읽기 회귀와 읽기량을 확인한다",
+      "method": "초기 bytes/hash 보존·보관 경로와 후속 결과 분리를 검토한다",
+      "status": "passed",
+      "evidence": [
+        "CHECK_A3",
+        "VALIDATION",
+        "D2before",
+        "D2case"
+      ]
+    }
+  ],
+  "next_action": "전체 등록 검사와 독립 탐색/단계 전환 검증을 마치고 근거를 연결한다.",
+  "completed_at": "2026-10-30T22:47:44.609732+00:00"
+}
