@@ -1,0 +1,105 @@
+version = 1
+
+[[routes]]
+name = "requirements"
+when = "문제·사용자·범위·성공 조건을 정할 때"
+kind = "plan"
+inputs = ["request"]
+documents = [".agents/skills/plan-project/references/project-lifecycle.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "요청·기존 결정·제약을 구분한다"
+[[routes.steps]]
+id = "execute"
+instruction = "첫 흐름·범위·관측 가능한 성공 조건을 정한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "미결정과 다음 단계의 입력을 확인한다"
+
+[[routes]]
+name = "plan"
+when = "설계와 구현 순서·갭·다음 작업을 정할 때"
+kind = "plan"
+inputs = ["request"]
+documents = [".agents/skills/plan-project/references/project-lifecycle.md", ".agents/skills/plan-project/references/reasons-canvas.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "현재 근거와 목표의 갭을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "선행 조건·작업 묶음·검증 방법을 연결한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "다음 작업과 시작 조건·남은 결정을 확인한다"
+
+[[routes]]
+name = "analysis"
+when = "요구·개념·대안·기존 경계와 설계 전 미결정을 분석"
+kind = "plan"
+inputs = ["request"]
+documents = [".agents/skills/plan-project/references/reasons-canvas.md"]
+validation = "현재 요청·정본·실제 근거와 관련 미결정을 대조하고 형식 검증을 의미적 합의/독립 평가로 확대하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "현재 요구·Charter·용어·코드의 관련 정본을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "개념/수명·대안·선택 이유·관련 위험/미결정을 정리한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "의도/경계와 상세 설계가 필요한 범위를 판단한다"
+
+[[routes]]
+name = "design"
+when = "REASONS 설계·작업·수용조건·고정 경계를 구체화"
+kind = "design"
+inputs = ["request"]
+documents = [".agents/skills/plan-project/references/reasons-canvas.md"]
+validation = "현재 요청·정본·실제 근거와 관련 미결정을 대조하고 형식 검증을 의미적 합의/독립 평가로 확대하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+result_checks = ["design"]
+[[routes.steps]]
+id = "scope"
+instruction = "기존 요구/분석·관련 결정을 읽고 설계 범위를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "규모에 맞는7관점과 R/O/변경 경계·선행 작업·미결정의 계약을 작성한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "설계 artifact의 본문·연결·범위와 형식을 대조한다"
+
+[[routes]]
+name = "alignment"
+when = "현재 설계·선택 작업·수용조건·기존 승인/미결정을 검토"
+kind = "review"
+inputs = ["request", "design"]
+documents = [".agents/skills/plan-project/references/reasons-canvas.md"]
+validation = "현재 요청·정본·실제 근거와 관련 미결정을 대조하고 형식 검증을 의미적 합의/독립 평가로 확대하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+entry_checks = ["design"]
+result_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "현재 설계와 실제 사용자 요청/기존 결정의 권위를 대조한다"
+[[routes.steps]]
+id = "execute"
+instruction = "선택 O·수용 기준·범위·선행 작업과 관련 미결정을 검토한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "실제 결정 근거와 현재 설계 SHA에 묶인 alignment artifact를 판단한다"
+

@@ -1,0 +1,122 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "스킬 14개를 유지하면서 학습·브라우저 상세 절차를 담당 스킬로 모으고 문서 작업의 불필요한 읽기를 줄인다",
+  "status": "complete",
+  "evidence": {
+    "OWN": {
+      "type": "artifact",
+      "path": ".runtime/skills-consolidation/ownership-snapshot.json",
+      "sha256": "e685cf7e022c90eafe092b479301f3b8b0b13e629b8507d4e545ba4b6961dbf3",
+      "description": "학습·브라우저·검증의 정본·연결·선택 조건 원문 보존",
+      "recorded_at": "2026-10-30T23:14:03.631533+00:00"
+    },
+    "CONTEXT": {
+      "type": "artifact",
+      "path": ".runtime/skills-consolidation/context-comparison.json",
+      "sha256": "1f013a898c218207283fbc01f1c0e44550cfd16b06ecdba7a7e14380a6a34650",
+      "description": "초기 커밋·격리 정리안·통합 상태에서 같은12개 조건의 실제 선택 문서와 글자 수",
+      "recorded_at": "2026-10-30T23:14:03.686300+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/skills-consolidation/regression-red/source/.runtime/checks/90c6d74a066f43ba886718b7264aa823/report.json",
+      "sha256": "6b8afd5c696491b5d79a42303902e371425ffbea363652ab85f57dc3d9109cff",
+      "description": "격리 초기 정리안의 실제 실패: 일반 UI 구현에 review.md를 과잉 선택한 S1. 기존32개 workflow 검사 중1실패",
+      "recorded_at": "2026-10-30T23:14:03.745267+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/1e3704cdb3224bcc8fcbf6ff5a9e8498/checks/cb8202155f18487593619e144edc18c5/report.json",
+      "sha256": "f61738ff63aae4fc6bf6ea903d1da45c9cbc9836592eeea0255bbc170423d497",
+      "description": "통합 상태의 전체342개 하네스 회귀: 실패0·환경skip1, S1 기존 회귀 포함",
+      "recorded_at": "2026-10-30T23:14:03.798025+00:00",
+      "check": "python"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/skills-consolidation/review.json",
+    "sha256": "707f0ee74338be56d4502366de80919a0ca06907cc0169dffc4be7dd48030944"
+  },
+  "findings": [
+    "S1"
+  ],
+  "created_at": "2026-10-30T23:06:15.942727+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents/README.md",
+    ".agents/context.toml",
+    ".agents/skills/design-first/SKILL.md",
+    ".agents/skills/docs-maintenance/SKILL.md",
+    ".agents/skills/docs-maintenance/references/wiki.md",
+    ".agents/skills/e2e-testing/SKILL.md",
+    ".agents/skills/e2e-testing/references/failures.md",
+    ".agents/skills/e2e-testing/references/scenarios.md",
+    ".agents/skills/e2e-testing/references/setup.md",
+    ".agents/skills/e2e-testing/references/visual.md",
+    ".agents/skills/e2e-testing/references/writing.md",
+    ".agents/skills/maintain-knowledge/SKILL.md",
+    ".agents/skills/maintain-knowledge/assets/lesson.md",
+    ".agents/skills/maintain-knowledge/references/learning.md",
+    ".agents/skills/plan-project/SKILL.md",
+    ".agents/skills/plan-project/assets/lesson.md",
+    ".agents/skills/plan-project/references/learning.md",
+    ".agents/skills/svelte-frontend/SKILL.md",
+    ".agents/skills/verify-work/SKILL.md",
+    ".agents/skills/verify-work/references/browser.md",
+    ".agents/skills/verify-work/references/follow-through.md",
+    "AGENTS.md",
+    "tools/harness/docs/review-rounds.md",
+    "tools/harness/docs/skill-authoring.md",
+    "tools/harness/docs/skill-sources.md",
+    "tools/harness/docs/workflows.md",
+    "tools/harness/harness/context.py",
+    "tools/harness/tests/test_skill_scopes.py",
+    "tools/harness/tests/test_workflows.py",
+    "docs/tasks/index.md"
+  ],
+  "constraints": [
+    "유사 역할의 상세 절차를 모으되 스킬14개와 핵심 검증·보안·완료 절차를 유지한다.",
+    "개인 전역 설정·커밋·푸시·원격 서버 쓰기를 수행하지 않는다.",
+    "기존 다른 worktree와 변경을 보존하고 로컬 별도 체크아웃에서 먼저 검증한다."
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "학습 상세 절차와 양식이 maintain-knowledge에서 선택되고 기존 연결이 유효하다",
+      "method": "스킬·학습 링크 원문과 learning 선택 결과, 기존 workflow 회귀를 대조",
+      "status": "passed",
+      "evidence": [
+        "OWN",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "브라우저 작성·시각·실패 절차는 e2e-testing에 있고 verify-work는 공통 판정을 연결한다",
+      "method": "브라우저 참조 원문과 E2E·visual·writing 선택 시나리오를 대조",
+      "status": "passed",
+      "evidence": [
+        "OWN",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "가벼운 문서 작업은 상세 코드 검증 자료를 읽지 않으며 코드·보안·실패·완료의 필요한 절차는 유지된다",
+      "method": "12개 읽기 사례의 전후 글자 수와 코드·보안·결함·완료 선택 회귀, S1의 RED→GREEN을 대조",
+      "status": "passed",
+      "evidence": [
+        "CONTEXT",
+        "RED",
+        "GREEN",
+        "OWN"
+      ]
+    }
+  ],
+  "next_action": "통합 상태에서 등록 검사와 최종 리뷰를 확인하고 근거를 연결해 완료한다.",
+  "completed_at": "2026-10-30T23:14:30.525548+00:00"
+}

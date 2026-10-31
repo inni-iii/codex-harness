@@ -1,0 +1,23 @@
+version = 1
+
+[[routes]]
+name = "implement"
+when = "Svelte 화면·상태·사용자 흐름을 구현할 때"
+kind = "implement"
+inputs = ["request", "design", "alignment"]
+documents = [".agents/skills/svelte-frontend/references/ui-contracts.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = ["verify-work:check"]
+finish = false
+entry_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "기존 UI·API·상태·접근성 계약을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "관련 화면·상태·상호작용과 검사를 구현한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "실제 사용자 흐름·실패 상태·관련 회귀 근거를 준비한다"
+

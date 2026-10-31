@@ -1,0 +1,749 @@
+version = 1
+
+[[edges]]
+id = "retry-plan-project-requirements"
+from = "plan-project:requirements"
+to = "plan-project:requirements"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-plan-project-plan"
+from = "plan-project:plan"
+to = "plan-project:plan"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-research-evidence"
+from = "research:evidence"
+to = "research:evidence"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-research-retrieval"
+from = "research:retrieval"
+to = "research:retrieval"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-design-first-design"
+from = "design-first:design"
+to = "design-first:design"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-python-backend-implement"
+from = "python-backend:implement"
+to = "python-backend:implement"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-python-backend-implement"
+from = "python-backend:implement"
+to = "verify-work:check"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "document-python-backend-implement"
+from = "python-backend:implement"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "investigate-python-backend-implement"
+from = "python-backend:implement"
+to = "research:evidence"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "retry-svelte-frontend-implement"
+from = "svelte-frontend:implement"
+to = "svelte-frontend:implement"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-svelte-frontend-implement"
+from = "svelte-frontend:implement"
+to = "verify-work:check"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "document-svelte-frontend-implement"
+from = "svelte-frontend:implement"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "investigate-svelte-frontend-implement"
+from = "svelte-frontend:implement"
+to = "research:evidence"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "retry-postgres-change"
+from = "postgres:change"
+to = "postgres:change"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-postgres-change"
+from = "postgres:change"
+to = "verify-work:check"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "document-postgres-change"
+from = "postgres:change"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "investigate-postgres-change"
+from = "postgres:change"
+to = "research:evidence"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "retry-verify-work-check"
+from = "verify-work:check"
+to = "verify-work:check"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-verify-work-repair"
+from = "verify-work:repair"
+to = "verify-work:repair"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-verify-work-repair"
+from = "verify-work:repair"
+to = "verify-work:check"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "document-verify-work-repair"
+from = "verify-work:repair"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "retry-docs-maintenance-navigation"
+from = "docs-maintenance:navigation"
+to = "docs-maintenance:navigation"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docs-maintenance-organization"
+from = "docs-maintenance:organization"
+to = "docs-maintenance:organization"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docs-maintenance-organization"
+from = "docs-maintenance:organization"
+to = "docs-maintenance:validation"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "index-organization"
+from = "docs-maintenance:organization"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "retry-docs-maintenance-sync"
+from = "docs-maintenance:sync"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docs-maintenance-sync"
+from = "docs-maintenance:sync"
+to = "docs-maintenance:validation"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "index-sync"
+from = "docs-maintenance:sync"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "retry-docs-maintenance-wiki-ingest"
+from = "docs-maintenance:wiki-ingest"
+to = "docs-maintenance:wiki-ingest"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docs-maintenance-wiki-ingest"
+from = "docs-maintenance:wiki-ingest"
+to = "docs-maintenance:validation"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "index-wiki-ingest"
+from = "docs-maintenance:wiki-ingest"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "retry-docs-maintenance-wiki-query"
+from = "docs-maintenance:wiki-query"
+to = "docs-maintenance:wiki-query"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docs-maintenance-wiki-lint"
+from = "docs-maintenance:wiki-lint"
+to = "docs-maintenance:wiki-lint"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docs-maintenance-wiki-lint"
+from = "docs-maintenance:wiki-lint"
+to = "docs-maintenance:validation"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "index-wiki-lint"
+from = "docs-maintenance:wiki-lint"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "retry-docs-maintenance-validation"
+from = "docs-maintenance:validation"
+to = "docs-maintenance:validation"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docs-maintenance-index"
+from = "docs-maintenance:index"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-e2e-testing-run"
+from = "e2e-testing:run"
+to = "e2e-testing:run"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-e2e-testing-visual"
+from = "e2e-testing:visual"
+to = "e2e-testing:visual"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-e2e-testing-failures"
+from = "e2e-testing:failures"
+to = "e2e-testing:failures"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-security-review-design"
+from = "security-review:design"
+to = "security-review:design"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-security-review-review"
+from = "security-review:review"
+to = "security-review:review"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-maintain-knowledge-learning"
+from = "maintain-knowledge:learning"
+to = "maintain-knowledge:learning"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-maintain-skills-maintain"
+from = "maintain-skills:maintain"
+to = "maintain-skills:maintain"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-maintain-skills-maintain"
+from = "maintain-skills:maintain"
+to = "verify-work:check"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "document-maintain-skills-maintain"
+from = "maintain-skills:maintain"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "investigate-maintain-skills-maintain"
+from = "maintain-skills:maintain"
+to = "research:evidence"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "retry-setup-environment-inspect"
+from = "setup-environment:inspect"
+to = "setup-environment:inspect"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-experiment-run"
+from = "experiment:run"
+to = "experiment:run"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "requirements-plan"
+from = "plan-project:requirements"
+to = "plan-project:plan"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "plan-research"
+from = "plan-project:plan"
+to = "research:evidence"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "plan-security"
+from = "plan-project:plan"
+to = "security-review:design"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "plan-design"
+from = "plan-project:plan"
+to = "design-first:design"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "choose-design"
+from = "plan-project:plan"
+to = "design-first:design"
+mode = "transition"
+when = "user_choice"
+guards = ["validated"]
+choice = "design"
+
+[[edges]]
+id = "plan-backend"
+from = "plan-project:plan"
+to = "python-backend:implement"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "choose-backend"
+from = "plan-project:plan"
+to = "python-backend:implement"
+mode = "transition"
+when = "user_choice"
+guards = ["validated"]
+choice = "backend"
+
+[[edges]]
+id = "plan-frontend"
+from = "plan-project:plan"
+to = "svelte-frontend:implement"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "choose-frontend"
+from = "plan-project:plan"
+to = "svelte-frontend:implement"
+mode = "transition"
+when = "user_choice"
+guards = ["validated"]
+choice = "frontend"
+
+[[edges]]
+id = "plan-database"
+from = "plan-project:plan"
+to = "postgres:change"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "choose-database"
+from = "plan-project:plan"
+to = "postgres:change"
+mode = "transition"
+when = "user_choice"
+guards = ["validated"]
+choice = "database"
+
+[[edges]]
+id = "design-frontend"
+from = "design-first:design"
+to = "svelte-frontend:implement"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "sync-wiki"
+from = "docs-maintenance:sync"
+to = "docs-maintenance:wiki-ingest"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "sync-learning"
+from = "docs-maintenance:sync"
+to = "maintain-knowledge:learning"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "backend-postgres"
+from = "python-backend:implement"
+to = "postgres:change"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "frontend-backend"
+from = "svelte-frontend:implement"
+to = "python-backend:implement"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "security-python-backend"
+from = "python-backend:implement"
+to = "security-review:review"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "security-svelte-frontend"
+from = "svelte-frontend:implement"
+to = "security-review:review"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "security-postgres"
+from = "postgres:change"
+to = "security-review:review"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "security-verify-work"
+from = "verify-work:check"
+to = "security-review:review"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "check-e2e"
+from = "verify-work:check"
+to = "e2e-testing:run"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "check-visual"
+from = "verify-work:check"
+to = "e2e-testing:visual"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "check-replan"
+from = "verify-work:check"
+to = "plan-project:plan"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "requirements-analysis"
+from = "plan-project:requirements"
+to = "plan-project:analysis"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "analysis-design"
+from = "plan-project:analysis"
+to = "plan-project:design"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "design-alignment"
+from = "plan-project:design"
+to = "plan-project:alignment"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "plan-analysis"
+from = "plan-project:plan"
+to = "plan-project:analysis"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "aligned-python-backend"
+from = "plan-project:alignment"
+to = "python-backend:implement"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "aligned-svelte-frontend"
+from = "plan-project:alignment"
+to = "svelte-frontend:implement"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "aligned-postgres"
+from = "plan-project:alignment"
+to = "postgres:change"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "aligned-maintain-skills"
+from = "plan-project:alignment"
+to = "maintain-skills:maintain"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "retry-plan-project-analysis"
+from = "plan-project:analysis"
+to = "plan-project:analysis"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-plan-project-design"
+from = "plan-project:design"
+to = "plan-project:design"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-plan-project-alignment"
+from = "plan-project:alignment"
+to = "plan-project:alignment"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "alignment-redesign"
+from = "plan-project:alignment"
+to = "plan-project:design"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docs-maintenance-intent-update"
+from = "docs-maintenance:intent-update"
+to = "docs-maintenance:intent-update"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docs-maintenance-intent-update"
+from = "docs-maintenance:intent-update"
+to = "docs-maintenance:validation"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "index-intent-update"
+from = "docs-maintenance:intent-update"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "sync-intent-update"
+from = "docs-maintenance:sync"
+to = "docs-maintenance:intent-update"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "retry-docs-maintenance-implementation-sync"
+from = "docs-maintenance:implementation-sync"
+to = "docs-maintenance:implementation-sync"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docs-maintenance-implementation-sync"
+from = "docs-maintenance:implementation-sync"
+to = "docs-maintenance:validation"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "index-implementation-sync"
+from = "docs-maintenance:implementation-sync"
+to = "docs-maintenance:index"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "sync-implementation-sync"
+from = "docs-maintenance:sync"
+to = "docs-maintenance:implementation-sync"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "intent-design"
+from = "docs-maintenance:intent-update"
+to = "plan-project:design"
+mode = "transition"
+when = "reason"
+guards = ["validated"]

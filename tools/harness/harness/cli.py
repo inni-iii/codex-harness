@@ -10,7 +10,8 @@ import subprocess
 import sys
 import tomllib
 
-from . import agent_config, check_snapshots, checks, context, doctor, environment, evidence, evaluation, experiments, knowledge, mcp, pilot, security, skills, tasks, workflows, workspaces
+from . import agent_config, check_snapshots, checks, context, doctor, environment, evidence, evaluation, experiments, hook_sessions, knowledge, mcp, pilot, security, skills, tasks, workflows, workspaces
+from . import flow_cli
 from .provenance import load, local_file
 from .core import changed_paths, source_paths
 
@@ -89,6 +90,13 @@ def main(argv=None, *, root: Path = ROOT) -> int:
     p = knowledge_commands.add_parser("import")
     p.add_argument("bundle")
     p.add_argument("--dry-run", action="store_true")
+    p = commands.add_parser("hook", help="Explicit current-session task binding; no model or task execution")
+    hook_commands = p.add_subparsers(dest="hook_action", required=True)
+    for name in ("bind", "clear", "status"):
+        p = hook_commands.add_parser(name)
+        if name == "bind":
+            p.add_argument("slug")
+        p.add_argument("--session-key", help="SessionStart key; defaults to the current CODEX_THREAD_ID")
     p = commands.add_parser("skill", help="Create and validate native repository skills without global installation")
     skill_commands = p.add_subparsers(dest="skill_action", required=True)
     p = skill_commands.add_parser("create")
@@ -201,10 +209,20 @@ def main(argv=None, *, root: Path = ROOT) -> int:
     p.add_argument("--plan", action="store_true")
     p.add_argument("--full", action="store_true")
     p.add_argument("--project")
+    flow_cli.configure(commands)
     args = parser.parse_args(argv)
     try:
         if args.action == "doctor":
             result = doctor.inspect(root)
+        elif args.action == "flow":
+            result = flow_cli.execute(root, args)
+        elif args.action == "hook":
+            if args.hook_action == "bind":
+                result = hook_sessions.bind(root, args.slug, args.session_key)
+            elif args.hook_action == "clear":
+                result = hook_sessions.clear(root, args.session_key)
+            else:
+                result = hook_sessions.status(root, args.session_key)
         elif args.action == "knowledge":
             action = args.knowledge_action
             if action == "add":

@@ -37,6 +37,8 @@ def catalog(root: Path) -> dict:
                 raise ValueError("context selection needs a human-readable when condition")
             if not isinstance(rule.get("requires_skill", False), bool):
                 raise ValueError("requires_skill must be a boolean")
+            if "requires_kinds" in rule:
+                validate_conditions({"kinds": rule["requires_kinds"]}, "required context kinds")
         for ref in resources:
             relative = ref.get("file")
             if not isinstance(relative, str):
@@ -77,6 +79,8 @@ def select(root: Path, kind: str, paths: list[str], topics: list[str], *, workfl
         chosen.setdefault(relative, []).append(reason)
 
     def triggered(rule):
+        if "requires_kinds" in rule and kind not in rule["requires_kinds"]:
+            return False
         return (kind in rule.get("kinds", []) or bool(set(topics) & set(rule.get("topics", [])))
                 or any(matches(p, rule.get("paths", [])) for p in paths))
 

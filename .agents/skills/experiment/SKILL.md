@@ -24,3 +24,5 @@ description: Design or run reproducible experiments comparing hypotheses, model 
 프로토콜·입력·seed·단위·예산을 먼저 고정하고 experiment run/compare로 원본·실패 포함 집계를 남긴다.
 하네스 준비 자체는 유료 호출·원격 변경·무제한 반복의 승인이 아니다.
 코드 검사 통과와 실제 작업 성공률 개선을 구분한다. 지침을 조정한 사례와 별도 확인 사례를 분리한다.
+
+그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.

@@ -13,8 +13,12 @@
 | 모델 추천 설정·목록·정책 | [추천기 사용법](usage.md) | catalog/route 구성 |
 | 선택한 모델로 작업 수행 | [실행 안내](execution.md) | run/chat·인수인계·실패 처리 |
 | 새 프로젝트와 문서/검사 연결 | [프로젝트 워크플로](project-workflows.md) | project 생성·context 규칙·검사·보안 범위 |
+| 목표·마일스톤에서 다음 작업 선택 | [프로젝트 진행](../../../.agents/skills/plan-project/references/project-lifecycle.md) | 요구·성공 조건·갭의 전후 평가·bottom-up 발견·계획 정본 |
 | 작업 생성·진행·인수인계 | [작업 흐름](workflows.md) | task/notes·연구/구현 연결 |
+| 코드 전 의도·경계·REASONS·설계/정렬 준비 | [설계와 구현 진입](reasons.md) | 분석/설계/정렬·typed 근거·작은 수정·변경 분류 |
+| 스킬 라우트·call/return·조건부 전이·재진입 | [스킬 흐름](skill-flows.md) | 여러 스킬을 잇는 작업·검증 실패·사용자 선택 대기 |
 | 작업의 완료와 근거 연결 | [완료 계약](completion.md) | evidence/review·종류별 완료 |
+| 현재 task 연결·중단 재개·자동 정적 점검 | [생명주기 훅](hooks.md) | hook bind/status/clear·이벤트·신뢰·원격 쓰기 보조 차단의 한계 |
 | 한 요청에서 검토·보완·회귀 | [검토 라운드](review-rounds.md) | 실제 발견·수정 전/후·재검토 |
 | 영향받는 검사·실행·결과 판정 | [검증 사용법](verification.md) | check/계획·범위·실행 |
 | 결과 재사용·과거/현재 근거 구분 | [검증 무결성](verification-integrity.md) | 캐시·stale·증거 계약 |
@@ -37,6 +41,7 @@
 | [레포 구성안](repository-setup.md) | 초기 구성 제안·미결정의 배경 확인 |
 | [공통 작업 규격](task-workflow.md) | 공통 절차 초안과 현재 구현의 차이 확인 |
 | [스킬 선별 이력](skill-sources.md) | 채택·제외·당시 스킬 수·원문 범위 확인 |
+| [SPDD·REASONS 보완 조사](spdd-reasons-research.md) | 2026-10-31 당시 조사·반영 제안; 현재 계약은 설계와 구현 진입 안내에서 확인 |
 | [문서 스킬 도입 조사](docs-maintenance-research.md) | docs/wiki 공개 사례·채택 근거·확인 한계 |
 | [보안 재점검 기록](security-recheck-2026-10-31.md) | 해당 날짜의 재현·수정·미검증 조건 확인 |
 | [CLI 기능 관측](cli-capabilities.md) | 관측한 CLI 기능/버전을 확인; 현재 지원은 재검증 |

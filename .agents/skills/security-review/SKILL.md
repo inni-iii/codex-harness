@@ -53,3 +53,5 @@ description: Design and review security boundaries, untrusted tool responses and
 
 보안 검토는 외부 시스템 공격·원격 쓰기·운영 데이터 사용·노출된 자격 증명 시험의 권한을 새로 주지 않는다.
 이미 승인된 범위의 로컬 격리 환경과 합성 데이터로 진행한다. 발견한 비밀값은 보고서에 복사하거나 유효성을 시험하지 않는다.
+
+그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.

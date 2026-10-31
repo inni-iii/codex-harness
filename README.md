@@ -51,7 +51,8 @@ Codex는 별도로 설치·로그인한 뒤 레포 루트에서 시작한다.
 
 - Codex 공통 AGENTS.md와 작업별 스킬. [E2E 스킬](.agents/skills/e2e-testing/SKILL.md)은 관련 UI 흐름의 Playwright 작성·실행·실패 분석과 설정 템플릿을 제공한다.
 - [문서 관리 스킬](.agents/skills/docs-maintenance/SKILL.md): 분류·이동·최신화와 출처 기반 LLM 위키의 반영·질문·점검. [도입 조사와 선택 근거](tools/harness/docs/docs-maintenance-research.md)를 참고한다.
-- [학습·기억 관리](.agents/skills/maintain-knowledge/SKILL.md): 프로젝트/공통 범위, 근거를 연결한 채택과 대체, 검색·공유. [사용법과 훅 신뢰 조건](tools/harness/docs/knowledge.md)을 확인한다.
+- [학습·기억 관리](.agents/skills/maintain-knowledge/SKILL.md): 프로젝트/공통 범위, 근거를 연결한 채택과 대체, 검색·공유. [지식 사용법](tools/harness/docs/knowledge.md)을 확인한다.
+- [생명주기 훅](tools/harness/docs/hooks.md): 연결한 작업의 검증·인수인계 알림, 중단 기록, 변경 후 정적 점검, 직접 원격 쓰기 보조 차단. 실제 자동 실행에는 현재 훅 정의의 검토·신뢰가 필요하다.
 - [스킬 작성·개선](.agents/skills/maintain-skills/SKILL.md): 레포 스킬 생성·등록과 검토한 공통 지식의 전환. 개인 전역 스킬 설치 없이 사용한다.
 - [환경 준비](.agents/skills/setup-environment/SKILL.md): 저장소 선언·lockfile 기반 관리자 선택과 frozen 설치. [지원 범위](tools/harness/docs/environment.md)를 확인한다.
 - [Postgres 스킬](.agents/skills/postgres/SKILL.md)의 스키마·migration·쿼리 성능·실제 DB 검증, [연구 검색 지침](.agents/skills/research/references/retrieval.md)의 질문 분해·출처 보존·검색/답변 실패 구분.

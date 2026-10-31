@@ -1,0 +1,44 @@
+version = 1
+
+[[routes]]
+name = "check"
+when = "구현 결과의 요구·오류·공유 경계·회귀를 확인할 때"
+kind = "review"
+inputs = ["request", "design", "alignment"]
+documents = [".agents/skills/verify-work/references/evidence.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = []
+finish = true
+entry_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "요구·영향에서 검사와 수용 범위를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "필요한 실제 검사와 관련 실패 경로를 확인한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "실행 수·실패/skip·소스 상태·요구 충족을 대조한다"
+
+[[routes]]
+name = "repair"
+when = "발견한 결함의 재현·수정·회귀를 이어갈 때"
+kind = "debug"
+inputs = ["request", "design", "alignment"]
+documents = [".agents/skills/verify-work/references/follow-through.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = ["verify-work:check"]
+finish = false
+entry_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "결함·원인·수정 전 실패를 기록한다"
+[[routes.steps]]
+id = "execute"
+instruction = "허용된 범위를 수정하고 관련 회귀를 실행한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "수정 후 결과와 남은 발견을 재검토한다"
+

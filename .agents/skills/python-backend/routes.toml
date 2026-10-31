@@ -1,0 +1,23 @@
+version = 1
+
+[[routes]]
+name = "implement"
+when = "Python 기능·API·자원 동작을 구현할 때"
+kind = "implement"
+inputs = ["request", "design", "alignment"]
+documents = [".agents/skills/python-backend/references/structure.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = ["verify-work:check"]
+finish = false
+entry_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "입력/출력·공유 경계·작업 범위를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "요구에 맞는 Python 동작과 관련 검사를 구현한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "정상·오류·관련 회귀의 실제 근거를 준비한다"
+

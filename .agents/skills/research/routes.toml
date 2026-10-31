@@ -1,0 +1,42 @@
+version = 1
+
+[[routes]]
+name = "evidence"
+when = "질문에 필요한 원문·반증·조건을 조사할 때"
+kind = "research"
+inputs = ["request"]
+documents = [".agents/skills/research/references/evidence.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "질문·범위와 필요한 근거를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "원문과 대안·반증·버전/날짜를 대조한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "결론·한계·출처와 후속 질문을 정리한다"
+
+[[routes]]
+name = "retrieval"
+when = "문서·코드·기록에서 필요한 근거만 찾을 때"
+kind = "research"
+inputs = ["request"]
+documents = [".agents/skills/research/references/retrieval.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "찾을 질문과 탐색 범위를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "관련 지도와 좁은 검색으로 원문을 읽는다"
+[[routes.steps]]
+id = "inspect"
+instruction = "찾은 근거·누락·다음 읽을 조건을 확인한다"
+

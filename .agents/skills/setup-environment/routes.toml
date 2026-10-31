@@ -1,0 +1,22 @@
+version = 1
+
+[[routes]]
+name = "inspect"
+when = "프로젝트 manifest·lock·실행 환경을 읽기 전용으로 점검할 때"
+kind = "research"
+inputs = ["request"]
+documents = []
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "실제 프로젝트·manifest·lock·실행 환경을 찾는다"
+[[routes.steps]]
+id = "execute"
+instruction = "지원 도구·버전·충돌·누락을 점검한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "필요한 준비와 현재 권한/미확인을 보고한다"
+

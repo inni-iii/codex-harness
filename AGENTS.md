@@ -6,16 +6,17 @@
 ## 목적과 현재 범위
 
 - 프로젝트 주제가 정해지기 전에 범용 하네스를 준비한다. 어떤 주제가 주어져도 연구·설계·구현·검증을 빠르게 시작할 수 있도록 공통 지침·도구·절차를 재사용한다. 다른 노트북에서도 레포와 정해진 설치 절차로 필요한 구성을 재현하는 것이 목표다.
-- 현재는 Codex 모델·추론 추천용 `catalog`, `route`, 추천 후 실행하는 `run`, 매 입력을 라우팅하는 `chat`과 로컬 하네스 도구가 있다. `route`는 추천만 하고 `run`/`chat`이 선택된 모델을 실행한다. 자동 에이전트 팀·제품 수용 판단·재작업 루프는 아직 없다. 외부 도구 연결도 실제 점검 없이 완료로 표현하지 않는다.
+- 현재는 Codex 모델·추론 추천용 `catalog`, `route`, 추천 후 실행하는 `run`, 매 입력을 라우팅하는 `chat`과 로컬 하네스 도구가 있다. `route`는 추천만 하고 `run`/`chat`이 선택된 모델을 실행한다. 스킬별 라우트와 조건부 호출·복귀·전이·재진입을 기록하는 flow가 있다. 실제 절차와 판단은 현재 에이전트가 수행하며 자동 에이전트 팀·제품 자동 수용 판단은 없다. 외부 도구 연결도 실제 점검 없이 완료로 표현하지 않는다.
 - 공통 스택은 Svelte 프론트·Python 백엔드·PostgreSQL이다. SvelteKit·FastAPI·ORM·DB 버전/확장·API 생성 도구·브랜드 디자인은 프로젝트별 결정이며 미리 확정하지 않는다. 특정 서비스나 별도 서비스 레포를 미리 전제하지 않는다.
 - 검증 체계는 로컬에서 구성한다. GitHub 연결·GitHub CI·원격 업로드를 도입하지 않는다. GitHub CI의 유무를 서비스 검증 완성도의 필수 조건으로 판단하지 않는다.
+- 기본 계획은 사람이 정한 Charter·아키텍처 경계·마일스톤에서 AI가 요구·성공 조건·갭·작업을 도출하는 방식이다. 사람의 요청 범위에서 작업을 선택·수행하고, 시작과 종료 때 관련 갭을 현재 근거와 대조해 갱신한다. 세부 절차와 bottom-up 발견 처리는 [프로젝트 진행](.agents/skills/plan-project/references/project-lifecycle.md)을 따른다. 짧은 질문마다 전체 계획을 만들지 않는다.
 
 ## 선택적 모델 추천과 실행
 
 - 기본 작업은 현재 대화창의 모델로 진행한다. `route`·`run`·`chat` 사용은 선택 사항이며, 작업 시작 전에 라우터를 의무 호출하지 않는다. 라우터 미사용·추천 실패·별도 Codex 실행 불가는 일반 작업을 중단하는 조건이 아니다.
 - 모델·추론 강도 추천이 필요하면 `catalog`/`route`를 직접 사용한다. `route`는 추천만 반환한다. 추천 설정과 실제 대화창 설정을 구분하고, 지원 조합과 선택 근거는 아래 모델 선택 원칙을 따른다.
 - `run`/`chat`은 사용자가 해당 실행 방식을 명시적으로 선택했을 때 사용하는 보존된 실행 도구다. 이 명령 안에서는 라우팅 후 선택 모델을 실행한다. 현재 호스트의 허용 범위에 맞는 sandbox를 전달하며 권한을 넓히지 않는다. 실제 실행은 현재 환경에서 미검증이며 [실행 안내](tools/harness/docs/execution.md)의 한계를 확인한다.
-- 일반 대화창의 `UserPromptSubmit` 자동 라우팅·인수인계는 보류하며 레포 훅 설정에 등록하지 않는다. 훅 등록·신뢰 승인을 기본 작업의 선행 단계로 요구하지 않는다. 기존 학습용 SessionStart·PreCompact·Stop 훅과 구분한다.
+- 일반 대화창의 `UserPromptSubmit` 자동 라우팅·인수인계는 보류하며 레포 훅 설정에 등록하지 않는다. 훅 등록·신뢰 승인을 기본 작업의 선행 단계로 요구하지 않는다. [작업 연결·정적 점검·원격 쓰기 보조 훅](tools/harness/docs/hooks.md)과 구분한다.
 - 선택 도구를 실행하다 실패하면 그 실패를 알리고, 현재 요청을 현재 대화창에서 수행할 수 있는지 판단한다. 이미 부작용이 발생했을 수 있는 작업을 자동 재실행하지 않는다. `run`/`chat` 안의 재귀·중복 실행 방지와 권한 경계는 유지한다.
 
 ## 현재 구조와 책임
@@ -28,19 +29,21 @@ AGENTS.md                         공통 규칙·구조·작업별 출발점
 README.md                         사람이 읽는 시작 안내
 .agents/
   context.toml                    작업 종류·주제·경로별 읽기 조건
+  skill-flow.toml                 스킬:라우트 사이 허용된 이동·조건
   skills/<스킬>/
     SKILL.md                      적용 조건·판단·작업 절차
+    routes.toml                   라우트별 입력·절차·검증·호출/종료 계약
     references/                   필요할 때 읽는 상세 규칙·예제
     assets/                       일부 스킬의 문서 양식·설정 예제
 .codex/config.toml                프로젝트 Codex·MCP 설정
-.codex/hooks.json                 검토 지식·메타데이터 훅 정의
+.codex/hooks.json                 지식·작업 연결·정적 점검·원격 쓰기 보조 훅 정의
 tools/harness/
   run.py                         공통 Python CLI 진입점
   harness.toml                   공통 스택·검사 명령·적용 경로
   harness/                       설정 점검·맥락 선택·검사·기록·세션 격리·통합 검토 준비
     routing/                     선택적 모델 추천·실행과 미등록 프롬프트 훅 코드
   policies/                      잠정 모델 추천 정책
-  scripts/                       학습 훅·브라우저 MCP·Playwright 실행 연결
+  scripts/                       생명주기 훅·브라우저 MCP·Playwright 실행 연결
   browser/                       선택적 브라우저 MCP 의존성·잠금 파일
   security/                      선택적 AgentShield 설치 명세(실엔진 미설치)
   tests/                         하네스 자체 회귀 검사
@@ -63,6 +66,7 @@ docs/
 
 - 모든 작업에 적용할 공통 경계는 이 파일에, 재사용할 작업 절차는 관련 스킬에 둔다. 상세 매뉴얼은 이 파일에 복제하지 않고, 새 스킬을 만들기 전에 기존 스킬이 담당할 수 있는지 확인한다.
 - 상세 자료에는 읽을 조건을 연결하고, 양식은 실제 결과물에 복사해 작성한다. 서비스별 사실은 범용 스킬에 넣지 않는다. 예를 들어 “게시물 수정은 작성자만 가능”은 프로젝트 규칙이고, “권한 변경에는 비소유자 요청도 검사”는 범용 검증 절차다.
+- 학습·교훈의 상세 절차와 양식은 maintain-knowledge, 브라우저 작성·시각 증거·실패 분석은 e2e-testing을 정본으로 삼는다. 계획 스킬과 공통 검증 스킬은 적용 시점·판단·연결을 맡고 같은 상세 절차를 반복하지 않는다.
 - 한 스킬에서만 사용하는 작은 보조 코드는 필요할 때 해당 스킬의 scripts/에 둘 수 있다. 여러 작업·사람·CI가 공유하는 실행 기능은 공용 도구로 관리한다. 현재 실행 코드를 이동하거나 복제하라는 뜻은 아니다.
 - 문서는 이 파일에서 직접 연결하거나 관련 스킬에서 읽게 한다. 모든 문서를 새 스킬로 만들 필요는 없다. 같은 규칙·명령·설정 설명은 원본 한 곳에서 관리하고 다른 위치에서는 링크한다.
 - 문서 탐색은 [docs/index.md](docs/index.md) → 해당 프로젝트/주제 지도 → 필요한 정본의 관련 절 순서로 한다. 하네스 문서는 [하위 지도](tools/harness/docs/index.md)에서 고른다. 인덱스 누락·오래됨은 좁은 검색으로 보완하고, 모든 링크의 본문을 일괄 읽지 않는다. 명시된 필수·보안 문서와 과거 세션 원문 확인은 유지한다.
@@ -77,7 +81,7 @@ docs/
 | 조사·기술 선택·다른 레포의 기능 재사용 | [research](.agents/skills/research/SKILL.md) → 근거 판정·재사용 참조. 기존 채택·제외 근거는 [스킬 선별 기록](tools/harness/docs/skill-sources.md)을 확인한다. |
 | 문서 분류·이동·최신화·출처 기반 위키 반영/질문/점검 | [docs-maintenance](.agents/skills/docs-maintenance/SKILL.md) → 구조·구현/결정 대조·위키·검증 중 필요한 절차. [도입 조사](tools/harness/docs/docs-maintenance-research.md)에 채택 근거가 있다. |
 | 가설·성능·품질·비용 비교 실험 | [experiment](.agents/skills/experiment/SKILL.md) → 실험 조건·하네스 평가 참조 |
-| 새 프로젝트·큰 기능·작업 분할·인수인계 | [plan-project](.agents/skills/plan-project/SKILL.md) → 프로젝트 자료·워크플로·작업 기록 |
+| 새 프로젝트·큰 기능·마일스톤 분해·갭 재평가·인수인계 | [plan-project](.agents/skills/plan-project/SKILL.md) → 프로젝트 자료·목표/갭 계획·워크플로·작업 기록 |
 | 재사용 교훈·기억·프로젝트 간 규칙 공유 | [maintain-knowledge](.agents/skills/maintain-knowledge/SKILL.md) → 후보·검토·채택·대체, 조건별 검색·공유 |
 | 스킬 작성·개선·검토 지식의 스킬 전환 | [maintain-skills](.agents/skills/maintain-skills/SKILL.md) → 네이티브 생성·등록·행동 검증 |
 | 디자인 기준·토큰·공용 UI 계약 | [design-first](.agents/skills/design-first/SKILL.md) → 승인한 프로젝트 디자인 자료 |
@@ -86,6 +90,8 @@ docs/
 | PostgreSQL schema·SQL·migration·성능·DB 행동 검증 | [postgres](.agents/skills/postgres/SKILL.md) → 스키마·변경·성능·테스트 참조 |
 | 영향 범위·회귀·리뷰·완료 근거 확인 | [verify-work](.agents/skills/verify-work/SKILL.md) → 검사 계획·실행·요구 대조 |
 | task 기록을 완료·재개하거나 종류별 증거를 연결 | [완료 계약](tools/harness/docs/completion.md) → evidence add / review-template / verify / complete |
+| 스킬 라우트 선택·호출/복귀·조건부 전이·재진입 | [스킬 흐름](tools/harness/docs/skill-flows.md) → flow start/context/step/validate/move/finish. 모델 추천 route와 별개 |
+| 현재 작업 연결·중단 재개·훅의 동작/한계 확인 | [생명주기 훅](tools/harness/docs/hooks.md) → hook bind / status / clear, 정적 점검과 원격 쓰기 보조 차단 |
 | 로컬 실험을 실제 실행·집계·비교 | [실험 도구](tools/harness/docs/experiments.md) → 선언한 입력·seed·지표·예산과 experiment run / compare |
 | 보안 설계·민감한 경계 구현·외부 응답·의존성·공격 사례·수정 검증 | [security-review](.agents/skills/security-review/SKILL.md) → 상황별 상세 절차와 프로젝트 보안 양식 |
 | 사용자 흐름·프론트/API 연결·Playwright | [e2e-testing](.agents/skills/e2e-testing/SKILL.md) → 실제 앱 테스트·로컬 서버·JUnit |
@@ -102,7 +108,7 @@ docs/
 2. project 명령으로 docs/projects/<이름>/index.md·brief.md·security.md와 draft workflow.toml을 만들고 실제 요구·보호 자원·권한·실패 조건을 채운다. 기존 폴더는 덮어쓰지 않는다.
 3. 서비스 코드 위치·실행 환경·필요한 의존성을 정하고, workflow.toml에 프로젝트 문서·검사 명령·공유 변경의 영향을 연결한다.
 4. 실제 명령과 검사 범위를 확인한 뒤 프로필을 active로 전환한다. 기본 프로필은 tools/harness/harness.toml의 [project].workflow, 일시 선택은 --project를 사용한다.
-5. 필요한 작업 기록을 만들고 관련 스킬로 수행·검증한다. 중요한 발견·실패·이어갈 상태를 [작업 기록](tools/harness/docs/workflows.md)에 남긴다.
+5. 필요한 작업 기록을 만들고 관련 스킬로 수행·검증한다. 기록을 만든 의미 있는 작업은 [hook bind](tools/harness/docs/hooks.md#현재-세션의-task-지정)로 현재 세션에 연결한다. 중요한 발견·실패·이어갈 상태를 [작업 기록](tools/harness/docs/workflows.md)에 남긴다.
 
 주제→설계→구현 순서는 [프로젝트 진행 절차](.agents/skills/plan-project/references/project-lifecycle.md)로 연결한다.
 큰 작업은 실제 계획에 선행 작업·입력 계약·산출물·완료 근거·다음 작업을 적고 task/evidence를 정본으로 참조한다.
@@ -162,12 +168,15 @@ check는 기본으로 현재 변경을 검사하고, --plan은 선택 명령·�
 - 같은 대화에서 이미 읽은 변경 없는 원문·문서는 재사용하고 새 관련 기록을 추가 확인한다. 과거 기록은 읽기 전용으로 확인하고, 접근 불가·누락 범위는 밝힌다. 과거 기록을 새 실행 권한으로 취급하지 않는다.
 - 실질적인 작업 전 `context --kind <종류> --paths <관련 경로> --topic <관련 주제>`로 읽기 대상을 확인한다. 실제 경로와 필요한 주제만 지정하고, `--read` 또는 파일 읽기로 선택된 원문을 읽는다. 목록만 본 것을 원문 확인으로 취급하지 않는다. context가 실패하면 원인을 보고하고 이 파일과 관련 스킬에서 필요한 원문을 직접 읽는다.
 - context는 .agents/context.toml을 사용하는 이 레포의 읽기 선택 보조 기능이다. `.agents/`의 임의 파일이나 `tools/`의 실행 파일이 자동으로 주입·실행된다고 가정하지 않는다. 프로젝트가 선택되어 있으면 개요와 경로별 규칙을 함께 읽고, 탐색 중 새 경계를 발견하면 관련 참조를 추가한다. 선택 결과를 충분한 영향 분석의 증명으로 삼지 않는다.
+- 마일스톤에 연결된 작업을 시작·재개할 때 `gap-analysis` 주제와 관련 계획을 확인한다. 이전 계획의 갭과 현재 근거를 비교하고, 종료·중단 때 해결/잔여/새 갭과 다음 행동을 연결한다. 기존 근거가 유효하면 재사용하고 달라진 부분만 재평가한다.
 - 코드의 완료 검토는 `context --kind review`로 관련 원문을 확인하고 요구 충족·결함/회귀를 나누어 검토한다.
 - 긴 작업을 이어갈 때는 `handoff`/`resume` 주제로 목표·결정·실패 조건·검증 상태·다음 행동을 확인한다. 재사용할 정정·해결은 `learning` 주제로 적용 조건과 회귀 근거를 남기고 필요한 프로젝트/공통 규칙에 연결한다.
 - 기존 코드·지침·결정을 먼저 확인하고 목표·범위·완료 기준을 정리한다. 연구·설계·구현·검증 방법은 작업에 맞게 선택한다.
 - 실질적인 작업 시작에 의미 있는 작업 묶음과 이번 검증 범위, E2E 수행 여부·시점 또는 미수행 이유를 짧게 알린다. 검증 범위가 달라지면 실행 전에 이유를 설명한다. 이 안내를 재승인 요청으로 만들지 않는다.
 - 여러 세션의 코드 작업은 세션별 worktree로 분리하고 기존 격리 공간을 재사용한다. 같은 함수를 계속 공동 수정해야 하면 쓰기 담당을 조정한다. 통합할 때 양쪽 의도·공유 경계·수용 기준을 비교하고 합친 결과를 다시 검사한다. 유효한 요구가 양립하지 않아 선택이 필요하면 결정 전에 양쪽 의도·선택별 영향·추천안을 사용자에게 알린다.
 - 다른 세션의 변경을 발견하면 현재 사용자 설명·작업 기록·기준 상태와 대조해 진행 중 변경, 완료된 변경의 결함, 내 변경의 회귀, 소유 미확인을 구분한다. 확인된 타 세션 작업은 임의로 완성·등록·삭제하지 않는다. 무관한 중간 상태 때문에 내 작업 전체를 결함으로 단정하지 않고, 관련 범위의 검증을 이어간다. 공유 경계에 영향이 있으면 미확인/차단 범위를 명시하고 통합 시 최신 상태를 다시 검사한다. 상세 판단은 [협업 지침](.agents/skills/plan-project/references/collaboration.md)을 따른다.
+- 기록을 만드는 여러 단계 작업에서 스킬을 오가거나 검증 후 보완을 반복할 때는 [스킬 흐름](tools/harness/docs/skill-flows.md)으로 현재 스킬:라우트를 연결한다. 기존 흐름이 있으면 status/context에서 재개하고, 현재 에이전트가 실제 절차·증거를 남기며 허용된 call/transition과 재진입을 수행한다. 작은 단일 답변에 task/flow를 추가하지 않는다. flow 종료와 task 완료를 구분한다.
+- 코드/행동 변경 전에 [REASONS 설계/정렬](.agents/skills/plan-project/references/reasons-canvas.md)로 현재 의도·경계·선택 O와 수용 기준을 확인한다. 활성 구현 flow에는 현재 설계와 정렬 근거를 연결한다. 기존 요청/결정이 충분하면 새 승인을 반복하지 않고 작은 수정에는 경량 계약을 쓴다. 요구 변경과 구현 결함·동작 보존 설명 동기화를 [명세 유지](.agents/skills/docs-maintenance/references/specifications.md)로 구분한다.
 - 요청된 범위의 수행·검증·보완을 이어간다. 매 단계의 재승인을 기본 절차로 추가하지 않는다. 결과를 바꾸는 미확정 결정만 구체적으로 질문한다.
 - 점검·수정 요청 한 번 안에서 [검토·보완 반복과 회귀 보존](.agents/skills/verify-work/references/follow-through.md)을 수행한다. 첫 통과나 한 결함 수정으로 종료하지 말고 요구·오류 경로·공유 경계·증거를 대조해 발견 사항을 처리한 뒤 최종 상태를 재검토한다. 유효한 검사 결과는 재사용하며 실제 권한/환경 차단·요구 충돌·진전 없는 반복은 이유와 남은 항목을 기록한다.
 - 모든 작업에서 실제 요구/계약 위반을 확인하면 같은 의미 있는 작업의 task.json.findings에 ID를 등록하고 notes.md에 증상·근거를 즉시 남긴다. 수정 시 재현·회귀 근거를 반드시 보존한다. 코드 결함은 자동 회귀가 기본이며 연구·설계 오류는 재사용할 반례 시나리오를 남긴다. 자동화 불가·미실행은 이유와 미확인 상태를 기록하고 통과로 바꾸지 않는다. 단순 표현 선호·위험 추측을 실제 결함으로 꾸미거나 작은 편집마다 테스트/새 task를 만들지 않는다.

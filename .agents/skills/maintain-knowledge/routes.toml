@@ -1,0 +1,22 @@
+version = 1
+
+[[routes]]
+name = "learning"
+when = "반복 실패·정정·해결의 적용 조건을 교훈으로 정리할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/maintain-knowledge/references/learning.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "원문·날짜·실패/정정의 원인을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "적용/제외 조건과 기존 규칙의 중복을 검토한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "범위에 맞는 catalog·지침 연결과 근거를 확인한다"
+

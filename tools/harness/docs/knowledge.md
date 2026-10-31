@@ -53,10 +53,6 @@ catalog와 bundle의 한도는 각각 2 MiB다. 저장·내보내기는 들여�
 
 ## Codex 훅
 
-.codex/hooks.json에는 SessionStart(startup/resume/compact), PreCompact, Stop 학습 훅을 유지한다. UserPromptSubmit 라우팅 훅 등록은 제거했으며 [자동 연결은 보류](execution.md#일반-codex-대화창의-자동-호출)했다.
-현재 CLI 0.166.0의 hooks feature와 [공식 계약](https://learn.chatgpt.com/docs/hooks)을 확인했다.
+이벤트·현재 작업 연결·저장 범위·실제 실행의 신뢰 조건은 [생명주기 훅](hooks.md)을 따른다. UserPromptSubmit 라우팅 훅 등록은 제거했으며 [자동 연결은 보류](execution.md#일반-codex-대화창의-자동-호출)했다.
 SessionStart는 기본 workflow의 프로젝트/공통 범위에서 kind=plan 또는 learning/resume에 맞는 현재 채택 지식 최대10개를 안내한다. lesson·적용·제외 조건은 함께 전달하고, 전체8,000자 한도에 맞지 않으면 원문 조회 명령을 전달한다. Codex 자체의 출력 제한은 별도로 적용된다.
-PreCompact/Stop은 정렬된 task.json 최대100개 중 미완료 작업의 경로·상태·해시만 .runtime/knowledge-events에 기록한다. 해당 세션이 소유한 작업을 자동 판별하거나 전체 작업 내용을 복원하는 기능은 아니다.
-이 세 학습 훅은 대화 요약·교훈 추출·도구 입출력 수집·추가 모델 호출을 실행하지 않는다. 의미 있는 결정/실패는 에이전트가 notes와 knowledge에 남긴다. Stop은 계속 작업하라는 요청을 반환하지 않는다.
-공식 런타임은 새 non-managed 훅 정의의 검토·신뢰를 요구한다. /hooks에서 검토하기 전 자동 실행됐다고 하지 않는다.
-stdin 계약 테스트와 실제 Codex 이벤트 발생은 다른 증거다. 출력·형식 오류가 작업 차단을 보장하지 않는다.
+PreCompact는 기존 최대100개 task의 메타데이터 경로를 유지하고, Interrupt/Stop은 명시적으로 연결한 task만 기록한다. 대화 요약·교훈 추출·도구 입출력 수집·추가 모델 호출은 하지 않는다. 의미 있는 결정/실패는 작업자가 notes와 knowledge에 남긴다.

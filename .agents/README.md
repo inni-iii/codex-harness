@@ -11,7 +11,8 @@ Codex의 공통 시작 규칙은 루트 [AGENTS.md](../AGENTS.md)에 있다.
 | `skills/<이름>/assets/` | 해당 작업에 사용하는 문서 양식·설정 예제 |
 | `context.toml` | 작업 종류·주제·경로에 따른 읽기 제안 |
 
-프로젝트 개요·워크플로·결정·학습·인수인계 양식은 [plan-project/assets](skills/plan-project/assets)에 있다.
+프로젝트 개요·워크플로·결정·인수인계 양식은 [plan-project/assets](skills/plan-project/assets)에 있다.
+학습 상세 절차와 양식은 [maintain-knowledge](skills/maintain-knowledge/SKILL.md)에 모은다.
 실험 양식은 [experiment/assets](skills/experiment/assets), 디자인 양식은 [design-first/assets](skills/design-first/assets),
 Playwright 예제는 [e2e-testing/assets](skills/e2e-testing/assets)에 있다.
 보안 설계·발견·검사 행렬 양식은 [security-review/assets](skills/security-review/assets)에 있다.
@@ -31,3 +32,5 @@ context는 이 레포의 보조 도구이며 Codex의 기본 스킬 발견 기�
 여러 스킬이 공유하는 실행 코드는 [tools/harness](../tools/harness/README.md)에 둔다.
 서비스별 요구·도메인 규칙은 [docs](../docs/README.md)에 둔다.
 [스킬 작성·검증 방법](../tools/harness/docs/skill-authoring.md)은 이 레포에 있으며 개인 전역 skill-creator 설치를 요구하지 않는다.
+
+`skills/<이름>/routes.toml`은 조건별 절차·검증 계약, [skill-flow.toml](skill-flow.toml)은 스킬:라우트 사이의 허용 이동이다. 공용 [스킬 흐름](../tools/harness/docs/skill-flows.md) 실행기가 호출/복귀·전이·재진입 위치를 저장한다. 현재 라우트의 본문만 선택해서 읽는다.

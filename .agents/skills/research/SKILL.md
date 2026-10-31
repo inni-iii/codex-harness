@@ -25,3 +25,5 @@ description: Investigate technical questions or compare tools using primary evid
 예: 검색 라이브러리를 고를 때 데이터 크기·언어·실행 환경부터 확인하고, 기존 도구와 새 후보를 같은 기준으로 비교한다. 인기 순위를 적합성으로 대신하지 않는다.
 지속될 결정은 [결정 템플릿](../plan-project/assets/decision.md), 작업 근거는 [작업 안내](../../../tools/harness/docs/workflows.md)에 연결한다.
 작은 조회에 장문의 보고서나 여러 에이전트를 강제하지 않는다. 실제 참여하지 않은 모델의 합의를 주장하지 않는다.
+
+그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.

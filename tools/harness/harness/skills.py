@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import tempfile
 
-from . import context, knowledge
+from . import context, flow_catalog, knowledge
 from .core import inside, runtime_path
 from .provenance import local_file, sha
 
@@ -43,6 +43,9 @@ def create(root, name, description, body, *, topics=(), kinds=(), paths=()):
     knowledge.safe_text(body)
     knowledge.safe_text(description)
     context.catalog(root)
+    has_flow = (root / flow_catalog.CATALOG).is_file()
+    if has_flow:
+        flow_catalog.load(root)
     folder = inside(root, f".agents/skills/{name}")
     parent = root / ".agents/skills"
     if parent.is_symlink() or (root / ".agents").is_symlink() or folder.exists():
@@ -63,6 +66,8 @@ def create(root, name, description, body, *, topics=(), kinds=(), paths=()):
         fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 0o600)
     except FileExistsError as exc:
         raise ValueError("another skill writer is active") from exc
+    route_kind = rule["kinds"][0] if rule["kinds"] else "review"
+    gated = route_kind in {"implement", "debug"}
     created = False
     try:
         os.close(fd)
@@ -72,13 +77,24 @@ def create(root, name, description, body, *, topics=(), kinds=(), paths=()):
         created = True
         (folder / "SKILL.md").write_text(text)
         validate(folder / "SKILL.md")
+        if has_flow:
+            (folder / 'routes.toml').write_text(
+                'version=1\n[[routes]]\nname="main"\nwhen=' + json.dumps(description, ensure_ascii=False)
+                + '\nkind=' + json.dumps(route_kind) + '\ninputs=' + json.dumps(['request', 'design', 'alignment'] if gated else ['request'])
+                + ('\nentry_checks=["alignment"]' if gated else '') + '\ndocuments=[]\n'
+                  'validation="Compare the requested result and actual evidence using SKILL.md."\n'
+                  'evidence_types=["artifact"]\nrequired_calls=[]\nfinish=true\n'
+                  '[[routes.steps]]\nid="execute"\ninstruction="Perform the scoped procedure in SKILL.md and record actual evidence."\n')
         _replace_text(registry, before + addition)
         context.catalog(root)
+        if has_flow:
+            flow_catalog.load(root)
     except Exception:
         if registry.read_text() == before + addition:
             _replace_text(registry, before)
         if created:
             (folder / "SKILL.md").unlink(missing_ok=True)
+            (folder / "routes.toml").unlink(missing_ok=True)
             folder.rmdir()
         raise
     finally:

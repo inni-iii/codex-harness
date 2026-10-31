@@ -1,0 +1,120 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "세션 범위 Stop 알림·Interrupt 재개·선택적 정적 검사·명백한 원격 쓰기 감지 훅 연결",
+  "status": "complete",
+  "evidence": {
+    "R": {
+      "type": "artifact",
+      "path": "docs/tasks/lifecycle-hooks/result.md",
+      "sha256": "416e5d8bcaeb5c223a37801377900acc2195c483a9d908aa0d87534fe0e3f4cc",
+      "description": "Implementation, stdin smoke observations, discovered boundaries and limitations",
+      "recorded_at": "2026-10-30T23:08:46.916956+00:00"
+    },
+    "B": {
+      "type": "artifact",
+      "path": ".runtime/lifecycle-boundaries-red-report.json",
+      "sha256": "a44018910f66a7ba768ea403446491f8e51f354c00bcc0e57d73b44e07bea4e5",
+      "description": "Actual failed registered run before F1-F3 fixes with unchanged regression test input",
+      "recorded_at": "2026-10-30T23:08:46.920016+00:00"
+    },
+    "G": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/dc63968b685d4908aeb70dd001f52195/checks/06e44aa3122749d78427651067944e26/report.json",
+      "sha256": "600632c24240bf53e8f937a1792cda0766fb65d70779612602eb23753116e19f",
+      "description": "Full fixed-source registered local verification: 332 tests, one skip, no failures",
+      "recorded_at": "2026-10-30T23:08:46.922979+00:00",
+      "check": "python"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/lifecycle-hooks/review.json",
+    "sha256": "c9ad0f7728dffdba778249eacc1781f9584c28c52fd8d43ad49f253d6acda7c0"
+  },
+  "findings": [
+    "F1",
+    "F2",
+    "F3"
+  ],
+  "created_at": "2026-10-30T22:55:08.875175+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".codex/hooks.json",
+    "tools/harness/harness/lifecycle_hooks.py",
+    "tools/harness/harness/hook_sessions.py",
+    "tools/harness/harness/remote_guard.py",
+    "tools/harness/harness/knowledge_hooks.py",
+    "tools/harness/harness/cli.py",
+    "tools/harness/scripts/knowledge-hook.py",
+    "tools/harness/tests/test_lifecycle_hooks.py",
+    "tools/harness/tests/test_routed_execution.py",
+    "tools/harness/docs/hooks.md",
+    "related instruction, context and document links"
+  ],
+  "constraints": [
+    "No model/network/remote command execution or global trust changes",
+    "No automatic routing, continuation, package installation or application tests in hooks",
+    "Native host activation is separate from local stdin verification"
+  ],
+  "decisions": [
+    "Explicit per-session task binding; no inference from unrelated tasks",
+    "Existing evidence assessor and static check functions; metadata-only private storage"
+  ],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "Stop은 연결한 작업만 검토하고 같은 누락 알림을 반복하거나 작업을 자동 재개하지 않는다",
+      "method": "Bound/unbound/session-isolated Stop tests and same-source runtime evidence mutation",
+      "status": "passed",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "Interrupt가 민감한 원문 없이 중단 메타데이터를 기록하고 SessionStart에서 재개 안내한다",
+      "method": "Interrupt payload exclusion, resume link and held-lock regression",
+      "status": "passed",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "PostToolUse는 변경된 지침/설정/문서만 선별해 로컬 정적 검사를 재사용하고 모델/전체 테스트를 실행하지 않는다",
+      "method": "Selective cache/config/race tests plus actual stdin doctor/agent-config smoke",
+      "status": "passed",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "PreToolUse는 명시적 원격 쓰기와 업로드를 감지하며 읽기/다운로드를 허용하고 실제 원격 명령을 실행하지 않는다",
+      "method": "Pure command classifier read/write/options/redirect/SFTP matrices; no remote execution",
+      "status": "passed",
+      "evidence": [
+        "B",
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A5",
+      "condition": "공식 이벤트 계약·CLI·문서·등록 검사와 라우팅 미등록 상태를 유지한다",
+      "method": "Registered full local checks, CLI/stdin contracts and document links",
+      "status": "passed",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    }
+  ],
+  "next_action": "Local implementation and verification complete. When using native hooks, review current definitions in Codex /hooks; preserve original task notes for future work.",
+  "completed_at": "2026-10-30T23:09:01.691167+00:00"
+}

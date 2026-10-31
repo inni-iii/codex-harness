@@ -1,0 +1,156 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "스킬별 라우트 계약과 call/return·transition·재진입 그래프를 구현하고 조건/검증/대기/반복을 제어한다",
+  "status": "complete",
+  "evidence": {
+    "OWN": {
+      "type": "artifact",
+      "path": ".runtime/skill-route-graph/implementation.json",
+      "sha256": "ba5c63fb7fade41444f533e2a08a7dcba6ca99fe709a8ca112add0bc07e358b7",
+      "description": "통합된14개 스킬·27개 라우트·72개 경로와 변경 파일 해시/검증 범위",
+      "recorded_at": "2026-10-30T23:33:59.428143+00:00"
+    },
+    "TARGET": {
+      "type": "artifact",
+      "path": ".runtime/skill-route-graph/targeted.log",
+      "sha256": "2bc426be7984b56d90a8dae49b64c880ef58f4da0adbd4d38f0f7bc80c8f6baf",
+      "description": "격리 상태에서 새31개 제어 시나리오 실제 통과 로그",
+      "recorded_at": "2026-10-30T23:33:59.430330+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/c9cfdb80753944e69faeb97f696d0ba1/checks/4f2e7af7caa146fb9d0bdcc22c57d750/report.json",
+      "sha256": "e10bb0f6d5721fae9b2dec5c5ab0e9ee65a480d85e05389b903f1b1cac6f00c8",
+      "description": "통합 snapshot의 실제373개 회귀: 실패0·환경skip1, doctor/agent-config/secret-patterns 통과",
+      "recorded_at": "2026-10-30T23:35:21.298910+00:00",
+      "check": "python"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/skill-route-graph/regression-red/source/.runtime/checks/ad47bb93b4454bd3a418ad96e451734b/report.json",
+      "sha256": "6d7904cd62d6e5e84d078e1cbe9c3466b3337e5e7f75c51d015ab7b5ccefa745",
+      "description": "격리 초기 구현의 실제31개 검사 중4실패: G1 실패맥락/반환 계약2사례, G2 입력 변경, G3 절차 변경",
+      "recorded_at": "2026-10-30T23:35:21.450697+00:00"
+    },
+    "SELF": {
+      "type": "artifact",
+      "path": ".runtime/skill-route-graph/self-run.json",
+      "sha256": "efce305de8df371c056a8538dccabb03813a77a9e769c8acba2ed4728814f218",
+      "description": "현재 작업에서 실제 maintain-skills→verify-work 호출/복귀→docs sync/validation 호출/복귀→index→finished를 수행한 상태·이력",
+      "recorded_at": "2026-10-30T23:35:36.381406+00:00"
+    },
+    "CONTEXT": {
+      "type": "artifact",
+      "path": ".runtime/skill-route-graph/selected-context.json",
+      "sha256": "25d492c2c3ad143c2c02ff03117bab5a304adeebeff97c00f3d8d5aea4207539",
+      "description": "현재 라우트 절차·필수 지침/인덱스/보안을 읽고 출구 대상은 메타데이터만 선택한 실제 context",
+      "recorded_at": "2026-10-30T23:35:36.383973+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/skill-route-graph/review.json",
+    "sha256": "4fe7a6c61638869c82d4929f763a94574d2db6e9baa8491ab8c91324fac213b5"
+  },
+  "findings": [
+    "G1",
+    "G2",
+    "G3"
+  ],
+  "created_at": "2026-10-30T23:17:44.115066+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents/README.md",
+    ".agents/context.toml",
+    ".agents/skill-flow.toml",
+    ".agents/skills/design-first/SKILL.md",
+    ".agents/skills/design-first/routes.toml",
+    ".agents/skills/docs-maintenance/SKILL.md",
+    ".agents/skills/docs-maintenance/routes.toml",
+    ".agents/skills/e2e-testing/SKILL.md",
+    ".agents/skills/e2e-testing/routes.toml",
+    ".agents/skills/experiment/SKILL.md",
+    ".agents/skills/experiment/routes.toml",
+    ".agents/skills/maintain-knowledge/SKILL.md",
+    ".agents/skills/maintain-knowledge/routes.toml",
+    ".agents/skills/maintain-skills/SKILL.md",
+    ".agents/skills/maintain-skills/routes.toml",
+    ".agents/skills/plan-project/SKILL.md",
+    ".agents/skills/plan-project/routes.toml",
+    ".agents/skills/postgres/SKILL.md",
+    ".agents/skills/postgres/routes.toml",
+    ".agents/skills/python-backend/SKILL.md",
+    ".agents/skills/python-backend/routes.toml",
+    ".agents/skills/research/SKILL.md",
+    ".agents/skills/research/routes.toml",
+    ".agents/skills/security-review/SKILL.md",
+    ".agents/skills/security-review/routes.toml",
+    ".agents/skills/setup-environment/SKILL.md",
+    ".agents/skills/setup-environment/routes.toml",
+    ".agents/skills/svelte-frontend/SKILL.md",
+    ".agents/skills/svelte-frontend/routes.toml",
+    ".agents/skills/verify-work/SKILL.md",
+    ".agents/skills/verify-work/routes.toml",
+    "AGENTS.md",
+    "docs/tasks/index.md",
+    "tools/harness/README.md",
+    "tools/harness/docs/architecture.md",
+    "tools/harness/docs/index.md",
+    "tools/harness/docs/skill-authoring.md",
+    "tools/harness/docs/skill-flows.md",
+    "tools/harness/harness.toml",
+    "tools/harness/harness/cli.py",
+    "tools/harness/harness/doctor.py",
+    "tools/harness/harness/flow_catalog.py",
+    "tools/harness/harness/flow_cli.py",
+    "tools/harness/harness/skill_flows.py",
+    "tools/harness/harness/skills.py",
+    "tools/harness/tests/test_skill_flows.py"
+  ],
+  "constraints": [
+    "기존 미커밋 변경·별도 worktree 보존",
+    "모델 추천 라우팅과 분리, 자동 외부 실행·커밋·푸시·원격 쓰기 없음",
+    "docs index와 task/evidence 정본 재사용"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "14개 스킬의 라우트가 등록되고 선택한 절차와 나갈 수 있는 경로만 읽는다",
+      "method": "실제 CLI/상태 전이·증거 변경 시나리오와 등록·문서·기존 회귀를 대조",
+      "status": "passed",
+      "evidence": [
+        "OWN",
+        "CONTEXT",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "call 복귀·transition·steps_complete/user_choice/reason 조건과 검증 실패 재진입을 실제 상태로 제어한다",
+      "method": "실제 CLI/상태 전이·증거 변경 시나리오와 등록·문서·기존 회귀를 대조",
+      "status": "passed",
+      "evidence": [
+        "TARGET",
+        "SELF",
+        "GREEN",
+        "OWN"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "task/evidence 재사용·근거 변경 감지·사용자 대기·진전 없는 반복·저장 무결성 경계와 기존 동작을 검증한다",
+      "method": "실제 CLI/상태 전이·증거 변경 시나리오와 등록·문서·기존 회귀를 대조",
+      "status": "passed",
+      "evidence": [
+        "GREEN",
+        "RED",
+        "OWN"
+      ]
+    }
+  ],
+  "next_action": "통합 소스에서 새 flow 자체의 호출·복귀·문서 검증을 진행하고 전체 검사·기준별 리뷰로 닫는다.",
+  "completed_at": "2026-10-30T23:36:13.546501+00:00"
+}

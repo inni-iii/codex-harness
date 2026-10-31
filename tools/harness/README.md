@@ -25,7 +25,7 @@ python3 tools/harness/run.py chat --help
 | `route_prompt.py` | 미등록 상태로 보관한 UserPromptSubmit 훅 코드 |
 | `harness.toml` | 검사 명령·적용 경로·기본 프로젝트 프로필 선택 |
 | `policies/` | 잠정 모델 추천 기준 |
-| `scripts/` | 학습 훅·브라우저 MCP·프로젝트 로컬 Playwright runner 연결 |
+| `scripts/` | 생명주기 훅·브라우저 MCP·프로젝트 로컬 Playwright runner 연결 |
 | `browser/` | 선택적 Playwright MCP 패키지와 잠금 파일 |
 | `security/` | 선택적 AgentShield 설치 명세. 배포본/잠금·실엔진 검증은 미확인 |
 | `tests/` | 하네스 자체 동작과 경로 이동의 회귀 검사 |
@@ -38,10 +38,12 @@ python3 tools/harness/run.py chat --help
 
 상세 안내: [구조](docs/architecture.md), [검증](docs/verification.md),
 [로컬 보안](docs/security.md), [스킬 관리](docs/skill-authoring.md),
-[학습·공유](docs/knowledge.md), [프로젝트 의존성](docs/environment.md),
+[학습·공유](docs/knowledge.md), [생명주기 훅](docs/hooks.md), [프로젝트 의존성](docs/environment.md),
 [프로젝트 워크플로](docs/project-workflows.md), [설치와 외부 도구](docs/tools.md), [모델 추천](docs/usage.md).
 선택 도구의 실행 계약·자동 연결 보류·관측 한계는 [모델 실행](docs/execution.md)을 따른다.
 
 2026-10-31에 루트에 흩어져 있던 하네스 코드·설정·정책·테스트·설명서를 이곳으로 모았다.
 이전 Python 모듈명과 scripts/harness.py 대신 run.py 하위 명령을 사용한다.
 스킬 전용 양식은 각 스킬의 assets에, 서비스 자료와 작업 기록은 루트 docs에 모았다.
+
+스킬의 조건별 절차·호출/복귀·전이·재진입을 기록하는 `flow` 사용법은 [스킬 흐름](docs/skill-flows.md)을 따른다. `flow catalog`로 스킬:라우트와 허용된 경로를 확인하고 `flow context <실행ID> --read`로 현재 절차만 읽는다. 모델 추천 `route` 명령과 별개다.

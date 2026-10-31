@@ -5,7 +5,7 @@ import sys
 
 root = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(root / "tools/harness"))
-from harness.knowledge_hooks import main
+from harness.lifecycle_hooks import main
 
 if __name__ == "__main__":
     raise SystemExit(main(root))

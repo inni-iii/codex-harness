@@ -32,8 +32,9 @@ Svelte 프론트와 Python API를 연결하는 기능에서는 실제 연결을 
 | 새 E2E 시나리오·정상/오류/경계·mock 범위 | [시나리오와 데이터](references/scenarios.md) |
 | 기능 묶음·검증 시점·사전 안내 | [검증 경계](../verify-work/references/checkpoints.md) |
 | Playwright 설치·서버·설정·하네스 명령 연결 | [실행 설정](references/setup.md) |
+| 실제 Playwright 테스트 작성·응답 대기·assertion | [작성 예시](references/writing.md) |
 | 느린 응답·불안정 실패·trace·재시도 | [실패 분석](references/failures.md) |
-| 화면·뷰포트·키보드·시각 비교 | [브라우저 검증](../verify-work/references/browser.md) |
+| 화면·뷰포트·키보드·시각 비교 | [화면과 접근성](references/visual.md) |
 
 새 프로젝트에는 [설정 템플릿](assets/playwright.config.cjs)과 [예시 테스트](assets/example.spec.ts)를 실제 앱에 맞게 옮긴다.
 예시의 경로·label·payload는 프로젝트 계약으로 교체한다. 템플릿 자체를 앱 검사로 등록하지 않는다.
@@ -42,3 +43,5 @@ Svelte 프론트와 Python API를 연결하는 기능에서는 실제 연결을 
 환경 부족·0개 테스트·전체 skip·미등록 E2E를 통과로 보고하지 않는다.
 필수 흐름을 확인하지 못했으면 해당 수용 기준을 미확인으로 남기고 필요한 구성을 보완한다.
 스킬은 테스트 작성/수행 절차이며 별도 에이전트나 원격 테스트 권한을 부여하지 않는다.
+
+그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.

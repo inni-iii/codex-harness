@@ -1,0 +1,194 @@
+{
+  "version": 2,
+  "kind": "research",
+  "goal": "조사한 SPDD/REASONS 원문과 도구를 현재 docs·계획·그래프·증거 하네스에 대조하여 의도/경계 선합의와 양방향 문서화의 보완 설계를 제안한다",
+  "status": "complete",
+  "evidence": {
+    "ARTICLE": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/article.md",
+      "sha256": "2a1ef8b0360aae0d05ae3eb43b715f11b410eebf58451895f74de959ea3425ac",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.511759+00:00",
+      "origin": "https://martinfowler.com/articles/structured-prompt-driven/",
+      "accessed_at": "2026-10-31"
+    },
+    "CANVAS": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/canvas.md",
+      "sha256": "a4e8af367e15b52d59adcfce7bbcdba2b4a587442ef22ceff753a7e0b4bda618",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.514051+00:00",
+      "origin": "https://github.com/gszhangwei/open-spdd/blob/3991ffa2cd6670fdb6f329ca62799ccb96d0e7d9/internal/templates/data/core/spdd-reasons-canvas.md",
+      "accessed_at": "2026-10-31"
+    },
+    "ANALYSIS": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/analysis.md",
+      "sha256": "d678858cf1e83d8050d504ac0ac1e60091eed46f884057bafde34e1df2705b02",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.516696+00:00",
+      "origin": "https://github.com/gszhangwei/open-spdd/blob/3991ffa2cd6670fdb6f329ca62799ccb96d0e7d9/internal/templates/data/core/spdd-analysis.md",
+      "accessed_at": "2026-10-31"
+    },
+    "GENERATE": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/generate.md",
+      "sha256": "96e0498b3c4fbb801baa7a6ab782726c0a64fd4ce3ea9907a9f295b411884170",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.519205+00:00",
+      "origin": "https://github.com/gszhangwei/open-spdd/blob/3991ffa2cd6670fdb6f329ca62799ccb96d0e7d9/internal/templates/data/core/spdd-generate.md",
+      "accessed_at": "2026-10-31"
+    },
+    "SYNC": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/sync.md",
+      "sha256": "2150a45dab359b225813f017f7885ce59408c1e29d9008387579996cede58fe3",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.522332+00:00",
+      "origin": "https://github.com/gszhangwei/open-spdd/blob/3991ffa2cd6670fdb6f329ca62799ccb96d0e7d9/internal/templates/data/core/spdd-sync.md",
+      "accessed_at": "2026-10-31"
+    },
+    "UPDATE": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/prompt-update.md",
+      "sha256": "ffad6c415c807e06a3f9d3f48d9575357c660d9c3651437b09cefa74ddcff714",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.525089+00:00",
+      "origin": "https://github.com/gszhangwei/open-spdd/blob/v0.4.9/internal/templates/data/core/spdd-prompt-update.md",
+      "accessed_at": "2026-10-31"
+    },
+    "ALIGNMENT": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/alignment.md",
+      "sha256": "fbadd201d03562e4da7e87b7da8b9bfe0057ee25a245e30dcb52988951e87a4b",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.527626+00:00",
+      "origin": "https://martinfowler.com/articles/structured-prompt-driven/alignment.html",
+      "accessed_at": "2026-10-31"
+    },
+    "ABSTRACTION": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/abstraction.md",
+      "sha256": "10bcce5f0f6aa0636b184229694bbf7b08cd0f2b623ba866c6ac9f34a33adc20",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.530165+00:00",
+      "origin": "https://martinfowler.com/articles/structured-prompt-driven/abstraction-first.html",
+      "accessed_at": "2026-10-31"
+    },
+    "REVIEW": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/iterative-review.md",
+      "sha256": "d56a6cc38eb7a36cd5824fac64e6f15f0a39b3c50d0c45f45fe570d14da5da40",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.532847+00:00",
+      "origin": "https://martinfowler.com/articles/structured-prompt-driven/iterative-review.html",
+      "accessed_at": "2026-10-31"
+    },
+    "TOOL": {
+      "type": "source",
+      "path": ".runtime/spdd-research/sources/tool.md",
+      "sha256": "37de4fdc91b8b52d6aea3d5ba2f8ee6b2800fb00b82320430d6ffab08b7f816c",
+      "description": "직접 읽은 공개 원문의 범위·관측·버전과 채택 한계",
+      "recorded_at": "2026-10-31T00:10:06.536035+00:00",
+      "origin": "https://github.com/gszhangwei/open-spdd/blob/3991ffa2cd6670fdb6f329ca62799ccb96d0e7d9/cmd/generate.go",
+      "accessed_at": "2026-10-31"
+    },
+    "PROBE": {
+      "type": "artifact",
+      "path": ".runtime/spdd-research/current-gate-observations.json",
+      "sha256": "fe49fe7017cafad2549d61670643056d26498cb585bfe61d44f3bc3d6107672b",
+      "description": "실제 코드의 격리4사례: 설계 없는 직접 구현 진입3개와 의미 게이트 없는 계획 검증1개",
+      "recorded_at": "2026-10-31T00:10:06.548294+00:00"
+    },
+    "PRESERVED": {
+      "type": "artifact",
+      "path": ".runtime/spdd-research/implementation-preservation.json",
+      "sha256": "7939b3ecbe8c8a8e58776ef7fc0978508ff38e3049b80615529cfdd331431dc6",
+      "description": "기존 그래프 구현 때 기록한 스킬/실행기/테스트 해시와 현재를 비교해 조사로 변경하지 않은 범위를 확인",
+      "recorded_at": "2026-10-31T00:10:06.550694+00:00"
+    },
+    "REPORT": {
+      "type": "artifact",
+      "path": ".runtime/spdd-research/report-as-reviewed.md",
+      "sha256": "62f9a950ba9ad8f4299f01f8c956df71b657ec563558c3f803619dd72d450118",
+      "description": "원문/현재 구조 대조·책임/정본·구현 준비 조건·변경 루프·반영 순서·수용12사례와 한계의 당시 보고서",
+      "recorded_at": "2026-10-31T00:10:42.507348+00:00"
+    },
+    "DOCS": {
+      "type": "artifact",
+      "path": ".runtime/spdd-research/doctor.json",
+      "sha256": "4eab8ca1e2ebc21f1cca725523424785d3edffcb564571c19a1c39f81d121263",
+      "description": "현재 연구 문서/인덱스·스킬/설정/링크/기록 정적 doctor 통과; 제품 행동 검증 아님",
+      "recorded_at": "2026-10-31T00:10:42.510305+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/spdd-reasons-research/review.json",
+    "sha256": "886a80caadc23c4a03ae96e92bf02435205205adde0cbdd3d2396c920d27721a"
+  },
+  "findings": [],
+  "created_at": "2026-10-31T00:04:45.293675+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/docs/spdd-reasons-research.md",
+    "tools/harness/docs/index.md",
+    "docs/tasks/index.md"
+  ],
+  "constraints": [
+    "이번 요청은 원문 조사와 현재 구조 대조·보완 설계에 집중하고 제안을 구현됐다고 표시하지 않는다",
+    "모델 추천 라우팅·전역 설치·원격 쓰기·커밋·푸시 없음",
+    "기존 미커밋 변경과 task/evidence·문서 인덱스 정본 보존"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "Thoughtworks 저자 원문과 고정 버전 공개 도구의 REASONS·분석/생성/변경/동기화 계약을 근거와 한계로 구분한다",
+      "method": "저자 원문·고정 commit의 실제 템플릿과 라이선스/지원 설명을 직접 읽고 원문별 주장/한계를 기록",
+      "status": "passed",
+      "evidence": [
+        "ARTICLE",
+        "CANVAS",
+        "ANALYSIS",
+        "GENERATE",
+        "SYNC",
+        "UPDATE",
+        "ALIGNMENT",
+        "ABSTRACTION",
+        "REVIEW",
+        "TOOL",
+        "REPORT",
+        "PROBE"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "현재 하네스의 기존 강점·설계 공백을 실제 코드/문서와 좁은 확인 사례로 대조한다",
+      "method": "현재 SKILL·routes·flow 코드와 격리된 시작/선택 시나리오를 원문으로 대조",
+      "status": "passed",
+      "evidence": [
+        "PROBE",
+        "PRESERVED",
+        "REPORT",
+        "ARTICLE"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "역할 중복·불필요한 승인/문서/설치 없이 단계별 반영안·검증 기준·미결정을 제시한다",
+      "method": "책임·문서 정본·설계 입력 조건·변경 분류·반영 단계와 수용 시나리오를 설계하고 근거를 대조",
+      "status": "passed",
+      "evidence": [
+        "REPORT",
+        "DOCS",
+        "PROBE",
+        "ARTICLE"
+      ]
+    }
+  ],
+  "next_action": "공개 원문·템플릿과 현재 구조를 대조하고 설계 공백 및 구체적인 보완안/검증 시나리오를 작성한다.",
+  "completed_at": "2026-10-31T00:11:13.623175+00:00"
+}

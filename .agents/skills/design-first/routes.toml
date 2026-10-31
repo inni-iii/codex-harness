@@ -1,0 +1,22 @@
+version = 1
+
+[[routes]]
+name = "design"
+when = "화면·상태·디자인 계약을 설계할 때"
+kind = "design"
+inputs = ["request"]
+documents = [".agents/skills/design-first/references/contracts.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "기존 디자인 기준과 사용자 흐름을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "상태·컴포넌트·토큰·접근성 계약을 정한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "첫 구현과 검증이 가능한지 계약을 대조한다"
+

@@ -1,0 +1,143 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "REASONS 설계·정렬 근거와 docs의 변경 분류를 연결하고 모든 구현 라우트 진입에서 최신 설계/검토/범위/미결정을 확인한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/authorization.md",
+      "sha256": "012e6bb9fa750b6120722a0561c81f36568ca2ebd84d2e3f6cd94e061a8ef666",
+      "description": "현재 사용자 지시와 승인된 보완안의 범위/결정 근거",
+      "recorded_at": "2026-10-31T00:26:40.783477+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/reasons-design-gates/design.md",
+      "sha256": "8af4ef16ade363a7fc116f641177ea8caa03e607cad11065cedfdfc4e71c0c9a",
+      "description": "이 구현의7관점·R/O·범위·현재 결정과 기존 조사 정본 연결",
+      "recorded_at": "2026-10-31T00:26:40.785634+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/alignment.json",
+      "sha256": "9307d3114b6bfbd4d277c176f04a78916da445866d66241e4aee92efe06d4466",
+      "description": "현재 설계·scope/수용 조건·사용자 결정 근거의 자체 정렬 검토",
+      "recorded_at": "2026-10-31T00:26:40.788312+00:00"
+    },
+    "OWN": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/implementation.json",
+      "sha256": "3153a565d949316a1ad0cdae5f7a70087c744180c8f346776e19ac1f82e88d57",
+      "description": "통합된14개 스킬·32개 라우트·93개 경로와 현재 구현 파일 SHA",
+      "recorded_at": "2026-10-31T00:26:40.869399+00:00"
+    },
+    "TARGET": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/targeted.log",
+      "sha256": "b056c8065481a26f3068bae140740681a2419489e8b582b0cb4c91c68b7f3618",
+      "description": "격리 구현의34개 경계/정상/실제 기능 흐름 통과 로그",
+      "recorded_at": "2026-10-31T00:26:40.871278+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/0f5aa6b3c6ba4c98a2be531976ce659e/checks/15b56d19098a40cf8d74c968abc83cc1/report.json",
+      "sha256": "5dcd5402355daa386d3d803339508104a19147f769c4952e6e08f4c242a83a13",
+      "description": "현재 통합 snapshot의407개 하네스 회귀: 실패0·환경skip1; 새 준비 조건/정상/실패·실제 기능 사례 포함",
+      "recorded_at": "2026-10-31T00:28:37.847854+00:00",
+      "check": "python"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/regression-red-final/source/.runtime/checks/dc2a8d6ab66e48828a90174f14fe18ca/report.json",
+      "sha256": "b4727e754424b94a476683f2446539c55dbccf93ce332a1403d3ef5f0f444129",
+      "description": "원래 결함 초안에 동일한 안정 회귀3사례를 추가해 R1/R2/R3 실제 실패를 기록한 보고서; 초기28사례 실패도 별도 보존",
+      "recorded_at": "2026-10-31T00:28:38.036980+00:00"
+    },
+    "CONTEXT": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/selected-context.json",
+      "sha256": "95dfb9df3422b23042c63b599872423082ddfe492eec071d5a09f87d2b530953",
+      "description": "현재 스킬·필수 지침/보안/인덱스·바인딩된 설계의 공통 계약/선택 O를 읽는 실제 결과",
+      "recorded_at": "2026-10-31T00:28:38.039818+00:00"
+    },
+    "SELF": {
+      "type": "artifact",
+      "path": ".runtime/reasons-design-gates/self-run.json",
+      "sha256": "064839600d5718e41c7dfcb013ee825b8ffa2d542e9906d84f826743107bafbd",
+      "description": "현재 작업의 새 정렬/구현 진입→검증 호출/복귀→문서 검증→인덱스 종료 실제 상태/이력",
+      "recorded_at": "2026-10-31T00:28:53.974944+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/reasons-design-gates/review.json",
+    "sha256": "0a251663616609b2f4220b5dfa38c338e52a1329a21ef55d508fd77c36bfc4e4"
+  },
+  "findings": [
+    "R1",
+    "R2",
+    "R3"
+  ],
+  "created_at": "2026-10-31T00:15:05.197995+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents",
+    "AGENTS.md",
+    "tools/harness/harness",
+    "tools/harness/tests",
+    "tools/harness/docs",
+    "docs/tasks/index.md",
+    "docs/tasks/reasons-design-gates/design.md"
+  ],
+  "constraints": [
+    "현재 사용자 승인한 조사안 구현; 스킬14개·기존 미커밋 변경/완료 이력·원격 읽기 전용 보존",
+    "모델/셸 자동 실행·권한 확대·전역 설치·커밋·푸시 없음",
+    "기존 승인 재사용·작은 변경의 경량 계약·현재task/evidence/인덱스 정본 유지"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "plan-project와 docs의 분석·설계·정렬·변경 분류·양방향 최신화 및 선택 읽기가 실제 라우트/정본에 연결된다",
+      "method": "실제 라우트/CLI/typed 설계·정렬 근거의 정상/실패/경계, 선택 읽기·기존 회귀와 원문을 대조",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "OWN",
+        "CONTEXT",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "구현 start/move/call/restart와 재개에서 최신 설계·정렬·작업 범위·선행조건을 검사하고 무관한/낡은/막힌 근거를 거부한다",
+      "method": "실제 라우트/CLI/typed 설계·정렬 근거의 정상/실패/경계, 선택 읽기·기존 회귀와 원문을 대조",
+      "status": "passed",
+      "evidence": [
+        "GREEN",
+        "DESIGN",
+        "ALIGN"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "기존 승인 재사용·작은 수정·독립 작업·이전 task 기록과 그래프 의미를 보존하고 실제 정상/실패/경계 시나리오로 검증한다",
+      "method": "실제 라우트/CLI/typed 설계·정렬 근거의 정상/실패/경계, 선택 읽기·기존 회귀와 원문을 대조",
+      "status": "passed",
+      "evidence": [
+        "TARGET",
+        "RED",
+        "SELF",
+        "GREEN",
+        "DESIGN",
+        "ALIGN"
+      ]
+    }
+  ],
+  "next_action": "통합된 설계/정렬 근거에서 실제 유지보수·검증·문서 흐름을 진행하고 전체 검사와 최종 리뷰로 닫는다.",
+  "completed_at": "2026-10-31T00:29:50.425872+00:00"
+}

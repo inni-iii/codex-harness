@@ -1,0 +1,23 @@
+version = 1
+
+[[routes]]
+name = "maintain"
+when = "스킬의 절차·선택 조건을 작성·개선할 때"
+kind = "implement"
+inputs = ["request", "design", "alignment"]
+documents = []
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = ["verify-work:check"]
+finish = false
+entry_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "실제 요청과 기존 스킬의 중복/누락을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "필요한 절차·참조·등록 조건을 보완한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "정상·오류·경계의 실제 사용과 연결을 검증한다"
+

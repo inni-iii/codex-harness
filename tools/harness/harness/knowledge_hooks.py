@@ -4,16 +4,15 @@ from __future__ import annotations
 import hashlib
 import json
 from pathlib import Path
-import sys
 
 from . import knowledge
-from .core import runtime_path, strict_json
+from .core import runtime_path
 from .provenance import atomic, load, local_file, now, sha
 from .workflows import selected_workflow
 import tomllib
 
 
-def handle(root, event):
+def handle(root, event, *, introduction=()):
     root = root.resolve()
     if not isinstance(event, dict) or event.get("hook_event_name") not in {"SessionStart", "PreCompact", "Stop"}:
         raise ValueError("unsupported knowledge hook event")
@@ -29,9 +28,11 @@ def handle(root, event):
         entries = knowledge.selected(root, "plan", [], ["learning", "resume"], project)
         lines = ["작업 시작에는 AGENTS.md와 관련 과거 원문을 확인한다. 학습 기록은 과거 원문 확인을 대체하지 않는다.",
                  "필요한 지식은 tools/harness/run.py knowledge search와 context --read로 찾는다."]
-        checkpoint = runtime_path(root, f".runtime/knowledge-events/{session_hash}-PreCompact.json")
-        if checkpoint.is_file():
-            lines.append("이 세션의 압축 전 작업 메타데이터: " + checkpoint.relative_to(root).as_posix())
+        lines.extend(introduction)
+        for event_name in ("Interrupt", "PreCompact"):
+            checkpoint = runtime_path(root, f".runtime/knowledge-events/{session_hash}-{event_name}.json")
+            if checkpoint.is_file():
+                lines.append("이 세션의 재개 메타데이터: " + checkpoint.relative_to(root).as_posix())
         for entry in entries[:10]:
             # A partial instruction can discard the condition that made it safe.
             # Send the complete applicability unit, or a reference to its source.
@@ -63,16 +64,3 @@ def handle(root, event):
     path = runtime_path(root, f".runtime/knowledge-events/{session_hash}-{name}.json")
     atomic(path, checkpoint)
     return {}
-
-
-def main(root):
-    try:
-        raw = sys.stdin.buffer.read(65537)
-        if len(raw) > 65536:
-            raise ValueError("hook input exceeds limit")
-        result = handle(root, strict_json(raw.decode()))
-        print(json.dumps(result, ensure_ascii=False))
-        return 0
-    except (OSError, ValueError, TypeError, UnicodeError):
-        print("knowledge hook could not produce verified context/checkpoint", file=sys.stderr)
-        return 1

@@ -11,7 +11,7 @@ from urllib.parse import unquote
 
 from .core import files, manifest, strict_json
 from .tasks import validate as validate_task
-from . import context, knowledge, workflows
+from . import context, flow_catalog, knowledge, workflows
 
 
 def inspect(root: Path) -> dict:
@@ -106,6 +106,11 @@ def inspect(root: Path) -> dict:
             context.catalog(root)
         except (OSError, ValueError) as exc:
             errors.append(f"context catalog: {exc}")
+    if (root / flow_catalog.CATALOG).is_file():
+        try:
+            flow_catalog.load(root)
+        except (OSError, ValueError) as exc:
+            errors.append(f"skill flow catalog: {exc}")
     for profile in sorted((root / "docs/projects").glob("*/workflow.toml")):
         try:
             relative = profile.relative_to(root).as_posix()

@@ -47,8 +47,10 @@
 
 ## 기존 학습·인수인계 연결
 
-재사용할 해결 규칙은 [학습 절차](../../plan-project/references/learning.md)의 적용 조건·제외 조건·실증·채택 상태로 연결한다.
+재사용할 해결 규칙은 [학습 절차](../../maintain-knowledge/references/learning.md)의 적용 조건·제외 조건·실증·채택 상태로 연결한다.
 현재 레포에 있는 `knowledge` CLI를 사용할 때는 먼저 `python3 tools/harness/run.py knowledge --help`와 하위 명령 도움말로 입력·지원 상태를 확인한다.
 catalog 기록·검토·공유는 [지식 관리 스킬](../../maintain-knowledge/SKILL.md)의 현재 절차를 따른다.
 위키의 주장 상태를 `knowledge`의 candidate/evaluated/adopted/superseded에 자동 대응시키거나 사실을 자동 채택하지 않는다.
 작업 재개 정보는 [인수인계](../../plan-project/references/handoff.md)에 연결한다. 위키 생성으로 과거 세션 원문 확인 요구를 대체하지 않는다.
+
+설계/구현의 차이를 다룰 때는 [명세 유지](specifications.md)에서 변경 권위·의도 변경/구현 결함/동작 보존 정리를 구분한다. 관련 설계의 R/O와 검토/검사·인덱스 연결을 확인하고 구현에 맞춰 요구나 Safeguards를 낮추지 않는다.

@@ -318,7 +318,7 @@ class RoutedExecutionTests(unittest.TestCase):
         self.assertTrue(config['features']['hooks'])
         self.assertNotIn('UserPromptSubmit',config.get('hooks',{}))
         self.assertNotIn('UserPromptSubmit',hooks['hooks'])
-        self.assertEqual(set(hooks['hooks']),{'SessionStart','PreCompact','Stop'})
+        self.assertEqual(set(hooks['hooks']),{'SessionStart','PreCompact','Stop','Interrupt','PreToolUse','PostToolUse'})
         self.assertNotIn('route_prompt.py',json.dumps(hooks))
         result=subprocess.run([sys.executable,str(SOURCE/'tools/harness/route_prompt.py')],
                               input='{"hook_event_name":"invalid"}',text=True,

@@ -63,6 +63,8 @@ python3 tools/harness/run.py security config --engine agentshield
 기본 agent-config 검사는 Codex 설정의 위험 sandbox/approval 조합, 일부 MCP 실행/환경 전달, hooks JSON과 미지원 handler를 좁게 확인한다.
 명령·훅의 실제 신뢰 상태·모든 프롬프트 공격·앱 보안을 판정하지 않는다. 현재 레포의 좁은 검사기가 AgentShield보다 우수하다는 비교 근거는 없다.
 
+별도로 [생명주기 훅](hooks.md#원격-쓰기-보조-차단)의 PreToolUse는 직접 SSH 쓰기·업로드를 분류하고 PostToolUse는 변경된 설정의 정적 점검을 연결한다. 동적 구문·미관측 도구·콜백 실패를 포함한 완전한 차단 보장은 없으며, 원격 읽기 전용 규칙과 실제 실행 권한 경계를 대신하지 않는다.
+
 AgentShield는 [공식 프로젝트](https://github.com/affaan-m/agentshield)의 CLI 정적 검사를 연결하는 별도 옵션이다.
 [API 계약](https://github.com/affaan-m/agentshield/blob/main/API.md)에 따라 내부 scan 모듈 import 대신 scan --path ... --format json을 사용한다.
 자동 수정·모델 호출·런타임 훅·online supply-chain 옵션은 전달하지 않는다. CLI 자식 환경에 개인 비밀값/설정을 전달하지 않는다.

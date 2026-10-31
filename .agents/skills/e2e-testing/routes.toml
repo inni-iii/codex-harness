@@ -1,0 +1,62 @@
+version = 1
+
+[[routes]]
+name = "run"
+when = "의미 있는 사용자 흐름의 E2E를 작성·실행할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/e2e-testing/references/scenarios.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "실제 사용자 흐름·환경·데이터·경계를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "필요한 E2E를 실제 runner에서 수행한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "정상/실패·실행 수·환경·미실행 범위를 대조한다"
+
+[[routes]]
+name = "visual"
+when = "화면·뷰포트·키보드·시각 증거를 확인할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/e2e-testing/references/visual.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "지원 화면·상태·테마·접근성 기준을 고른다"
+[[routes.steps]]
+id = "execute"
+instruction = "관련 뷰포트·키보드·상태를 확인한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "비교 기준과 실제 화면/행동 근거를 남긴다"
+
+[[routes]]
+name = "failures"
+when = "불안정 E2E의 최초 실패와 원인을 분석할 때"
+kind = "debug"
+inputs = ["request"]
+documents = [".agents/skills/e2e-testing/references/failures.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "최초 로그·trace·환경을 보존한다"
+[[routes.steps]]
+id = "execute"
+instruction = "원인을 구분하고 필요한 재현/수정을 수행한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "관련 재검증과 flaky/skip·미확인을 구분한다"
+

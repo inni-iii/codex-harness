@@ -1,0 +1,23 @@
+version = 1
+
+[[routes]]
+name = "change"
+when = "PostgreSQL schema·SQL·migration을 바꿀 때"
+kind = "implement"
+inputs = ["request", "design", "alignment"]
+documents = [".agents/skills/postgres/references/migrations.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["check"]
+required_calls = ["verify-work:check"]
+finish = false
+entry_checks = ["alignment"]
+[[routes.steps]]
+id = "scope"
+instruction = "현재 schema·불변식·영향과 롤백 범위를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "요청한 SQL/schema 변경과 관련 검사를 준비한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "실제 DB 행동·실패·이행/복구 근거를 확인한다"
+

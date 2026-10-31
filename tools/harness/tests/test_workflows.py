@@ -306,9 +306,9 @@ class ContextTests(ProjectWorkspace):
             self.assertFalse(any(p.endswith('/' + name) for p in selected), name)
 
     def test_review_planning_learning_and_external_call_topics_select_their_procedures(self):
-        cases = [("review", [], "verify-work/references/review.md"),
+        cases = [("review", ["code-review"], "verify-work/references/review.md"),
                  ("plan", [], "plan-project/references/quality-requirements.md"),
-                 ("research", ["learning"], "plan-project/references/learning.md"),
+                 ("research", ["learning"], "maintain-knowledge/references/learning.md"),
                  ("implement", ["observability"], "python-backend/references/observability.md"),
                  ("implement", ["llm"], "python-backend/references/external-calls.md")]
         for kind, topics, file in cases:

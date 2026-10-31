@@ -1,5 +1,5 @@
 {
-  "description": "Reviewed lessons and metadata-only checkpoints; review and trust these definitions in Codex /hooks.",
+  "description": "Local task reminders, interruption metadata, scoped static checks and recognized SSH-write guards. Review these definitions in Codex /hooks.",
   "hooks": {
     "SessionStart": [
       {
@@ -32,7 +32,42 @@
           {
             "type": "command",
             "command": "python3 \"$(git rev-parse --show-toplevel)/tools/harness/scripts/knowledge-hook.py\"",
-            "timeout": 5
+            "timeout": 8
+          }
+        ]
+      }
+    ],
+    "Interrupt": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/harness/scripts/knowledge-hook.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "^(Bash|exec_command)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/harness/scripts/knowledge-hook.py\"",
+            "timeout": 3
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "^(Bash|exec_command|apply_patch|Edit|Write)$",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$(git rev-parse --show-toplevel)/tools/harness/scripts/knowledge-hook.py\"",
+            "timeout": 10
           }
         ]
       }

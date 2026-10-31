@@ -18,3 +18,7 @@ description: Create or improve native repository skills from a concrete workflow
 Git 이력은 후보 근거 중 하나다. 커밋 빈도만으로 좋은 규칙이라고 정하지 않는다.
 커밋이 없으면 요구·코드·검증된 해결 기록을 사용한다. 생성을 위해 커밋·PR·외부 계정 연결을 만들지 않는다.
 원본 지식의 대체·조건 변경을 추적해 생성한 스킬도 유지한다.
+
+그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.
+
+코드/행동 변경 전에는 [설계와 정렬](../plan-project/references/reasons-canvas.md)의 현재 의도·변경 경계·선택 O를 확인한다. 이 구현 flow에는 현재 design/alignment artifact를 연결하며 기존 결정이 충분하면 새 승인 질문을 반복하지 않는다.

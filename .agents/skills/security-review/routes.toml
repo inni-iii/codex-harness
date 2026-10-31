@@ -1,0 +1,42 @@
+version = 1
+
+[[routes]]
+name = "design"
+when = "설계의 보호 자원·권한·신뢰 경계를 검토할 때"
+kind = "design"
+inputs = ["request"]
+documents = [".agents/skills/security-review/references/design.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "보호 자원·주체·신뢰 경계를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "위협·권한·실패 조건과 방어를 대조한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "미결 위험과 실제 검증 방법을 연결한다"
+
+[[routes]]
+name = "review"
+when = "구현의 인증·입력·도구·정보 경계를 검토할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/security-review/references/application.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "요청 흐름과 관련 보안 경계를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "실제 공격/오류 경로와 방어 근거를 확인한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "확인한 결함·수정·회귀·미확인을 구분한다"
+

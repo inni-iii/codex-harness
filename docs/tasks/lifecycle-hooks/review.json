@@ -1,0 +1,167 @@
+{
+  "version": 2,
+  "task_contract": "2e5f3c76e717547a7ecf66e1aca0b73142a612ebf819ea85dedfa2160cd514f4",
+  "evidence_digest": "58e51e32ec93abf5c0290ea7846df415c74698d2f43e2803b9d0d02635625d52",
+  "reviewer": "Codex, implementation author self-review",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "Bound/unbound, cross-session isolation, repeated notice, unavailable task and runtime-evidence-change cases pass. Stop reuses assess and emits only advisory systemMessage; no continuation or completion mutation.",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "Interrupt metadata excludes prompt/tool payload, resume lists its path, and held-lock regression now records independently. Native Interrupt activation is outside this local contract claim.",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "Changed file inventories, config selection, deduplication, stale-during-check and findings sanitization pass. Separate actual stdin smoke called real doctor/agent-config without configured app tests, install, network or model calls.",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "Remote command/options/local redirect, upload vs download, and SFTP batch matrices pass without executing remote commands. Unknown grammar remains undecided and is documented as an auxiliary guard.",
+      "evidence": [
+        "B",
+        "R",
+        "G"
+      ]
+    },
+    {
+      "id": "A5",
+      "decision": "passed",
+      "reason": "All six event definitions and CLI/stdin contracts pass. UserPromptSubmit remains absent. Static checks validate instruction/context/docs links; the central hooks guide states native trust and unsupported-path limitations.",
+      "evidence": [
+        "R",
+        "G"
+      ]
+    }
+  ],
+  "limitations": [
+    "Author self-review, not independent security assessment",
+    "Native host event activation and /hooks trust approval not verified or modified",
+    "Recognized command classifier is not a complete shell/security boundary; callback errors and unobserved tools may bypass it",
+    "Product UI unchanged; browser E2E not applicable. One existing process-group cleanup subcase was skipped because the execution sandbox denies group signals."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "All four authorized lifecycle behaviors, session/private metadata boundaries, official event output shape, local regression and document consumers.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "A1-A5 behavior cases, real stdin static-check smoke and all registered checks passed on integrated source snapshot."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "F1 parser boundaries, F2 changed runtime/malformed task, F3 busy-lock interruption fixed; malformed/oversized/symlink inputs and changed-during-check behavior covered."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "Reuses existing evidence assessor, knowledge PreCompact/SessionStart, doctor and agent-config. CLI/context/docs/registration agree; no restored routing, global trust or remote execution."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "F1-F3 each retain actual failing and passing observations of the same unchanged test file; 332 tests, one existing skip, zero failures in final full run."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "SSH attached options, rsync remote prefix and SFTP batch prefixes missed writes; local redirects confused boundaries",
+        "cause": "Option values and outer shell redirections needed separate parsing from remote payloads",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_lifecycle_hooks.py",
+          "test_id": "test_lifecycle_hooks.RemoteGuardTests.test_attached_ssh_remotecommand_and_rsync_server_prefix_writes_are_denied",
+          "sha256": "67d8dc17fa5103bc9e1fafd2362ced15d883f43ee5fc6dd77103e31c1738a9a3",
+          "check": "python",
+          "before": "B",
+          "after": "G"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "Source-only Stop caching missed changed runtime evidence and malformed task shapes",
+        "cause": "Reassess current evidence each time; cache warning display only and reject non-object task data",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_lifecycle_hooks.py",
+          "test_id": "test_lifecycle_hooks.LifecycleTests.test_stop_notices_changed_runtime_evidence_even_without_source_edits",
+          "sha256": "67d8dc17fa5103bc9e1fafd2362ced15d883f43ee5fc6dd77103e31c1738a9a3",
+          "check": "python",
+          "before": "B",
+          "after": "G"
+        }
+      },
+      {
+        "id": "F3",
+        "summary": "Interrupt metadata was skipped while another callback owned state lock",
+        "cause": "Read last atomic state and write separate Interrupt checkpoint without acquiring state lock",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_lifecycle_hooks.py",
+          "test_id": "test_lifecycle_hooks.LifecycleTests.test_interrupt_still_records_while_another_callback_owns_the_state_lock",
+          "sha256": "67d8dc17fa5103bc9e1fafd2362ced15d883f43ee5fc6dd77103e31c1738a9a3",
+          "check": "python",
+          "before": "B",
+          "after": "G"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2",
+          "F3"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "Boundary review produced actual parser, evidence-cache and busy-interruption failures; preserved full failed report and raw logs.",
+        "evidence": [
+          "B",
+          "R"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2",
+          "F3"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "Same unchanged test cases now pass. Rechecked requirements, failure paths, shared consumers and integrated full snapshot without further scope defects.",
+        "evidence": [
+          "G",
+          "R"
+        ]
+      }
+    ]
+  }
+}

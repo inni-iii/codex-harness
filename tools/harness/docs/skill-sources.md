@@ -43,6 +43,11 @@
 
 ## 2026-10-31 문서 관리·LLM Wiki 추가
 
+후속 스킬 정리에서는 14개 스킬을 유지하고 plan-project의 학습 참조·양식을 maintain-knowledge로 이동했다.
+Playwright 작성·시각/접근성·실패 절차는 e2e-testing에 모으고 verify-work의 browser 참조는 범위·완료 판단과 연결만 담당한다.
+공통 검증 흐름은 유지하며 상세 코드 검증은 실제 경로 또는 code-review/code-verification, 발견·완료는 regression/completion 등 해당 주제로 읽는다.
+이 변경은 스킬 통합이나 검증 생략이 아니라 상세 절차의 소유 위치와 선택 조건 정리다. 과거 아래 단계의 경로·개수는 당시 기록이다.
+
 사용자 요청으로 공개 스킬·공식 문서를 병렬 조사하고 [docs-maintenance](../../../.agents/skills/docs-maintenance/SKILL.md)를 추가했다.
 이번 문서 스킬은 직전 10개 구성에 추가했다. 아래 10/9/8/7개 표기는 각 단계의 이력이며 현재 전체 수는 실제 스킬과 context 등록에서 확인한다.
 문서 구조·구현/결정 최신화·위키의 ingest/query/lint·변경 검증을 조건별 참조로 나눴다.

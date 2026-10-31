@@ -12,14 +12,14 @@ AGENTS.md                         공통 작업 규칙과 시작 안내
     references/                   상세 규칙·예제·실패 조건
     assets/                       해당 스킬의 양식·설정 예제
 .codex/config.toml                Codex MCP·훅 기능 설정
-.codex/hooks.json                 학습·메타데이터 생명주기 훅
+.codex/hooks.json                 지식·작업 연결·정적 점검·원격 쓰기 보조 훅
 tools/harness/                   하네스 구현을 모은 위치
   run.py                         모든 Python 명령의 진입점
   harness.toml                   스택·검사 명령·적용 경로
   harness/                       점검·맥락 선택·검사·기록 생성
     routing/                     모델 목록·분류·추천·실행·프롬프트 인수인계
   policies/                      잠정 모델 추천 정책
-  scripts/                       학습 훅·브라우저 MCP·Playwright 연결
+  scripts/                       생명주기 훅·브라우저 MCP·Playwright 연결
   browser/                       선택적 브라우저 MCP 의존성
   security/                      선택적 AgentShield 설치 명세(실엔진 미설치)
   tests/                         하네스 자체 회귀 검사
@@ -55,8 +55,11 @@ docs/
 | --- | --- |
 | [run.py](../run.py), [harness/cli.py](../harness/cli.py) | 공통 진입점·하위 명령·출력 |
 | [harness/core.py](../harness/core.py), [harness/doctor.py](../harness/doctor.py) | 경로·설정·소스 상태와 정적 점검 |
+| [harness/reasons.py](../harness/reasons.py) | [설계 진입 계약](reasons.md). Markdown REASONS·선택 R/O·현재 정렬·범위/미결정과 근거를 검사한다. 의미적 합의는 검토자가 판단한다. |
+| [harness/flow_catalog.py](../harness/flow_catalog.py), [harness/skill_flows.py](../harness/skill_flows.py), [harness/flow_cli.py](../harness/flow_cli.py) | [스킬 흐름](skill-flows.md). 스킬:라우트의 계약·호출/복귀·조건부 전이·재진입과 지속 위치를 관리한다. 실제 작업·내용 판단은 현재 에이전트가 수행한다. |
 | [harness/context.py](../harness/context.py) | 작업 종류·주제·경로에 맞는 읽기 자료 선택 |
-| [harness/knowledge.py](../harness/knowledge.py), [harness/knowledge_hooks.py](../harness/knowledge_hooks.py) | [학습·공유 계약](knowledge.md). catalog를 CLI에서 검토하고 context/SessionStart가 현재 증거를 가진 항목을 읽는다. .codex/hooks.json → [scripts/knowledge-hook.py](../scripts/knowledge-hook.py)가 안내·메타데이터 기록으로 연결된다. |
+| [harness/knowledge.py](../harness/knowledge.py), [harness/knowledge_hooks.py](../harness/knowledge_hooks.py) | [학습·공유 계약](knowledge.md). catalog를 CLI에서 검토하고 context/SessionStart가 현재 증거를 가진 항목을 읽는다. 기존 지식 안내·압축 전 메타데이터를 담당한다. |
+| [harness/lifecycle_hooks.py](../harness/lifecycle_hooks.py), [harness/hook_sessions.py](../harness/hook_sessions.py), [harness/remote_guard.py](../harness/remote_guard.py) | [생명주기 훅 계약](hooks.md). .codex/hooks.json → [scripts/knowledge-hook.py](../scripts/knowledge-hook.py)에서 이벤트를 분기한다. 세션별 명시적 task 연결·중단/종료 기록·변경 후 정적 점검·직접 원격 쓰기 분류를 맡는다. |
 | [harness/skills.py](../harness/skills.py) | [스킬 작성 계약](skill-authoring.md). maintain-skills → skill create/from-knowledge → SKILL.md와 context 등록. 적용 판단·본문 작성·품질 검토는 에이전트가 맡는다. |
 | [harness/environment.py](../harness/environment.py) | [환경 계약](environment.md). setup-environment → environment inspect/install → 선언/lock 확인·명시적인 고정 설치. setup은 읽기 전용 inspect만 호출한다. |
 | [harness/agent_config.py](../harness/agent_config.py) | [설정 감사 계약](security.md#codex-설정과-선택적-agentshield). security-review → security config. 기본 agent-config 등록 검사와 별도 AgentShield 옵션을 구분한다. |

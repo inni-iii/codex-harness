@@ -1,0 +1,22 @@
+version = 1
+
+[[routes]]
+name = "run"
+when = "선언된 가설·입력·예산에서 실험을 수행할 때"
+kind = "experiment"
+inputs = ["request"]
+documents = []
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["experiment", "artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "가설·기준선·입력·지표·예산을 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "허용된 로컬 프로토콜과 반복을 실제 수행한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "실패를 포함한 집계·품질 하한·결론의 한계를 대조한다"
+

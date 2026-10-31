@@ -1,0 +1,202 @@
+version = 1
+
+[[routes]]
+name = "navigation"
+when = "인덱스로 질문에 맞는 원문만 선택해서 읽을 때"
+kind = "research"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/navigation.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "질문·프로젝트·필요한 결정을 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "작은 인덱스와 관련 원문·근거만 읽는다"
+[[routes.steps]]
+id = "inspect"
+instruction = "답변 범위와 인덱스 누락/오래됨을 확인한다"
+
+[[routes]]
+name = "organization"
+when = "문서 분류·병합·분할·이동을 정리할 때"
+kind = "implement"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/organization.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = ["docs-maintenance:validation"]
+finish = false
+[[routes.steps]]
+id = "scope"
+instruction = "현재 정본·독자·읽기 경로를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "필요한 분류·병합·이동을 수행한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "영향받은 링크·목차·선택 조건을 정리한다"
+
+[[routes]]
+name = "sync"
+when = "구현·현재 결정과 문서를 맞출 때"
+kind = "implement"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/synchronization.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = ["docs-maintenance:validation"]
+finish = false
+[[routes.steps]]
+id = "scope"
+instruction = "현재 구현·결정과 설명의 차이를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "근거·조건을 보존하며 필요한 설명을 갱신한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "위키 반영 필요와 영향받은 읽기 경로를 판단한다"
+
+[[routes]]
+name = "wiki-ingest"
+when = "여러 출처의 사실·결정·교훈을 위키에 반영할 때"
+kind = "implement"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/wiki.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = ["docs-maintenance:validation"]
+finish = false
+[[routes.steps]]
+id = "scope"
+instruction = "기존 주제·원본·모순·권한 범위를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "주장·조건·날짜·출처를 구분하여 증분 반영한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "중복·순환 인용·미검증 주장과 연결을 확인한다"
+
+[[routes]]
+name = "wiki-query"
+when = "위키 원문과 근거로 읽기 전용 답변을 만들 때"
+kind = "research"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/wiki.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "질문·기존 지도·관련 주제를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "필요한 주장과 원본·반대 근거를 대조한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "근거 있는 답과 미확인 범위를 구분한다"
+
+[[routes]]
+name = "wiki-lint"
+when = "위키의 오래된 주장·출처·모순을 점검할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/wiki.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "점검 범위와 정본·출처를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "주장·조건·모순·오래된 연결을 대조한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "발견과 수정/후속 확인 범위를 기록한다"
+
+[[routes]]
+name = "validation"
+when = "문서 변경의 읽기 흐름·근거·링크를 검증할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/validation.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "변경 문서·정본·연결의 영향 범위를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "원문·링크·예제·조건을 실제 결과와 대조한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "통과·미실행·미해결 항목을 구분한다"
+
+[[routes]]
+name = "index"
+when = "문서 변경 뒤 관련 인덱스와 읽을 조건을 갱신할 때"
+kind = "implement"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/navigation.md"]
+validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "생성·이동·변경된 정본과 관련 지도를 찾는다"
+[[routes.steps]]
+id = "execute"
+instruction = "관련 인덱스·읽을 조건·정본 링크를 갱신한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "필요한 문서만 찾을 수 있고 연결이 유효한지 확인한다"
+
+[[routes]]
+name = "intent-update"
+when = "요구/관측 동작/권한/고정 경계가 바뀌어 설계 정본을 먼저 수정"
+kind = "implement"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/specifications.md"]
+validation = "현재 요청·정본·실제 근거와 관련 미결정을 대조하고 형식 검증을 의미적 합의/독립 평가로 확대하지 않는다."
+evidence_types = ["artifact"]
+required_calls = ["docs-maintenance:validation"]
+finish = false
+[[routes.steps]]
+id = "scope"
+instruction = "요구 변경·구현 결함·설명 오기를 구분하고 실제 결정 근거를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "영향받은 요구·설계·O와 검토/검사 연결을 증분 수정한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "새 합의가 필요한 범위와 이전 근거의 무효화를 판단한다"
+
+[[routes]]
+name = "implementation-sync"
+when = "동작을 유지한 구현 정리를 설계 설명·인덱스에 반영"
+kind = "implement"
+inputs = ["request"]
+documents = [".agents/skills/docs-maintenance/references/specifications.md"]
+validation = "현재 요청·정본·실제 근거와 관련 미결정을 대조하고 형식 검증을 의미적 합의/독립 평가로 확대하지 않는다."
+evidence_types = ["artifact"]
+required_calls = ["docs-maintenance:validation"]
+finish = false
+[[routes.steps]]
+id = "scope"
+instruction = "기존 의도·수용조건·Safeguards와 동작 보존 근거를 확인한다"
+[[routes.steps]]
+id = "execute"
+instruction = "E/Structure/O의 구현 설명과 연결만 최신화한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "요구/불변식 의미를 낮추지 않았는지 문서 검증으로 확인한다"
+

@@ -1,0 +1,128 @@
+{
+  "version": 2,
+  "kind": "design",
+  "goal": "사람이 정한 목표·마일스톤에서 요구·성공 조건·갭·작업을 연결하고 작업 전후 현재 근거로 계획을 갱신하는 하네스 절차 보강",
+  "status": "complete",
+  "evidence": {
+    "R": {
+      "type": "artifact",
+      "path": "docs/tasks/top-down-planning/result.md",
+      "sha256": "4749b288a2b8f325f7bfa2c4ca68652bcb234d4b5f6687e9b04e33b95a26c443",
+      "description": "Design changes, eight self-reviewed goal/gap scenarios and validation scope",
+      "recorded_at": "2026-10-30T23:17:55.337049+00:00"
+    },
+    "S": {
+      "type": "artifact",
+      "path": ".runtime/top-down-smoke.json",
+      "sha256": "b11e926ef4aa0e8ea2c7c9a1fad1eb11db5e86343de2283cdbabba86963b08a5",
+      "description": "Integrated-source context selection eight cases and actual generated-project static inspection",
+      "recorded_at": "2026-10-30T23:17:55.339477+00:00"
+    },
+    "T": {
+      "type": "artifact",
+      "path": ".runtime/top-down-targeted-tests.log",
+      "sha256": "419eaa4ddcd9c9a1323c46fbdac1d528ea2ec5ff2c0c0eae93dfea0053878651",
+      "description": "Actual existing scope/workflow/skill/document-index tests: 51 passed in isolated working source",
+      "recorded_at": "2026-10-30T23:17:55.341985+00:00"
+    },
+    "I": {
+      "type": "artifact",
+      "path": ".runtime/top-down-integration.json",
+      "sha256": "489111de61b12c613d0e1e838357348abe14e0d42a86ee3d63d9054e7237c147",
+      "description": "Hash-checked narrow integration preserving unrelated changes; tested behavioral inputs match",
+      "recorded_at": "2026-10-30T23:17:55.344260+00:00"
+    },
+    "D": {
+      "type": "artifact",
+      "path": ".runtime/top-down-doctor.json",
+      "sha256": "4eab8ca1e2ebc21f1cca725523424785d3edffcb564571c19a1c39f81d121263",
+      "description": "Integrated repository static syntax, registry and internal-link checks passed",
+      "recorded_at": "2026-10-30T23:17:55.346346+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/top-down-planning/review.json",
+    "sha256": "07f54ee458704ace9c01017b3278a8e3bd876eb22892ea8cb5d1e3806b08a955"
+  },
+  "findings": [],
+  "created_at": "2026-10-30T23:14:41.329850+00:00",
+  "depends_on": [],
+  "inputs": [
+    ".agents/skills/plan-project/SKILL.md",
+    ".agents/skills/plan-project/references/project-lifecycle.md",
+    "tools/harness/docs/workflows.md"
+  ],
+  "scope": [
+    "AGENTS.md",
+    ".agents/context.toml",
+    ".agents/skills/plan-project/SKILL.md",
+    ".agents/skills/plan-project/assets/handoff.md",
+    ".agents/skills/plan-project/assets/project-brief.md",
+    ".agents/skills/plan-project/assets/project-index.md.tmpl",
+    ".agents/skills/plan-project/assets/project-plan.md",
+    ".agents/skills/plan-project/references/handoff.md",
+    ".agents/skills/plan-project/references/project-lifecycle.md",
+    ".agents/skills/plan-project/references/workflow-setup.md",
+    ".agents/skills/verify-work/SKILL.md",
+    "docs/tasks/index.md",
+    "tools/harness/docs/index.md",
+    "tools/harness/docs/project-workflows.md",
+    "tools/harness/docs/workflows.md"
+  ],
+  "constraints": [
+    "Preserve in-progress skill consolidation and lifecycle hook changes; no commit/push/global settings",
+    "Use existing task/evidence schema and one canonical owner for each goal/plan/task state",
+    "No new automatic scheduler, routing hook, model call or sub-agent",
+    "Small requests do not require a charter, milestone or full replanning; product UI unchanged"
+  ],
+  "decisions": [
+    "Human goals and execution requests; AI decomposes, assigns scopes, implements and verifies inside the authorized scope",
+    "plan-project owns gap reassessment; hooks remain metadata/reminder helpers",
+    "Design/instruction change, not implementation of an autonomous planning runtime"
+  ],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "사람의 목표 결정·요청과 AI의 요구 도출·작업 선택·구현·검증 경계가 명확하다",
+      "method": "Review role/scope and derived-vs-proposed requirement cases",
+      "status": "passed",
+      "evidence": [
+        "R"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "이전 계획과 현재 근거를 비교해 갭을 재평가하고 작업 결과를 상위 성공 조건에 연결한다",
+      "method": "Walk through before/after gap cases with current evidence and changed goal baselines",
+      "status": "passed",
+      "evidence": [
+        "R"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "미구현·미확인·차단·목표 변경·bottom-up 발견과 작은 요청을 구분하고 중복 상태·불필요한 승인·자동 실행을 만들지 않는다",
+      "method": "Review unverified/blocked/bottom-up/small-request and historical completion cases",
+      "status": "passed",
+      "evidence": [
+        "R"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "기존 스킬·개요/계획/인수인계 양식·지도·context 선택이 연결되고 관련 검증과 시나리오로 확인된다",
+      "method": "Inspect context selection positive/negative cases, generate project fixture, validate skills/docs and run existing scope/workflow tests",
+      "status": "passed",
+      "evidence": [
+        "R",
+        "S",
+        "T",
+        "I",
+        "D"
+      ]
+    }
+  ],
+  "next_action": "Planning guidance, templates and reading rules integrated and verified; apply related goal/gap reassessment on the next authorized milestone task.",
+  "completed_at": "2026-10-30T23:17:55.356590+00:00"
+}

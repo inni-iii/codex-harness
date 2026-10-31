@@ -17,3 +17,5 @@ description: Inspect or prepare a repository on a new machine, reconcile declare
 개인 전역 선호로 저장소 관리자를 바꾸거나 global npm/pip 설정을 수정하지 않는다.
 PostgreSQL·Codex 실행 프로그램 설치/로그인·원격 DB 준비는 의존성 동기화와 별개다.
 시험 환경에서 브라우저가 금지돼 있으면 설치/실행을 포함하지 않는다. MCP·외부 서비스는 실제 요구에 필요한 경우에만 연결한다.
+
+그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.

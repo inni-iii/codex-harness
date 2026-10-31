@@ -32,6 +32,10 @@ from-knowledge는 현재 증거 해시가 맞는 adopted 공통 지식만 허용
 | 기존 스킬 편집 | create로 덮어쓰지 않고 원문을 수정한다. AGENTS 지도·관련 안내·등록을 함께 확인하고 doctor/context로 연결을 검사한다. |
 
 validate는 최소 형식 검사, doctor는 등록·참조·링크·TOML/Python 정적 검사, context --read는 선택된 원문 확인이다.
+공통 진입점에는 판단·상세 절차를 읽을 조건을 두고, 학습은 maintain-knowledge·브라우저 작성/실패는 e2e-testing의 참조를 정본으로 연결한다.
+`requires_skill=true` 참조는 혼자 부모 스킬을 활성화하지 않는다. 해당 스킬의 종류/주제/경로 또는 다른 일반 참조가 선택될 때 필요한 보조 자료만 추가한다.
+스킬 catalog의 `requires_kinds=["review"]`는 추가 단계 조건이다. 해당 종류가 맞아야 기존 topic/path 등의 OR 조건을 평가한다. 빈 목록·알 수 없는 종류·목록이 아닌 값은 거부한다. 프로젝트 workflow 규칙의 OR 계약을 바꾸지는 않는다.
+일반 문서 검토는 공통 검증 흐름을 유지하고, 코드·실행 설정/계약에는 실제 경로나 code-review/code-verification을 연결한다. 발견 처리와 task 완료는 regression/completion 등 필요한 주제를 추가한다.
 행동 검증은 실제 요청의 정상·실패·경계 사례에서 수행하며 앞의 정적 검사와 구분한다.
 
 ```sh
@@ -44,3 +48,9 @@ python3 -m unittest discover -s tools/harness/tests -v
 전체 테스트는 실행/선택 기능을 바꿨을 때의 예이며 가벼운 문구 수정에 매번 강제하지 않는다.
 사용할 클라이언트에서 .agents/skills 발견 여부를 확인한다. context는 강제 주입 hook이 아니다.
 시스템 skill-creator는 작성 때 구조·조건부 참조·검증 원칙을 참고한 도구이며 이 레포는 그 파일이나 전역 설치기를 호출하지 않는다.
+
+## 라우트 계약 변경
+
+각 스킬은 [스킬 흐름](skill-flows.md)의 routes.toml로 적용 조건·절차·검증·종료를 선언한다. 상세 원문은 소유 스킬에 유지하고 새 라우트/입력/호출을 추가하면 .agents/skill-flow.toml의 허용 경로와 실제 시나리오도 확인한다. doctor/flow catalog는14개 스킬의 계약·문서·호출/종료 연결을 검사한다. 기존 실행은 계약 변경을 감지하므로 status 후 명시적으로 restart한다. 자동 work/model 실행이나 권한 확대로 해석하지 않는다.
+
+코드/행동을 바꾸는 라우트에는 [설계 준비](reasons.md)의 필수 입력과 entry_checks를 연결한다. design/alignment 산출물 검사는 result_checks로 구분한다. skill create/from-knowledge에 implement/debug 종류를 주면 기본 main도 준비 입력을 요구한다. 보안/문서 리뷰가 실제 코드 수정으로 넘어가면 적절한 구현 라우트로 진행한다.

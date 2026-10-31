@@ -52,5 +52,5 @@
 이전 결함의 after도 최종 관련 검사로 갱신해 새 수정이 이전 결함을 다시 만들지 않았는지 확인한다.
 필드가 비었거나 회귀 근거가 없으면 evidence complete가 거부한다. 사람의 추가 승인을 모든 완료의 전제 조건으로 만들지 않는다.
 
-재사용 가치가 있는 실패 원인·예방 원칙은 [학습 기록](../../plan-project/references/learning.md)에 적용 조건·제외 조건을 남기고
+재사용 가치가 있는 실패 원인·예방 원칙은 [학습 기록](../../maintain-knowledge/references/learning.md)에 적용 조건·제외 조건을 남기고
 프로젝트 workflow의 context.rules 또는 해당 공통 스킬의 조건에서 다시 찾을 수 있게 연결한다. 개인 전역 규칙으로 자동 승격하지 않는다.
