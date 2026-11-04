@@ -14,6 +14,26 @@
 5. `review-template`을 만들고 기준마다 증거가 요구를 증명하는 이유와 한계를 작성한다.
 6. `evidence verify`로 연결을 확인하고 `evidence complete`로 기록을 닫는다. 확인 실패는 `needs_revision`이다.
 
+## 반복 등록과 리뷰 준비
+
+명령은 레포 루트 기준이다. 여러 근거를 등록할 때 `evidence import <task> --manifest <레포 상대 JSON>`을 사용한다. 입력은 아래처럼 version 1과 entries이며 각 항목에 id/type/path/criteria/description을 적는다. source는 origin·실제 accessed_at, check는 실제 check ID를 추가한다. 기준별 method는 task에서 미리 정한다. 명령은 기존 method를 바꾸지 않는다.
+
+```json
+{"version":1,"entries":[{"id":"RESULT","type":"artifact","path":"docs/tasks/demo/result.md","criteria":["A1","A2"],"description":"관측 결과와 한계"}]}
+```
+
+파일·SHA·유형별 계약·기준·method와 중복 ID를 모두 확인한 뒤 task를 한 번 저장한다. 나중 항목이 실패해도 앞 항목만 부분 등록되지 않는다. 알 수 없는 필드·기존 ID·경로 탈출·symlink·변조된 검사 근거는 거부한다. 로컬 단일 작성자와 기존 낙관적 충돌 검사를 사용하며 동시 작업을 잠금 없이 통합하는 도구는 아니다.
+
+```sh
+python3 tools/harness/run.py evidence import demo --manifest .runtime/demo/evidence.json
+python3 tools/harness/run.py evidence inspect demo
+python3 tools/harness/run.py evidence review-template demo --output .runtime/demo/review-draft.json
+```
+
+inspect와 리뷰 초안의 observations는 바인딩된 파일·해시와 검사 실행 수/실패/skip·시간·재사용 여부를 보여 준다. 긴 로그 본문을 복사하지 않는다. 내용·로그 무결성 확인과 현재 소스 일치 확인을 구분하며 `current_sources=not_checked`는 현재 검증 통과를 뜻하지 않는다. verify/complete는 기존 현재 소스·환경 대조를 계속 수행한다.
+
+기본 리뷰 경로는 기존 review.json이다. 기존 파일을 보존하며 --output으로 새로운 초안을 만든다. 계약/증거 해시와 기준별 참조를 자동 준비하지만 reviewer는 비어 있고 independent=false, 판단은 pending이다. 기존 리뷰의 통과 판단·이유를 자동 승계하거나 발견을 해결 처리하지 않는다. 새 초안을 실제 검토한 뒤 --review로 검증/완료한다. 결과 본문은 정본에 두고 리뷰에는 근거 ID와 기준별 판단을 적는다.
+
 ## 종류별 최소 근거와 의미상 판단
 
 | 작업 | 실행기가 요구하는 최소 유형 | 리뷰에서 판단할 내용 |
@@ -107,3 +127,7 @@ version 1의 옛 planned/in_progress 작업은 구조를 계속 읽는다. 옛 c
 
 근거의 존재와 재현 가능한 핵심 기능 확인을 구분하는 기준은 [JOSS 검토 기준](https://joss.readthedocs.io/en/latest/review_criteria.html)을 참고했다.
 논문 공개·GitHub 운영·장기간 개발 같은 JOSS 제출 요건을 이 로컬 하네스의 의무로 가져오지는 않았다.
+
+현재 근거의 소스 비교에서 무관한 작업 기록을 제외하는 조건은 [검사 재사용 경계](verification.md#작업-기록과-코드-검사의-재사용)를 따른다. 전체 원본 해시와 현재 task/입력·증거의 무결성은 보존하며 정책 없는 과거 보고서는 기존 비교를 유지한다.
+
+설계 정렬/flow의 새 의도 지문은 발견 ID를 제외하지만, 이 완료 계약의 `evidence.contract(task)`는 발견 ID를 계속 포함한다. 발견 추가 후 이전 리뷰는 오래된 것으로 거부되며 모든 ID의 처리/회귀와 최종 검토가 필요하다. 요구가 그대로라는 이유로 새 결함을 리뷰에서 누락하거나 완료 조건을 낮추지 않는다. 자세한 [두 계약의 구분](reasons.md)을 따른다.

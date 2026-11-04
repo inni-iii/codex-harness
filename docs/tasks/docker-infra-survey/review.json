@@ -1,0 +1,154 @@
+{
+  "version": 2,
+  "task_contract": "a5104c24e750c0ceda33dfbdb19bc1f65e2e6b82f7307942d5875a64a771fa04",
+  "evidence_digest": "8245c74243bf36356fe3516734d8e67100b8ee070506ba1788343ce860af6698",
+  "reviewer": "Codex 현재 세션 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "홈 소스와 저장소 내부 Claude worktree를 탐색해 57개 유효 VCS 사본, 178개 Docker 파일/63종 해시를 연결했다. 미러/캐시 표식/중첩/비VCS 사본과 Library·CloudStorage·원격 제외를 분리했고 178개 원문 해시를 최종 재대조했다. 전 디스크 완전 탐색으로 과장하지 않았다.",
+      "evidence": [
+        "INVENTORY",
+        "SOURCES",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "현재 로컬 Unix daemon을 확인한 뒤 info/ps의 승인된 읽기 전용 관측과 호스트 모델·메모리·앱 버전을 연결했다. CLI29.8/server29.2를 구분했고 컨테이너 실행0·정지5, VM 약7.65GiB를 기록했다. 실제 부하/VM디스크 상한은 미측정이다.",
+      "evidence": [
+        "LOCAL",
+        "SOURCES",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "대표 Compose/Dockerfile/entrypoint/ignore·Svelte adapter·systemd·검사 runner를 실제 읽었다. 공식 시작 순서·프로필·secret·context·플랫폼 계약을 대조했다. 4개 외부 레포 발견을 후속으로 보존했으며 test 상대경로와 Rivendell PGDATA의 반례로 잘못된 결함 주장을 배제했다.",
+      "evidence": [
+        "SOURCES",
+        "INVENTORY",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "서비스 web/API/PG 기본 및 선택 worker/검색/GPU/관측/runner를 구분하고 하네스의 기존 스킬·workflow·실행 도구에 연결할 위치와 도입 순서·정상/오류/격리/복구 검증을 제안했다. framework/버전·운영 환경은 미결정이고 Docker 구현·기동·E2E가 완료되지 않았음을 명시했다.",
+      "evidence": [
+        "REPORT",
+        "LOCAL",
+        "SOURCES"
+      ]
+    }
+  ],
+  "limitations": [
+    "사용자 홈의 소스와 식별한 worktree 중심의 조사다. OS/Library/캐시/CloudStorage 전체·외부 위치·원격 서버는 전수 확인하지 않았다.",
+    "과거 일부 Docker 대화는 index/history만 남고 원문이 없다. 접근 가능한 관련 원문과 현재 파일만 근거로 삼았다.",
+    "정적 config6개와 파일 경로/COPY/ignore 대조이며 실제 build/run/E2E/성능/복원은 미실행이다.",
+    "F1~F4는 다른 저장소의 실제 구성 결함으로 이번 조사에서 수정하지 않았다. REPORT의 담당/조건/후속 조치로 연결했다.",
+    "서로 다른 프론트 런타임·DB버전·운영 전제를 단일 고정 스택으로 합의하지 않았다. 서비스 중심 가정과 선택 runner 제안이다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "로컬 개발 소스의 Docker/운영 설정 조사와 하네스 적용안 보고. 다른 레포의 수정·기동·원격 배포는 범위 밖.",
+    "areas": [
+      {
+        "name": "question_coverage",
+        "result": "checked",
+        "reason": "저장소별 현재 구성·재사용/제외·호스트/VM 스펙·기본/선택 인프라·후속 구현/검증을 요청과 대조했다."
+      },
+      {
+        "name": "source_conditions",
+        "result": "checked",
+        "reason": "원문/날짜·파일 해시·명령·작업 디렉터리·종료 상태·실측과 제안을 분리했다. 기존 미러와 worktree를 독립 사례 수로 부풀리지 않았다."
+      },
+      {
+        "name": "counterevidence",
+        "result": "checked",
+        "reason": "static config가 통과해도 Dockerfile/context가 없을 수 있고, PG18 기본 경로 변경이 명시 PGDATA를 무효화하지 않음을 대조했다. 제품별 프론트 static/Node/App Engine과 GPU 호스트 차이를 반영했다."
+      },
+      {
+        "name": "claim_limits",
+        "result": "checked",
+        "reason": "정적 검사·0개 실행 컨테이너·과거 인덱스만으로 기동/성능/전체 원문 검토를 주장하지 않는다. 보고서가 조사 산출물이며 인프라 구현 완료가 아님을 확인했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "STT 이전 Compose의 frontend Dockerfile 참조가 현재 없다",
+        "cause": "현재 소스 트리와 이전 deploy 구성이 어긋남. 다른 저장소 수정은 현재 조사/보고 범위 밖.",
+        "status": "out_of_scope",
+        "regression": null,
+        "follow_up": "REPORT"
+      },
+      {
+        "id": "F2",
+        "summary": "n8n ybackend의 호스트 build context가 현재 없다",
+        "cause": "레포 외부 상대 경로를 전제한다. 다른 저장소 수정은 조사 범위 밖.",
+        "status": "out_of_scope",
+        "regression": null,
+        "follow_up": "REPORT"
+      },
+      {
+        "id": "F3",
+        "summary": "ai-api-fastapi 운영 Dockerfile이 현재 .env를 이미지 레이어에 COPY하는 구성",
+        "cause": "build context에 환경 파일이 있고 ignore에서 제외하지 않음. 현재 요청은 이미지 수정이 아니라 조사다.",
+        "status": "out_of_scope",
+        "regression": null,
+        "follow_up": "REPORT"
+      },
+      {
+        "id": "F4",
+        "summary": "Rivendell 전체 context COPY가 .env를 최종 runtime까지 포함하는 구성",
+        "cause": "현재 backend .env와 두 COPY, ignore 부재를 확인했다. 다른 레포의 빌드/수정은 범위 밖.",
+        "status": "out_of_scope",
+        "regression": null,
+        "follow_up": "REPORT"
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2",
+          "F3",
+          "F4"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "현재 경로/COPY/ignore 원문 대조로 4개 외부 저장소 재사용 장애를 확인하고 task/notes에 즉시 등록했다.",
+        "evidence": [
+          "INVENTORY",
+          "SOURCES",
+          "REPORT"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2",
+          "F3",
+          "F4"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "발견은 수정 완료로 바꾸지 않고 REPORT에 담당·조건·후속 검증을 남겨 범위 밖으로 처리했다. 최종 178개 소스 해시 동일, config6개 정적 검증, 로컬 상태·원문·권장안의 조건과 한계를 다시 대조했으며 보고서에서 새 결함은 확인하지 않았다.",
+        "evidence": [
+          "REPORT",
+          "INVENTORY",
+          "LOCAL",
+          "SOURCES"
+        ]
+      }
+    ]
+  }
+}

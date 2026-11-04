@@ -1,0 +1,91 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "문서 내용 해시가 바뀌지 않은 구현 flow는 검증 후 문서 단계를 생략하고 변경 문서는 기존 절차로 이어간다",
+  "status": "in_progress",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/conditional-doc-flow/request.md",
+      "sha256": "04118fa25a3f62481699333ffd9611ed7adc29cedcb908adaec3058ee98b5b6d",
+      "description": "현재2번 승인과 Git 없는 변경 감지 범위",
+      "recorded_at": "2026-11-04T09:49:28.265056+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/conditional-doc-flow/design.md",
+      "sha256": "94507aba73c03fd0cea7554585cc503a1a31875e408721751ef49db3865de8a8",
+      "description": "기준 보존·문서 변경/검증/이유를 지키는 조건부 종료 설계",
+      "recorded_at": "2026-11-04T09:49:28.266461+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/conditional-doc-flow/alignment.json",
+      "sha256": "010326823288be72e890e57b6980ce47114ea1867688b0bf0351518f9a60e334",
+      "description": "선택 O1·현재 의도와 보호 경계 자체 정렬",
+      "recorded_at": "2026-11-04T09:49:28.270486+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/conditional-doc-flow/red-report.json",
+      "sha256": "79a8c1196d22007fe52b117f84c5fc4c308f104de11aa5f7cabc9398189ddd75",
+      "description": "기존 종료 gate의 실제 좁은10개 검사: 무변경/CLI/등록 경로 및 문서 상태 미지원 반례 실패; 서브테스트 포함 실패 원본 보존",
+      "recorded_at": "2026-11-04T09:57:23.725582+00:00"
+    }
+  },
+  "review": null,
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T09:49:27.752063+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/flow_documents.py",
+    "tools/harness/harness/flow_catalog.py",
+    "tools/harness/harness/skill_flows.py",
+    "tools/harness/harness/flow_cli.py",
+    "tools/harness/tests/test_conditional_docs.py",
+    "tools/harness/docs/skill-flows.md",
+    "tools/harness/docs/architecture.md",
+    ".agents/skills/python-backend/routes.toml",
+    ".agents/skills/svelte-frontend/routes.toml",
+    ".agents/skills/postgres/routes.toml",
+    ".agents/skills/docker-containers/routes.toml",
+    ".agents/skills/verify-work/routes.toml",
+    ".agents/skills/python-backend/SKILL.md",
+    "docs/tasks/conditional-doc-flow/**"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "Git 없는 환경에서 문서 무변경·동일 내용 재저장·작업 메모만 변경한 구현은 검증과 이유를 남기고 바로 종료한다",
+      "method": "Git 없는 실제 flow의 문서 해시 전후·변경 종류·메모/같은 내용·검증/이유·이전 상태/재진입 및 CLI/등록 라우트 회귀를 대조한다",
+      "status": "pending",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "문서 수정/추가/삭제/이름 변경·기준 없음·실패/필수 호출 누락은 생략을 거부하고 기존 문서 경로와 상태를 유지한다",
+      "method": "Git 없는 실제 flow의 문서 해시 전후·변경 종류·메모/같은 내용·검증/이유·이전 상태/재진입 및 CLI/등록 라우트 회귀를 대조한다",
+      "status": "pending",
+      "evidence": []
+    },
+    {
+      "id": "A3",
+      "condition": "재시작/재시도에서 미처리 문서 변경을 숨기지 않으며 기존 상태·CLI·네이티브 라우트와 안내/회귀가 일치한다",
+      "method": "Git 없는 실제 flow의 문서 해시 전후·변경 종류·메모/같은 내용·검증/이유·이전 상태/재진입 및 CLI/등록 라우트 회귀를 대조한다",
+      "status": "pending",
+      "evidence": []
+    }
+  ],
+  "next_action": "Define the verification method before execution."
+}

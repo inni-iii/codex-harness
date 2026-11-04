@@ -96,7 +96,7 @@ documents=["profiles/legacy/brief.md"]
         self.assertIn("[워크플로 설정](workflow.toml)", text)
         self.assertIn("선행 작업", text)
         loaded = workflows.load(self.root, profile.relative_to(self.root).as_posix())
-        self.assertIn("docs/projects/demo/index.md", loaded["context"]["documents"])
+        self.assertIn("docs/demo/index.md", loaded["context"]["documents"])
         self.assertEqual({p.name for p in project.iterdir()},
                          {"index.md", "brief.md", "security.md", "workflow.toml"})
         before = {p.name: p.read_bytes() for p in project.iterdir()}
@@ -115,3 +115,29 @@ documents=["profiles/legacy/brief.md"]
         self.assertIn("profiles/demo/security.md", paths)
         self.assertIn("profiles/demo/index.md", paths)
         self.assertLess(paths.index("profiles/demo/index.md"), paths.index("profiles/demo/security.md"))
+
+
+    def test_selected_nested_document_gets_only_ancestor_maps_before_body(self):
+        self.write("docs/index.md", "# Root\n")
+        self.write("docs/projects/index.md", "# Projects\n")
+        self.write("docs/projects/demo/index.md", "# Demo\n")
+        self.write("docs/projects/demo/contracts/index.md", "# Contracts\n")
+        self.write("docs/projects/demo/contracts/api.md", "# Selected API\n")
+        self.write("docs/projects/demo/operations/index.md", "Unrelated large map\n" * 5000)
+        self.write("docs/projects/demo/operations/runbook.md", "Unrelated large body\n" * 10000)
+        self.write("docs/projects/demo/workflow.toml", 'version=1\nname="demo"\nstate="draft"\n'
+                   '[context]\ndocuments=[]\n[[context.rules]]\ntopics=["api"]\n'
+                   'documents=["docs/projects/demo/contracts/api.md"]\n')
+        result = context.select(self.root, "research", [], ["api"],
+                                workflow="docs/projects/demo/workflow.toml", read=True)["documents"]
+        self.assertEqual([r["path"] for r in result], ["AGENTS.md", "docs/index.md",
+                         "docs/projects/index.md", "docs/projects/demo/index.md",
+                         "docs/projects/demo/contracts/index.md", "docs/projects/demo/contracts/api.md"])
+        self.assertTrue(all(r.get("content") for r in result))
+
+    def test_generated_project_and_parent_maps_satisfy_the_contract(self):
+        from harness import document_indexes
+        for name in ("plan-project", "security-review"):
+            shutil.copytree(SOURCE / f".agents/skills/{name}", self.root / f".agents/skills/{name}")
+        workflows.create(self.root, "demo", "An observed user result")
+        self.assertEqual(document_indexes.inspect(self.root)["errors"], [])

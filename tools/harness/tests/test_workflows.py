@@ -142,7 +142,7 @@ class WorkflowTests(ProjectWorkspace):
         self.assertNotIn(str(SOURCE), file.read_text())
         self.assertIn("Create an example project", file.with_name("brief.md").read_text())
         self.assertTrue(file.with_name("security.md").is_file())
-        self.assertIn("docs/projects/new-topic/security.md", profile["context"]["documents"])
+        self.assertIn("docs/new-topic/security.md", profile["context"]["documents"])
         with self.assertRaises(FileExistsError):
             workflows.create(self.root, "new-topic", "different")
 

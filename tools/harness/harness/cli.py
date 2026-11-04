@@ -10,8 +10,8 @@ import subprocess
 import sys
 import tomllib
 
-from . import agent_config, check_snapshots, checks, context, doctor, environment, evidence, evaluation, experiments, hook_sessions, knowledge, mcp, pilot, security, skills, tasks, workflows, workspaces
-from . import flow_cli
+from . import agent_config, check_snapshots, checks, context, doctor, environment, evidence, evaluation, experiments, hook_recovery, hook_sessions, knowledge, mcp, pilot, security, skills, tasks, workflows, workspaces
+from . import flow_cli, project_documents, evidence_records, task_timing
 from .provenance import load, local_file
 from .core import changed_paths, source_paths
 
@@ -97,6 +97,12 @@ def main(argv=None, *, root: Path = ROOT) -> int:
         if name == "bind":
             p.add_argument("slug")
         p.add_argument("--session-key", help="SessionStart key; defaults to the current CODEX_THREAD_ID")
+    p = hook_commands.add_parser("resolve", help="Record a failure resolution against registered task verification evidence")
+    p.add_argument("event", choices=sorted(hook_recovery.ISSUES))
+    p.add_argument("--failure-sha256", required=True)
+    p.add_argument("--task", required=True)
+    p.add_argument("--evidence", required=True)
+    p.add_argument("--session-key")
     p = commands.add_parser("skill", help="Create and validate native repository skills without global installation")
     skill_commands = p.add_subparsers(dest="skill_action", required=True)
     p = skill_commands.add_parser("create")
@@ -151,6 +157,18 @@ def main(argv=None, *, root: Path = ROOT) -> int:
     p = commands.add_parser("project", help="Create a draft project brief/workflow without choosing tools or commands")
     p.add_argument("slug")
     p.add_argument("--goal", required=True)
+    p = commands.add_parser("document", help="Write a feature document with its maps and selective reading binding")
+    document_commands = p.add_subparsers(dest="document_action", required=True)
+    p = document_commands.add_parser("upsert")
+    p.add_argument("--project", required=True)
+    p.add_argument("--feature", required=True)
+    p.add_argument("--kind", choices=sorted(project_documents.KINDS), default="spec")
+    p.add_argument("--source", required=True, help="Repository-relative Markdown body file")
+    p.add_argument("--role", required=True)
+    p.add_argument("--path", action="append", default=[])
+    p.add_argument("--topic", action="append", default=[])
+    p = document_commands.add_parser("migration-plan", help="Read-only mapping for a legacy project; does not move files")
+    p.add_argument("--project", required=True)
     p = commands.add_parser("task")
     p.add_argument("slug")
     p.add_argument("--kind", choices=tasks.KINDS, required=True)
@@ -169,11 +187,25 @@ def main(argv=None, *, root: Path = ROOT) -> int:
     p.add_argument('--check')
     p.add_argument('--origin')
     p.add_argument('--accessed-at', help='Actual source access date/time in ISO format; defaults to now')
+    p = evidence_commands.add_parser('import', help='Validate all manifest entries, then register in one task write')
+    p.add_argument('slug')
+    p.add_argument('--manifest', required=True)
+    p = evidence_commands.add_parser('inspect', help='Summarize bound execution facts without approval')
+    p.add_argument('slug')
     for name in ('review-template', 'verify', 'complete'):
         p = evidence_commands.add_parser(name)
         p.add_argument('slug')
-        if name != 'review-template':
+        if name == 'review-template':
+            p.add_argument('--output', help='New repository-relative draft path; never overwrites an existing review')
+        else:
             p.add_argument('--review', help='Repository-relative reviewed JSON record')
+    p = commands.add_parser('timing', help='Record explicit task phases and report elapsed time separately from check execution')
+    timing_commands = p.add_subparsers(dest='timing_action', required=True)
+    for name in ('mark', 'report'):
+        p = timing_commands.add_parser(name)
+        p.add_argument('slug')
+        if name == 'mark':
+            p.add_argument('phase')
     p = commands.add_parser('evaluate', help='Assess saved task outcomes; no model calls or fabricated token statistics')
     p.add_argument('suite')
     p.add_argument('--label', required=True)
@@ -221,6 +253,8 @@ def main(argv=None, *, root: Path = ROOT) -> int:
                 result = hook_sessions.bind(root, args.slug, args.session_key)
             elif args.hook_action == "clear":
                 result = hook_sessions.clear(root, args.session_key)
+            elif args.hook_action == "resolve":
+                result = hook_sessions.resolve(root, args.event, args.failure_sha256, args.task, args.evidence, args.session_key)
             else:
                 result = hook_sessions.status(root, args.session_key)
         elif args.action == "knowledge":
@@ -272,10 +306,16 @@ def main(argv=None, *, root: Path = ROOT) -> int:
             if args.evidence_action == 'add':
                 result = evidence.add(root, args.slug, args.id, args.type, args.path, args.criterion,
                                       args.method, args.description, check=args.check, origin=args.origin, accessed_at=args.accessed_at)
+            elif args.evidence_action == 'import':
+                result = evidence_records.import_entries(root, args.slug, args.manifest)
+            elif args.evidence_action == 'inspect':
+                result = evidence_records.inspect(root, args.slug)
             elif args.evidence_action == 'review-template':
-                result = evidence.review_template(root, args.slug)
+                result = evidence.review_template(root, args.slug, output=args.output)
             else:
                 result = evidence.finish(root, args.slug, review=args.review, complete=args.evidence_action == 'complete')
+        elif args.action == 'timing':
+            result = task_timing.mark(root, args.slug, args.phase) if args.timing_action == 'mark' else task_timing.report(root, args.slug)
         elif args.action == 'evaluate-pilot':
             result = pilot.run(root)
         elif args.action == 'evaluate':
@@ -287,6 +327,12 @@ def main(argv=None, *, root: Path = ROOT) -> int:
             path = workflows.create(root, args.slug, args.goal)
             result = {"status": "created", "workflow": str(path.relative_to(root)), "state": "draft",
                       "note": "Fill in real project commands and context, then activate explicitly."}
+        elif args.action == "document":
+            if args.document_action == "migration-plan":
+                result = project_documents.migration_plan(root, args.project)
+            else:
+                result = project_documents.upsert(root, args.project, args.feature, args.kind,
+                    args.source, args.role, paths=args.path, topics=args.topic)
         elif args.action == "context":
             result = context.select(root, args.kind, args.paths, args.topic, workflow=args.project, read=args.read)
         elif args.action == "session":
@@ -327,6 +373,8 @@ def main(argv=None, *, root: Path = ROOT) -> int:
         print(json.dumps(display, ensure_ascii=False, indent=2))
         if args.action == "check" and result.get("status") == "checks_passed_security_pending":
             return 0 if not args.full and args.checkpoint in {"edit", "feature"} else 2
+        if args.action == 'timing' or (args.action == 'evidence' and args.evidence_action == 'inspect'):
+            return 0 if result.get('status') in {'observed', 'recorded', 'unchanged'} else 2
         return 0 if result.get("status") in {"passed", "planned", "created", "prepared", "checks_passed_review_pending", "checkpoint_passed", "deferred"} else 2
     except (OSError, ValueError, subprocess.SubprocessError) as exc:
         print(json.dumps({"status": "error", "error": str(exc)}, ensure_ascii=False))

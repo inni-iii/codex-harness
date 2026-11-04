@@ -1,0 +1,1860 @@
+{
+  "observed_on": "2026-11-04",
+  "read_only": true,
+  "roots": [
+    "/Users/inni"
+  ],
+  "additional_worktree_roots": [
+    "/Users/inni/time-edu/mitam-math/.claude/worktrees",
+    "/Users/inni/time-edu/zero-pod/.claude/worktrees"
+  ],
+  "exclusions": [
+    ".Trash",
+    ".build",
+    ".cache",
+    ".claude",
+    ".codex",
+    ".cursor",
+    ".docker",
+    ".gemini",
+    ".git",
+    ".gitkraken",
+    ".gk",
+    ".gradle",
+    ".hg",
+    ".m2",
+    ".next",
+    ".npm",
+    ".nuxt",
+    ".pnpm-store",
+    ".ssh",
+    ".svelte-kit",
+    ".svn",
+    ".swiftpm",
+    ".turbo",
+    ".venv",
+    ".vscode",
+    "Applications",
+    "DerivedData",
+    "Library",
+    "Pods",
+    "__pycache__",
+    "node_modules",
+    "site-packages",
+    "target",
+    "vendor",
+    "venv",
+    ".uv-cache Git ignore markers are not repositories",
+    "CloudStorage full traversal incomplete; OS/global package/runtime caches excluded"
+  ],
+  "discovery_errors": [],
+  "counts": {
+    "vcs_working_copies": 57,
+    "git_main": 37,
+    "git_worktrees": 19,
+    "svn": 1,
+    "docker_files": 178,
+    "unique_file_contents": 63,
+    "file_kinds": {
+      "ignore": 26,
+      "dockerfile": 106,
+      "compose": 46
+    }
+  },
+  "repositories": [
+    {
+      "path": "/Users/inni/stt-tts",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/stt-tts/backend/Dockerfile",
+        "/Users/inni/stt-tts/backend/Dockerfile.gpu",
+        "/Users/inni/stt-tts/backend/docker-compose.yaml"
+      ]
+    },
+    {
+      "path": "/Users/inni/ai-api-fastapi-test2",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/ai-api-fastapi-test2/.dockerignore",
+        "/Users/inni/ai-api-fastapi-test2/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/ai-api-fastapi-test2/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/ai-api-fastapi-test2/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/ai-api-fastapi-test2/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/inni/test/codex-harness",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/inni/test/codex-harness/.worktrees/lifecycle-hooks",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/inni/test/codex-harness/.worktrees/top-down-planning",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/inni/sketch-kit",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/inni/codex-harness",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/inni/codex-harness/.worktrees/mcp-web-hooks",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/inni/codex-harness/.worktrees/mcp-web-hooks/.worktrees/mcp-web-hooks",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/github/penelope-backend",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/github/penelope-backend/.dockerignore",
+        "/Users/inni/github/penelope-backend/Dockerfile",
+        "/Users/inni/github/penelope-backend/compose.yaml"
+      ]
+    },
+    {
+      "path": "/Users/inni/.openclaw/workspace",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math-test",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/stt-tts/.dockerignore",
+        "/Users/inni/time-edu/stt-tts/backend/Dockerfile",
+        "/Users/inni/time-edu/stt-tts/backend/Dockerfile.gpu",
+        "/Users/inni/time-edu/stt-tts/backend/docker-compose.yaml",
+        "/Users/inni/time-edu/stt-tts/deploy/docker-compose.yml",
+        "/Users/inni/time-edu/stt-tts/deploy/spark/docker-compose.yml",
+        "/Users/inni/time-edu/stt-tts/serving/.dockerignore",
+        "/Users/inni/time-edu/stt-tts/serving/Dockerfile",
+        "/Users/inni/time-edu/stt-tts/serving/Dockerfile.runpod",
+        "/Users/inni/time-edu/stt-tts/serving/workers/cosyvoice/Dockerfile.spark",
+        "/Users/inni/time-edu/stt-tts/serving/workers/magpie/Dockerfile.spark",
+        "/Users/inni/time-edu/stt-tts/serving/workers/nemotron/Dockerfile.spark",
+        "/Users/inni/time-edu/stt-tts/serving/workers/qwen_asr/Dockerfile.spark",
+        "/Users/inni/time-edu/stt-tts/serving/workers/qwen_asr/Dockerfile.x86",
+        "/Users/inni/time-edu/stt-tts/serving/workers/qwen_tts/Dockerfile.spark",
+        "/Users/inni/time-edu/stt-tts/serving/workers/supertonic/Dockerfile"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/model_download/mirrors/supertonic-github",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "mirror",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/deepwiki-open",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/deepwiki-open/.dockerignore",
+        "/Users/inni/time-edu/deepwiki-open/Dockerfile",
+        "/Users/inni/time-edu/deepwiki-open/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod-runtime-login-stability/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/spec-kit-test",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts-api",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-error-claude-package",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/test",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/test/.dockerignore",
+        "/Users/inni/time-edu/test/infra/docker/backend-api.Dockerfile",
+        "/Users/inni/time-edu/test/infra/docker/backend-worker.Dockerfile",
+        "/Users/inni/time-edu/test/infra/docker/docker-compose.yml",
+        "/Users/inni/time-edu/test/infra/docker/frontend.Dockerfile"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/ax-hub-perf",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-error-backend",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-error-backend/Dockerfile",
+        "/Users/inni/time-edu/zero-error-backend/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod-jenkins-python-compat/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/svn-mpod2",
+      "vcs": ".svn",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mpod2-backend",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/hello-world",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/ai-api-fastapi/.dockerignore",
+        "/Users/inni/time-edu/ai-api-fastapi/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/ai-api-fastapi/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/ai-api-fastapi/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/ai-api-fastapi/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/ax-hub",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi-test",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/ai-api-fastapi-test/.dockerignore",
+        "/Users/inni/time-edu/ai-api-fastapi-test/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/ai-api-fastapi-test/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/ai-api-fastapi-test/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/ai-api-fastapi-test/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/math-ilta-svelte",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts 복사본",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/stt-tts 복사본/.dockerignore",
+        "/Users/inni/time-edu/stt-tts 복사본/backend/Dockerfile",
+        "/Users/inni/time-edu/stt-tts 복사본/deploy/docker-compose.yml",
+        "/Users/inni/time-edu/stt-tts 복사본/frontend/Dockerfile"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod-prod-cicd/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/260305_stt-tts",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/time-edu/test-zer-pod/backend/.dockerignore",
+        "/Users/inni/time-edu/test-zer-pod/backend/Dockerfile",
+        "/Users/inni/time-edu/test-zer-pod/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/test-zer-pod/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/test-zer-pod/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/test-zer-pod/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/test-zer-pod/docker-compose.local.yml",
+        "/Users/inni/time-edu/test-zer-pod/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/stt",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/stt/model_download",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "mirror",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "mirror",
+      "docker_files": [
+        "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/.dockerignore",
+        "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "mirror",
+      "docker_files": [
+        "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend/.dockerignore",
+        "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend/Dockerfile",
+        "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend/compose.yaml"
+      ]
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "mirror",
+      "docker_files": [
+        "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open/.dockerignore",
+        "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open/Dockerfile",
+        "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/rivendell/rivendell",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/rivendell/rivendell/backend/Dockerfile",
+        "/Users/inni/rivendell/rivendell/backend/docker-compose.prod.yml",
+        "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.dev.yml",
+        "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/Downloads/stt-tts-dgx/backend/Dockerfile",
+        "/Users/inni/Downloads/stt-tts-dgx/backend/Dockerfile.gpu",
+        "/Users/inni/Downloads/stt-tts-dgx/backend/docker-compose.yaml",
+        "/Users/inni/Downloads/stt-tts-dgx/deploy/docker-compose.yml",
+        "/Users/inni/Downloads/stt-tts-dgx/deploy/spark/docker-compose.yml",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/.dockerignore",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/Dockerfile",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/Dockerfile.runpod",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/cosyvoice/Dockerfile.spark",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/magpie/Dockerfile.spark",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/nemotron/Dockerfile.spark",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/qwen_asr/Dockerfile.spark",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/qwen_asr/Dockerfile.x86",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/qwen_tts/Dockerfile.spark",
+        "/Users/inni/Downloads/stt-tts-dgx/serving/workers/supertonic/Dockerfile"
+      ]
+    },
+    {
+      "path": "/Users/inni/start_n8n",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/start_n8n/backend/.dockerignore",
+        "/Users/inni/start_n8n/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/start_n8n/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/start_n8n/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/start_n8n/backend/docker-compose.yml",
+        "/Users/inni/start_n8n/docker-compose.yml",
+        "/Users/inni/start_n8n/triton_yolo/Dockerfile"
+      ]
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/qdrant",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/start_n8n/mcp-servers/qdrant/Dockerfile"
+      ]
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs",
+      "vcs": ".git",
+      "worktree": false,
+      "category": "source",
+      "docker_files": [
+        "/Users/inni/start_n8n/mcp-servers/rustfs/.dockerignore",
+        "/Users/inni/start_n8n/mcp-servers/rustfs/Dockerfile",
+        "/Users/inni/start_n8n/mcp-servers/rustfs/Dockerfile.source",
+        "/Users/inni/start_n8n/mcp-servers/rustfs/crates/mcp/Dockerfile",
+        "/Users/inni/start_n8n/mcp-servers/rustfs/docker-compose.yml",
+        "/Users/inni/start_n8n/mcp-servers/rustfs/docs/examples/mnmd/docker-compose.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math/.claude/worktrees/ci-sqlite-returning",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math/.claude/worktrees/toss-credit-recovery",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math/.claude/worktrees/home-reorder",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math/.claude/worktrees/hml",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math/.claude/worktrees/create-exam-updates",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/mitam-math/.claude/worktrees/login",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": []
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/docker-compose.local.yml"
+      ]
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages",
+      "vcs": ".git",
+      "worktree": true,
+      "category": "worktree",
+      "docker_files": [
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/.dockerignore",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/Dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/dev/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/local/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/prod/fastapi/fastapi.dockerfile",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/docker-compose.yml",
+        "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/docker-compose.local.yml"
+      ]
+    }
+  ],
+  "non_vcs_source_dirs": [
+    "/Users/inni/github/bloom-backend"
+  ],
+  "files": [
+    {
+      "path": "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open/.dockerignore",
+      "sha256": "0938ebc13dfed7c2023f92d0926bad7254ca2e3426faabef64065f18dd4a33f7",
+      "kind": "ignore",
+      "lines": 60
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open/Dockerfile",
+      "sha256": "d8ccccec05b864889eafe783f5f84274a8b8c5aacb68c4e032877c8c1b8085f2",
+      "kind": "dockerfile",
+      "lines": 111
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/AsyncFuncAI_deepwiki-open/docker-compose.yml",
+      "sha256": "8b8a4b20cde88c2101782511593b23240f39f9bd95b60aa0242ee86c750d447f",
+      "kind": "compose",
+      "lines": 29
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend/.dockerignore",
+      "sha256": "df4a8ceaa781333c70615193e2ff8e6be1461fee48f3dab25997c6725ed63c53",
+      "kind": "ignore",
+      "lines": 45
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend/Dockerfile",
+      "sha256": "2efef496427c46ddd1ca084dc6a52795ca5afed30066027662e07764846bfbc7",
+      "kind": "dockerfile",
+      "lines": 106
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/plain-bagel_penelope-backend/compose.yaml",
+      "sha256": "a03492e41b93a50d8558167e64963492a243c083c2dc3555b030a19e67033626",
+      "kind": "compose",
+      "lines": 127
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/.dockerignore",
+      "sha256": "94cc8d2caba1c3071848f0018608bcdaa89b1fab5cd6f6ee31a0d24a6412dfec",
+      "kind": "ignore",
+      "lines": 39
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "7c487ad6ab87cb14f80f0ffab6f1a85c85652f174952b0fb468364cd197edc34",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "f338c9cfc079b38c895a11ca4e2991d592d7676016e346049d7b9ba34731c89c",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "632de430859406021defdafea0efc5b013bd72a9bf6325ce29e221d6d4b4f3e3",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/.adalflow/repos/t-ime-edu_ai-api-fastapi/docker-compose.yml",
+      "sha256": "a9c8857843e4255e29d1b4aaa8627d2d4abfd36590cd8c90296d23bd3981789f",
+      "kind": "compose",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/backend/Dockerfile",
+      "sha256": "94d5177e4f6b61421c35c00d4f3cbfddbb4fe8e4e692a3680aa2aad4a47f9ba2",
+      "kind": "dockerfile",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/backend/Dockerfile.gpu",
+      "sha256": "4dd6f64cfc78e58658d325dc44174659691d10d6504efac475a8418e2cffb762",
+      "kind": "dockerfile",
+      "lines": 41
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/backend/docker-compose.yaml",
+      "sha256": "1cec8ce9f0f55b0711e157f3b1cbcba8f1b0e004d9bda2fdf1a0e4a629d6295e",
+      "kind": "compose",
+      "lines": 80
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/deploy/docker-compose.yml",
+      "sha256": "29ec5d746aff82d1de63d68e9b414ca43b4c49a83856f1ad2e19b13bc157e5bf",
+      "kind": "compose",
+      "lines": 42
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/deploy/spark/docker-compose.yml",
+      "sha256": "53e662e76a769f60b633d0a0dadb04c24c2842c83d87ffa58999d6e0d4e0946c",
+      "kind": "compose",
+      "lines": 275
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/.dockerignore",
+      "sha256": "8557071977c2e02c7eea1f61101c7d6037ffa1b414a8d8284d91d3b7fc0e1c54",
+      "kind": "ignore",
+      "lines": 7
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/Dockerfile",
+      "sha256": "8004bdc5b2b01708eefff38400d2dce92bb799598abd0b82e95373b47cb8f96b",
+      "kind": "dockerfile",
+      "lines": 31
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/Dockerfile.runpod",
+      "sha256": "1f54c0eca7f5bde53b47854afceafaa0f0e1d67fe0fdac8a803415ffa0ce2580",
+      "kind": "dockerfile",
+      "lines": 51
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/cosyvoice/Dockerfile.spark",
+      "sha256": "fb35acc36c33a298a880dbc7d1264e03a7f84b14451a893147dbc240075f1497",
+      "kind": "dockerfile",
+      "lines": 77
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/magpie/Dockerfile.spark",
+      "sha256": "5f2ecad82c122ec735851553ed5def9e3c532948d433dc00f7a0963476f8cde5",
+      "kind": "dockerfile",
+      "lines": 36
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/nemotron/Dockerfile.spark",
+      "sha256": "4476c8908416b43dfc217ac5178c4e62601909f771e0e3ffd7cdb36021f38462",
+      "kind": "dockerfile",
+      "lines": 28
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/qwen_asr/Dockerfile.spark",
+      "sha256": "2cdb7f67bb10cb44d9eadb03008db477e3b6e2cd1161e7068ee620ee7220b960",
+      "kind": "dockerfile",
+      "lines": 45
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/qwen_asr/Dockerfile.x86",
+      "sha256": "62d5f112085dcd8ba133769c63799a89538561fad6267c01a8ebc6115e6d9992",
+      "kind": "dockerfile",
+      "lines": 37
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/qwen_tts/Dockerfile.spark",
+      "sha256": "a5cb0a849a8592b0eecd42c842bd6c726d6016cd39494f9fd33e4f6af6f13a37",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/Downloads/stt-tts-dgx/serving/workers/supertonic/Dockerfile",
+      "sha256": "ee2ae825fa02edc6880bb29231cf9b9a12902a134c2e4877e3997eb6df6f46fd",
+      "kind": "dockerfile",
+      "lines": 29
+    },
+    {
+      "path": "/Users/inni/ai-api-fastapi-test2/.dockerignore",
+      "sha256": "94cc8d2caba1c3071848f0018608bcdaa89b1fab5cd6f6ee31a0d24a6412dfec",
+      "kind": "ignore",
+      "lines": 39
+    },
+    {
+      "path": "/Users/inni/ai-api-fastapi-test2/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "7c487ad6ab87cb14f80f0ffab6f1a85c85652f174952b0fb468364cd197edc34",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/ai-api-fastapi-test2/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "f338c9cfc079b38c895a11ca4e2991d592d7676016e346049d7b9ba34731c89c",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/ai-api-fastapi-test2/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "632de430859406021defdafea0efc5b013bd72a9bf6325ce29e221d6d4b4f3e3",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/ai-api-fastapi-test2/docker-compose.yml",
+      "sha256": "a9c8857843e4255e29d1b4aaa8627d2d4abfd36590cd8c90296d23bd3981789f",
+      "kind": "compose",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/github/bloom-backend/.dockerignore",
+      "sha256": "df4a8ceaa781333c70615193e2ff8e6be1461fee48f3dab25997c6725ed63c53",
+      "kind": "ignore",
+      "lines": 45
+    },
+    {
+      "path": "/Users/inni/github/bloom-backend/Dockerfile",
+      "sha256": "2efef496427c46ddd1ca084dc6a52795ca5afed30066027662e07764846bfbc7",
+      "kind": "dockerfile",
+      "lines": 106
+    },
+    {
+      "path": "/Users/inni/github/bloom-backend/compose.yaml",
+      "sha256": "a03492e41b93a50d8558167e64963492a243c083c2dc3555b030a19e67033626",
+      "kind": "compose",
+      "lines": 127
+    },
+    {
+      "path": "/Users/inni/github/penelope-backend/.dockerignore",
+      "sha256": "df4a8ceaa781333c70615193e2ff8e6be1461fee48f3dab25997c6725ed63c53",
+      "kind": "ignore",
+      "lines": 45
+    },
+    {
+      "path": "/Users/inni/github/penelope-backend/Dockerfile",
+      "sha256": "2efef496427c46ddd1ca084dc6a52795ca5afed30066027662e07764846bfbc7",
+      "kind": "dockerfile",
+      "lines": 106
+    },
+    {
+      "path": "/Users/inni/github/penelope-backend/compose.yaml",
+      "sha256": "a03492e41b93a50d8558167e64963492a243c083c2dc3555b030a19e67033626",
+      "kind": "compose",
+      "lines": 127
+    },
+    {
+      "path": "/Users/inni/rivendell/rivendell/backend/Dockerfile",
+      "sha256": "b5c82c390e21e4fe0db7e5889d8dd554e023637bd046fbf09bef8c0dccee0ca3",
+      "kind": "dockerfile",
+      "lines": 50
+    },
+    {
+      "path": "/Users/inni/rivendell/rivendell/backend/docker-compose.prod.yml",
+      "sha256": "49d7553a867da6d801d829b118814da16b0508e8b6018c634930f323f38e6ad8",
+      "kind": "compose",
+      "lines": 60
+    },
+    {
+      "path": "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.dev.yml",
+      "sha256": "d1de8724617830dde267f69613a36acb67b6f6ba666bcf039544f0609cf29bb7",
+      "kind": "compose",
+      "lines": 30
+    },
+    {
+      "path": "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.yml",
+      "sha256": "b94033d2a2e8e53390471e6595300848567c3edd1ac6fbc39d902da23fc796d2",
+      "kind": "compose",
+      "lines": 96
+    },
+    {
+      "path": "/Users/inni/start_n8n/backend/.dockerignore",
+      "sha256": "94cc8d2caba1c3071848f0018608bcdaa89b1fab5cd6f6ee31a0d24a6412dfec",
+      "kind": "ignore",
+      "lines": 39
+    },
+    {
+      "path": "/Users/inni/start_n8n/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "7c487ad6ab87cb14f80f0ffab6f1a85c85652f174952b0fb468364cd197edc34",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/start_n8n/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "1175dcfe49dcd1d1dfd4f1a20a8e80c23c1cddc24e94754a0c76b3ff0dd012d1",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/start_n8n/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "632de430859406021defdafea0efc5b013bd72a9bf6325ce29e221d6d4b4f3e3",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/start_n8n/backend/docker-compose.yml",
+      "sha256": "8150e923e63aacc594aa863e68605ce83cac22d02428128681881a8f176b2d13",
+      "kind": "compose",
+      "lines": 44
+    },
+    {
+      "path": "/Users/inni/start_n8n/docker-compose.yml",
+      "sha256": "bfcac08b9b8adc3f0790d01de47fdcd78b36b4ddb755c3bd3f0e4e68312dfc39",
+      "kind": "compose",
+      "lines": 396
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/qdrant/Dockerfile",
+      "sha256": "71a781ab059470ee8242abce9fbc14dcf707362373407ace447f82de83cf5cfd",
+      "kind": "dockerfile",
+      "lines": 21
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs/.dockerignore",
+      "sha256": "c97ecfda4d205190b973232dcfdb0c29748521c2534dd866bcc782f30b086738",
+      "kind": "ignore",
+      "lines": 1
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs/Dockerfile",
+      "sha256": "5a522c25e3a83eabf828b18dc1bd82de44005bb34e59e486d80ed11f4e74aff0",
+      "kind": "dockerfile",
+      "lines": 15
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs/Dockerfile.source",
+      "sha256": "60a87d5133f6ef920d281613f7cd51af620593b8ade11ef12194b24153ccdd23",
+      "kind": "dockerfile",
+      "lines": 180
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs/crates/mcp/Dockerfile",
+      "sha256": "5a522c25e3a83eabf828b18dc1bd82de44005bb34e59e486d80ed11f4e74aff0",
+      "kind": "dockerfile",
+      "lines": 15
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs/docker-compose.yml",
+      "sha256": "fc325440cd79308f5d09d7948980898b22523059fddc7e8e6252ca8d62ad80a2",
+      "kind": "compose",
+      "lines": 240
+    },
+    {
+      "path": "/Users/inni/start_n8n/mcp-servers/rustfs/docs/examples/mnmd/docker-compose.yml",
+      "sha256": "aac924027766ba237e9a1a5c1b4d6abb161e1dbe9e176ec7e7dddcefc84c44f8",
+      "kind": "compose",
+      "lines": 121
+    },
+    {
+      "path": "/Users/inni/start_n8n/triton_yolo/Dockerfile",
+      "sha256": "8cc56d19c729422b15df611d8acd14fed0eeb8f673b9f12699d23e70e9a7b2c2",
+      "kind": "dockerfile",
+      "lines": 33
+    },
+    {
+      "path": "/Users/inni/stt-tts/backend/Dockerfile",
+      "sha256": "94d5177e4f6b61421c35c00d4f3cbfddbb4fe8e4e692a3680aa2aad4a47f9ba2",
+      "kind": "dockerfile",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/stt-tts/backend/Dockerfile.gpu",
+      "sha256": "4dd6f64cfc78e58658d325dc44174659691d10d6504efac475a8418e2cffb762",
+      "kind": "dockerfile",
+      "lines": 41
+    },
+    {
+      "path": "/Users/inni/stt-tts/backend/docker-compose.yaml",
+      "sha256": "1cec8ce9f0f55b0711e157f3b1cbcba8f1b0e004d9bda2fdf1a0e4a629d6295e",
+      "kind": "compose",
+      "lines": 80
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi-test/.dockerignore",
+      "sha256": "94cc8d2caba1c3071848f0018608bcdaa89b1fab5cd6f6ee31a0d24a6412dfec",
+      "kind": "ignore",
+      "lines": 39
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi-test/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "7c487ad6ab87cb14f80f0ffab6f1a85c85652f174952b0fb468364cd197edc34",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi-test/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "f338c9cfc079b38c895a11ca4e2991d592d7676016e346049d7b9ba34731c89c",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi-test/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "632de430859406021defdafea0efc5b013bd72a9bf6325ce29e221d6d4b4f3e3",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi-test/docker-compose.yml",
+      "sha256": "a9c8857843e4255e29d1b4aaa8627d2d4abfd36590cd8c90296d23bd3981789f",
+      "kind": "compose",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi/.dockerignore",
+      "sha256": "94cc8d2caba1c3071848f0018608bcdaa89b1fab5cd6f6ee31a0d24a6412dfec",
+      "kind": "ignore",
+      "lines": 39
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "7c487ad6ab87cb14f80f0ffab6f1a85c85652f174952b0fb468364cd197edc34",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "f338c9cfc079b38c895a11ca4e2991d592d7676016e346049d7b9ba34731c89c",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "632de430859406021defdafea0efc5b013bd72a9bf6325ce29e221d6d4b4f3e3",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/ai-api-fastapi/docker-compose.yml",
+      "sha256": "a9c8857843e4255e29d1b4aaa8627d2d4abfd36590cd8c90296d23bd3981789f",
+      "kind": "compose",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/deepwiki-open/.dockerignore",
+      "sha256": "0938ebc13dfed7c2023f92d0926bad7254ca2e3426faabef64065f18dd4a33f7",
+      "kind": "ignore",
+      "lines": 60
+    },
+    {
+      "path": "/Users/inni/time-edu/deepwiki-open/Dockerfile",
+      "sha256": "d8ccccec05b864889eafe783f5f84274a8b8c5aacb68c4e032877c8c1b8085f2",
+      "kind": "dockerfile",
+      "lines": 111
+    },
+    {
+      "path": "/Users/inni/time-edu/deepwiki-open/docker-compose.yml",
+      "sha256": "437e89e6f5c2b011fb18b8ee7023c1bf0bcca8200c9d3d94b05251d80c477f75",
+      "kind": "compose",
+      "lines": 30
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts 복사본/.dockerignore",
+      "sha256": "f84d7ff39ec94da6f204d1b133e49be5cb2fe930cc1a17e5689e60c8c8671159",
+      "kind": "ignore",
+      "lines": 28
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts 복사본/backend/Dockerfile",
+      "sha256": "94d5177e4f6b61421c35c00d4f3cbfddbb4fe8e4e692a3680aa2aad4a47f9ba2",
+      "kind": "dockerfile",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts 복사본/deploy/docker-compose.yml",
+      "sha256": "29ec5d746aff82d1de63d68e9b414ca43b4c49a83856f1ad2e19b13bc157e5bf",
+      "kind": "compose",
+      "lines": 42
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts 복사본/frontend/Dockerfile",
+      "sha256": "b756a019674dcc623fe032d0214b47a364a6fd3ad2749335e27a34cc727d63d8",
+      "kind": "dockerfile",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/.dockerignore",
+      "sha256": "f84d7ff39ec94da6f204d1b133e49be5cb2fe930cc1a17e5689e60c8c8671159",
+      "kind": "ignore",
+      "lines": 28
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/backend/Dockerfile",
+      "sha256": "94d5177e4f6b61421c35c00d4f3cbfddbb4fe8e4e692a3680aa2aad4a47f9ba2",
+      "kind": "dockerfile",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/backend/Dockerfile.gpu",
+      "sha256": "4dd6f64cfc78e58658d325dc44174659691d10d6504efac475a8418e2cffb762",
+      "kind": "dockerfile",
+      "lines": 41
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/backend/docker-compose.yaml",
+      "sha256": "1cec8ce9f0f55b0711e157f3b1cbcba8f1b0e004d9bda2fdf1a0e4a629d6295e",
+      "kind": "compose",
+      "lines": 80
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/deploy/docker-compose.yml",
+      "sha256": "29ec5d746aff82d1de63d68e9b414ca43b4c49a83856f1ad2e19b13bc157e5bf",
+      "kind": "compose",
+      "lines": 42
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/deploy/spark/docker-compose.yml",
+      "sha256": "ea950c238dd2e749dea9d71b1bc3ed5f60efaa1b2af4ba2faf1c5ee01b78a7a8",
+      "kind": "compose",
+      "lines": 271
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/.dockerignore",
+      "sha256": "8557071977c2e02c7eea1f61101c7d6037ffa1b414a8d8284d91d3b7fc0e1c54",
+      "kind": "ignore",
+      "lines": 7
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/Dockerfile",
+      "sha256": "8004bdc5b2b01708eefff38400d2dce92bb799598abd0b82e95373b47cb8f96b",
+      "kind": "dockerfile",
+      "lines": 31
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/Dockerfile.runpod",
+      "sha256": "1f54c0eca7f5bde53b47854afceafaa0f0e1d67fe0fdac8a803415ffa0ce2580",
+      "kind": "dockerfile",
+      "lines": 51
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/cosyvoice/Dockerfile.spark",
+      "sha256": "fb35acc36c33a298a880dbc7d1264e03a7f84b14451a893147dbc240075f1497",
+      "kind": "dockerfile",
+      "lines": 77
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/magpie/Dockerfile.spark",
+      "sha256": "5f2ecad82c122ec735851553ed5def9e3c532948d433dc00f7a0963476f8cde5",
+      "kind": "dockerfile",
+      "lines": 36
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/nemotron/Dockerfile.spark",
+      "sha256": "4476c8908416b43dfc217ac5178c4e62601909f771e0e3ffd7cdb36021f38462",
+      "kind": "dockerfile",
+      "lines": 28
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/qwen_asr/Dockerfile.spark",
+      "sha256": "2cdb7f67bb10cb44d9eadb03008db477e3b6e2cd1161e7068ee620ee7220b960",
+      "kind": "dockerfile",
+      "lines": 45
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/qwen_asr/Dockerfile.x86",
+      "sha256": "62d5f112085dcd8ba133769c63799a89538561fad6267c01a8ebc6115e6d9992",
+      "kind": "dockerfile",
+      "lines": 37
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/qwen_tts/Dockerfile.spark",
+      "sha256": "a5cb0a849a8592b0eecd42c842bd6c726d6016cd39494f9fd33e4f6af6f13a37",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/stt-tts/serving/workers/supertonic/Dockerfile",
+      "sha256": "ee2ae825fa02edc6880bb29231cf9b9a12902a134c2e4877e3997eb6df6f46fd",
+      "kind": "dockerfile",
+      "lines": 29
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/backend/.dockerignore",
+      "sha256": "fc5171fd231a10bd848d135f4fe3312cca00bf059eb8190e1f8b8517da99c41d",
+      "kind": "ignore",
+      "lines": 8
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "7c487ad6ab87cb14f80f0ffab6f1a85c85652f174952b0fb468364cd197edc34",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/backend/deploy/fastapi.dockerfile",
+      "sha256": "3e070d4880c93053115b3705910c8c6f23afc19f07bebc74d635132b0dcf4c41",
+      "kind": "dockerfile",
+      "lines": 33
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "f338c9cfc079b38c895a11ca4e2991d592d7676016e346049d7b9ba34731c89c",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "632de430859406021defdafea0efc5b013bd72a9bf6325ce29e221d6d4b4f3e3",
+      "kind": "dockerfile",
+      "lines": 49
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/docker-compose.local.yml",
+      "sha256": "0f586e23dd7603784f34f7e64b8d963602339e6984f936bcb2becaf366bf61fd",
+      "kind": "compose",
+      "lines": 62
+    },
+    {
+      "path": "/Users/inni/time-edu/test-zer-pod/docker-compose.yml",
+      "sha256": "1024d039c92ce030cc3da28d02f15d6b5de684cd8d3e1feacdaf476431b4d210",
+      "kind": "compose",
+      "lines": 75
+    },
+    {
+      "path": "/Users/inni/time-edu/test/.dockerignore",
+      "sha256": "81bf55b7a6b2e7269eb0648aec27de93e2fd88702c79f0e9f96db9ffed431c50",
+      "kind": "ignore",
+      "lines": 16
+    },
+    {
+      "path": "/Users/inni/time-edu/test/infra/docker/backend-api.Dockerfile",
+      "sha256": "afd1a10522fb687b818e0cb54b871189a0b52f665e60a3610ceff2a9adcf1d8f",
+      "kind": "dockerfile",
+      "lines": 14
+    },
+    {
+      "path": "/Users/inni/time-edu/test/infra/docker/backend-worker.Dockerfile",
+      "sha256": "77c89912d898c5e32e547f77b531b3ab93859c7e7eba9bd7fc61d13e806dceb5",
+      "kind": "dockerfile",
+      "lines": 12
+    },
+    {
+      "path": "/Users/inni/time-edu/test/infra/docker/docker-compose.yml",
+      "sha256": "e332c8f2c19bb5ed98a77466ac7eda7e6b8326362172204f45945dbd0d10310e",
+      "kind": "compose",
+      "lines": 99
+    },
+    {
+      "path": "/Users/inni/time-edu/test/infra/docker/frontend.Dockerfile",
+      "sha256": "210cc67579ea7f67bb3a01276b07bcc92e9e54490f36fc45e049880535ecdc6f",
+      "kind": "dockerfile",
+      "lines": 14
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-error-backend/Dockerfile",
+      "sha256": "c98ebdc102efb3f1a7192c1a06ac7fd681bee587efaae1b8491c993d238778c0",
+      "kind": "dockerfile",
+      "lines": 14
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-error-backend/docker-compose.yml",
+      "sha256": "3d4b6452cf31e216082a10ae78e4aa5f4491f4a6676f015290562f7a774590c4",
+      "kind": "compose",
+      "lines": 27
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-jenkins-python-compat/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-prod-cicd/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod-runtime-login-stability/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-notice-board/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/feat-print-shop-role/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/fix-ariapp-cors/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/misc-fixes/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/.claude/worktrees/order-pages/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/.dockerignore",
+      "sha256": "79ea2cf8084142154587937befec972d98712aaeb0a9a43328314cadb7108e71",
+      "kind": "ignore",
+      "lines": 9
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/Dockerfile",
+      "sha256": "c675838d1c4e2a006a0a1079cc434bba01be953abdf494a4abc9cd3c5bf5c64a",
+      "kind": "dockerfile",
+      "lines": 23
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/deploy/dev/fastapi/fastapi.dockerfile",
+      "sha256": "37fe3a0b6888f32315aceb50f4b88ce3079af8eb8100f6c1b8fcec3f6ddeb0fd",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/deploy/fastapi.dockerfile",
+      "sha256": "7bc999a0bb1faa345b24341e8c458f66d9c7cae96c767676292ebf117b396f02",
+      "kind": "dockerfile",
+      "lines": 35
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/deploy/local/fastapi/fastapi.dockerfile",
+      "sha256": "28aabe94338a9baa657b97c6edee5d7169502a34293ecf0c5c8f2a17ec72988a",
+      "kind": "dockerfile",
+      "lines": 46
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/deploy/prod/fastapi/fastapi.dockerfile",
+      "sha256": "242954d6e4c6185983c863580208baa6f9e65aad99f192ed45ae08a8c81905ee",
+      "kind": "dockerfile",
+      "lines": 48
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/backend/docker-compose.yml",
+      "sha256": "9cd90afc808ada694fb6da7a61d33cc91933640d19c4acd6a5595e42e218bc66",
+      "kind": "compose",
+      "lines": 91
+    },
+    {
+      "path": "/Users/inni/time-edu/zero-pod/docker-compose.local.yml",
+      "sha256": "b2ab0839b853ed172f8179c447a34b3b319fefac936206a935f88e2438f852e9",
+      "kind": "compose",
+      "lines": 69
+    }
+  ],
+  "compose_static_validation": [
+    {
+      "files": [
+        "/Users/inni/time-edu/zero-pod/docker-compose.local.yml"
+      ],
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/dev/null",
+        "-f",
+        "/Users/inni/time-edu/zero-pod/docker-compose.local.yml",
+        "config",
+        "--no-interpolate",
+        "--no-env-resolution",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "files": [
+        "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.yml",
+        "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.dev.yml"
+      ],
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/dev/null",
+        "-f",
+        "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.yml",
+        "-f",
+        "/Users/inni/rivendell/rivendell/infrastructure/docker-compose.dev.yml",
+        "config",
+        "--no-interpolate",
+        "--no-env-resolution",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "files": [
+        "/Users/inni/time-edu/stt-tts/deploy/docker-compose.yml"
+      ],
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/dev/null",
+        "-f",
+        "/Users/inni/time-edu/stt-tts/deploy/docker-compose.yml",
+        "config",
+        "--no-interpolate",
+        "--no-env-resolution",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "files": [
+        "/Users/inni/time-edu/stt-tts/deploy/spark/docker-compose.yml"
+      ],
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/dev/null",
+        "-f",
+        "/Users/inni/time-edu/stt-tts/deploy/spark/docker-compose.yml",
+        "config",
+        "--no-interpolate",
+        "--no-env-resolution",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "files": [
+        "/Users/inni/time-edu/test/infra/docker/docker-compose.yml"
+      ],
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/dev/null",
+        "-f",
+        "/Users/inni/time-edu/test/infra/docker/docker-compose.yml",
+        "config",
+        "--no-interpolate",
+        "--no-env-resolution",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    },
+    {
+      "files": [
+        "/Users/inni/start_n8n/docker-compose.yml"
+      ],
+      "command": [
+        "docker",
+        "compose",
+        "--env-file",
+        "/dev/null",
+        "-f",
+        "/Users/inni/start_n8n/docker-compose.yml",
+        "config",
+        "--no-interpolate",
+        "--no-env-resolution",
+        "--quiet"
+      ],
+      "exit_code": 0,
+      "stderr": ""
+    }
+  ]
+}

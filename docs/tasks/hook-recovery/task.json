@@ -1,0 +1,145 @@
+{
+  "version": 2,
+  "kind": "debug",
+  "goal": "훅 실패 기록을 현재 에이전트에 전달하고 미해결 조회·검증 근거에 따른 해결·재개 시 재노출까지 연결한다",
+  "status": "in_progress",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/request.md",
+      "sha256": "7d40ea60bc394a8cac45be48ad4c73fc56dab71bc270c36bad7a1c7bfce8fac9",
+      "description": "사용자 정정과 비용·권한 조건",
+      "recorded_at": "2026-11-04T05:48:51.716899+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/hook-recovery/design.md",
+      "sha256": "2eeb2a0ab2949c30efa0bace83f95b5d9701a60f3124982db0471714c465ba71",
+      "description": "R1-R3/O1의 피드백·해결·비용·보안 계약",
+      "recorded_at": "2026-11-04T05:48:51.788460+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/alignment.json",
+      "sha256": "92203950d6d473423b6754cc0673b8317f86f9126122c3aae67f6c425fa36b94",
+      "description": "현재 정정·설계·O1의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T05:48:51.922630+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/before-report.json",
+      "sha256": "d607e7f28233f7bc0e6576dfb92d3ed4728a08cd75589deb6ed729a236a21d2c",
+      "description": "F1의 동일한 회귀가 실패한 실제 전체 Python 검사 보고서",
+      "recorded_at": "2026-11-04T06:01:46.250784+00:00"
+    },
+    "FOCUSED": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/focused.json",
+      "sha256": "9ef129cf76089545c3e5e1e00d4d7f3142d12ea313a9fb1017f390e89ed8865a",
+      "description": "관련44개 검사 종료 상태와 같은 경로의 원본 로그",
+      "recorded_at": "2026-11-04T06:01:46.309524+00:00"
+    },
+    "DOCS": {
+      "type": "artifact",
+      "path": "tools/harness/docs/hooks.md",
+      "sha256": "1993deca635f141b27a3248a4eed358d9163201f8d163d7b864c6431e1e3d137",
+      "description": "에이전트가 수행하는 진단 소비·재검증·해결 절차",
+      "recorded_at": "2026-11-04T06:01:46.377004+00:00"
+    },
+    "HOST": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/host-observation.json",
+      "sha256": "880d4455df868df2923ed4628e52db9f2ab3308e9524e9a8680ba9200d2ef6be",
+      "description": "실제 호스트의 모델 맥락 수신부터 진단 확인·수정·재검증까지 관측",
+      "recorded_at": "2026-11-04T06:01:46.438310+00:00"
+    },
+    "FINAL": {
+      "type": "artifact",
+      "path": ".runtime/check-snapshots/10dda8cd7b974f748935296069c912f7/checks/9672b87643e74a04952d7c699804f65c/report.json",
+      "sha256": "5875b4a91c0d236f7facc01ea43cfbac057ec8420507f974034effa4a780033b",
+      "description": "최종 전체 Python440: 훅 회귀 통과, 타 task 이식성2실패/1skip의 실제 실패 보고서",
+      "recorded_at": "2026-11-04T06:04:35.745154+00:00"
+    },
+    "FOLLOWUP": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/portability-blocker.md",
+      "sha256": "e5ec397510f1cb0673252744bb865b725c171630594c6b98c68476271d62f4bc",
+      "description": "F2 타 세션 완료 기록의 이식성 차단과 후속 위치",
+      "recorded_at": "2026-11-04T06:04:35.805847+00:00"
+    },
+    "ALIGN2": {
+      "type": "artifact",
+      "path": ".runtime/hook-recovery/alignment-current.json",
+      "sha256": "4ec0a916e780ff0e0b8931617f6c9a16af55ff20f82095bfe9be67422000b00c",
+      "description": "F2 후속 구분을 포함한 현재 계약의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T06:05:09.996973+00:00"
+    }
+  },
+  "review": null,
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "created_at": "2026-11-04T05:48:51.645227+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/lifecycle_hooks.py",
+    "tools/harness/harness/hook_recovery.py",
+    "tools/harness/harness/hook_sessions.py",
+    "tools/harness/harness/cli.py",
+    "tools/harness/tests/test_hook_feedback.py",
+    "tools/harness/tests/test_hook_recovery.py",
+    "tools/harness/docs/hooks.md",
+    "tools/harness/docs/architecture.md",
+    "AGENTS.md",
+    ".agents/skills/verify-work/references/follow-through.md",
+    "docs/tasks/index.md",
+    "docs/tasks/hook-recovery/**"
+  ],
+  "constraints": [
+    "추가 모델 호출·자동 재시도·검사 실행/주기 증가 없음",
+    "기존 권한 판정·정상 출력과 stdin/상태 한도 유지",
+    "다른 세션 Docker/인프라와 이전 Expat/MCP/진단 기록 보존",
+    "원문 입력·응답·예외 메시지·원시 세션ID와 임의 로그 필드 재주입 없음"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "실패 후 다음 성공 도구 훅에서 미해결 진단과 조치 절차가 모델 맥락으로 한 번 전달되고 재개 시 미해결이 다시 안내된다",
+      "method": "동일한 실패→다음 도구→중복 억제→재개의 실제 main 출력 회귀를 전후 보고서에서 확인한다",
+      "status": "pending",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "HOST",
+        "FINAL",
+        "ALIGN2"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "hook status로 미해결을 읽고 진단 해시와 실제 task 근거가 맞는 경우만 해결 기록을 남기며 새 실패를 과거 해결로 숨기지 않는다",
+      "method": "CLI/세션 상태의 미해결·해결·근거 변조·진단 교체·세션 분리 사례를 검사한다",
+      "status": "pending",
+      "evidence": [
+        "DOCS"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "성공 출력·권한 판정·기존 검사 횟수를 유지하고 별도 모델/자동 재시도 없이 안전한 작은 메타데이터만 읽고 전달한다",
+      "method": "정상 무진단·권한 거부 보존·손상 기록·동시성·기존 훅 및 관련 등록 검사로 확인한다",
+      "status": "pending",
+      "evidence": [
+        "FOCUSED",
+        "FOLLOWUP"
+      ]
+    }
+  ],
+  "next_action": "F1 구현/관련44검사와 실제 호스트 소비는 확인. F2 별도 완료 기록의 이식성 경로가 정리되면 같은 등록 최종 검사를 재실행하여 완료 근거를 연결한다."
+}

@@ -1,0 +1,91 @@
+# 로컬 예제: Node frontend + Python API + PostgreSQL. 실제 앱 이미지는 별도로 준비한다.
+# CREDENTIAL_FILE_PATH는 /run/secrets/db_password로 지정한다. 앱은 DB_*_FILE과 health endpoint를 구현해야 한다. 이 파일만으로 앱이 생성되지 않는다.
+# POSTGRES_USER는 bootstrap superuser다. 운영은 별도 앱 최소권한 role/secret을 설계한다.
+# DB 이미지/PGDATA는 프로젝트에서 함께 선택한다. 버전18 이상 기본 경로와 기존 데이터도 확인한다.
+services:
+  web:
+    image: ${FRONTEND_IMAGE:?Choose the built Node frontend image}
+    init: true
+    environment:
+      HOST: 0.0.0.0
+      PORT: "3000"
+      INTERNAL_API_URL: http://api:8000
+    ports:
+      - "127.0.0.1:${WEB_PORT:-3000}:3000"
+    networks: [edge]
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/health/ready').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    mem_limit: 1g
+    cpus: 1.0
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  api:
+    image: ${BACKEND_IMAGE:?Choose the built Python API image}
+    init: true
+    environment:
+      DB_HOST: db
+      DB_PORT: "5432"
+      DB_NAME: app_local
+      DB_USER: app_local
+      DB_PASSWORD_FILE: ${CREDENTIAL_FILE_PATH:?Use /run/secrets/db_password}
+    networks: [edge, data]
+    secrets: [db_password]
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=4)"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    mem_limit: 1g
+    cpus: 1.0
+    stop_grace_period: 30s
+    logging:
+      driver: json-file
+      options: {max-size: "10m", max-file: "3"}
+
+  db:
+    image: ${POSTGRES_IMAGE:?Choose a compatible pinned PostgreSQL image}
+    environment:
+      POSTGRES_DB: app_local
+      POSTGRES_USER: app_local
+      POSTGRES_PASSWORD_FILE: ${CREDENTIAL_FILE_PATH:?Use /run/secrets/db_password}
+      PGDATA: /var/lib/postgresql/project-data
+    networks: [data]
+    secrets: [db_password]
+    volumes:
+      - db_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    mem_limit: 1g
+    cpus: 1.0
+    stop_grace_period: 30s
+
+networks:
+  edge: {}
+  data:
+    internal: true
+volumes:
+  db_data: {}
+secrets:
+  db_password:
+    file: ${DB_PASSWORD_FILE:?Set a local synthetic secret file path}

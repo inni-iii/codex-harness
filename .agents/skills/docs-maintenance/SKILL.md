@@ -6,7 +6,9 @@ description: Organize and maintain repository documentation, synchronize it with
 # 문서 정리·최신화·위키 유지
 
 현재 문서의 근거와 읽기 경로를 보존하면서 필요한 부분을 갱신한다.
+문서 탐색의 첫 읽기는 `docs/index.md`와 대상 영역의 `index.md`로 제한한다. 거기서 현재 질문에 필요한 정본/절만 골라 읽는다. 이미 읽은 변경 없는 원문은 재사용하며 목차 링크 전체나 전체 task 본문을 반복 출력하지 않는다. 명시된 필수 지침·보안 문서·과거 세션 원문 확인은 유지한다.
 작은 수정에는 해당 문서와 연결 대상만 확인하고, 전체 감사 요청에서만 범위를 넓힌다.
+문서 작성 전 같은 기능의 정본을 찾고 갱신한다. 새 프로젝트는 `docs/<프로젝트>/`, 기능은 `features/<기능>/`로 묶고 프로젝트 루트에 보고서를 늘리지 않는다. 문서가 필요할 때 [문서 구조](references/organization.md)의 배치·저장 절차로 본문·지도·읽기 조건을 같은 작업에서 연결한다. 작은 구현/검증마다 새 문서를 만들지 않는다.
 스킬은 재사용할 관리 방법이고 실제 설계·결정·위키 내용은 프로젝트 문서에 둔다.
 
 ## 작업을 고르고 필요한 원문을 읽는다
@@ -37,7 +39,7 @@ description: Organize and maintain repository documentation, synchronize it with
 ## 기존 하네스와의 연결
 
 - 주제 선정부터 설계·구현 순서를 잡을 때는 [프로젝트 진행 절차](../plan-project/references/project-lifecycle.md)가 단계를 맡고 이 스킬은 그 문서·지도·근거 연결을 관리한다. task의 의존 기록을 자동 순차 실행으로 표현하지 않는다.
-- 서비스별 사실·위키는 프로젝트의 기존 `docs/` 안에, 하네스 자체 사용법은 `tools/harness/docs/`에 둔다. 빈 위키 폴더나 의무 문서 세트를 미리 만들지 않는다.
+- 서비스별 사실·위키는 프로젝트의 `docs/<프로젝트>/` 안에, 하네스 자체 사용법은 `tools/harness/docs/`에 둔다. 빈 위키 폴더나 의무 문서 세트를 미리 만들지 않는다.
 - 작업 재개·남은 일은 [인수인계](../plan-project/references/handoff.md), 재사용할 정정·해결은 [학습 기록](../maintain-knowledge/references/learning.md)을 사용한다. 위키가 작업 상태나 채택된 규칙의 별도 정본이 되지 않게 링크한다.
 - 지식 catalog의 후보·검토·채택·공유를 실제로 관리할 때는 [maintain-knowledge](../maintain-knowledge/SKILL.md)로 연결한다. 주제별 위키 페이지를 곧바로 채택된 공통 규칙으로 만들지 않는다.
 - 복합 검색·근거 부족은 [조사와 검색](../research/references/retrieval.md), 변화가 큰 외부 사실은 [근거 판정](../research/references/evidence.md)을 따른다.

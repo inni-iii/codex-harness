@@ -4,7 +4,7 @@
 
 ## 설정 순서
 
-1. project 명령으로 문서 인덱스·개요·보안 설계 양식과 draft 프로필을 만든다. `docs/projects/README.md`에 실제 프로젝트 인덱스의 링크를 연결한다.
+1. project 명령으로 문서 인덱스·개요·보안 설계 양식과 draft 프로필을 만든다. 생성기는 `docs/index.md`와 필요한 조상 지도에도 링크를 연결한다. 프로젝트 시작·환경 준비·재개 때 프로젝트 index에서 필요한 문서를 선택한다.
 2. 프로젝트 개요에 사람이 정한 Charter·아키텍처 경계·마일스톤과 기존 결정/미결정을 적는다. [프로젝트 진행](project-lifecycle.md)에 따라 요구·성공 조건·현재 갭·작업을 연결한다. 작으면 개요 안에서 관리한다.
 3. 실제 코드 위치·manifest·잠금 파일·실행 스크립트를 확인하거나 요청 범위 안에서 만든다.
 4. security.md의 보호 자원·신뢰 경계·허용 행동·검증 조건을 실제 요구로 채우고, workflow.toml의 context에 프로젝트 규칙·계약·디자인 문서 위치를 연결한다. 보안 절차는 [security-review](../../security-review/SKILL.md)를 따른다.
@@ -14,8 +14,8 @@
 
 ```sh
 python3 tools/harness/run.py project demo --goal "실제 프로젝트의 목표"
-python3 tools/harness/run.py context --kind plan --project docs/projects/demo/workflow.toml --read
-python3 tools/harness/run.py check --project docs/projects/demo/workflow.toml --plan
+python3 tools/harness/run.py context --kind plan --project docs/demo/workflow.toml --read
+python3 tools/harness/run.py check --project docs/demo/workflow.toml --plan
 ```
 
 명령은 프로젝트가 결정됐을 때 실행하는 예시다.
@@ -23,11 +23,13 @@ python3 tools/harness/run.py check --project docs/projects/demo/workflow.toml --
 
 ## 자료를 어디에 둘지
 
-- index.md: 주제·단계별 정본과 읽을 조건. [프로젝트 진행](project-lifecycle.md)의 다음 행동을 해당 task/계약에 연결한다.
+프로젝트 작업 중 실제 설명 내용이 생기면 [설명 누적 절차](project-explanation.md)와 [양식](../assets/project-explanation.md.tmpl)으로 기존 설명 문서를 갱신하거나 `architecture/explanation-guide.md` 하나를 만든다. 해당 폴더·프로젝트 지도와 workflow의 관련 경로/주제 조건도 함께 연결한다. 설명·결정 근거는 작업 중 누적하고 질문·답변은 최종 정리에서만 추가한다. 생성기가 이 파일을 자동 생성하거나 읽기 조건을 등록하는 것은 아니다.
+
+- index.md: 해당 폴더의 모든 Markdown 파일별 역할·읽을 조건과 하위 폴더 index 링크. 파일 추가·이동·삭제 때 함께 갱신하며 doctor로 누락을 검사한다. [프로젝트 진행](project-lifecycle.md)의 다음 행동을 해당 task/계약에 연결한다.
 - brief.md: Charter·아키텍처 경계·마일스톤·합의·열린 질문과 계획 정본 위치
 - 계획이 실제로 필요하면: 요구·성공 조건·현재 근거·갭·작업의 연결. 인덱스와 관련 context 규칙에서 읽도록 연결하고 개요와 중복 관리하지 않는다.
 - security.md: 그 프로젝트의 보호 자원·권한·위협 모델·검증 조건·미해결 위험. 생성 직후는 미작성 초안이다.
-- 프로젝트 문서: 도메인 규칙, API 계약, 디자인 기준, 운영 조건 중 실제 필요한 내용
+- 프로젝트 문서: 같은 기능의 규칙·계약·설계·현재 검증 요약은 `features/<기능>/`에 묶어 정본을 갱신한다. 공통 설계/결정/운영은 해당 섹션 폴더에 둔다. [저장 명령](../../../../tools/harness/docs/project-documents.md)으로 기능 본문·지도·읽기 조건을 함께 연결한다.
 - workflow.toml: 문서 연결과 검증 명령·조건. 비밀값·개인 절대경로는 넣지 않는다.
 - task.json/notes.md: 한 작업의 목표·진행·근거·실패·다음 행동
 - 공통 스킬: 다음 프로젝트에도 적용할 판단·절차·실패 조건만 유지

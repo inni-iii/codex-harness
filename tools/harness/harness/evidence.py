@@ -5,7 +5,7 @@ from datetime import datetime
 from pathlib import Path
 import re
 
-from . import provenance as p
+from . import provenance as p, record_scope
 from .core import inside
 
 TYPES = {'artifact', 'source', 'check', 'experiment'}
@@ -26,11 +26,22 @@ def save_unchanged(path: Path, data: dict, expected: str) -> None:
     p.atomic(path, data)
 
 
-def contract(data: dict) -> str:
+def _intent_fields(data: dict) -> dict:
     value = {key: data.get(key) for key in ('kind', 'goal', 'scope', 'constraints', 'inputs', 'depends_on')}
+    value['acceptance'] = [{k: c.get(k) for k in ('id', 'condition', 'method')} for c in data['acceptance']]
+    return value
+
+
+def intent_contract(data: dict) -> str:
+    """Design intent stays stable when findings are recorded within that intent."""
+    return p.signature(_intent_fields(data))
+
+
+def contract(data: dict) -> str:
+    """Completion review binds all registered findings, preserving legacy hashes."""
+    value = _intent_fields(data)
     if 'findings' in data:
         value['findings'] = data['findings']
-    value['acceptance'] = [{k: c.get(k) for k in ('id', 'condition', 'method')} for c in data['acceptance']]
     return p.signature(value)
 
 
@@ -50,7 +61,18 @@ def current_sources(root: Path, report: dict, task_path: Path) -> None:
     recorded = report.get('source_snapshot')
     if not isinstance(recorded, dict) or not recorded:
         raise ValueError('report has no source snapshot; rerun with the current harness')
-    trim = lambda mapping: {k: v for k, v in mapping.items() if not bookkeeping(k, task_path, root)}
+    policy = report.get('verification_policy')
+    protected = record_scope.task_inputs(root, task_path) if policy is not None else ()
+    if policy is not None:
+        from .core import manifest
+        config = manifest(root, report.get('workflow'))
+        names = {r['check'] for r in report['results']}
+        registered = [c for c in config['checks'] if c['id'] in names]
+        if {c['id'] for c in registered} != names or record_scope.policy(root, registered, report.get('workflow')) != policy:
+            raise ValueError('verification record policy differs from registered checks')
+    def trim(mapping):
+        values = {k: v for k, v in mapping.items() if not bookkeeping(k, task_path, root)}
+        return record_scope.select(values, policy, protected=protected)
     if trim(recorded) != trim(p.snapshot(root)):
         raise ValueError('evidence source snapshot is stale')
     if report.get('source_executable') is None:
@@ -133,14 +155,25 @@ def add(root: Path, slug: str, ident: str, kind: str, relative: str, criterion: 
     return {'status': 'created', 'evidence': ident, 'task': slug}
 
 
-def review_template(root: Path, slug: str) -> dict:
+def review_template(root: Path, slug: str, *, output: str | None = None) -> dict:
     root = root.resolve()
     path = task_file(root, slug)
     data = p.load(path)
-    review_path = path.parent / 'review.json'
+    from .core import canonical_relative
+    relative = output or f'docs/tasks/{slug}/review.json'
+    if canonical_relative(root, relative) != relative:
+        raise ValueError('review output needs a canonical repository-relative path')
+    review_path = inside(root, relative)
+    cursor = root
+    for part in Path(relative).parts:
+        cursor = cursor / part
+        if cursor.is_symlink():
+            raise ValueError('symlink review output is unsupported')
     if review_path.exists():
         raise ValueError('review.json already exists; review it explicitly instead of overwriting')
     from .completion_review import template
+    from .evidence_records import observations
+    facts = observations(root, data, path)
     audit = template(data['kind'])
     audit['findings'] = [{'id': ident, 'summary': '', 'cause': '', 'status': 'open', 'regression': None}
                          for ident in data.get('findings', [])]
@@ -149,7 +182,8 @@ def review_template(root: Path, slug: str) -> dict:
                           'reviewer': '', 'reviewer_type': 'agent', 'independent': False,
                           'criteria': [{'id': c['id'], 'decision': 'pending', 'reason': '',
                                         'evidence': c['evidence']} for c in data['acceptance']],
-                          'limitations': [], 'blockers': [], 'verification': audit})
+                          'limitations': [], 'blockers': [], 'verification': audit,
+                          'observations': facts})
     return {'status': 'created', 'review': review_path.relative_to(root).as_posix()}
 
 

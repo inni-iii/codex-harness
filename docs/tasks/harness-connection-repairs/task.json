@@ -1,0 +1,147 @@
+{
+  "version": 2,
+  "kind": "debug",
+  "goal": "전체 검사를 막는 조사 JSON 등록 누락과 완료 근거의 worktree 의존 경로를 고친다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-repairs/request.md",
+      "sha256": "b9b42f7727c6fb975307f76d77005dbd332af8f56ea19c8304be0e33c39ea390",
+      "description": "현재 사용자 범위와 좁은 복구 계약",
+      "recorded_at": "2026-11-04T06:37:26.846232+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-repairs/design.md",
+      "sha256": "c72a5ef1fd54ba80cd9d50f1bbf8fc3740541a651008b8ed5b561964be4d2d97",
+      "description": "현재 사용자 범위와 좁은 복구 계약",
+      "recorded_at": "2026-11-04T06:37:26.911112+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/alignment.json",
+      "sha256": "b525c4a0bd0fe21306c4b80cb45f23a8ef22d811450b917359921beb0908ce6a",
+      "description": "현재 복구 설계의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T06:37:27.039570+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/checks/149f3858644e4e0bbfee8354a82406c3/report.json",
+      "sha256": "54684466a07ab23d3d17692e8efbe85739c0daea390ce919762a845e7dda0956",
+      "description": "동일 F1/기존 F2 회귀3건이 실제 실패한441개 검사 보고서",
+      "recorded_at": "2026-11-04T06:40:33.736495+00:00"
+    },
+    "RETENTION": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/red-retention.json",
+      "sha256": "fe7db2ae3f079656a2802b1a5531369f3fdb5e3eb46e8016c3fde776934afa1f",
+      "description": "이번 RED 원문/동일 로그를 표준 경로로 보존한 출처",
+      "recorded_at": "2026-11-04T06:40:33.816051+00:00"
+    },
+    "MIGRATION": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/migration.json",
+      "sha256": "22adbf37b12ce0ce878e287e9e6ed0df306c3c8cc7ea88432f69b3ce3fa2595f",
+      "description": "Docker RED 원본/과거 task/review·로그3개 해시와 경로 이관",
+      "recorded_at": "2026-11-04T06:40:33.878410+00:00"
+    },
+    "PROOF": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/migration-verification.json",
+      "sha256": "1bda8f44eb037237342a67ad8613692d8924c3d85f2d55311444f4476322e4f3",
+      "description": "원본/로그·판정 보존과 원래 worktree 접근을 금지한 doctor 실제 통과",
+      "recorded_at": "2026-11-04T06:40:33.940952+00:00"
+    },
+    "PLAN": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/integrated-plan.json",
+      "sha256": "41399324184531222b3fefc487df872cac99f6fd96c602451983a8e4e0e40e35",
+      "description": "현재 통합 전체 계획의 uncovered0개",
+      "recorded_at": "2026-11-04T06:40:34.004790+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/5f9da7dab5324674979acfbc4386a201/checks/83b004d6bc1a4e29894088d0a22c0873/report.json",
+      "sha256": "f505e6da81a2e30b21d4758dca42ea704f11cce738695dfd67d4d965613d2c5c",
+      "description": "현재 main 고정 소스의 실제 전체 등록 검사4개 통과·Python441/실패0/skip1",
+      "recorded_at": "2026-11-04T06:42:42.826950+00:00",
+      "check": "python"
+    },
+    "DOCS": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-container-skill/notes.md",
+      "sha256": "99863ef51187415688c70faf6e8774fd4d95f9bc142e08f0404692017e6a6c08",
+      "description": "원래 완료 이력 보존과 근거 경로 이관을 명시한 수행 기록",
+      "recorded_at": "2026-11-04T06:42:43.008586+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/harness-connection-repairs/review.json",
+    "sha256": "51e52e053220b7165b5d720fcfe85b7b5d0a2f822d500efeb2e4b2cde1818249"
+  },
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "created_at": "2026-11-04T06:36:32.954509+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness.toml",
+    "tools/harness/tests/test_connection_repairs.py",
+    "docs/tasks/docker-container-skill/task.json",
+    "docs/tasks/docker-container-skill/review.json",
+    "docs/tasks/docker-container-skill/notes.md",
+    "docs/tasks/harness-connection-repairs/**",
+    "docs/tasks/index.md"
+  ],
+  "constraints": [
+    "소유자의 명시한 두 결함만 수정하며 과거 근거63개 이관은 제외",
+    "검사 예외는 정확한 두 JSON만; 임의 JSON/테스트/완료 기준을 약화하지 않는다",
+    "과거 RED 원문·로그·당시 workspace/소스/시간을 보존하고 경로 이관만 표시",
+    "기존 진행 중 변경/전역/원격/모델 호출/설치를 추가하지 않는다"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "정확한 조사 JSON 두 파일은 전체 검사에 포함되며 다른 미등록 JSON은 계속 차단된다",
+      "method": "같은 F1 회귀의 수정 전 실패/후 통과와 전체 계획 및 임의 JSON 부정 사례를 확인한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "RETENTION",
+        "PLAN",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "완료 근거의 원본 실패·로그·검토 이력을 보존하고 runtime/worktree 없는 소스 복사본의 doctor와 이식성 회귀가 통과한다",
+      "method": "같은 기존 이식성 테스트의 실패/후 통과, 보존 원본/로그 해시 및 이전 리뷰 유지·이관 내역을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "MIGRATION",
+        "PROOF",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "현재 통합 소스의 등록 전체 검사를 실행하고 이전 이력 및 무관 변경을 보존한다",
+      "method": "통합 main의 고정 소스 snapshot에서 check --full을 실제 실행하고 테스트 수/실패/skip 및 무관 변경 해시를 확인한다",
+      "status": "passed",
+      "evidence": [
+        "FINAL",
+        "DOCS"
+      ]
+    }
+  ],
+  "next_action": "두 연결 문제의 수정·실제 회귀/전체 등록 검사·완료 검토를 연결했다. 과거63개 근거 이관은 별도 사용자 범위로 남긴다.",
+  "completed_at": "2026-11-04T06:43:43.512806+00:00"
+}

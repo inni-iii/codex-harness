@@ -1,0 +1,268 @@
+{
+  "version": 2,
+  "kind": "research",
+  "goal": "공식·원저 자료로 CSV/JSON 데이터 분석 방법론을 조사하고 research의 질문·품질·해석·재현 절차를 보완한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/research-data-analysis/request.md",
+      "sha256": "cd868f6f17646365a01e281579c17d618c13ffc912f1f3f9e7990864c6ed4e09",
+      "description": "현재 데이터 분석 방법론 조사/보완 요청",
+      "recorded_at": "2026-11-04T09:17:57.815620+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/research-data-analysis/design.md",
+      "sha256": "b9e7a976111e791b8b3157c9c02aa9a844f1cad64cb3a7f5945ffb5eb95b2c08",
+      "description": "조사·얇은 스킬 보완·합성 분석과 검증의 계약",
+      "recorded_at": "2026-11-04T09:17:57.817168+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/research-data-analysis/alignment.json",
+      "sha256": "552b20b3bc543e67e8f4952920e87608f29cb15441246e6f2ea35ce53018ea3e",
+      "description": "현재 원문·범위와 방법론 초안의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T09:17:57.818844+00:00"
+    },
+    "S1": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "PPDAC, 뉴질랜드 교육부의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.515779+00:00",
+      "origin": "https://newzealandcurriculum.tahurangi.education.govt.nz/5637219668.p",
+      "accessed_at": "2026-11-04"
+    },
+    "S2": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "CRISP-DM 1.0 원본의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.582544+00:00",
+      "origin": "https://www.kde.cs.uni-kassel.de/wp-content/uploads/lehre/ws2012-13/kdd/files/CRISPWP-0800.pdf",
+      "accessed_at": "2026-11-04"
+    },
+    "S3": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "NIST: What is EDA?의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.656992+00:00",
+      "origin": "https://www.itl.nist.gov/div898/handbook/eda/section1/eda11.htm",
+      "accessed_at": "2026-11-04"
+    },
+    "S4": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "Government Data Quality Framework의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.718982+00:00",
+      "origin": "https://www.gov.uk/government/publications/the-government-data-quality-framework/the-government-data-quality-framework",
+      "accessed_at": "2026-11-04"
+    },
+    "S5": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "Wickham, Tidy Data의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.781319+00:00",
+      "origin": "https://www.jstatsoft.org/article/view/v059i10/",
+      "accessed_at": "2026-11-04"
+    },
+    "S6": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "AQuA Book의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.844121+00:00",
+      "origin": "https://www.gov.uk/guidance/the-aqua-book",
+      "accessed_at": "2026-11-04"
+    },
+    "S7": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "ASA 공식 p-value 성명 안내의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.908260+00:00",
+      "origin": "https://www.amstat.org/asa/files/pdfs/p-valuestatement.pdf",
+      "accessed_at": "2026-11-04"
+    },
+    "S8": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "SciPy false_discovery_control의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:28.979406+00:00",
+      "origin": "https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.false_discovery_control.html",
+      "accessed_at": "2026-11-04"
+    },
+    "S9": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "scikit-learn Common pitfalls의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:29.044374+00:00",
+      "origin": "https://scikit-learn.org/stable/common_pitfalls.html",
+      "accessed_at": "2026-11-04"
+    },
+    "S10": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "pandas read_csv의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:29.113605+00:00",
+      "origin": "https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html",
+      "accessed_at": "2026-11-04"
+    },
+    "S11": {
+      "type": "source",
+      "path": "docs/tasks/research-data-analysis/sources.md",
+      "sha256": "ae59a6321690f08b9514794a40c75aaad02598cf40834634808e778451d7705d",
+      "description": "pandas json_normalize의 원문 확인 구간·맥락·채택/제외 기록",
+      "recorded_at": "2026-11-04T09:26:29.181005+00:00",
+      "origin": "https://pandas.pydata.org/docs/reference/api/pandas.json_normalize.html",
+      "accessed_at": "2026-11-04"
+    },
+    "REPORT": {
+      "type": "artifact",
+      "path": "docs/tasks/research-data-analysis/report.md",
+      "sha256": "147327d05048b4e2683c3aa8ba9c5384f11780f533f9914ef8672f809af95cb7",
+      "description": "원문별 역할·방법 선택과 현재 research 반영/한계를 정리한 결과",
+      "recorded_at": "2026-11-04T09:26:29.252237+00:00"
+    },
+    "METHOD": {
+      "type": "artifact",
+      "path": ".agents/skills/research/references/data-analysis.md",
+      "sha256": "e480fa3c0a6348d1a92d19a49a5969292d6328898b593ddf028ce69e30af63d7",
+      "description": "질문·관측 단위·품질·분모·변환·방법·추론/재현 절차",
+      "recorded_at": "2026-11-04T09:26:29.319963+00:00"
+    },
+    "SCENARIOS": {
+      "type": "artifact",
+      "path": "docs/tasks/research-data-analysis/scenarios.md",
+      "sha256": "b498d1c32755618b5f398e814b1c23dd93b1943f8df9813c771af7478ad55da5",
+      "description": "실제 합성 CSV·중첩JSON의 수치·반례·한계와 재현 명령",
+      "recorded_at": "2026-11-04T09:26:29.392570+00:00"
+    },
+    "ANALYSIS": {
+      "type": "artifact",
+      "path": ".runtime/research-data-analysis/analysis-output.json",
+      "sha256": "df10be8846a1b69480f97b8d7eefa7bf9e4b37a784a231e37cc737ea70ced90d",
+      "description": "실제 계산 출력과 원본 해시 보존 결과",
+      "recorded_at": "2026-11-04T09:26:29.463404+00:00"
+    },
+    "REPRODUCE": {
+      "type": "artifact",
+      "path": ".runtime/research-data-analysis/analyze-fixtures.py",
+      "sha256": "f1c7d18041349dd0636b36b0dbd4b61a002d428884cc8ae837bbe799b17c0def",
+      "description": "합성 원본 생성·분모/층별 집계·중첩 전개 오류를 재현하는 표준 라이브러리 코드",
+      "recorded_at": "2026-11-04T09:26:29.532316+00:00"
+    },
+    "INPUT_CSV": {
+      "type": "artifact",
+      "path": ".runtime/research-data-analysis/data/visits.csv",
+      "sha256": "2c0737d348ce0ccf16e5be09fa03c39bbe6c7e7d261a04a974ab3d1ab23011a6",
+      "description": "분석에 실제 사용한 합성 원본 visits.csv",
+      "recorded_at": "2026-11-04T09:26:29.598543+00:00"
+    },
+    "INPUT_JSON": {
+      "type": "artifact",
+      "path": ".runtime/research-data-analysis/data/orders.json",
+      "sha256": "2db4f4936dae183e41c168f17905cdb473031d21856acc95e872b66dc360324f",
+      "description": "분석에 실제 사용한 합성 원본 orders.json",
+      "recorded_at": "2026-11-04T09:26:29.663297+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/ce9f71888dd84489af1f64f899e261c0/checks/4b06135ab6a14bddb0a179dfa6a56e9c/report.json",
+      "sha256": "7f36a08cab4e9c393da813eebf948d3ddca66c6baf80b45d24cbbf1f762d64c5",
+      "description": "현재 소스 사본의 최종 등록 검사: 496개, 실패0·기존 sandbox 관련 skip1; 신규 데이터 연결4개 포함",
+      "recorded_at": "2026-11-04T09:26:29.729251+00:00",
+      "check": "python"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/research-data-analysis/review.json",
+    "sha256": "c2bd7ebb877717a7a6715171faa1addd83f504d5c107b87a8f0844d12365b621"
+  },
+  "findings": [],
+  "created_at": "2026-11-04T09:09:59.364047+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents/skills/research/SKILL.md",
+    ".agents/skills/research/routes.toml",
+    ".agents/skills/research/references/data-analysis.md",
+    ".agents/skills/research/assets/data-analysis.md",
+    ".agents/context.toml",
+    ".agents/skill-flow.toml",
+    "AGENTS.md",
+    "README.md",
+    "tools/harness/tests/test_research_data_analysis.py",
+    "docs/tasks/research-data-analysis/**"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "분석 프로세스·품질·탐색/추론·재현 방법론의 원문과 적용/제외 조건을 비교한다",
+      "method": "공식/원저의 해당 절·날짜·조건을 읽고 선택/flow·합성 파일 실제 분석·관련 회귀와 현재 등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S11",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "research에 필요한 상세 절차·선택 조건·라우트를 연결하고 일반 JSON 설정 작업에 오작동하지 않는다",
+      "method": "공식/원저의 해당 절·날짜·조건을 읽고 선택/flow·합성 파일 실제 분석·관련 회귀와 현재 등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "METHOD",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "CSV/중첩 JSON의 실제 합성 사례에서 품질·집계·한계와 재현 가능한 결과를 확인한다",
+      "method": "공식/원저의 해당 절·날짜·조건을 읽고 선택/flow·합성 파일 실제 분석·관련 회귀와 현재 등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "SCENARIOS",
+        "ANALYSIS",
+        "REPRODUCE",
+        "INPUT_CSV",
+        "INPUT_JSON"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "현재 등록·경로·flow와 관련 회귀를 검증하고 실제 분석 엔진/모델 성능과 방법론 보강을 구분한다",
+      "method": "공식/원저의 해당 절·날짜·조건을 읽고 선택/flow·합성 파일 실제 분석·관련 회귀와 현재 등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "GREEN",
+        "REPORT"
+      ]
+    }
+  ],
+  "next_action": "요청 범위 완료. 실제 데이터 분석 요청에서 질문·관측 단위·지표별 분모와 데이터 규모에 맞춰 절차를 적용한다.",
+  "completed_at": "2026-11-04T09:28:24.830646+00:00"
+}

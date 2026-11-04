@@ -1,0 +1,270 @@
+{
+  "version": 2,
+  "task_contract": "a44833f99c29a32e0313232ffb77232c91adfccb3d6ea08c837c1102d2e020d6",
+  "evidence_digest": "8e8b1f2ca07a64461d338aaa91d5f3b38e37e07766e4d8ce159544063cdb24f9",
+  "reviewer": "Codex self-review",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "Planning owner, template and incremental checkpoint instructions accumulate explanations; final review alone derives project-specific questions. Source-linked self-review covers missing reasons, unexecuted tests and changed code.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RESULT",
+        "CURRENT",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "One guide path, maps and project topics/paths are documented. Actual template-derived guide selection and same-path update/resume pass; sources, decisions and execution claims remain distinct.",
+      "evidence": [
+        "RESULT",
+        "CURRENT",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "Actual default context and request-only plan/design/review flows read owning procedures, preserve current nodes and still reject unprepared implementation. F1 owner-registration regression is fixed and same-test red/green evidence is preserved.",
+      "evidence": [
+        "RED",
+        "RESULT",
+        "LATEST",
+        "CURRENT",
+        "OWNER_RED",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "Generic procedure and template contain no supplied example content. Source-linked self-review and current 4-case integration/static checks pass. Full 520-test snapshot passed before only the shared task map changed; current map and relevant integration were reverified without repeating unaffected tests.",
+      "evidence": [
+        "RESULT",
+        "CURRENT",
+        "RECORD_CASE",
+        "RECORD_BEFORE",
+        "RECORD_AFTER",
+        "FINAL"
+      ]
+    }
+  ],
+  "limitations": [
+    "This is an agent-executed procedure, not an automatic document generator or proof of learning quality.",
+    "Semantic scenarios were self-reviewed; no independent evaluation or real service implementation run was performed.",
+    "One existing subprocess group-signal subcase was skipped because the execution sandbox denies group signals. Product UI E2E is inapplicable.",
+    "The 520-test snapshot is retained as historical after a shared task-map edit; the unchanged code results are supplemented by current map/static and 4-case integration verification."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "Generic project explanation owner/template, progressive record and final-only question rules, actual scoped discovery/routes and preserved gates.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "Planning owner, template and incremental checkpoint instructions accumulate explanations; final review alone derives project-specific questions. Source-linked self-review covers missing reasons, unexecuted tests and changed code."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "Reviewed absent decision rationale, unexecuted checks, stale explanations and small/non-project requests; do not invent evidence or force empty documents."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "Planning owns detailed instructions; verification reads its own acceptance procedure and source link. Existing route ownership, stage review and project-scoped reads remain intact."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "Four new integration tests pass; invalid route ownership reproduces failure using the unchanged final test file in an isolated copy, followed by the registered full passing run."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "Registering a planning reference directly as a verification route procedure broke route ownership validation.",
+        "cause": "Cross-skill route documents violate the established owning-skill contract.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_project_explanation.py",
+          "test_id": "test_existing_request_only_routes_consume_procedure_and_preserve_gates",
+          "sha256": "839203d7cb86faa4462608fc20789c431e99f6b1d5db5d1c187801f169c3b079",
+          "check": "project-explanation",
+          "before": "OWNER_RED",
+          "after": "FINAL"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "A dependent local bookkeeping edit temporarily referenced an unregistered evidence ID after registration failed.",
+        "cause": "The edit was not guarded on the registration result.",
+        "status": "fixed",
+        "regression": {
+          "mode": "manual",
+          "case": "RECORD_CASE",
+          "before": "RECORD_BEFORE",
+          "after": "RECORD_AFTER",
+          "expected": "Acceptance references only successfully registered evidence; final verification succeeds.",
+          "why_not_automated": "This was a one-off local record sequencing error, not a changed runtime function. Actual failed verification and corrected reference membership were observed; atomic registration and final verification exercise the repair."
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "Actual route reads and doctor rejected cross-owner procedure registration.",
+        "evidence": [
+          "OWNER_RED"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "Owning procedure consumption was restored and the same regression file passes.",
+        "evidence": [
+          "FINAL",
+          "RESULT"
+        ]
+      },
+      {
+        "id": "R3",
+        "new_findings": [
+          "F2"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "Completion bookkeeping exposed an unknown evidence reference after a stale registration failed.",
+        "evidence": [
+          "RECORD_BEFORE",
+          "RECORD_CASE"
+        ]
+      },
+      {
+        "id": "R4",
+        "new_findings": [],
+        "closed_findings": [
+          "F2"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "Corrected references and used guarded atomic import; current integration/static checks and all evidence membership were rechecked with no new finding.",
+        "evidence": [
+          "FINAL",
+          "RECORD_AFTER",
+          "RESULT"
+        ]
+      }
+    ]
+  },
+  "observations": {
+    "status": "observed",
+    "task": "project-explanation",
+    "observations": [
+      {
+        "id": "REQUEST",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/request.md",
+        "sha256": "d36a160a9dda5937e406544be41d831d4cd40fa75e9416eac843d59d20b619e0"
+      },
+      {
+        "id": "DESIGN",
+        "type": "artifact",
+        "path": "docs/tasks/project-explanation/design.md",
+        "sha256": "76807efe35b78e0aaea4d93bd259cc2292e4c7ea9e8da8c81b0fea987677e267"
+      },
+      {
+        "id": "ALIGN",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/alignment.json",
+        "sha256": "6ba4a2872bc9fc97c02dbb4ef3aade96661fbd0c44c73e6aba668d45171f9a92"
+      },
+      {
+        "id": "RESULT",
+        "type": "artifact",
+        "path": "docs/tasks/project-explanation/results.md",
+        "sha256": "9e58c065e1bd18459f755f326c704ab6ce94348741f3131c633a1a756df334d4"
+      },
+      {
+        "id": "RED",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/regression-report-before.json",
+        "sha256": "0980c6d65b89a08331f49253721c599d5e7fd9331b40d1e01d778b05cd84a39e"
+      },
+      {
+        "id": "GREEN",
+        "type": "artifact",
+        "path": ".runtime/checks/9d0f39243c754bc496d4e2952e2853e6/report.json",
+        "sha256": "ab0fad5d448aba0336104e6a63fd255b0c5c636f425e4c9fbdcad898d7605448"
+      },
+      {
+        "id": "LATEST",
+        "type": "artifact",
+        "path": ".runtime/check-snapshots/f98a8772c1df474d8d7ecdddd9549f83/checks/00d1bd1348444e629affe59b7719d31a/report.json",
+        "sha256": "f38fa47f442d5ef81e1e4212713d54e9c6549e0fb58f327370db0ad217e576bb"
+      },
+      {
+        "id": "CURRENT",
+        "type": "artifact",
+        "path": ".runtime/checks/84ecf1a9e8074564baa6432a7c769dc3/report.json",
+        "sha256": "9a1357d1b79c3e80547624040fc2f5686dbf91deaae54a9a195b98b8608e06b5"
+      },
+      {
+        "id": "OWNER_RED",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/regression-current-before.json",
+        "sha256": "78d512ef1b5726ab864bc10308f9a71e3b1c479da74cdfb3b649a3e943b2fe42"
+      },
+      {
+        "id": "RECORD_CASE",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/bookkeeping-case.md",
+        "sha256": "0435ed4f347d1a9b373dc398aef7901b05b167538e91e323f8c1223048fc7a0f"
+      },
+      {
+        "id": "RECORD_BEFORE",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/bookkeeping-before.md",
+        "sha256": "924c195130330ea15f37438dca6de0ee49325b4a236119cd3e629969f3d00d1a"
+      },
+      {
+        "id": "RECORD_AFTER",
+        "type": "artifact",
+        "path": ".runtime/project-explanation/bookkeeping-after.md",
+        "sha256": "83071f504287e9f61fce00c9acb9465c5bee79029b2067bbfb737e018d79ca82"
+      },
+      {
+        "id": "FINAL",
+        "type": "check",
+        "path": ".runtime/checks/3cb632f8320543859f33a6fe2f3f483a/report.json",
+        "sha256": "3389d1ff22ade49cc7dd662ba89414cb096fbea71da115f2ceeaab71f9d12d40",
+        "check": "project-explanation",
+        "status": "passed",
+        "checkpoint": "final",
+        "current_sources": "not_checked",
+        "test_count": 4,
+        "failed_count": 0,
+        "skipped_count": 0,
+        "duration_seconds": 1.672,
+        "reused": false
+      }
+    ],
+    "note": "Content/log integrity checked; source currency, acceptance and independent review are not inferred."
+  }
+}

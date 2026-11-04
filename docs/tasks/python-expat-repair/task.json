@@ -1,0 +1,115 @@
+{
+  "version": 2,
+  "kind": "debug",
+  "goal": "기본 Python의 Expat 연결 오류를 복구해 XML 및 하네스 검사가 임시 환경변수 없이 동작하게 한다",
+  "status": "complete",
+  "evidence": {
+    "BEFORE": {
+      "type": "artifact",
+      "path": ".runtime/python-expat-repair/before.json",
+      "sha256": "c40dc6014d32359a080175e56d206cfefa71afdb1c70ab6a9efe4ab88f5753bb",
+      "description": "동일 Python·격리 환경에서 재현한 Expat 심볼 누락",
+      "recorded_at": "2026-11-04T03:38:11.826141+00:00"
+    },
+    "AFTER": {
+      "type": "artifact",
+      "path": ".runtime/python-expat-repair/after.json",
+      "sha256": "b61bb400d4e184ca59d08644e098a9c0b20200ef33d249ec8fd4d3e1fa95a643",
+      "description": "환경변수 없이 XML 파서 복구를 확인한 별도 프로세스 결과",
+      "recorded_at": "2026-11-04T03:38:11.897503+00:00"
+    },
+    "CASE": {
+      "type": "artifact",
+      "path": ".runtime/python-expat-repair/scenario.md",
+      "sha256": "880b8d5bab809f4ee30500daf7cca938cc83bdd74b324528b2d5b9cae79d4bc2",
+      "description": "설치 환경 결함의 재현 입력·기대 결과와 범위",
+      "recorded_at": "2026-11-04T03:38:11.969588+00:00"
+    },
+    "BACKUP": {
+      "type": "artifact",
+      "path": ".runtime/python-expat-repair/manifest.json",
+      "sha256": "26cd3643524d6145ca78e323eabcb744996e06e6811821a7b0ea002feaf537d4",
+      "description": "원본·수정본·적용 SHA-256, 연결 변경과 서명 검증 및 백업 위치",
+      "recorded_at": "2026-11-04T03:38:12.039361+00:00"
+    },
+    "HOOKS": {
+      "type": "artifact",
+      "path": ".runtime/python-expat-repair/hook-smoke.json",
+      "sha256": "752ef3cf4903d5a36e6aa3981015a23ccd62779bce0d60be268856f58def6360",
+      "description": "수정 후 6개 훅 이벤트 종료 코드 0과 유효 JSON 출력",
+      "recorded_at": "2026-11-04T03:38:12.110747+00:00"
+    },
+    "TEST": {
+      "type": "check",
+      "path": ".runtime/checks/2b31a37b2cb444dfb4fc5c15e1f964cc/report.json",
+      "sha256": "e39374e5653d66fa20f630aa53eeec6fda93d712bfbc9d585ce82a150172907b",
+      "description": "최종 소스에서 등록 검사 전체 및 Python407개 실패0·skip1 확인",
+      "recorded_at": "2026-11-04T03:41:46.521121+00:00",
+      "check": "python"
+    },
+    "RESULT": {
+      "type": "artifact",
+      "path": ".runtime/python-expat-repair/result.md",
+      "sha256": "ca8f5450e77cc4a7574b404de16e9793fc15359564acd265a3d7b9c7a2e2c90a",
+      "description": "복구 파일·원본 백업·환경 영향과 남은 범위의 최종 결과",
+      "recorded_at": "2026-11-04T03:41:46.720345+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/python-expat-repair/review.json",
+    "sha256": "c2b790f63a70554247dafdb4eae39973035528500d0d6ca3705d2df9b8bdee5f"
+  },
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T03:35:34.559731+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "현재 기본 Homebrew Python 3.14.7의 pyexpat 모듈과 하네스 XML/훅 소비 경로"
+  ],
+  "constraints": [
+    "원격 서버와 Codex 신뢰·승인 설정을 변경하지 않는다",
+    "셸 전역 환경변수를 추가하지 않는다",
+    "원본 모듈 백업과 복사본 검증 후 동일 버전 모듈 한 파일만 교체한다"
+  ],
+  "decisions": [
+    "실행 중인 기본 Python 3.14의 libexpat 연결만 복구한다. 별도 Python 3.12 설치는 이번 하네스 실행 범위 밖이다."
+  ],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "기본 python3에서 pyexpat import와 XML 정상·오류 입력 처리가 임시 환경변수 없이 성공한다",
+      "method": "동일 시나리오의 수정 전후 관측을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "BEFORE",
+        "AFTER",
+        "CASE"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "하네스 doctor 및 관련 훅·JUnit 회귀 검사가 통과한다",
+      "method": "doctor·6개 stdin 이벤트·등록 검사 전체 결과를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "HOOKS",
+        "TEST"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "실제 변경 대상과 원본 백업 및 수정 전후 근거를 보존한다",
+      "method": "원본 백업·수정본·설치 파일의 SHA-256과 실제 XML 스모크를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "BACKUP",
+        "RESULT"
+      ]
+    }
+  ],
+  "next_action": "작업 기록을 고정한 상태로 최종 등록 검사를 실행하고 근거·리뷰를 연결해 닫는다",
+  "completed_at": "2026-11-04T03:42:10.028294+00:00"
+}

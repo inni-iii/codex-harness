@@ -1,0 +1,68 @@
+{
+  "observed_on": "2026-11-04",
+  "cwd": "/Users/inni/inni/codex-harness",
+  "host": {
+    "machine": "MacBook Pro",
+    "chip": "Apple M5",
+    "physical_memory_gb": 24,
+    "data_volume_available_gib_approx": 437
+  },
+  "docker_desktop": {
+    "app_version": "4.59.1",
+    "build": "217750"
+  },
+  "docker_cli_version": "29.8.0",
+  "compose_version": "5.5.1",
+  "context": {
+    "name": "desktop-linux",
+    "endpoint_kind": "local_unix_socket"
+  },
+  "daemon": {
+    "server_version": "29.2.0",
+    "os": "Docker Desktop",
+    "architecture": "aarch64",
+    "cpus": 10,
+    "memory_bytes": 8217382912,
+    "containers": 5,
+    "running": 0,
+    "images": 19,
+    "storage_driver": "overlayfs",
+    "cgroup_version": "2"
+  },
+  "container_states": {
+    "zeropod-drive-worker": "exited",
+    "zeropod-api": "exited",
+    "zeropod-db": "exited",
+    "act local CI test container": "exited",
+    "deepwiki-open-deepwiki-1": "exited"
+  },
+  "query_status": {
+    "initial_sandbox_info_ps": "exit 1: local socket permission denied; zero-like fields were not treated as data",
+    "approved_read_only_info_ps": "exit 0; only names/images/states/ports and allowlisted daemon fields queried"
+  },
+  "static_compose_validation": {
+    "combinations": 6,
+    "passed": 6,
+    "failed": 0,
+    "meaning": "No env interpolation or service env-file resolution; config validation only, not build/run acceptance"
+  },
+  "source_hash_recheck": {
+    "files": 178,
+    "changed": 0,
+    "missing": 0
+  },
+  "not_performed": [
+    "container build/pull/start/exec/stop/remove",
+    "remote access",
+    "application or database writes",
+    "runtime memory/performance/load measurements",
+    "image contents or credentials examination",
+    "E2E"
+  ],
+  "documentation_checks": {
+    "doctor_exit_code": 0,
+    "doctor_status": "passed; existing historical artifact unavailability remains noted",
+    "git_diff_check_exit_code": 0,
+    "report_local_links_checked": 2
+  }
+}

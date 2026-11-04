@@ -1,0 +1,170 @@
+{
+  "version": 2,
+  "kind": "review",
+  "goal": "현재 하네스 연결을 재점검하고 동시 문서 지도·worktree 검증 입력 경계의 재현 결함을 보완한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-recheck/request.md",
+      "sha256": "5c3d8517bfaf13d48eb027d90b3054cab38732d377e1897ef6f6eebf86719965",
+      "description": "현재 하네스 연결 점검과 좁은 보완 범위",
+      "recorded_at": "2026-11-04T08:35:14.127008+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/design-before-fixture.md",
+      "sha256": "8f441db28125ba0b86923c6e83cebeadbe950e577006f7e1afdb63a7919355b0",
+      "description": "확인한 공유 지도/검증 입력 경계의 보완 설계",
+      "recorded_at": "2026-11-04T08:35:14.128895+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/alignment.json",
+      "sha256": "9619a0576415058260cdb18c6c626de9284722c4009b1af963e7f987164773a3",
+      "description": "현재 요구·두 재현과 설계 범위의 자체 정렬",
+      "recorded_at": "2026-11-04T08:35:14.131777+00:00"
+    },
+    "DESIGN2": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-recheck/design.md",
+      "sha256": "da2b10f5e08541b317935cf10658b70707a91c6c1f38d191b6563f965735842e",
+      "description": "기존 보안 fixture의 준비 조건 동기화까지 명시한 최종 설계",
+      "recorded_at": "2026-11-04T08:43:22.319774+00:00"
+    },
+    "ALIGN2": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/alignment-current.json",
+      "sha256": "09953c838a49c8050c76bb7d6e9d53315f4fa393c7c27960c55e50d4925117ff",
+      "description": "최종 범위와 보안 fixture 유지의 자체 정렬",
+      "recorded_at": "2026-11-04T08:43:22.321839+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/red-report.json",
+      "sha256": "82e0615794e7aa90d417cdb96f3c9faa3d26ea5fa08dcfe69097f6b8d1162c51",
+      "description": "동일 회귀 파일에서 관측한 수정 전476개 중 두 결함의 반례4건 실패",
+      "recorded_at": "2026-11-04T08:52:10.704523+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/62e5f462e9a348bd8bdaee6538601dfa/checks/75acf43b1d724be5be657e8679eb9b93/report.json",
+      "sha256": "50b2eaebe803eab60457d0735ab9ffcce9eb423e4ee3942b41e3d0b308b2940f",
+      "description": "최신 통합 고정 사본의 등록검사4개·478테스트·실패0·skip1·원본 변경없음",
+      "recorded_at": "2026-11-04T08:52:10.706867+00:00",
+      "check": "python"
+    },
+    "REPORT": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-recheck/report.md",
+      "sha256": "416c31af46b4d672d7f0429026dfb6dda32496fd60e8d489a1c91172705d21d1",
+      "description": "현재 연결·재현 수정·남은 계획과 실제 검증 한계의 보고서",
+      "recorded_at": "2026-11-04T08:52:10.796889+00:00"
+    },
+    "MATRIX": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/connection-matrix.json",
+      "sha256": "35664a4362fd5e32c4c7cbe91e0d594d6fc93e05c1743eec698c1b05d1af9843",
+      "description": "6종 context 원문 선택·24개 CLI 도움말·flow/지식 연결 실측",
+      "recorded_at": "2026-11-04T08:52:10.798459+00:00"
+    },
+    "PILOT": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/pilot-summary.json",
+      "sha256": "a42bbf97cf641e4c4f13020c2d992b141a43567cbe60b238904193b9bf7f3e5b",
+      "description": "격리 상태에서 실행한6종 합성 workflow의 실제 성공과 원본 보존 위치",
+      "recorded_at": "2026-11-04T08:52:10.800071+00:00"
+    },
+    "OBSERVED": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-recheck/observed.json",
+      "sha256": "f32cee11ba43cf2176a45c41f3d8a52709e4980d7359cd3e41922e55fe15550b",
+      "description": "최신 지도 감사·등록 검사·별도 작업 상태의 관측",
+      "recorded_at": "2026-11-04T08:52:10.801429+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/harness-connection-recheck/review.json",
+    "sha256": "5e5530d5b85703115c690dbb9d469dec8243bee3415d17aad35dcdf0a86d1a81"
+  },
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "created_at": "2026-11-04T08:31:20.692750+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/document_indexes.py",
+    "tools/harness/harness/core.py",
+    "tools/harness/tests/test_connection_recheck.py",
+    "docs/tasks/harness-connection-recheck/**",
+    "tools/harness/tests/test_lifecycle_hooks.py"
+  ],
+  "constraints": [
+    "다른 세션의 project-document-layout 작업과 승인된 docs/<프로젝트> 배치·기능 문서 자동 연결을 보존한다",
+    "원격/서비스/추가 모델/라우팅 실행과 설치는 하지 않는다",
+    "문서/메타데이터 검사와 의미·제품 품질 판단을 구분한다"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "지침·스킬·flow·CLI·문서·검사·완료/재개 연결을 실제 현재 상태와 대조한다",
+      "method": "현재 코드·등록·flow·도구 실행·반례·동일 회귀의 RED/GREEN과 전체 통합 검사 및 남은 조건을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "DESIGN2",
+        "ALIGN2",
+        "REPORT",
+        "MATRIX",
+        "GREEN",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "확인된 연결 결함의 수정 전 실패와 수정 후 회귀를 보존한다",
+      "method": "현재 코드·등록·flow·도구 실행·반례·동일 회귀의 RED/GREEN과 전체 통합 검사 및 남은 조건을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "RED",
+        "GREEN",
+        "REPORT",
+        "MATRIX",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "다른 세션의 프로젝트 문서 배치 변경을 보존하고 통합 상태의 검사를 확인한다",
+      "method": "현재 코드·등록·flow·도구 실행·반례·동일 회귀의 RED/GREEN과 전체 통합 검사 및 남은 조건을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "PILOT",
+        "GREEN",
+        "REPORT",
+        "MATRIX",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "남은 계획·과거 근거·호스트/서비스 실행 한계를 현재 결함과 구분한다",
+      "method": "현재 코드·등록·flow·도구 실행·반례·동일 회귀의 RED/GREEN과 전체 통합 검사 및 남은 조건을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "OBSERVED",
+        "GREEN",
+        "REPORT",
+        "MATRIX"
+      ]
+    }
+  ],
+  "next_action": "완료. 과거63개 로컬 근거의 보존 이관과 실제 서비스 시작/제품 E2E는 별도 대상·범위에서 확인한다.",
+  "completed_at": "2026-11-04T08:52:19.114015+00:00"
+}

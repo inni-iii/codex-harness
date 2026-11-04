@@ -50,7 +50,7 @@ tools/harness/
   docs/                          하네스 사용법·설정 명세·설계·도입 근거
 docs/
   index.md                      작은 최상위 문서 지도; 필요한 하위 지도·원문만 선택
-  projects/<프로젝트>/           서비스 개요·규칙·설계·workflow.toml
+  <프로젝트>/           서비스 개요·규칙·설계·workflow.toml
   tasks/<작업>/                  task.json·notes.md와 인수인계
   knowledge/catalog.json         적용 조건·근거·상태가 있는 재사용 지식
 .runtime/                        실행 결과·원본 로그·검사 재사용 캐시
@@ -69,6 +69,8 @@ docs/
 - 학습·교훈의 상세 절차와 양식은 maintain-knowledge, 브라우저 작성·시각 증거·실패 분석은 e2e-testing을 정본으로 삼는다. 계획 스킬과 공통 검증 스킬은 적용 시점·판단·연결을 맡고 같은 상세 절차를 반복하지 않는다.
 - 한 스킬에서만 사용하는 작은 보조 코드는 필요할 때 해당 스킬의 scripts/에 둘 수 있다. 여러 작업·사람·CI가 공유하는 실행 기능은 공용 도구로 관리한다. 현재 실행 코드를 이동하거나 복제하라는 뜻은 아니다.
 - 문서는 이 파일에서 직접 연결하거나 관련 스킬에서 읽게 한다. 모든 문서를 새 스킬로 만들 필요는 없다. 같은 규칙·명령·설정 설명은 원본 한 곳에서 관리하고 다른 위치에서는 링크한다.
+- 프로젝트 정본은 `docs/<프로젝트>/`에 둔다. 루트에는 index·brief·security만 두고 기능 계약·설계·검증 요약은 `features/<기능>/`, 공통 설계·결정·운영은 `architecture/`·`decisions/`·`operations/`로 묶는다. 필요한 폴더만 만든다. 작업 이력은 `docs/tasks/`, 원본 로그는 `.runtime/`에 둔다.
+- 구현·검증 때 문서가 필요한지 판단하고 같은 기능의 기존 정본부터 갱신한다. 날짜/단계별 보고서를 프로젝트 루트에 계속 추가하지 않는다. 기능 문서는 [document upsert](tools/harness/docs/project-documents.md)로 본문·각 폴더 지도·workflow의 경로/주제 읽기 조건을 함께 연결한다. 작은 내부 수정에 새 문서를 강제하지 않는다. 공통 문서·이동은 관련 지도/조건을 같은 작업에서 갱신하고 doctor로 확인한다.
 - 문서 탐색은 [docs/index.md](docs/index.md) → 해당 프로젝트/주제 지도 → 필요한 정본의 관련 절 순서로 한다. 하네스 문서는 [하위 지도](tools/harness/docs/index.md)에서 고른다. 인덱스 누락·오래됨은 좁은 검색으로 보완하고, 모든 링크의 본문을 일괄 읽지 않는다. 명시된 필수·보안 문서와 과거 세션 원문 확인은 유지한다.
 
 ## 작업별로 어디서 시작할지
@@ -78,10 +80,11 @@ docs/
 
 | 현재 작업 | 시작할 원문과 연결 대상 |
 | --- | --- |
-| 조사·기술 선택·다른 레포의 기능 재사용 | [research](.agents/skills/research/SKILL.md) → 근거 판정·재사용 참조. 기존 채택·제외 근거는 [스킬 선별 기록](tools/harness/docs/skill-sources.md)을 확인한다. |
+| 조사·기술 선택·CSV/JSON 데이터 분석·다른 레포의 기능 재사용 | [research](.agents/skills/research/SKILL.md) → 근거 판정·데이터 분석·재사용 참조. 기존 채택·제외 근거는 [스킬 선별 기록](tools/harness/docs/skill-sources.md)을 확인한다. |
 | 문서 분류·이동·최신화·출처 기반 위키 반영/질문/점검 | [docs-maintenance](.agents/skills/docs-maintenance/SKILL.md) → 구조·구현/결정 대조·위키·검증 중 필요한 절차. [도입 조사](tools/harness/docs/docs-maintenance-research.md)에 채택 근거가 있다. |
 | 가설·성능·품질·비용 비교 실험 | [experiment](.agents/skills/experiment/SKILL.md) → 실험 조건·하네스 평가 참조 |
 | 새 프로젝트·큰 기능·마일스톤 분해·갭 재평가·인수인계 | [plan-project](.agents/skills/plan-project/SKILL.md) → 프로젝트 자료·목표/갭 계획·워크플로·작업 기록 |
+| 작업 중 프로젝트 설명·선택 이유 누적, 최종 코드 검토 후 문답 정리 | [프로젝트 설명](.agents/skills/plan-project/references/project-explanation.md) → 단일 설명 문서·근거·재개·최종 문답 |
 | 재사용 교훈·기억·프로젝트 간 규칙 공유 | [maintain-knowledge](.agents/skills/maintain-knowledge/SKILL.md) → 후보·검토·채택·대체, 조건별 검색·공유 |
 | 스킬 작성·개선·검토 지식의 스킬 전환 | [maintain-skills](.agents/skills/maintain-skills/SKILL.md) → 네이티브 생성·등록·행동 검증 |
 | 디자인 기준·토큰·공용 UI 계약 | [design-first](.agents/skills/design-first/SKILL.md) → 승인한 프로젝트 디자인 자료 |
@@ -96,6 +99,7 @@ docs/
 | 보안 설계·민감한 경계 구현·외부 응답·의존성·공격 사례·수정 검증 | [security-review](.agents/skills/security-review/SKILL.md) → 상황별 상세 절차와 프로젝트 보안 양식 |
 | 사용자 흐름·프론트/API 연결·Playwright | [e2e-testing](.agents/skills/e2e-testing/SKILL.md) → 실제 앱 테스트·로컬 서버·JUnit |
 | 다른 노트북·패키지 관리자·고정 의존성 설치 | [setup-environment](.agents/skills/setup-environment/SKILL.md) → 읽기 전용 점검·프로젝트 선언/lock 기반 설치. MCP는 [설치와 도구](tools/harness/docs/tools.md)를 확인한다. |
+| 프로젝트 Dockerfile·Compose·컨테이너 환경 설계/구성·실패 진단 | [docker-containers](.agents/skills/docker-containers/SKILL.md) → 대상 프로젝트의 이미지·네트워크·비밀·저장·준비/복구·검증. 하네스 자체 컨테이너화나 정적 Svelte 배포를 강제하지 않는다. |
 | 여러 세션의 수정·같은 파일 변경·독립 작업 통합 | [격리와 통합 판단](.agents/skills/plan-project/references/collaboration.md) → [세션·통합 도구](tools/harness/docs/sessions.md) |
 | 모델 목록·모델/추론 조합 추천 | [추천기 사용법](tools/harness/docs/usage.md) → catalog / route. 입출력은 [계약](tools/harness/docs/contracts.md)을 확인한다. |
 | 별도 모델 실행을 명시적으로 선택한 작업 | [모델 실행 안내](tools/harness/docs/execution.md) → 선택적 run / chat, 자동 대화창 연결은 보류 |
@@ -105,7 +109,7 @@ docs/
 ## 새 서비스 작업을 시작할 때
 
 1. plan-project의 절차에 따라 대상 사용자·문제·첫 흐름·제약·완료 기준·미결정을 정리한다.
-2. project 명령으로 docs/projects/<이름>/index.md·brief.md·security.md와 draft workflow.toml을 만들고 실제 요구·보호 자원·권한·실패 조건을 채운다. 기존 폴더는 덮어쓰지 않는다.
+2. project 명령으로 docs/<이름>/index.md·brief.md·security.md와 draft workflow.toml을 만들고 실제 요구·보호 자원·권한·실패 조건을 채운다. 기존 폴더는 덮어쓰지 않는다.
 3. 서비스 코드 위치·실행 환경·필요한 의존성을 정하고, workflow.toml에 프로젝트 문서·검사 명령·공유 변경의 영향을 연결한다.
 4. 실제 명령과 검사 범위를 확인한 뒤 프로필을 active로 전환한다. 기본 프로필은 tools/harness/harness.toml의 [project].workflow, 일시 선택은 --project를 사용한다.
 5. 필요한 작업 기록을 만들고 관련 스킬로 수행·검증한다. 기록을 만든 의미 있는 작업은 [hook bind](tools/harness/docs/hooks.md#현재-세션의-task-지정)로 현재 세션에 연결한다. 중요한 발견·실패·이어갈 상태를 [작업 기록](tools/harness/docs/workflows.md)에 남긴다.
@@ -117,8 +121,8 @@ docs/
 
 ```sh
 python3 tools/harness/run.py project demo --goal "실제 프로젝트 목표"
-python3 tools/harness/run.py context --kind plan --project docs/projects/demo/workflow.toml --read
-python3 tools/harness/run.py check --project docs/projects/demo/workflow.toml --plan
+python3 tools/harness/run.py context --kind plan --project docs/demo/workflow.toml --read
+python3 tools/harness/run.py check --project docs/demo/workflow.toml --plan
 ```
 
 프로필 필드·경로 선택·검사 등록은 [프로젝트 워크플로 명세](tools/harness/docs/project-workflows.md)를 따른다.
@@ -171,7 +175,9 @@ check는 기본으로 현재 변경을 검사하고, --plan은 선택 명령·�
 - 마일스톤에 연결된 작업을 시작·재개할 때 `gap-analysis` 주제와 관련 계획을 확인한다. 이전 계획의 갭과 현재 근거를 비교하고, 종료·중단 때 해결/잔여/새 갭과 다음 행동을 연결한다. 기존 근거가 유효하면 재사용하고 달라진 부분만 재평가한다.
 - 코드의 완료 검토는 `context --kind review`로 관련 원문을 확인하고 요구 충족·결함/회귀를 나누어 검토한다.
 - 긴 작업을 이어갈 때는 `handoff`/`resume` 주제로 목표·결정·실패 조건·검증 상태·다음 행동을 확인한다. 재사용할 정정·해결은 `learning` 주제로 적용 조건과 회귀 근거를 남기고 필요한 프로젝트/공통 규칙에 연결한다.
+- 같은 대화에서 읽은 변경 없는 원문·명령 사용법·검사 근거는 재사용한다. 전체 과거 기록의 검색 범위와 관련 원문 확인은 유지하고 새 기록·주제·변경분만 추가 확인한다. 긴 원문·전체 diff·로그를 반복 출력하지 말고 필요한 절·이번 변경·실패 구간을 읽는다. 새 경계나 불확실성을 찾으면 필요한 원문으로 범위를 넓힌다.
 - 기존 코드·지침·결정을 먼저 확인하고 목표·범위·완료 기준을 정리한다. 연구·설계·구현·검증 방법은 작업에 맞게 선택한다.
+- 웹검색·MCP로 외부 자료를 조회할 때는 [검색 전후 확인](.agents/skills/research/references/web-search.md)을 적용한다. 필요하면 `context --kind research --topic web-search --read`로 읽는다. 내장 웹검색은 도구 훅이 발생하지 않으므로 현재 에이전트가 질의·오류·원문·날짜·인용을 직접 확인한다. MCP 훅의 안내·정적 점검을 의미 검증의 완료로 취급하지 않는다.
 - 실질적인 작업 시작에 의미 있는 작업 묶음과 이번 검증 범위, E2E 수행 여부·시점 또는 미수행 이유를 짧게 알린다. 검증 범위가 달라지면 실행 전에 이유를 설명한다. 이 안내를 재승인 요청으로 만들지 않는다.
 - 여러 세션의 코드 작업은 세션별 worktree로 분리하고 기존 격리 공간을 재사용한다. 같은 함수를 계속 공동 수정해야 하면 쓰기 담당을 조정한다. 통합할 때 양쪽 의도·공유 경계·수용 기준을 비교하고 합친 결과를 다시 검사한다. 유효한 요구가 양립하지 않아 선택이 필요하면 결정 전에 양쪽 의도·선택별 영향·추천안을 사용자에게 알린다.
 - 다른 세션의 변경을 발견하면 현재 사용자 설명·작업 기록·기준 상태와 대조해 진행 중 변경, 완료된 변경의 결함, 내 변경의 회귀, 소유 미확인을 구분한다. 확인된 타 세션 작업은 임의로 완성·등록·삭제하지 않는다. 무관한 중간 상태 때문에 내 작업 전체를 결함으로 단정하지 않고, 관련 범위의 검증을 이어간다. 공유 경계에 영향이 있으면 미확인/차단 범위를 명시하고 통합 시 최신 상태를 다시 검사한다. 상세 판단은 [협업 지침](.agents/skills/plan-project/references/collaboration.md)을 따른다.

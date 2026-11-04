@@ -1,0 +1,151 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "인덱스 중심 읽기를 명확히 하고 무관한 작업 기록이 검사 캐시·완료 근거·flow를 무효화하지 않게 한다",
+  "status": "complete",
+  "evidence": {
+    "DESIGN": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/design-initial.md",
+      "sha256": "38970b2eefda335312d6857f0c6d2e3ba85b916eca1507104fb8bbd319061acd",
+      "description": "현재 사용자 승인과 기록 제외/입력 보존의 경량 설계",
+      "recorded_at": "2026-11-04T09:03:42.782430+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/alignment.json",
+      "sha256": "36b178a97db9a6c5747f6d6bd1c98c90bcd0c0ace144333518243552c6d54edc",
+      "description": "선택 O1·요구와 보호 경계 자체 정렬",
+      "recorded_at": "2026-11-04T09:03:42.787749+00:00"
+    },
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/request.md",
+      "sha256": "03956e58e4723dd937b0a01c6f40fbc869d07504c6a70001bbd55860df480779",
+      "description": "현재 사용자의 좁은 수정 승인 원문과 범위",
+      "recorded_at": "2026-11-04T09:07:41.208763+00:00"
+    },
+    "DESIGN2": {
+      "type": "artifact",
+      "path": "docs/tasks/verification-record-reuse/design.md",
+      "sha256": "f8291874bc455ae457697c57d89530a31fbf03b73054c5b36df4d23a14e990bf",
+      "description": "입력 보호 반례 파일 범위까지 포함한 현재 설계",
+      "recorded_at": "2026-11-04T09:07:41.210389+00:00"
+    },
+    "ALIGN2": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/alignment-current.json",
+      "sha256": "1d62dfc5bdde9842304552019a9a9b1b8e89b46591c08963da23c0899a656e2f",
+      "description": "현재 선택 O1과 사용자 승인/보호 경계의 자체 정렬",
+      "recorded_at": "2026-11-04T09:07:41.213617+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/red-report.json",
+      "sha256": "db8f452a52de8611593dc9518fcb8d1fd75052da90a338a914fcf2c1361d6fc9",
+      "description": "실제 좁은 unittest 등록 검사8개 중 cache/완료/flow 반례3개 실패; 원본과 로그 보존",
+      "recorded_at": "2026-11-04T09:10:37.435853+00:00"
+    },
+    "RED2": {
+      "type": "artifact",
+      "path": ".runtime/check-snapshots/ecfa2fae702c406d99859586d266b8c1/checks/5b35b33dcce7450ba45a0893c339c982/report.json",
+      "sha256": "c2d4ddd94e331b70512f9380a45b627e8ecdc098eeb6e4eaeeeb1cb80f7fb09a",
+      "description": "첫 통합492개에서 읽기 전용 flow3건이 설정 파일/검사 목록을 잘못 요구한 실제 회귀 실패",
+      "recorded_at": "2026-11-04T09:13:13.078645+00:00"
+    },
+    "ALIGN3": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/alignment-final.json",
+      "sha256": "704899c12534dfc291de38c1cb0f2decabe6dde9c71f8c0a1d9eafc1608813eb",
+      "description": "읽기 flow 호환 회귀 발견을 반영한 현재 작업 계약 정렬",
+      "recorded_at": "2026-11-04T09:13:13.089181+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/4e48ac99bccd41189625208bc689189d/checks/798c5660ffac45759d1898e6fa2bd7e3/report.json",
+      "sha256": "0f05135c3e5b70fe7620b79e0a919254f929c181feb99375e87d75843d83b997",
+      "description": "최종 통합 등록4개·492테스트 실패0 skip1; 실제 소스 변경 없음",
+      "recorded_at": "2026-11-04T09:15:36.768559+00:00",
+      "check": "python"
+    },
+    "ASSESS": {
+      "type": "artifact",
+      "path": ".runtime/verification-record-reuse/assessment.json",
+      "sha256": "3d7ce79f5ef7dfbeb07d767f1e3af2224e8f0bd8efd818c48fcacc8843ef2c2b",
+      "description": "요구·오류/공유 경계·과거 호환과 문서 읽기 규칙의 최종 자체 검토",
+      "recorded_at": "2026-11-04T09:15:36.920728+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/verification-record-reuse/review.json",
+    "sha256": "8accd8ecb03c7ee72179438e94ce4c4a75d8e2e9d3e6343559511ddb0a56c41a"
+  },
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "created_at": "2026-11-04T09:03:41.805019+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/record_scope.py",
+    "tools/harness/harness/core.py",
+    "tools/harness/harness/checks.py",
+    "tools/harness/harness/evidence.py",
+    "tools/harness/harness/skill_flows.py",
+    "tools/harness/harness.toml",
+    "tools/harness/tests/test_record_reuse*.py",
+    ".agents/skills/docs-maintenance/SKILL.md",
+    ".agents/skills/docs-maintenance/references/navigation.md",
+    ".agents/skills/verify-work/references/evidence.md",
+    "tools/harness/docs/verification.md",
+    "tools/harness/docs/completion.md",
+    "tools/harness/docs/skill-flows.md",
+    "docs/tasks/verification-record-reuse/**"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "무관한 작업 기록 추가/수정 후 선언된 독립 코드 검사를 재사용하고 완료/flow 근거를 유지한다",
+      "method": "실제 로컬 검사→기록 추가→재사용/완료/flow와 입력·실행 권한·환경 변경 반례 및 선택 원문/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "DESIGN",
+        "ALIGN",
+        "REQUEST",
+        "DESIGN2",
+        "ALIGN2",
+        "RED",
+        "ALIGN3",
+        "FINAL",
+        "ASSESS"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "연결한 요구·검사 입력·코드·권한·환경·설정 변경과 과거 보고서의 보수적 검증은 유지한다",
+      "method": "실제 로컬 검사→기록 추가→재사용/완료/flow와 입력·실행 권한·환경 변경 반례 및 선택 원문/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "RED2",
+        "FINAL",
+        "ASSESS"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "인덱스에서 필요한 원문만 읽는 지침과 실제 회귀/정적·통합 검사를 일치시킨다",
+      "method": "실제 로컬 검사→기록 추가→재사용/완료/flow와 입력·실행 권한·환경 변경 반례 및 선택 원문/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "ASSESS",
+        "FINAL"
+      ]
+    }
+  ],
+  "next_action": "완료. 문서 탐색은 인덱스에서 필요한 원문만 선택한다. 새 프로젝트 검사에서는 실제 입력 독립성을 확인한 경우만 ignore_task_records를 선언한다.",
+  "completed_at": "2026-11-04T09:15:43.817327+00:00"
+}

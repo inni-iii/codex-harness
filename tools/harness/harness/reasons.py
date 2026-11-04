@@ -144,9 +144,10 @@ def ready(root, task, tp, design_id, alignment_id):
     audit = p.load(p.local_file(root, audit_entry['path']), LIMIT)
     fields(audit, ['version', 'kind', 'design', 'task_contract', 'operations', 'coverage', 'basis', 'reviewer', 'decision', 'reason', 'completed_dependencies', 'evidence_bindings'],
            ['version', 'kind', 'design', 'task_contract', 'operations', 'coverage', 'basis', 'reviewer', 'decision', 'reason', 'completed_dependencies', 'evidence_bindings'], 'alignment review')
-    if type(audit['version']) is not int or audit['version'] != 1 or audit['kind'] != 'reasons-alignment' or audit['decision'] != 'ready':
+    if type(audit['version']) is not int or audit['version'] not in (1, 2) or audit['kind'] != 'reasons-alignment' or audit['decision'] != 'ready':
         raise ValueError('alignment review is not ready')
-    if audit['design'] != {'path': entry['path'], 'sha256': entry['sha256']} or audit['task_contract'] != evidence.contract(task):
+    contract = evidence.contract(task) if audit['version'] == 1 else evidence.intent_contract(task)
+    if audit['design'] != {'path': entry['path'], 'sha256': entry['sha256']} or audit['task_contract'] != contract:
         raise ValueError('alignment review is stale for design/task contract')
     text(audit['reason'], 'alignment observation')
     fields(audit['reviewer'], ['name', 'type', 'independent'], ['name', 'type', 'independent'], 'alignment reviewer')
@@ -269,8 +270,8 @@ def alignment_template(root, task, tp, design_id, operations, output, basis=()):
     for ident in basis:
         if ident not in task['evidence']: raise ValueError('template basis is missing')
         evidence.verify_entry(root, task['evidence'][ident], tp)
-    template = {'version': 1, 'kind': 'reasons-alignment', 'design': {'path': entry['path'], 'sha256': entry['sha256']},
-                'task_contract': evidence.contract(task), 'operations': operations,
+    template = {'version': 2, 'kind': 'reasons-alignment', 'design': {'path': entry['path'], 'sha256': entry['sha256']},
+                'task_contract': evidence.intent_contract(task), 'operations': operations,
                 'coverage': {c['id']: operations for c in task['acceptance']}, 'basis': list(basis),
                 'evidence_bindings': {ident: p.signature(task['evidence'][ident]) for ident in basis},
                 'reviewer': {'name': '', 'type': 'agent', 'independent': False}, 'decision': 'pending',

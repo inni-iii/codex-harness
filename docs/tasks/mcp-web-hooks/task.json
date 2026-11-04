@@ -1,0 +1,160 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "연결된 MCP 호출에 훅 안내·오류 판별·변경 후 정적 점검을 적용하고 내장 웹검색에는 명시적인 전후 검증 절차를 연결한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/request.md",
+      "sha256": "551ceacb74ecf9ab72c7f86b01d2bcee47453504d2d0df090bf0f0586e6c3435",
+      "description": "현재 사용자 요청과 범위",
+      "recorded_at": "2026-11-04T05:08:41.987794+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/mcp-web-hooks/design.md",
+      "sha256": "78b0bf1268691f24225b5c9dcd50aa7c9ddee73b8cb32382520a71a713b7e1eb",
+      "description": "R1-R4 및 O1의 행동·권한·검증 경계",
+      "recorded_at": "2026-11-04T05:08:42.046262+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/alignment.json",
+      "sha256": "4b6f406039eb984226ae39e7f50c4b03d27544cc6b124c42963e0a2d4f047fdb",
+      "description": "현재 요청·설계·O1의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T05:08:42.163591+00:00"
+    },
+    "TARGET": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/targeted.log",
+      "sha256": "f86657edea085c17520ff398421b87b18ef45908dfdeb3c49ee062126dcad040",
+      "description": "수정 후 훅25개 집중 검사 로그",
+      "recorded_at": "2026-11-04T05:11:50.811599+00:00"
+    },
+    "CONTEXT": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/context-scenarios.json",
+      "sha256": "ef229fc7f8479f50380a95fc3ced7ba83f4ecd94e0ac8f70453862a7f24f2207",
+      "description": "세 주제에서 검색 전후 원문 선택 확인",
+      "recorded_at": "2026-11-04T05:11:50.874204+00:00"
+    },
+    "WEB": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/web-scenarios.md",
+      "sha256": "d6ff5bb1c2da3b27b2eed3a66c5d48425fc72387ad3c9445bf12e3bb8f503aa3",
+      "description": "실제 공식 문서 조회와 정상·오류·충돌·민감질의·지시문 시나리오",
+      "recorded_at": "2026-11-04T05:11:50.936669+00:00"
+    },
+    "RESULT": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/result.md",
+      "sha256": "22e1d75a960a482eaa06801b9d3e4bef06530c44f4f0b52048f144468f90ee73",
+      "description": "최종 구현·동작 경계와 검증 한계",
+      "recorded_at": "2026-11-04T05:11:50.996700+00:00"
+    },
+    "WORKTREE": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/worktree-check.json",
+      "sha256": "045a10107a7775a1d8a558af9c57dd19a92381d311b1f4592d0aabfc405113ef",
+      "description": "격리 snapshot의 등록 검사413개 실패0·skip1 및 live_source_changed=false 기록",
+      "recorded_at": "2026-11-04T05:13:38.344611+00:00"
+    },
+    "INTEGRATION": {
+      "type": "artifact",
+      "path": ".runtime/mcp-web-hooks/integration.json",
+      "sha256": "aef9da00b15fbbc1ddc5c8bbbf6bbdba4729030aa7609e20e7ad25a19609f04c",
+      "description": "시작 baseline 및 검증 소스와 대조한14개 변경 경로 전후 SHA",
+      "recorded_at": "2026-11-04T05:14:43.048309+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/checks/45d64d84ad344a4c9adeb9b34e00307b/report.json",
+      "sha256": "2d9768c94fc9cb666888f476827709034ef4336cfec54ec344c7b7f6ff46363f",
+      "description": "메인 통합 상태 등록 검사 전체: Python413개 실패0·기존환경skip1, 설정·정적검사통과",
+      "recorded_at": "2026-11-04T05:16:22.299340+00:00",
+      "check": "python"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/mcp-web-hooks/review.json",
+    "sha256": "478c53190e35c6e35ba513843c9f7137082e6d86fcfabded5eb95158ece7d386"
+  },
+  "findings": [],
+  "created_at": "2026-11-04T05:07:43.925835+00:00",
+  "depends_on": [],
+  "inputs": [
+    "현재 사용자: MCP는 따로 등록해야 한다는 점을 확인하고 제안한 방식의 적용을 요청함"
+  ],
+  "scope": [
+    ".codex/hooks.json",
+    "tools/harness/harness/lifecycle_hooks.py",
+    "tools/harness/tests/test_lifecycle_hooks.py",
+    "tools/harness/docs/hooks.md",
+    "tools/harness/docs/architecture.md",
+    ".agents/skills/security-review/references/harness.md",
+    ".agents/skills/research/SKILL.md",
+    ".agents/skills/research/references/web-search.md",
+    ".agents/context.toml",
+    "AGENTS.md",
+    "docs/tasks/index.md",
+    "docs/tasks/mcp-web-hooks/**"
+  ],
+  "constraints": [
+    "새 MCP 서버·플러그인·네트워크 서비스 등록 없음",
+    "Codex 신뢰·승인·sandbox 변경 없음",
+    "도구 입력·응답·검색어·비밀 원문을 훅 출력/상태에 복사하지 않음",
+    "내장 웹검색의 자동 훅 실행이나 의미상 안전을 주장하지 않음"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "연결된 MCP 이름이 Pre/Post matcher와 처리 코드에서 일치하며 셸 가드와 분리된 안내 및 오류 알림을 반환한다",
+      "method": "matcher·실제 stdin·합성 MCP 정상/오류 입력으로 안내·오류 판별·셸 가드 분리를 확인한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "MCP로 변경된 지침·설정은 기존 정적 검사를 받고 응답 원문·비밀값은 훅 출력과 상태에 복사되지 않는다",
+      "method": "MCP 뒤 watched 변경 감지와 비밀/지시문 비전파를 실제 상태·로그로 확인한다",
+      "status": "passed",
+      "evidence": [
+        "RESULT",
+        "INTEGRATION",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "내장 웹검색은 새 MCP 등록 없이 검색 전후 검증 절차를 발견할 수 있고 자동 훅 지원과 구분된다",
+      "method": "research 및 web-search context 선택과 실제 공식 문서 검색/원문 대조 시나리오를 확인한다",
+      "status": "passed",
+      "evidence": [
+        "CONTEXT",
+        "WEB",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "기존 셸 원격 쓰기 보조 차단·생명주기 동작과 관련 회귀가 유지된다",
+      "method": "기존 훅·원격 가드와 등록 검사 전체를 수행하고 실행 수/skip을 구분한다",
+      "status": "passed",
+      "evidence": [
+        "TARGET",
+        "WORKTREE",
+        "FINAL"
+      ]
+    }
+  ],
+  "next_action": "설계·정렬을 확인하고 MCP Pre/Post 처리와 내장 웹검색 절차를 구현·검증한다",
+  "completed_at": "2026-11-04T05:16:55.668602+00:00"
+}

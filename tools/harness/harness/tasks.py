@@ -114,4 +114,13 @@ def create(root: Path, slug: str, kind: str, goal: str, acceptance: list[str]) -
         "- 다음 한 행동(파일/함수/명령과 관측할 결과):\n\n"
         "다른 노트북에 없는 로컬 로그는 재현 명령도 남긴다. 비밀값·개인 경로는 기록하지 않는다.\n",
         encoding="utf-8")
+    (path / "index.md").write_text(
+        "# " + slug + " 작업 지도\n\n"
+        "필요한 항목만 읽는다. 현재 상태와 완료 판단은 task/evidence 원본을 확인한다.\n\n"
+        "| 문서 | 역할·읽을 때 |\n|---|---|\n"
+        "| [작업 계약](task.json) | 목표·범위·수용 기준·현재 상태·검증 근거와 다음 행동을 확인한다 |\n"
+        "| [작업 기록](notes.md) | 중요한 결정·실패·수정·검증·인수인계를 확인한다 |\n",
+        encoding="utf-8")
+    from .document_indexes import register_folder
+    register_folder(root, path, slug, " ".join(goal.split()))
     return path / "task.json"

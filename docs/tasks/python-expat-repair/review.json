@@ -1,0 +1,118 @@
+{
+  "version": 2,
+  "task_contract": "f33d7e0d9d6d55d4c7220557c5e52808905a621e9e579cd44cec30ff1e2cabd9",
+  "evidence_digest": "2c8c2f092cda3550ca9e9040b84b774d749c8d063c2f55141793714180c6fa86",
+  "reviewer": "Codex, 복구 수행자의 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "수정 전후 동일한 격리 Python 프로세스에서 pyexpat 심볼 오류가 제거됐고 정상 XML 파싱·잘못된 XML 거부가 확인됐다.",
+      "evidence": [
+        "BEFORE",
+        "AFTER",
+        "CASE"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "최종 등록 검사 전체가 passed이며 Python407개 실패0·skip1이다. 기존 JUnit 검사와 훅19개가 실행됐고6개 이벤트 stdin 스모크도 모두exit0·유효JSON이다.",
+      "evidence": [
+        "HOOKS",
+        "TEST"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "manifest에 원본·수정본·설치본 SHA-256, 원본 백업 경로, 연결 변경·서명 검증과 전후 프로세스 결과가 보존됐다. 설치 대상은 기본 Python pyexpat 한 파일이다.",
+      "evidence": [
+        "BACKUP",
+        "RESULT"
+      ]
+    }
+  ],
+  "limitations": [
+    "설치된 기본 Homebrew Python3.14.7의 환경 복구다. 다른 설치·다른 컴퓨터의 복구는 아니다.",
+    "네이티브 훅 실패 원인과의 인과관계는 미확정이며6개 stdin 이벤트 성공과 구분한다.",
+    "Python407개 중 기존 프로세스 그룹 신호 권한 제한 하위 사례1개 skip. XML·훅 사례는 실행됐다.",
+    "Homebrew 재설치/업그레이드가 pyexpat 모듈을 교체하면 연결 상태를 다시 점검해야 한다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "현재 기본 Python3.14.7 pyexpat의 Expat 연결과 XML 정상/오류 입력, 하네스 doctor·JUnit·훅 소비 경로, 원본 백업 및 변경 범위",
+    "areas": [
+      {
+        "name": "reproduction",
+        "result": "checked",
+        "reason": "BEFORE는 DYLD/PYTHON 환경변수를 제거한 새 -I 프로세스의 심볼 누락 실패이며 AFTER는 동일 코드의 성공이다."
+      },
+      {
+        "name": "cause",
+        "result": "checked",
+        "reason": "otool에서 macOS 기본 Expat 연결을 확인했고 Homebrew Expat으로 연결한 복사본과 실제 설치본에서 동일 입력이 성공했다."
+      },
+      {
+        "name": "fix_scope",
+        "result": "checked",
+        "reason": "기본 Python3.14의 pyexpat 한 파일만 백업 후 원자 교체했다. OS 라이브러리·전역 셸 환경·레포 훅 코드를 변경하지 않았다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "XML 정상/오류 경로,6개 stdin 이벤트와407개 등록 Python 테스트를 확인했다. 최종 보고서는passed이며 환경 제한skip1을 구분한다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "기본 Python pyexpat의 Expat 심볼 누락으로 XML 파서 import 실패",
+        "cause": "현재 OS libexpat에는 확장 모듈이 요구하는 심볼이 없어 Homebrew Expat으로 연결을 복구했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "manual",
+          "case": "CASE",
+          "before": "BEFORE",
+          "after": "AFTER",
+          "expected": "임시 환경변수 없이 pyexpat import·정상 XML 파싱이 성공하고 잘못된 XML은 ParseError로 거부된다.",
+          "why_not_automated": "레포 코드 결함이 아닌 현재 컴퓨터의 설치 바이너리 연결 결함이다. 레포 자동 테스트를 개인 Homebrew 절대경로에 종속시키지 않고 동일 명령의 실제 별도 프로세스 전후 관측을 보존했다. 명령 자체는 스크립트로 실행했으며 설치 환경 회귀를 코드 테스트 실패로 꾸미지 않았다."
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "실제 import 실패와 macOS Expat 연결을 확인했고 Homebrew Expat 복사본이 같은 XML 시나리오를 통과함을 확인했다.",
+        "evidence": [
+          "BEFORE",
+          "CASE",
+          "BACKUP"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "승인된 단일 파일 교체 후 깨끗한 프로세스 XML 스모크,6개 stdin 이벤트,최종 등록 검사407개와 백업 해시를 대조했고 관련 범위의 새 결함은 발견되지 않았다.",
+        "evidence": [
+          "AFTER",
+          "TEST",
+          "BACKUP",
+          "HOOKS",
+          "RESULT"
+        ]
+      }
+    ]
+  }
+}

@@ -5,12 +5,15 @@ state = "draft"
 checks = []
 impacts = []
 
+[documentation]
+layout = "feature-folders"
+
 [context]
-documents = ["docs/projects/example/index.md", "docs/projects/example/brief.md", "docs/projects/example/security.md"]
+documents = ["docs/example/index.md", "docs/example/brief.md", "docs/example/security.md"]
 
 [security]
 state = "draft"
-document = "docs/projects/example/security.md"
+document = "docs/example/security.md"
 document_sha256 = ""
 assets = []
 trust_boundaries = []
@@ -23,18 +26,18 @@ controls = []
 # Optional domain-specific reading, after the actual document exists:
 # [[context.rules]]
 # paths = ["backend/**"]
-# documents = ["docs/projects/example/domain-rules.md"]
+# documents = ["docs/example/features/items/spec.md"]
 
 # Read a checkpoint only when continuing prior work:
 # [[context.rules]]
 # topics = ["resume", "handoff"]
-# documents = ["docs/projects/example/checkpoint.md"]
+# documents = ["docs/tasks/first-feature/notes.md"]
 # when = "Restore decisions, failures, evidence and the next action."
 
 # Read evaluated lessons when debugging (create the file first):
 # [[context.rules]]
 # kinds = ["debug"]
-# documents = ["docs/projects/example/lessons.md"]
+# documents = ["docs/example/operations/lessons.md"]
 
 # Add real [[checks]] and [[impacts]] using tools/harness/docs/project-workflows.md.
 # Remove the empty checks/impacts arrays before using arrays of tables.

@@ -1,0 +1,123 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "발견 기록과 설계 의도 계약을 분리해 범위 내 결함 추가가 설계 정렬·flow 재시작을 강제하지 않게 한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/intent-contract/request.md",
+      "sha256": "c4f5a1d75b1bf5afd0821a3f3a517b5fa1ecd711e5963983d30ca076ff3db5c9",
+      "description": "현재 사용자 우선1번 승인과 유지 조건",
+      "recorded_at": "2026-11-04T09:31:11.652611+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/intent-contract/design.md",
+      "sha256": "6b7cb62505d99df607f8113647cc7db9d76337a470ffbe7beb6e8967642dd85c",
+      "description": "의도/완료 지문과 이전 이력 보호 설계",
+      "recorded_at": "2026-11-04T09:31:11.653950+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/intent-contract/alignment.json",
+      "sha256": "819574c0db4de475cb0a55db9d5807afadc06292d52da897fa19be78fb81d9f3",
+      "description": "현재 계약/선택 O1의 자체 정렬",
+      "recorded_at": "2026-11-04T09:31:11.657005+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/intent-contract/red-report.json",
+      "sha256": "98775d171f8b842ec94ab47171ead0ebaac6e9e9742e1a3b30d4052e8c3f024a",
+      "description": "기존 실행 코드의 좁은 등록 검사8개에서 같은 정렬/flow 유지 및 명시 v2 이행 반례3건 실패; 원본 로그 보존",
+      "recorded_at": "2026-11-04T09:35:59.193934+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/9f9ffc4fe8e443149175f3d1ef52072a/checks/5dfc594b94894e6e999d8a6dd5107624/report.json",
+      "sha256": "46bc25d1e27c2a3958f3f1ad7e47f58ecf2824342184ff60c68fb2b9c7906996",
+      "description": "통합 등록4개·504개 실패0 skip1; 유효한 동일 입력 검증",
+      "recorded_at": "2026-11-04T09:38:14.896536+00:00",
+      "check": "python"
+    },
+    "ASSESS": {
+      "type": "artifact",
+      "path": ".runtime/intent-contract/assessment.json",
+      "sha256": "d9d848d29544f34626d6db2213b477a62766b80e64a5b686131bee1474a17408",
+      "description": "의도/기록 분리·실제 변경/완료 보호·legacy 보존의 최종 자체 검토",
+      "recorded_at": "2026-11-04T09:38:15.004744+00:00"
+    },
+    "ASSESS2": {
+      "type": "artifact",
+      "path": ".runtime/intent-contract/completion-assessment.json",
+      "sha256": "24ecf95fe99544388b980b1eab3dd07fc3916f5977d5776ccd69d964d8233aed",
+      "description": "다른 세션의 실제 새 코드와 소유 변경을 구분하고 원래 검증 사본의 현재 근거 유효성을 확인",
+      "recorded_at": "2026-11-04T09:39:15.980217+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/intent-contract/review.json",
+    "sha256": "963a55aff798e0cf76d2f79a5ec4754360053f05027b47a390282457443af76b"
+  },
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T09:31:11.382569+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/evidence.py",
+    "tools/harness/harness/reasons.py",
+    "tools/harness/harness/skill_flows.py",
+    "tools/harness/tests/test_intent_contract.py",
+    "tools/harness/docs/reasons.md",
+    "tools/harness/docs/skill-flows.md",
+    "tools/harness/docs/completion.md",
+    ".agents/skills/plan-project/references/reasons-canvas.md",
+    "docs/tasks/intent-contract/**"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "동일 의도에서 발견 ID를 추가해도 새 정렬과 flow가 유효하고 진행 상태를 유지한다",
+      "method": "원래 정렬/flow를 유지한 발견 추가와 의도/설계/근거 변경·누락 리뷰 거부·v1 보존/명시 이행의 실제 회귀 및 통합 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "FINAL",
+        "ASSESS",
+        "ASSESS2"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "요구·범위·수용 기준·설계·결정 근거 변경은 재정렬을 요구하고 완료 리뷰는 새 결함을 빠뜨릴 수 없다",
+      "method": "원래 정렬/flow를 유지한 발견 추가와 의도/설계/근거 변경·누락 리뷰 거부·v1 보존/명시 이행의 실제 회귀 및 통합 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "FINAL",
+        "ASSESS",
+        "ASSESS2"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "이전 정렬/flow/완료 이력을 보존하며 관련 호출자 회귀와 현재 안내를 함께 확인한다",
+      "method": "원래 정렬/flow를 유지한 발견 추가와 의도/설계/근거 변경·누락 리뷰 거부·v1 보존/명시 이행의 실제 회귀 및 통합 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "ASSESS",
+        "FINAL",
+        "ASSESS2"
+      ]
+    }
+  ],
+  "next_action": "1번은 검증 사본에서 완료. 현재 main의 project-explanation 진행 중 verify-work routes 소유 경계 오류는 해당 세션에서 보완한 뒤 doctor/hook status 및 실제 근거로 resolve한다. 이후2/3/4 순서로 진행하며 문서 변경은 Git 없이 내용 해시로 판단한다.",
+  "completed_at": "2026-11-04T09:40:18.840411+00:00"
+}

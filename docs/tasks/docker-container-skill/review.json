@@ -1,0 +1,132 @@
+{
+  "version": 2,
+  "task_contract": "82b6a69bf0f4e190d7bf02e823c37613af08280bef4577aaa482ab3ef902d0c6",
+  "evidence_digest": "47b44d623b1dac56261eb13bf34644785c2a4185ffbbcc728b77113d94f338bd",
+  "reviewer": "Codex 현재 세션 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "다른 프로젝트를 대상으로 하는 네이티브 Docker 스킬·세 참조·두 양식을 만들었다. 하네스 루트 Dockerfile/실행 Compose나 공용 container CLI를 추가하지 않았고 Svelte 정적/프레임워크/추가 서비스도 강제하지 않는다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN2",
+        "SKILL"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "실제 context의 root/nested Dockerfile/compose/ignore 및 Docker 세부 topic 선택, 무관 경로 제외와 조건부 참조를 검사했다. configure는 design/alignment와 verify 호출이 필요하고 inspect/design/diagnose는 그 입력 없이 시작한다. F1 선택 누락은 같은 테스트 파일 해시에서 RED/GREEN을 확인했다.",
+      "evidence": [
+        "RED",
+        "GREEN",
+        "SKILL"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "실제 Docker Compose config로 이미지/secret 입력·DB 내부망/영속 volume·DB 준비·loopback frontend와 project 이름/host port 격리 반례를 확인했다. S1~S6은 현재 요청·기존 사례·권한/오류 경계를 작성자가 대조한 시나리오이며 독립 모델 평가나 앱 실행을 주장하지 않는다.",
+      "evidence": [
+        "SCENARIOS",
+        "GREEN",
+        "SKILL"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "격리 worktree의 등록 검사4개/415 tests와 최신 main 통합 상태의 등록 검사4개/427 tests를 확인했다. main은 실패0·skip1이며 신규 Docker 검사8개는 모두 실행됐다. 지도/선택/라우트/문서와 다른 세션 변경을 보존한 통합 및 증거를 연결했다.",
+      "evidence": [
+        "GREEN",
+        "MAP",
+        "SCENARIOS"
+      ]
+    }
+  ],
+  "limitations": [
+    "실제 대상 앱 이미지 build/start, DB 복원·부하·브라우저 E2E는 이번 스킬 작성에서 실행하지 않았다. 로컬 예제는 앱 이미지/설정/health 계약을 채워 쓰는 출발점이다.",
+    "scenarios는 작성 에이전트의 자체 검토이며 독립 모델/사용자 실행 평가가 아니다.",
+    "기존 실행기 회귀 중 sandbox의 process-group signal 제약으로 1개 subcase가 skip됐다. 신규 Docker 관련8개는 skip 없이 실행했다.",
+    "다른 프로젝트/원격/전역 환경·기존 컨테이너를 변경하지 않았다. 지원 OS/모든 Docker·Compose 버전/제품 품질을 보증하지 않는다.",
+    "2026-11-04 후속 연결 복구: RED/동일 로그 경로만 표준 로컬 위치로 이관했다. 원래 task/review/RED와 로그 해시는 RELOCATION/RED_ORIGINAL에 보존했다. 당시 판정·독립성·completed_at은 유지하며 현재 재검증으로 재분류하지 않는다.",
+    "2026-11-04: MAP 원문은 같은 바이트의 .runtime/docker-container-skill/map-at-completion.md로 보존했다. live AGENTS 배치 변경을 위한 경로 보존이며 당시 검증/완료를 재실행한 것이 아니다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "다른 프로젝트에서 재사용하는 Docker 스킬·조건별 자료/양식·선택/flow 연결과 실제 등록 검사. 앱 인프라 구축은 범위 밖.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "현재 사용자 원문·정적 배포 정정과 SKILL/등록/경로를 대조해 실제 대상 프로젝트와 스킬 소유권을 구분했다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "선택 누락의 실제 실패/수정, 필수 입력 누락, 읽기와 쓰기 gate, 다른 project의 host port 충돌 반례 및 원격/삭제/비밀 경계를 검토했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "setup-environment·언어/DB/보안/E2E/verify/doc 스킬 책임을 유지하고 새 조건/라우트를 연결했다. main의 웹검색 훅 등 다른 세션 수정은 보존하고 통합 후 재검증했다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "동일 테스트 해시의 F1 RED/GREEN과 기존 전체 unittest, Compose 모델/부정 입력/격리 검사를 실행했다. 소스/명령/cwd·원본 로그·skip과 미실행을 구분했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "대문자 접미 frontend.Dockerfile과 세부 Docker 주제에서 부모 스킬이 선택되지 않음",
+        "cause": "부모 선택 조건에서 .Dockerfile 패턴과 requires_skill 참조 topic을 누락했다. 두 등록 조건을 보완했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_container_skill.py",
+          "test_id": "test_real_docker_file_names_select_the_skill",
+          "sha256": "05d0fe8022a02c98b05d5aaa509f3bfbeab6a069481e1ed58cca03b70cc70600",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "실제 선택 회귀에서 4개 subcase 실패를 확인했다. 별도 Compose fixture 환경 오류와 비밀 패턴의 합성 경로 후보는 앱/스킬 결함과 구분했다.",
+        "evidence": [
+          "RED",
+          "SCENARIOS"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "부모 패턴/topic을 수정한 뒤 같은 테스트 파일 해시에서 통과했다. 최신 main에서 427 tests 실패0 skip1 및 등록검사4개를 확인하고 요구·권한·누락·공유 경계·범위/미실행을 최종 재검토했다.",
+        "evidence": [
+          "GREEN",
+          "SCENARIOS",
+          "SKILL",
+          "MAP"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "version": 2,
+  "task_contract": "e2172cac643bd6d26dc929bd02f1435b081395f279e27c258ef0bc6b21983a99",
+  "evidence_digest": "3725217744faa607c00215d1199bbe1bb37f0f98e3c950d430def2120d35e885",
+  "reviewer": "현재 작업 에이전트",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "현재 스킬/flow/CLI/context/지식·훅·완료·문서 경계와 실제 실행 근거 및 보류 항목을 대조했다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "DESIGN2",
+        "ALIGN2",
+        "REPORT",
+        "MATRIX",
+        "GREEN",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "동일 회귀 파일 해시의 RED4개 실패와 최신 GREEN478개 실패0·skip1, 공유 작성자 보호와 원자 실패 복구를 확인했다.",
+      "evidence": [
+        "RED",
+        "GREEN",
+        "REPORT",
+        "MATRIX",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "타 세션의 승인된 문서 배치·기본 절차를 보존했고 두 작업이 완료된 최신 결합 사본에서 전체 검사4개와478테스트를 확인했다.",
+      "evidence": [
+        "PILOT",
+        "GREEN",
+        "REPORT",
+        "MATRIX",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "과거63개 근거 누락, 실제 서비스 E2E/시작 사례 부재, 선택적 모델/외부 인증과 로컬 연결 성공을 보고서·최종 관측에서 구분했다.",
+      "evidence": [
+        "OBSERVED",
+        "GREEN",
+        "REPORT",
+        "MATRIX"
+      ]
+    }
+  ],
+  "limitations": [
+    "자체 검토이며 자연어 스킬 선택 정확도·모델 품질·실제 앱/DB/브라우저·외부 MCP 인증을 이번 로컬 검사로 보증하지 않는다.",
+    "기존 process-group signal 권한 제한으로1개 subcase를 skip했고 두 결함의 신규4개 및 관련31개는 모두 실행했다.",
+    "과거 로컬 증거63개/11작업은 현재 레포에 없고 당시 기록/원본 위치와 현재 재검증을 구분한다. 서비스 시작의 실제 입력→결과 검증은 활성 서비스가 생길 때 확인한다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "현재 하네스 연결과 재현된 두 공유 경계의 수정·회귀·최신 통합 및 실제 미확인 분리",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "현재 점검 요청과 실제 재현·연결 행렬·완료/재개 경로를 대조했다."
+      },
+      {
+        "name": "defects",
+        "result": "checked",
+        "reason": "동시 지도 유실·worktree 메타데이터 오염을 재현해 좁게 수정했고 보안 fixture assertion을 유지했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "문서 작성자 잠금·runtime/symlink·Git source inventory와 타 세션 소유 경계를 보존했다."
+      },
+      {
+        "name": "evidence",
+        "result": "checked",
+        "reason": "같은 회귀 해시의 RED/GREEN, 최신 고정 사본과 환경·source 무결성, 자체 검토와 합성/서비스 한계를 구분했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "동시 생성에서 상위 인덱스 항목/본문이 소실·혼합됐다.",
+        "cause": "읽기/직접쓰기에 공유 잠금과 원자 교체가 없었다. 기존 문서 작성자와 같은 잠금으로 조상 지도 갱신을 직렬화하고 실패 시 원문을 보존한다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_connection_recheck.py",
+          "test_id": "test_concurrent_task_creation_preserves_both_parent_links",
+          "sha256": "25a6698997be52ea1042a801fed3aa7b8eabea0ea24e161a1bb404a60a829d9b",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "worktree .git 포인터가 소스/증거 입력에 포함돼 메타데이터만 바뀌어도 stale이 됐다.",
+        "cause": "IGNORED는 디렉터리만 제외했다. Git 메타데이터 파일도 제외하면서 실제 코드 변경 감지는 유지한다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_connection_recheck.py",
+          "test_id": "test_worktree_pointer_is_not_a_source_or_evidence_input",
+          "sha256": "25a6698997be52ea1042a801fed3aa7b8eabea0ea24e161a1bb404a60a829d9b",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "두 실제 경계의 실패를 임시 환경과 고정 회귀4개로 재현했다.",
+        "evidence": [
+          "RED",
+          "REQUEST"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "오류·보안 fixture·공유 문서 쓰기·실제 소스 검출과 최신 전체 결합 상태를 다시 대조했고 새 확인 결함은 없었다.",
+        "evidence": [
+          "GREEN",
+          "REPORT",
+          "OBSERVED"
+        ]
+      }
+    ]
+  }
+}

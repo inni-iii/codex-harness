@@ -12,7 +12,7 @@ from pathlib import Path
 import re
 import uuid
 
-from . import context, evidence, flow_catalog as fc, provenance as p, reasons, tasks
+from . import context, evidence, flow_catalog as fc, flow_documents, provenance as p, reasons, tasks
 from .core import runtime_path
 
 LIMIT = 1024 * 1024
@@ -50,8 +50,20 @@ def task_data(root, slug):
 
 
 def sources(root, tp):
-    return p.signature({rel: [digest, (root / rel).stat().st_mode & 0o111]
-                        for rel, digest in p.snapshot(root).items() if not evidence.bookkeeping(rel, tp, root)})
+    from . import record_scope
+    from .core import manifest
+    policy = None
+    config_path = root / 'tools/harness/harness.toml'
+    if config_path.is_file():
+        import tomllib
+        with config_path.open('rb') as stream:
+            declared = tomllib.load(stream)
+        if 'checks' in declared:
+            config = manifest(root)
+            policy = record_scope.policy(root, config['checks'], config.get('workflow'))
+    values = {rel: [digest, (root / rel).stat().st_mode & 0o111]
+              for rel, digest in p.snapshot(root).items() if not evidence.bookkeeping(rel, tp, root)}
+    return p.signature(record_scope.select(values, policy, protected=record_scope.task_inputs(root, tp)))
 
 
 def proof(root, task, tp, ids, *, require_current=True):
@@ -72,26 +84,33 @@ def check_proof(root, task, tp, recorded, *, require_current=True):
         raise ValueError('flow evidence binding changed')
 
 
-def bindings(root, task, tp, route, supplied):
+def request_contract(task, version=2):
+    return evidence.contract(task) if version == 1 else evidence.intent_contract(task)
+
+
+def bindings(root, task, tp, route, supplied, *, version=2):
     if not isinstance(supplied, dict) or set(supplied) - set(route['inputs']) or 'request' in supplied:
         raise ValueError('unknown input or attempt to override task request')
     missing = set(route['inputs']) - {'request'} - set(supplied)
     if missing:
         raise ValueError('missing route inputs: ' + ', '.join(sorted(missing)))
     bound = {name: proof(root, task, tp, [ident]) for name, ident in supplied.items()}
-    return {'request': evidence.contract(task), **bound}
+    return {'request': request_contract(task, version), **bound}
 
 
-def frame(root, task, tp, node, cat, supplied):
-    bound = bindings(root, task, tp, cat['nodes'][node], supplied)
+def frame(root, task, tp, node, cat, supplied, *, version=2):
+    bound = bindings(root, task, tp, cat['nodes'][node], supplied, version=version)
     reasons.check(root, task, tp, cat['nodes'][node], bound)
-    return {'node': node, 'inputs': bound,
-            'steps': [], 'validation': None, 'calls': {}, 'last_return': None, 'choice': None}
+    value = {'node': node, 'inputs': bound,
+             'steps': [], 'validation': None, 'calls': {}, 'last_return': None, 'choice': None}
+    if cat['nodes'][node].get('finish_when') == 'documents_unchanged':
+        value['document_baseline'] = flow_documents.snapshot(root)
+    return value
 
 
-def progress(root, task, tp):
+def progress(root, task, tp, *, version=2):
     # Metadata edits or freshly numbered copies of the same proof are not progress.
-    return p.signature([sources(root, tp), evidence.contract(task),
+    return p.signature([sources(root, tp), request_contract(task, version),
                         sorted({entry['sha256'] for entry in task['evidence'].values()})])
 
 
@@ -123,7 +142,7 @@ def read(root, run, cat):
     digest = state['integrity']
     if p.signature({k: v for k, v in state.items() if k != 'integrity'}) != digest:
         raise ValueError('flow state integrity changed')
-    if state['version'] != 1 or state['run'] != run or state['status'] not in {'running', 'waiting', 'blocked', 'finished', 'failed'}:
+    if type(state['version']) is not int or state['version'] not in (1, 2) or state['run'] != run or state['status'] not in {'running', 'waiting', 'blocked', 'finished', 'failed'}:
         raise ValueError('invalid flow state identity/status')
     fc.names([state['task']], 'flow task')
     for field in ['revision', 'moves']:
@@ -144,8 +163,9 @@ def read(root, run, cat):
         fc.fields(call, ['frame', 'target', 'edge', 'failed_exit'], ['frame', 'target', 'edge', 'failed_exit'], 'call frame')
         frames.append(call['frame'])
     for f in frames:
-        fc.fields(f, ['node', 'inputs', 'steps', 'validation', 'calls', 'last_return', 'choice'],
+        fc.fields(f, ['node', 'inputs', 'steps', 'validation', 'calls', 'last_return', 'choice', 'document_baseline'],
                   ['node', 'inputs', 'steps', 'validation', 'calls', 'last_return', 'choice'], 'route frame')
+        flow_documents.validate(root, f.get('document_baseline'))
         if not isinstance(f['node'], str) or not fc.NODE.fullmatch(f['node']) or not isinstance(f['inputs'], dict) or not isinstance(f['steps'], list) or not isinstance(f['calls'], dict):
             raise ValueError('invalid route frame')
         if state['catalog'] == cat['digest']:
@@ -163,7 +183,7 @@ def read(root, run, cat):
 
 
 def fresh(state, cat, task):
-    if state['catalog'] != cat['digest'] or state['contract'] != evidence.contract(task):
+    if state['catalog'] != cat['digest'] or state['contract'] != request_contract(task, state['version']):
         raise ValueError('route catalog or task contract changed; explicitly restart this flow with the current contract')
 
 
@@ -171,8 +191,8 @@ def complete(f, route):
     return len(f['steps']) == len(route['steps'])
 
 
-def check_inputs(root, task, tp, f, *, require_current=True):
-    if f['inputs'].get('request') != evidence.contract(task):
+def check_inputs(root, task, tp, f, *, require_current=True, version=2):
+    if f['inputs'].get('request') != request_contract(task, version):
         raise ValueError('route request changed')
     for name, ident in f['inputs'].items():
         if name != 'request':
@@ -204,7 +224,7 @@ def view(root, state, cat, task, tp):
     stale = []
     try:
         fresh(state, cat, task)
-        check_inputs(root, task, tp, f)
+        check_inputs(root, task, tp, f, version=state['version'])
         if route:
             reasons.check(root, task, tp, route, f['inputs'])
         if f['validation'] and f['validation']['result'] == 'passed':
@@ -212,7 +232,7 @@ def view(root, state, cat, task, tp):
     except (OSError, ValueError) as exc:
         stale.append(str(exc))
     phase = 'decide' if f['validation'] else 'validate' if route and complete(f, route) else 'steps'
-    return {'status': 'passed', 'flow_status': state['status'], 'run': state['run'], 'task': state['task'],
+    result = {'status': 'passed', 'flow_status': state['status'], 'run': state['run'], 'task': state['task'],
             'revision': state['revision'], 'node': f['node'], 'phase': phase,
             'completed_steps': [s['id'] for s in f['steps']], 'validation': f['validation'],
             'last_return': f['last_return'], 'stack': [{'caller': c['frame']['node'], 'target': c['target']} for c in state['stack']],
@@ -221,6 +241,10 @@ def view(root, state, cat, task, tp):
             'pending': state['pending'], 'stale': stale, 'blocked_reason': state['blocked_reason'],
             'outgoing': fc.outgoing(cat, f['node']),
             'note': 'Flow position and declared evidence are checked; task acceptance and actual user authorship remain separate judgments.'}
+    if route and route.get('finish_when') == 'documents_unchanged':
+        result['documentation'] = flow_documents.changes(root, f.get('document_baseline'))
+        result['documentation']['finish_available'] = bool(not stale and result['documentation']['unchanged'] and f['validation'] and f['validation']['result'] == 'passed')
+    return result
 
 
 def start(root, run, task_slug, node, *, inputs=None, max_moves=100, max_depth=8, max_visits=3):
@@ -236,7 +260,7 @@ def start(root, run, task_slug, node, *, inputs=None, max_moves=100, max_depth=8
         tp, task = task_data(root, task_slug)
         if task['status'] == 'complete':
             raise ValueError('start a flow on an open task')
-        state = {'version': 1, 'run': run, 'task': task_slug, 'contract': evidence.contract(task),
+        state = {'version': 2, 'run': run, 'task': task_slug, 'contract': request_contract(task),
                  'catalog': cat['digest'], 'entry': node, 'current': frame(root, task, tp, node, cat, inputs or {}),
                  'stack': [], 'status': 'running', 'revision': 0, 'moves': 0, 'limits': limits,
                  'visits': {}, 'events': [], 'pending': None, 'blocked_reason': None}
@@ -274,7 +298,7 @@ def act(root, run, action, *, step=None, result=None, reason=None, evidence_ids=
         detail = {}
         if action == 'restart':
             fc.text(reason, 'restart reason')
-            changed = (state['catalog'] != cat['digest'] or state['contract'] != evidence.contract(task)
+            changed = (state['version'] == 1 or state['catalog'] != cat['digest'] or state['contract'] != request_contract(task, state['version'])
                        or bool(view(root, state, cat, task, tp)['stale']))
             current_progress = progress(root, task, tp)
             old_visit = state['visits'].get(f['node'], {})
@@ -285,14 +309,17 @@ def act(root, run, action, *, step=None, result=None, reason=None, evidence_ids=
             target = node or state['entry']
             if target not in cat['nodes']:
                 raise ValueError('unknown restart node')
-            state.update(contract=evidence.contract(task), catalog=cat['digest'], entry=target,
-                         current=frame(root, task, tp, target, cat, inputs or {}), stack=[],
+            restarted = frame(root, task, tp, target, cat, inputs or {})
+            if 'document_baseline' in restarted:
+                restarted['document_baseline'] = f.get('document_baseline')
+            state.update(version=2, contract=request_contract(task), catalog=cat['digest'], entry=target,
+                         current=restarted, stack=[],
                          status='running', pending=None, blocked_reason=None)
             visit(state, target, current_progress)
             state['moves'] += 1; detail = {'reason': reason}
         else:
             repair = action == 'move' and 'failed' in cat['edges'].get(edge_id, {}).get('guards', [])
-            check_inputs(root, task, tp, f, require_current=not repair)
+            check_inputs(root, task, tp, f, require_current=not repair, version=state['version'])
             reasons.check(root, task, tp, route, f['inputs'])
             if action == 'step':
                 if f['validation'] is not None or complete(f, route) or route['steps'][len(f['steps'])]['id'] != step:
@@ -338,7 +365,9 @@ def act(root, run, action, *, step=None, result=None, reason=None, evidence_ids=
                 for name in set(cat['nodes'][edge['to']]['inputs']) - {'request'}:
                     if name not in supplied and name in f['inputs']:
                         supplied[name] = reasons.bound_id(f['inputs'], name)
-                new = frame(root, task, tp, edge['to'], cat, supplied)
+                new = frame(root, task, tp, edge['to'], cat, supplied, version=state['version'])
+                if edge['mode'] == 'transition' and 'failed' in edge['guards'] and 'document_baseline' in new:
+                    new['document_baseline'] = f.get('document_baseline')
                 if edge['mode'] == 'call':
                     active = {f['node'], *(c['frame']['node'] for c in state['stack']), *(c['target'] for c in state['stack'])}
                     if len(state['stack']) >= state['limits']['depth'] or edge['to'] in active:
@@ -348,7 +377,7 @@ def act(root, run, action, *, step=None, result=None, reason=None, evidence_ids=
                 elif state['stack'] and 'failed' in edge['guards'] and edge['from'] != edge['to']:
                     state['stack'][-1]['failed_exit'] = {'result': 'failed', 'reason': 'Called work left through a failure/replanning path; caller must reassess the requested result.'}
                 state['current'] = new; state['moves'] += 1
-                visit(state, edge['to'], progress(root, task, tp))
+                visit(state, edge['to'], progress(root, task, tp, version=state['version']))
                 detail = {'edge': edge['id'], 'mode': edge['mode'], 'from': edge['from'], 'reason': reason}
             elif action == 'ask':
                 fc.text(question, 'question')
@@ -376,7 +405,12 @@ def act(root, run, action, *, step=None, result=None, reason=None, evidence_ids=
                 if validation['result'] == 'passed':
                     validated(root, task, tp, validation, fp)
                     if not route['finish']:
-                        raise ValueError('this route must follow its successful continuation before finishing')
+                        if route.get('finish_when') != 'documents_unchanged':
+                            raise ValueError('this route must follow its successful continuation before finishing')
+                        documents = flow_documents.changes(root, f.get('document_baseline'))
+                        if not documents['available'] or not documents['unchanged']:
+                            raise ValueError('document baseline missing or documentation changed; follow the document continuation')
+                        fc.text(reason, 'reason documentation needs no update')
                 if state['stack']:
                     call = state['stack'].pop(); caller = call['frame']
                     returned = {**validation, **(call['failed_exit'] or {}), 'requested_node': call['target'], 'finished_node': f['node']}
@@ -388,6 +422,8 @@ def act(root, run, action, *, step=None, result=None, reason=None, evidence_ids=
                     state['status'] = 'finished' if validation['result'] == 'passed' else 'failed' if validation['result'] == 'failed' else 'blocked'
                     state['blocked_reason'] = validation['reason'] if validation['result'] == 'blocked' else None
                     detail = {'result': validation['result']}
+                if validation['result'] == 'passed' and not route['finish']:
+                    detail.update(documentation='unchanged', reason=reason)
             elif action == 'block':
                 fc.text(reason, 'blocked condition')
                 state.update(status='blocked', pending=None, blocked_reason=reason); detail = {'reason': reason}
@@ -422,7 +458,10 @@ def selected_context(root, run, *, read_contents=False, workflow=None):
         if not read_contents:
             design_document.pop('content', None)
         chosen.append(design_document)
-    return {'status': 'planned', 'node': state['current']['node'], 'route': route, 'documents': chosen,
+    result = {'status': 'planned', 'node': state['current']['node'], 'route': route, 'documents': chosen,
             'outgoing': [{**e, 'target_when': cat['nodes'][e['to']]['when']} for e in fc.outgoing(cat, state['current']['node'])],
             'security_review': base.get('security_review'),
             'note': 'Only current procedures and required project/security context are read; outgoing targets are metadata. No link expansion or automatic work execution.'}
+    if route.get('finish_when') == 'documents_unchanged':
+        result['documentation'] = flow_documents.changes(root, state['current'].get('document_baseline'))
+    return result

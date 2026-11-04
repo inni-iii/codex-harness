@@ -29,6 +29,7 @@ def configure(commands):
         if name == 'validate': p.add_argument('--result', choices=['passed', 'failed', 'blocked'], required=True)
         if name in ['validate', 'answer', 'restart', 'block']:
             p.add_argument('--reason', required=True)
+        if name == 'finish': p.add_argument('--reason')
         if name == 'move':
             p.add_argument('edge'); p.add_argument('--reason')
         if name in ['move', 'restart']:

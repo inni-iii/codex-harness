@@ -16,7 +16,7 @@ import xml.etree.ElementTree as ET
 
 from .core import canonical_relative, changed_paths, files, fingerprint, git, inside, manifest, matches, runtime_path, strict_json, write_json
 from .processes import execute
-from . import provenance
+from . import provenance, record_scope
 from . import security_profiles
 
 
@@ -268,6 +268,8 @@ def run(root: Path, paths: list[str], *, full=False, reuse=False, report_dir: Pa
     if fingerprint(root) != before:
         return {'status': 'stale', 'results': [], 'completion_ready': False, 'product_accepted': False,
                 'note': 'Inputs changed during planning; no check commands were executed.'}
+    policy = record_scope.policy(root, selected['checks'], selected['workflow'])
+    before = fingerprint(root, record_policy=policy)
     base = report_dir or runtime_path(root, '.runtime/checks')
     run_id = uuid.uuid4().hex
     directory = base / run_id
@@ -344,7 +346,7 @@ def run(root: Path, paths: list[str], *, full=False, reuse=False, report_dir: Pa
         results.append(record)
         if status == "passed" and check.get("cacheable", False):
             cache[key] = record
-    after = fingerprint(root)
+    after = fingerprint(root, record_policy=policy)
     status = "passed" if all(r["status"] == "passed" for r in results) else "failed"
     if status == 'passed' and selected['deferred_checks']:
         status = 'checkpoint_passed'
@@ -361,6 +363,7 @@ def run(root: Path, paths: list[str], *, full=False, reuse=False, report_dir: Pa
     report = {"run_id": run_id, "created_at": datetime.now(timezone.utc).isoformat(),
               "status": status, "fingerprint": before, "scope": selected["scope"],
               "source_snapshot": source_snapshot, "environment": provenance.environment(),
+              "verification_policy": policy,
               "source_executable": source_executable,
               "workspace": str(root.resolve()),
               "paths": paths, "results": results, "product_accepted": False,

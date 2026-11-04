@@ -1,0 +1,122 @@
+{
+  "version": 2,
+  "task_contract": "33c8124971b379afe270053f53073dd43aa6e89111262b222f66756c696b2e11",
+  "evidence_digest": "3bed351832de5ba4f9b2141bd0d39492659bce026b2d0ae84fa0ffd56c59b290",
+  "reviewer": "Codex self-review",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "짧은 검증 요청의 네이티브 발견 설명과 기본 계약을 연결했다. topic/path 없는 실제 review context가 원문을 읽으며 문서/코드·명시 제한과 현재 대상 도출을 자체 시나리오로 대조했다. 같은 자동 회귀가 RED 실패 후 FINAL 통과했다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "RETENTION",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "실제 request-only inspect가 시작됐다. 실제 repair edge와 기존 check는 alignment/design 누락으로 거부되고 거부 뒤 inspect 위치를 유지했다. GUARD에 실제 오류/대상 경로를 보존했고 설계 없는 기존 검증을 위해 구현 gate를 낮추지 않았다.",
+      "evidence": [
+        "GUARD",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "기본/문서/UI/API/권한/미등록 사례의 선택·범위/제약을 대조했다. 새 자동2개와 관련43개가 통과했고 현재 통합 고정 소스의 등록4검사·443개/실패0/skip1, live_source_changed=false를 확인했다. 새 모델/훅·검사 루프를 추가하지 않았다.",
+      "evidence": [
+        "SCENARIOS",
+        "SELECTION",
+        "SOURCE",
+        "FINAL"
+      ]
+    }
+  ],
+  "limitations": [
+    "네이티브 지침·실제 context/flow 소비와 작성 에이전트의 자체 시나리오를 확인했다. 다른 모델/사용자의 독립적인 자연어 수행 평가나 자동 실행 강제 보장은 아니다.",
+    "실제 제품 UI/API/DB는 이번 변경에 없으므로 앱 E2E는 비적용이며 UI 사례는 선택 경로를 확인한 것이다.",
+    "전체443개 중 기존 실행 sandbox의 process-group signal 제한 subcase1개를 건너뛰었다. 신규2개 검사는 모두 실행되어 통과했다.",
+    "새 UserPromptSubmit/도구별 검사 훅·모델 호출·자동 수리 worker·전역 설정·원격 실행은 추가하지 않았다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "짧은 검증 요청의 기본 의미·소유 스킬/선택·읽기 진입·기존 수정 gate·검증/보고 근거 연결과 실제 현재 회귀.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "짧은 검증 요청의 네이티브 발견 설명과 기본 계약을 연결했다. topic/path 없는 실제 review context가 원문을 읽으며 문서/코드·명시 제한과 현재 대상 도출을 자체 시나리오로 대조했다. 같은 자동 회귀가 RED 실패 후 FINAL 통과했다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "문서/수정 금지/대상 제한·앱 미등록·필수 입력 누락·실행 없음/skip의 처리 기준과 실제 선택/거부를 대조했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "기존 verify-work를 단일 소유로 유지하고 보안/E2E 전문 스킬을 연결했다. 구현 check/repair의 alignment를 유지하며 새 모델/훅/글로벌 설정을 추가하지 않았다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "기본 원문 선택·request-only 진입 부재를 같은 파일의 실제 RED/GREEN으로 보존했고 기존 context10개/flow31개를 포함한 전체443개를 확인했다. 정상/문서/실패/권한/미등록의 자체 시나리오와 한계를 분리했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "범위 없는 검증 요청에 기본 수용 검증 계약/설계 없는 읽기 진입이 명시 연결되지 않음",
+        "cause": "기존 일반 절차와 구현 check만 있어 사용자에게 긴 지시를 반복하게 할 수 있었다. 기본 참조/발견/선택과 request-only inspect를 연결하고 실제 수리는 기존 gate를 유지했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_verification_defaults.py",
+          "test_id": "test_default_review_selects_acceptance_without_manual_topics",
+          "sha256": "23737b3c0189ed2f3639d35ea35c8a55851b168b2f169a20cdc18ff5be589b4b",
+          "check": "python",
+          "before": "RED",
+          "after": "FINAL"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "코드/등록 수정 전 실제443개 검사에서 기본 선택/inspect 진입 반례2개가 실패했다. 초기 작성 중 호출 인자 오기는 별도로 수정하고 같은 최종 회귀 파일로 다시 RED를 수집했다.",
+        "evidence": [
+          "RED",
+          "RETENTION"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "기본 계약/소비/진입을 연결한 뒤 같은 반례가 통과했다. 현재 명시 제한·기존 gate·기본/문서/실패/미등록 경계와 전체443개를 재검토해 새 결함을 찾지 못했다.",
+        "evidence": [
+          "FINAL",
+          "GUARD",
+          "SCENARIOS",
+          "SELECTION"
+        ]
+      }
+    ]
+  }
+}

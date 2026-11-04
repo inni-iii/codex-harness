@@ -1,0 +1,161 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "문서 폴더별 index와 역할 설명을 검사하고 인덱스부터 필요한 문서만 읽는다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/docs-index-coverage/request.md",
+      "sha256": "347897745552b4fffcd1484a5e8d9d33cdb46122582cf68f10a645dee117690c",
+      "description": "현재 사용자의 폴더별 인덱스 요구",
+      "recorded_at": "2026-11-04T07:59:39.896008+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-coverage/design-before-scope.md",
+      "sha256": "141fa701b8b0389f3c33c7fdaee89fe6ad1d616a4548953291e276a975ebb9ae",
+      "description": "검사·생성·선택 경계를 묶은 설계",
+      "recorded_at": "2026-11-04T07:59:39.897495+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-coverage/alignment.json",
+      "sha256": "972bda39218933b04f48894af9e8a5846e4ec1743d38ce00e747be82441845cd",
+      "description": "현재 설계와 사용자 요구에 대한 자체 정렬 검토",
+      "recorded_at": "2026-11-04T07:59:39.899007+00:00"
+    },
+    "DESIGN2": {
+      "type": "artifact",
+      "path": "docs/tasks/docs-index-coverage/design.md",
+      "sha256": "c428b15cdc94472e6a38ebbcb78942489ed6b91e85974239ff23b5ce30172489",
+      "description": "실제 생성기 양식 경로까지 명시한 현재 설계; 이전 설계는 원본 그대로 보존",
+      "recorded_at": "2026-11-04T08:06:43.233016+00:00"
+    },
+    "ALIGN2": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-coverage/alignment-current.json",
+      "sha256": "751fb95c26b7c081b73f0b978feb763045fa350e7baec54cb417f290208331f3",
+      "description": "최종 변경 경로와 현재 설계의 정렬 검토",
+      "recorded_at": "2026-11-04T08:06:43.234865+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-coverage/red-report.json",
+      "sha256": "710973800b5bbd27fec2bdf021bb7253d2c195351b9c42f20401064e86b92c5b",
+      "description": "수정 전 동일 회귀 F1에서 doctor가 인덱스 누락을 보고하지 않는 실패를 관측한 등록 검사",
+      "recorded_at": "2026-11-04T08:10:03.055121+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/checks/380a9468ebc74a128071d810c1e9b8e4/report.json",
+      "sha256": "353d906c94a9f837ece3c31d585148466eac9745c94228ca01947208e65ce542",
+      "description": "현재 통합 소스의 등록 검사4개와 456테스트·인덱스/선택/생성 동작",
+      "recorded_at": "2026-11-04T08:10:03.056767+00:00",
+      "check": "python"
+    },
+    "SCENARIOS": {
+      "type": "artifact",
+      "path": "docs/tasks/docs-index-coverage/scenarios.md",
+      "sha256": "8a760f36ccef0b69dd72632b855846d9f3d813140bd365d1809375133f11c0b5",
+      "description": "실제 누락·이동·경로·생성·선택 읽기 사례와 검증 한계",
+      "recorded_at": "2026-11-04T08:10:03.192251+00:00"
+    },
+    "OBSERVED": {
+      "type": "artifact",
+      "path": ".runtime/docs-index-coverage/observations.json",
+      "sha256": "6a8bbec3ceea37a53dd90c2806e2e72085745f840331a70ff6ce0b3eca4e9a90",
+      "description": "현재 폴더26곳 감사·실제 검사 결과·통합 및 탐색 경로",
+      "recorded_at": "2026-11-04T08:10:03.193580+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/docs-index-coverage/review.json",
+    "sha256": "42793f269cbde9dfd8b55aaa2c3b24519fcf8e2c571e360d1d6756174a4791a5"
+  },
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T07:56:47.164018+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/document_indexes.py",
+    "tools/harness/harness/doctor.py",
+    "tools/harness/harness/context.py",
+    "tools/harness/harness/tasks.py",
+    "tools/harness/harness/workflows.py",
+    "tools/harness/tests/test_document_indexes.py",
+    "tools/harness/tests/test_document_index_contract.py",
+    "docs/**/index.md",
+    "tools/harness/docs/index.md",
+    "docs/tasks/docs-index-coverage/**",
+    ".agents/skills/docs-maintenance/references/navigation.md",
+    ".agents/skills/plan-project/references/workflow-setup.md",
+    ".agents/skills/plan-project/references/handoff.md",
+    ".agents/skills/setup-environment/SKILL.md",
+    "AGENTS.md",
+    "docs/index.md",
+    "docs/README.md",
+    "tools/harness/docs/**",
+    ".agents/skills/docs-maintenance/references/validation.md",
+    ".agents/skills/plan-project/assets/project-index.md.tmpl"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "문서 폴더의 index 누락, 문서 항목·역할 설명 누락, 하위 인덱스 연결 누락을 검사한다",
+      "method": "실제 파일 목록·인덱스 감사, 선택 읽기 fixture, 생성기 회귀와 doctor/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "DESIGN2",
+        "ALIGN2",
+        "GREEN",
+        "SCENARIOS",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "현재 문서 지도와 새 project/task 생성 결과가 인덱스 계약을 충족한다",
+      "method": "실제 파일 목록·인덱스 감사, 선택 읽기 fixture, 생성기 회귀와 doctor/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "OBSERVED",
+        "GREEN",
+        "SCENARIOS"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "프로젝트 시작·환경 준비·재개에서 관련 지도만 먼저 읽고 무관한 본문을 읽지 않는다",
+      "method": "실제 파일 목록·인덱스 감사, 선택 읽기 fixture, 생성기 회귀와 doctor/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "SCENARIOS",
+        "GREEN",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "정상·누락·이동·중첩 경계와 기존 회귀를 실제 검사한다",
+      "method": "실제 파일 목록·인덱스 감사, 선택 읽기 fixture, 생성기 회귀와 doctor/등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "RED",
+        "GREEN",
+        "SCENARIOS",
+        "OBSERVED"
+      ]
+    }
+  ],
+  "next_action": "완료. 새 문서·폴더의 생성/이동/삭제와 함께 해당 index를 갱신하고 doctor로 확인한다.",
+  "completed_at": "2026-11-04T08:10:42.297056+00:00"
+}

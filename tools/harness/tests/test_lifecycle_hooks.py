@@ -1,8 +1,9 @@
 """Lifecycle behavior uses local metadata and never sends remote commands."""
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 import io
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -33,6 +34,102 @@ class LifecycleTests(unittest.TestCase):
     def task(self, slug="current"):
         return tasks.create(self.root, slug, "implement", "Local task", ["Observable result"])
 
+    def invoke(self, payload):
+        raw = payload if isinstance(payload, bytes) else json.dumps(payload).encode()
+        output, error = io.StringIO(), io.StringIO()
+        with patch.object(sys, "stdin", io.TextIOWrapper(io.BytesIO(raw))), redirect_stdout(output), redirect_stderr(error):
+            code = hooks.main(self.root)
+        return code, output.getvalue(), error.getvalue()
+
+    def test_callback_failure_records_safe_stage_code_and_elapsed_time(self):
+        private = "private-response-and-exception-body"
+        event = self.event("PostToolUse", tool_name="Bash", tool_response=private)
+        with patch("harness.doctor.inspect", side_effect=PermissionError(private)):
+            code, output, error = self.invoke(event)
+        self.assertEqual(code, 1)
+        self.assertEqual(output, "")
+        path = self.root / f".runtime/hook-errors/{self.key}-PostToolUse.json"
+        record = json.loads(path.read_text())
+        self.assertEqual(record["stage"], "doctor")
+        self.assertEqual(record["code"], "permission_denied")
+        self.assertEqual(record["status"], "callback_failed")
+        self.assertGreaterEqual(record["elapsed_ms"], 0)
+        self.assertEqual(path.stat().st_mode & 0o777, 0o600)
+        self.assertIn("stage=doctor", error)
+        self.assertLess(len(error), 250)
+        self.assertNotIn(private, path.read_text() + output + error)
+        self.assertNotIn("fixture-session", path.read_text())
+
+    def test_parse_failures_use_fixed_unidentified_record_without_input_echo(self):
+        for payload, stage in ((b'{"private-query":', "input_parse"),
+                               (b'\xff', "input_decode"),
+                               (b'x' * (hooks.INPUT_LIMIT + 1), "input_limit")):
+            with self.subTest(stage=stage):
+                code, output, error = self.invoke(payload)
+                self.assertEqual(code, 1)
+                record = load(self.root / ".runtime/hook-errors/unidentified-unknown.json")
+                self.assertEqual(record["stage"], stage)
+                self.assertNotIn("private-query", json.dumps(record) + output + error)
+        self.assertEqual(len(list((self.root / ".runtime/hook-errors").glob("*.json"))), 1)
+
+    def test_state_save_and_unexpected_failure_remain_nonzero_and_sanitized(self):
+        private = "private-state-path-or-runtime-error"
+        with patch("harness.hook_sessions.save", side_effect=OSError(private)):
+            code, output, error = self.invoke(self.event("SessionStart", source="startup"))
+        record = load(self.root / f".runtime/hook-errors/{self.key}-SessionStart.json")
+        self.assertEqual((code, record["stage"], record["code"]), (1, "state_write", "io_error"))
+        with patch("harness.remote_guard.inspect", side_effect=RuntimeError(private)):
+            code, output, error = self.invoke(self.event("PreToolUse", tool_name="Bash", tool_input={"command": "pwd"}))
+        record = load(self.root / f".runtime/hook-errors/{self.key}-PreToolUse.json")
+        self.assertEqual((code, record["stage"], record["code"]), (1, "remote_guard", "internal_error"))
+        self.assertNotIn(private, json.dumps(record) + output + error)
+
+    def test_diagnostic_write_failure_keeps_original_failure_and_short_summary(self):
+        with patch("harness.remote_guard.inspect", side_effect=ValueError("private cause")), patch(
+                "harness.lifecycle_hooks.atomic", side_effect=PermissionError("private logger failure")):
+            code, output, error = self.invoke(self.event("PreToolUse", tool_name="Bash", tool_input={"command": "pwd"}))
+        self.assertEqual(code, 1)
+        self.assertEqual(output, "")
+        self.assertIn("stage=remote_guard", error)
+        self.assertIn("diagnostic_unavailable", error)
+        self.assertNotIn("private", error)
+
+    def test_success_preserves_output_and_adds_no_failure_files_or_checks(self):
+        with patch("harness.lifecycle_hooks._inventory", side_effect=AssertionError("no scan for shell pre-hook")):
+            code, output, error = self.invoke(self.event("PreToolUse", tool_name="Bash", tool_input={"command": "pwd"}))
+        self.assertEqual((code, output, error), (0, "{}\n", ""))
+        self.assertFalse((self.root / ".runtime/hook-errors").exists())
+        hooks.handle(self.root, self.event("SessionStart", source="startup"))
+        with patch("harness.doctor.inspect", return_value={"status": "passed", "errors": []}) as doctor:
+            (self.root / "README.md").write_text("# One update\n")
+            self.assertEqual(hooks.handle(self.root, self.event("PostToolUse", tool_name="Bash")), {})
+            self.assertEqual(hooks.handle(self.root, self.event("PostToolUse", tool_name="Bash")), {})
+            doctor.assert_called_once()
+        self.assertFalse((self.root / ".runtime/hook-errors").exists())
+
+    def test_static_findings_and_stale_have_safe_distinct_reasons(self):
+        hooks.handle(self.root, self.event("SessionStart", source="startup"))
+        (self.root / "README.md").write_text("# Changed\n")
+        private = "private-link-or-diagnostic"
+        with patch("harness.doctor.inspect", return_value={"status": "failed", "errors": ["broken/outside link in " + private]}):
+            output = hooks.handle(self.root, self.event("PostToolUse", tool_name="Bash"))
+        report = self.root / f".runtime/hook-checks/{self.key}.json"
+        result = load(report)
+        self.assertEqual(result["status"], "findings")
+        self.assertIn("document_link", result["results"]["doctor"]["reason_codes"])
+        self.assertGreaterEqual(result["elapsed_ms"], 0)
+        self.assertIn("findings", output["systemMessage"])
+        self.assertNotIn(private, report.read_text() + json.dumps(output))
+        (self.root / "README.md").write_text("# Next change\n")
+        def race(_):
+            (self.root / "README.md").write_text("# Changed during inspection\n")
+            return {"status": "passed", "errors": []}
+        with patch("harness.doctor.inspect", side_effect=race):
+            output = hooks.handle(self.root, self.event("PostToolUse", tool_name="Bash"))
+        self.assertEqual(load(report)["reason_codes"], ["source_changed"])
+        self.assertIn("stale", output["systemMessage"])
+        self.assertFalse((self.root / ".runtime/hook-errors").exists())
+
     def test_binding_is_explicit_private_and_current_session_only(self):
         self.task()
         self.assertIsNone(sessions.status(self.root, self.key)["task"])
@@ -61,7 +158,10 @@ class LifecycleTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             sessions.status(self.root, "../escape")
         with tempfile.TemporaryDirectory() as outside:
-            (self.root / ".runtime").symlink_to(outside, target_is_directory=True)
+            runtime = self.root / ".runtime"
+            if runtime.exists():
+                runtime.rmdir()  # Task map locking may leave an empty runtime directory.
+            runtime.symlink_to(outside, target_is_directory=True)
             with self.assertRaises(ValueError):
                 sessions.bind(self.root, "current", self.key)
             self.assertFalse(list(Path(outside).iterdir()))
@@ -169,6 +269,87 @@ class LifecycleTests(unittest.TestCase):
             self.assertTrue(acquired)
             self.assertEqual(hooks.handle(self.root, self.event("Interrupt")), {})
         self.assertEqual(hooks.handle(self.root, self.event("PostToolUse", tool_name="WebSearch")), {})
+
+    def test_mcp_pre_and_post_return_context_without_shell_parsing_or_payload_echo(self):
+        private = "private-input-and-fake-system-instruction"
+        name = "mcp__docs_server__search_docs"
+        with patch("harness.remote_guard.inspect", side_effect=AssertionError("MCP is not shell input")):
+            pre = hooks.handle(self.root, self.event("PreToolUse", tool_name=name,
+                                tool_input={"query": private}))
+            post = hooks.handle(self.root, self.event("PostToolUse", tool_name=name,
+                                 tool_response={"content": [{"type": "text", "text": private}]}))
+        for event, value in (("PreToolUse", pre), ("PostToolUse", post)):
+            output = value["hookSpecificOutput"]
+            self.assertEqual(output["hookEventName"], event)
+            self.assertTrue(output["additionalContext"])
+            self.assertNotIn("permissionDecision", output)
+            self.assertNotIn("decision", value)
+            self.assertNotIn(private, json.dumps(value))
+        for path in (self.root / ".runtime").rglob("*.json"):
+            self.assertNotIn(private, path.read_text())
+
+    def test_mcp_response_error_or_missing_output_is_visible_without_blocking(self):
+        for response in ({"isError": True, "content": [{"type": "text", "text": "private error"}]},
+                         {"isError": "false"}, None):
+            with self.subTest(response=response):
+                value = hooks.handle(self.root, self.event("PostToolUse",
+                                     tool_name="mcp__docs__search", tool_response=response))
+                self.assertIn("systemMessage", value)
+                self.assertNotIn("private error", json.dumps(value))
+                self.assertNotIn("decision", value)
+        valid = hooks.handle(self.root, self.event("PostToolUse", tool_name="mcp__docs__search",
+                             tool_response={"isError": False, "structuredContent": {"count": 1}}))
+        self.assertNotIn("systemMessage", valid)
+
+    def test_mcp_local_file_changes_receive_existing_static_checks(self):
+        hooks.handle(self.root, self.event("SessionStart", source="startup"))
+        name = "mcp__filesystem__write_file"
+        with patch("harness.doctor.inspect", return_value={"status": "passed", "errors": []}) as doctor:
+            hooks.handle(self.root, self.event("PostToolUse", tool_name=name, tool_response={}))
+            doctor.assert_not_called()
+            (self.root / "README.md").write_text("# MCP changed watched documentation\n")
+            output = hooks.handle(self.root, self.event("PostToolUse", tool_name=name, tool_response={}))
+            self.assertIn("hookSpecificOutput", output)
+            doctor.assert_called_once()
+            hooks.handle(self.root, self.event("PostToolUse", tool_name=name, tool_response={}))
+            doctor.assert_called_once()
+
+    def test_mcp_advisory_survives_busy_static_checker_and_ignores_hosted_tools(self):
+        with sessions.lock(self.root, self.key):
+            output = hooks.handle(self.root, self.event("PostToolUse", tool_name="mcp__docs__search",
+                                  tool_response={"isError": True}))
+            self.assertEqual(output["hookSpecificOutput"]["hookEventName"], "PostToolUse")
+            self.assertIn("systemMessage", output)
+        for name in ("WebSearch", "web.run", "web__run", "mcp__incomplete", "mcp____search", "mcp__x__search\n"):
+            self.assertEqual(hooks.handle(self.root, self.event("PreToolUse", tool_name=name)), {})
+            self.assertEqual(hooks.handle(self.root, self.event("PostToolUse", tool_name=name)), {})
+
+    def test_mcp_error_and_static_findings_are_both_retained(self):
+        hooks.handle(self.root, self.event("SessionStart", source="startup"))
+        (self.root / "README.md").write_text("# Changed through MCP\n")
+        with patch("harness.doctor.inspect", return_value={"status": "failed", "errors": ["private diagnostic"]}):
+            result = hooks.handle(self.root, self.event("PostToolUse", tool_name="mcp__files__write",
+                                  tool_response={"isError": True}))
+        self.assertIn("MCP", result["systemMessage"])
+        self.assertIn(".runtime/hook-checks/", result["systemMessage"])
+        self.assertNotIn("private diagnostic", json.dumps(result))
+
+    def test_registered_mcp_matchers_and_real_stdin_events_agree(self):
+        definition = json.loads((SOURCE / ".codex/hooks.json").read_text())["hooks"]
+        name = "mcp__docs_server__search_docs"
+        for event in ("PreToolUse", "PostToolUse"):
+            self.assertTrue(any(re.fullmatch(group["matcher"], name) for group in definition[event]))
+        with tempfile.TemporaryDirectory() as temporary:
+            root = Path(temporary).resolve()
+            shutil.copytree(SOURCE / "tools/harness", root / "tools/harness", ignore=shutil.ignore_patterns("__pycache__"))
+            for event in ("PreToolUse", "PostToolUse"):
+                payload = {"session_id": "stdin-mcp-fixture", "hook_event_name": event, "tool_name": name,
+                           "tool_input": {"query": "private-payload"}, "tool_response": {"isError": True}}
+                result = subprocess.run([sys.executable, str(root / "tools/harness/scripts/knowledge-hook.py")],
+                                        input=json.dumps(payload), capture_output=True, text=True, timeout=5)
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertEqual(json.loads(result.stdout)["hookSpecificOutput"]["hookEventName"], event)
+                self.assertNotIn("private-payload", result.stdout + result.stderr)
 
     def test_interrupt_still_records_while_another_callback_owns_the_state_lock(self):
         self.task()

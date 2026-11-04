@@ -31,3 +31,5 @@
 설계가 바뀌면 옛 alignment는 재사용하지 않는다. 활성 flow의 입력을 바꿔 통과시키지 말고 변경된 계약/근거에서 명시적으로 재시작한다. 이전 근거는 스냅샷/이력으로 보존한다. 문서 갱신·정본 연결·인덱스는 [명세 유지](../../docs-maintenance/references/specifications.md)가 맡는다.
 
 배경은 [SPDD 조사](../../../../tools/harness/docs/spdd-reasons-research.md), 원문은 [REASONS](https://martinfowler.com/articles/structured-prompt-driven/)다. 원본의 Java 예제·고정 파일명·전체 읽기·자동 commit·매 단계 확인 규칙은 이식하지 않았다.
+
+현재 정렬 템플릿/flow는 v2 의도 계약을 사용한다. 목표·범위·제약·입력·선행 작업·수용 기준/방법이 그대로라면 발견 ID·진행 기록 추가만으로 설계 정렬을 다시 만들거나 flow를 재시작하지 않는다. 발견이 실제 요구/범위를 바꾸면 해당 계약과 설계/근거를 갱신한다. 완료 리뷰는 발견 전체와 회귀를 계속 묶으므로 새 결함을 빠뜨릴 수 없다. v1 원본은 당시 의미로 보존하고 새 v2 정렬 연결/명시 restart로 이행한다. 형식은 [설계와 구현 진입](../../../../tools/harness/docs/reasons.md)을 따른다.

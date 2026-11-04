@@ -1,20 +1,23 @@
 ---
 name: research
-description: Investigate technical questions or compare tools using primary evidence, local code, counterexamples and explicit tradeoffs.
+description: Investigate technical questions, compare tools, or analyze CSV/JSON datasets using primary evidence, data-quality checks, appropriate methods and reproducible conclusions. Use data analysis for dataset questions, not ordinary JSON configuration edits.
 ---
 
 # 조사에서 결정까지
 
 질문에 대한 답과 선택 근거를 만든다. 조사 요청을 임의의 설치·채택으로 바꾸지 않는다.
 
-1. 현재 요청·관련 과거 원문·프로젝트 결정에서 질문, 제약, 비교 기준을 복원한다.
+1. 현재 요청·관련 과거 원문·프로젝트 결정에서 질문, 제약, 비교 기준을 복원한다. 질문별 필요한 근거·적용 조건·대안/반례·남은 한계가 채워지는 것을 조사 종료 조건으로 정한다. 출처 개수를 목표로 삼지 않는다.
 2. 기존 구현·실패 기록을 먼저 찾고, 실제 용어·호출자·테스트를 따라 탐색한다.
 3. 결정에 영향을 주는 외부 사실은 버전·날짜에 맞는 원문으로 확인한다. 기술 사용법은 공식 문서·소스·논문을 우선한다.
 4. 가장 강한 대안과 결론을 뒤집을 반례를 확인한다. 문서상 지원과 직접 실행한 결과를 구분한다.
 5. 답, 근거, 조건별 차이, 추천 이유, 최대 불확실성, 다음 확인을 남긴다.
 
+웹검색·MCP로 외부 자료를 조회하면 [검색 전후 확인](references/web-search.md)을 적용한다. 내장 웹검색의 도구 훅 미지원 경로에서는 현재 에이전트가 그 절차를 직접 수행한다.
+
 | 조건 | 읽을 자료 | 해결할 것 |
 |---|---|---|
+| CSV/JSON·표/사건 데이터에서 현황·차이·추세·관계를 분석 | [데이터 분석](references/data-analysis.md) | 질문·관측 단위·품질·분모·방법·해석/민감도·재현과 다음 행동 |
 | 기술 비교·벤치마크·충돌하는 주장 | [근거 판정](references/evidence.md) | 독립성·조건 일치·반증·탈락 근거 |
 | 도구 도입 또는 새 공통 기능 | [재사용 판단](references/reuse.md) | 채택/확장/직접 구현의 비용 |
 | 큰 자료 집합·복합 질문·검색 누락·RAG 조사 | [검색과 근거 연결](references/retrieval.md) | 질문 분해·출처/버전·문맥 보존·검색/답변 실패 구분 |

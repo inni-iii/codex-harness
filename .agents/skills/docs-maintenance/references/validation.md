@@ -44,6 +44,8 @@ python3 tools/harness/run.py context --kind research --topic wiki-query --read
 python3 tools/harness/run.py check --paths .agents/skills/docs-maintenance/SKILL.md .agents/context.toml --plan
 ```
 
+`doctor`는 문서 루트의 폴더별 index와 직계 Markdown/하위 지도 항목·역할 설명의 존재도 확인한다. 문서 생성·이동·삭제 뒤 누락 검사를 수행하고 코드 예제 속 링크로 통과시키지 않는다. 역할 설명의 의미적 정확성은 실제 문서 검토로 판단한다.
+
 `doctor`가 내부 링크의 파일 존재를 확인해도 heading anchor·외부 URL·출처의 사실성까지 검증하는 것은 아니다.
 현재 `context`의 kind/topic/path 조건은 OR이므로, 세부 절차를 모든 문서나 모든 연구에서 읽도록 넓게 등록하지 않는다.
 `docs` 기본 조회는 진입점을, `docs-organization`·`docs-sync`·`wiki-query`는 해당 참조를 선택하는지 실제 결과를 읽는다.

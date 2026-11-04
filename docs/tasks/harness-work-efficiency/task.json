@@ -1,0 +1,140 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "반복 읽기·조사·검증·기록의 낭비를 줄이되 실제 근거와 의미 판단을 보존한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-work-efficiency/request.md",
+      "sha256": "f746c4ad6a26ada4c37064d26ab1a61d731de7a2e30e388915d48ef954d474f8",
+      "description": "현재 승인 범위와 보완 계약",
+      "recorded_at": "2026-11-04T09:38:03.042758+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-work-efficiency/design.md",
+      "sha256": "0a6b9f4a29e909d21c8e6adbad3c11b923f0b939f09c0134bdb50af2b0edb777",
+      "description": "현재 승인 범위와 보완 계약",
+      "recorded_at": "2026-11-04T09:38:03.044215+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/harness-work-efficiency/alignment.json",
+      "sha256": "9b68dc1e0cd29d49bb53c9afcfeb02ed43873f74b59e735e8086624048b16ccc",
+      "description": "현재 승인/설계와 기록·판단 경계의 자체 정렬",
+      "recorded_at": "2026-11-04T09:38:50.901685+00:00"
+    },
+    "REPORT": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-work-efficiency/report.md",
+      "description": "효율 규칙·기록/판단 경계·신규12개/기존21개·두 결함 재현과 한계",
+      "sha256": "b34b3369284e26a02e6c9730f4ee9f4cde3587e03aa272b0cf4d78e3ebf82cc1",
+      "recorded_at": "2026-11-04T09:47:04.410984+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/harness-work-efficiency/red-report.json",
+      "description": "변경 없는 회귀 파일에서 F1/F2 실제 실패2를 관측한 좁은 검사 보고서",
+      "sha256": "7a36c5d60cd0a33bcc9b38de5ac0bc514378054aa145a2ab47b316326b112505",
+      "recorded_at": "2026-11-04T09:47:04.412677+00:00"
+    },
+    "GREEN_PRIOR": {
+      "type": "artifact",
+      "path": ".runtime/check-snapshots/c73766bbeb9b4273aa98fb22b435602c/checks/deb5fbc392b1471bbf7a256ab568c76e/report.json",
+      "description": "이전 통합 사본의 검사 이력. 이후 다른 세션의 docs/projects 삭제·지도 변경으로 현재 완료 근거로 재사용하지 않음.",
+      "sha256": "2655e24c1fd8a3ca3021dbbfc5704e4288c806911bd6a400a4ed888743c241ca",
+      "recorded_at": "2026-11-04T09:50:03.789537+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/2ddec920d532451ebba1995a4dc9bc72/checks/8d981e1220cc4d419ba210e9dcd4ddb3/report.json",
+      "description": "현재 통합 소스 사본 최종 등록 검사: 520개, 실패0·기존 skip1",
+      "check": "python",
+      "sha256": "8b5defafea5f287199ff21ea0f2dd57f45dd2dbbac6414dbf1a92e544e7df116",
+      "recorded_at": "2026-11-04T09:54:07.426945+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/harness-work-efficiency/review.json",
+    "sha256": "6a4e9a214b7e3b351b298d6ab9610630214b76e0024b7de7f5a56b2cfca8a990"
+  },
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "created_at": "2026-11-04T09:36:35.691910+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "AGENTS.md",
+    ".agents/skills/research/SKILL.md",
+    ".agents/skills/research/references/retrieval.md",
+    ".agents/skills/verify-work/references/checkpoints.md",
+    ".agents/skills/maintain-skills/SKILL.md",
+    "tools/harness/harness/evidence.py",
+    "tools/harness/harness/evidence_records.py",
+    "tools/harness/harness/task_timing.py",
+    "tools/harness/harness/cli.py",
+    "tools/harness/tests/test_work_efficiency.py",
+    "tools/harness/docs/completion.md",
+    "tools/harness/docs/workflows.md",
+    "tools/harness/docs/architecture.md",
+    "docs/tasks/harness-work-efficiency/**"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "반복 읽기·검색 종료·검사 시점·문서 정본의 효율 규칙이 기존 의무와 양립한다",
+      "method": "현재 원문/선택 연결과 정상·오류·원자성·변조·미완료 차단·시간 집계를 실제 CLI/파일로 검증하고 통합 후 최종 등록 검사를 대조한다.",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "REPORT",
+        "GREEN_PRIOR",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "여러 증거를 원자적으로 검증·등록하고 잘못된 입력에서 기존 작업을 보존한다",
+      "method": "현재 원문/선택 연결과 정상·오류·원자성·변조·미완료 차단·시간 집계를 실제 CLI/파일로 검증하고 통합 후 최종 등록 검사를 대조한다.",
+      "status": "passed",
+      "evidence": [
+        "REPORT",
+        "GREEN_PRIOR",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "리뷰 초안과 실행 사실을 자동 준비하되 판정·이유·독립성은 자동 승인하지 않는다",
+      "method": "현재 원문/선택 연결과 정상·오류·원자성·변조·미완료 차단·시간 집계를 실제 CLI/파일로 검증하고 통합 후 최종 등록 검사를 대조한다.",
+      "status": "passed",
+      "evidence": [
+        "REPORT",
+        "GREEN_PRIOR",
+        "GREEN"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "단계별 경과와 검사 실행 시간을 재현 가능하게 구분해 보고하고 관련 회귀와 최종 등록 검사를 통과한다",
+      "method": "현재 원문/선택 연결과 정상·오류·원자성·변조·미완료 차단·시간 집계를 실제 CLI/파일로 검증하고 통합 후 최종 등록 검사를 대조한다.",
+      "status": "passed",
+      "evidence": [
+        "REPORT",
+        "RED",
+        "GREEN_PRIOR",
+        "GREEN"
+      ]
+    }
+  ],
+  "next_action": "다른 세션의 docs/projects 삭제·지도 수정이 반영된 현재 상태에서 최종 검증을 갱신하고 완료한다.",
+  "completed_at": "2026-11-04T09:54:19.177866+00:00"
+}

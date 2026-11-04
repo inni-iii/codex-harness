@@ -28,3 +28,5 @@ description: Implement or review Python services and backend behavior with appro
 그래프로 절차·검증·재진입을 관리할 때는 [라우트 계약](routes.toml)에서 현재 작업을 고른다. `flow context <실행ID> --read`로 현재 절차와 허용된 다음 경로만 확인한다. 공통 실행 계약은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)을 따른다.
 
 코드/행동 변경 전에는 [설계와 정렬](../plan-project/references/reasons-canvas.md)의 현재 의도·변경 경계·선택 O를 확인한다. 이 구현 flow에는 현재 design/alignment artifact를 연결하며 기존 결정이 충분하면 새 승인 질문을 반복하지 않는다.
+
+등록 구현 flow는 코드 검증과 수용 조건을 대조한 뒤 문서 내용 해시가 진입 시점과 같고 문서 갱신이 불필요한 이유를 남기면 문서 단계를 거치지 않고 종료할 수 있다. 변경된 문서나 기준 없음이면 기존 sync/validation/index 경로를 따른다. 판정은 [스킬 흐름](../../../tools/harness/docs/skill-flows.md)의 조건부 문서 종료를 사용하며 문서 수정 필요 여부의 의미 판단을 생략하지 않는다.

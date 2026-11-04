@@ -8,7 +8,7 @@ import tomllib
 
 from .core import inside, validate_checks, validate_patterns
 from .tasks import KINDS
-from . import security_profiles
+from . import security_profiles, project_documents
 
 
 def validate_conditions(rule: dict, label: str) -> None:
@@ -67,6 +67,7 @@ def load(root: Path, relative: str) -> dict:
         raise ValueError("workflow requires version=1 and state=draft or active")
     if not isinstance(data.get("name"), str) or not data["name"].strip():
         raise ValueError("workflow requires a project name")
+    project_documents.settings(root, relative, data)
     context = data.get("context", {})
     if not isinstance(context, dict):
         raise ValueError("workflow context must be a table")
@@ -107,23 +108,26 @@ def load(root: Path, relative: str) -> dict:
 def create(root: Path, slug: str, goal: str) -> Path:
     if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug) or not goal.strip():
         raise ValueError("project requires a lowercase slug and nonempty goal")
-    relative = f"docs/projects/{slug}"
+    if slug in project_documents.RESERVED:
+        raise ValueError("project name is reserved for harness documents")
+    relative = f"docs/{slug}"
     inside(root, relative)  # Resolve for containment; preserve the caller's root spelling in the return path.
     directory = root / relative
-    if directory.exists():
+    legacy = inside(root, f"docs/projects/{slug}")
+    if directory.exists() or legacy.exists():
         raise FileExistsError(f"project already exists: {slug}")
     template = (root / ".agents/skills/plan-project/assets/project-workflow.toml").read_text()
     brief_template = (root / ".agents/skills/plan-project/assets/project-brief.md").read_text()
     security_template = (root / ".agents/skills/security-review/assets/security-profile.md").read_text()
     index_template = (root / ".agents/skills/plan-project/assets/project-index.md.tmpl").read_text()
     content = template.replace('name = "example"', 'name = ' + json.dumps(slug))
-    content = content.replace('docs/projects/example/brief.md', f'docs/projects/{slug}/brief.md')
-    content = content.replace('docs/projects/example/security.md', f'docs/projects/{slug}/security.md')
-    content = content.replace('docs/projects/example/index.md', f'docs/projects/{slug}/index.md')
+    content = content.replace('docs/example/', f'docs/{slug}/')
     directory.mkdir(parents=True)
     (directory / "brief.md").write_text(f"# {slug}\n\n목표: {goal.strip()}\n\n" + brief_template)
     (directory / "security.md").write_text(security_template)
     (directory / "index.md").write_text(index_template.replace("{{project}}", slug))
     path = directory / "workflow.toml"
     path.write_text(content)
+    from .document_indexes import register_folder
+    register_folder(root, directory, slug, " ".join(goal.split()))
     return path

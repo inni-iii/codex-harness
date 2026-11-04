@@ -1,0 +1,41 @@
+{
+  "version": 2,
+  "kind": "debug",
+  "goal": "삭제된 docs/projects 폴더를 가리키는 현재 문서 지도 링크를 제거한다",
+  "status": "in_progress",
+  "evidence": {
+    "FIX": {
+      "type": "artifact",
+      "path": ".runtime/removed-project-links/doctor.json",
+      "sha256": "e23d376bd73b8c527dc5c6de286cf64363009269e254993130f6a4a89637a697",
+      "description": "삭제 폴더의 지도 항목 두 행 제거 후 링크 오류 해소 확인",
+      "recorded_at": "2026-11-04T09:51:29.380860+00:00"
+    }
+  },
+  "review": null,
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T09:51:02.223494+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "docs/index.md",
+    "docs/README.md"
+  ],
+  "constraints": [],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "현재 docs 구조 설명과 doctor 링크 검사가 일치한다",
+      "method": "레포 루트의 doctor와 관련 정적 검사로 문서 지도 및 실제 폴더를 대조한다",
+      "status": "pending",
+      "evidence": [
+        "FIX"
+      ]
+    }
+  ],
+  "next_action": "문서 링크 수정은 검증됨. debug 완료 계약이 행동 check를 요구해 정적 검사 근거를 거부하므로, 문서 작업 분류와 완료 계약의 적용 범위를 후속 검토한다. 추가 앱 테스트는 비적용."
+}

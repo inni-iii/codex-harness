@@ -55,6 +55,8 @@ Codex는 별도로 설치·로그인한 뒤 레포 루트에서 시작한다.
 - [생명주기 훅](tools/harness/docs/hooks.md): 연결한 작업의 검증·인수인계 알림, 중단 기록, 변경 후 정적 점검, 직접 원격 쓰기 보조 차단. 실제 자동 실행에는 현재 훅 정의의 검토·신뢰가 필요하다.
 - [스킬 작성·개선](.agents/skills/maintain-skills/SKILL.md): 레포 스킬 생성·등록과 검토한 공통 지식의 전환. 개인 전역 스킬 설치 없이 사용한다.
 - [환경 준비](.agents/skills/setup-environment/SKILL.md): 저장소 선언·lockfile 기반 관리자 선택과 frozen 설치. [지원 범위](tools/harness/docs/environment.md)를 확인한다.
+- [Docker 컨테이너](.agents/skills/docker-containers/SKILL.md): 다른 프로젝트의 Dockerfile·Compose·이미지·네트워크·저장·비밀·준비/복구를 설계·구성·진단한다. 조건별 절차와 로컬 예제를 제공하며 이 하네스 자체나 Svelte 정적 배포를 기본으로 강제하지 않는다.
+- [데이터 분석 절차](.agents/skills/research/references/data-analysis.md): CSV/JSON의 질문·관측 단위·품질·분모·방법 선택·해석과 재현을 research에서 다룬다. 파일을 통째로 모델에 넣거나 모든 JSON 설정을 분석 대상으로 잡지 않는다.
 - [Postgres 스킬](.agents/skills/postgres/SKILL.md)의 스키마·migration·쿼리 성능·실제 DB 검증, [연구 검색 지침](.agents/skills/research/references/retrieval.md)의 질문 분해·출처 보존·검색/답변 실패 구분.
 - 스킬의 절차·예제·실패 조건을 담은 참조 문서와 context 명령의 조건별 원문 읽기.
 - OpenAI·Svelte 공식 HTTP MCP 설정과 명시적인 연결 확인 명령.
@@ -68,6 +70,7 @@ Codex는 별도로 설치·로그인한 뒤 레포 루트에서 시작한다.
 - [한 요청 안의 검토·보완과 회귀 보존](tools/harness/docs/review-rounds.md): 발견 사항을 같은 요청에서 처리하고 최종 재검토·결함별 실제 회귀 근거를 완료에 연결.
 - [로컬 실험](tools/harness/docs/experiments.md): 선언한 입력·후보·지표·seed·예산으로 실행하고 원본·실패·집계를 보존한 비교.
 - [평가 파일럿](tools/harness/docs/harness-evaluation.md): 여섯 작업 유형의 실제 도구 연결을 재현하고, 독립적인 에이전트 성능 평가와 구분.
+- [기능 문서 저장](tools/harness/docs/project-documents.md): 직접 프로젝트 경로·같은 기능 정본 갱신과 폴더 지도/선택 읽기 조건의 일괄 연결.
 - 프로젝트 프로필 생성·선택, 공유 변경의 검사 확대, 가벼운 공통 스모크와 전체 검사 구분.
 - 보안 경계·요구/결함 리뷰·인수인계·학습 기록·품질 기준·로그·외부 호출을 조건에 맞게 읽는 상세 절차.
 - [통합 보안 스킬](.agents/skills/security-review/SKILL.md), 프로젝트별 보안 설계 양식·부정 테스트 절차, 오프라인 비밀값 후보 검사와 별도 의존성 조회. [실행 범위와 한계](tools/harness/docs/security.md)를 확인한다.
@@ -113,14 +116,14 @@ MCP 연결 점검과 선택적 브라우저 설치는 네트워크를 사용한�
 - [프로젝트 워크플로 설정](tools/harness/docs/project-workflows.md)
 - [스킬 선별·재작성 내역](tools/harness/docs/skill-sources.md), [하네스 평가 범위](tools/harness/docs/harness-evaluation.md)
 - [설치·MCP·브라우저](tools/harness/docs/tools.md)
-- [프로젝트 자료](docs/projects/README.md)
+- [프로젝트 자료](docs/README.md)
 - [모델 라우터 사용법](tools/harness/docs/usage.md), [계약](tools/harness/docs/contracts.md), [기존 설계](tools/harness/docs/design.md)
 - [선택적 모델 실행과 자동 연결 보류](tools/harness/docs/execution.md)
 - [초기 설치 구성안과 미결정 사항](tools/harness/docs/repository-setup.md)
 
 스킬은 .agents/skills에 한 번만 관리하고 Codex가 직접 읽는다.
 실행 코드·설정·테스트·설명서는 tools/harness에 모은다.
-프로젝트 자료는 docs/projects, 작업 조건·근거·인수인계는 docs/tasks에 저장한다.
+프로젝트 자료는 docs/<프로젝트>/, 작업 조건·근거·인수인계는 docs/tasks에 저장한다.
 코드 위치는 프로젝트 시작 시 정한다. 디자인은 템플릿을 이용해 사용자와 결정한 뒤 구현한다.
 
 로그·캐시·인증 자료·의존성 설치 결과는 Git에서 제외한다.

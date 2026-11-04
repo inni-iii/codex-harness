@@ -38,9 +38,11 @@ command = ["{python}", "-m", "unittest", "discover", "-s", "tools/harness/tests"
 cwd = "."
 paths = ["Makefile", "tools/harness/harness/**", "tools/harness/run.py", "tools/harness/scripts/**", "tools/harness/tests/**", "tools/harness/policies/**", "tools/harness/harness.toml", "tools/harness/browser/**", "tools/harness/security/**", ".agents/context.toml", ".agents/skill-flow.toml", ".agents/skills/*/routes.toml", ".agents/skills/*/assets/**", ".codex/hooks.json", "docs/knowledge/catalog.json", "tools/harness/route_prompt.py", ".codex/config.toml"]
 test_summary = "unittest"
+# Task histories are checked by uncached doctor; Python inputs remain in paths.
+ignore_task_records = true
 cacheable = true
 timeout = 180
 
 # Paths outside these groups require a check registration, rather than a false pass.
 [coverage]
-documentation = ["*.md", "tools/harness/docs/mitam-skill-audit.json", "docs/tasks/*/task.json", "docs/tasks/*/review.json", ".codex/config.toml", ".gitignore"]
+documentation = ["*.md", "tools/harness/docs/mitam-skill-audit.json", "docs/tasks/docker-infra-survey/inventory.json", "docs/tasks/docker-infra-survey/observations.json", "docs/tasks/*/task.json", "docs/tasks/*/review.json", ".codex/config.toml", ".gitignore"]

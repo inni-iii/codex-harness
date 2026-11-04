@@ -8,7 +8,7 @@ import json
 
 from .core import inside, matches
 from .workflows import documents, load, selected_workflow, validate_conditions
-from . import knowledge
+from . import knowledge, document_indexes
 
 
 def catalog(root: Path) -> dict:
@@ -76,6 +76,9 @@ def select(root: Path, kind: str, paths: list[str], topics: list[str], *, workfl
     chosen = {}
 
     def add(relative, reason):
+        for index in document_indexes.ancestors(root, relative):
+            documents(root, [index], "document index")
+            chosen.setdefault(index, []).append("ancestor document index; follow only relevant links")
         chosen.setdefault(relative, []).append(reason)
 
     def triggered(rule):

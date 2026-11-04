@@ -747,3 +747,195 @@ to = "plan-project:design"
 mode = "transition"
 when = "reason"
 guards = ["validated"]
+
+[[edges]]
+id = "retry-docker-containers-inspect"
+from = "docker-containers:inspect"
+to = "docker-containers:inspect"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docker-containers-design"
+from = "docker-containers:design"
+to = "docker-containers:design"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docker-containers-configure"
+from = "docker-containers:configure"
+to = "docker-containers:configure"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "retry-docker-containers-diagnose"
+from = "docker-containers:diagnose"
+to = "docker-containers:diagnose"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "verify-docker-containers-configure"
+from = "docker-containers:configure"
+to = "verify-work:check"
+mode = "call"
+when = "steps_complete"
+guards = []
+
+[[edges]]
+id = "document-docker-containers-configure"
+from = "docker-containers:configure"
+to = "docs-maintenance:sync"
+mode = "transition"
+when = "steps_complete"
+guards = ["validated"]
+
+[[edges]]
+id = "security-docker-containers"
+from = "docker-containers:configure"
+to = "security-review:review"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "inspect-container-design"
+from = "docker-containers:inspect"
+to = "docker-containers:design"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "design-container-configure"
+from = "docker-containers:design"
+to = "docker-containers:configure"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "diagnose-container-configure"
+from = "docker-containers:diagnose"
+to = "docker-containers:configure"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "plan-container-inspect"
+from = "plan-project:plan"
+to = "docker-containers:inspect"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "plan-container-design"
+from = "plan-project:plan"
+to = "docker-containers:design"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "aligned-docker-containers"
+from = "plan-project:alignment"
+to = "docker-containers:configure"
+mode = "transition"
+when = "reason"
+guards = ["validated"]
+
+[[edges]]
+id = "check-container-diagnosis"
+from = "verify-work:check"
+to = "docker-containers:diagnose"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "container-reasons-design"
+from = "docker-containers:design"
+to = "plan-project:design"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "inspect-repair"
+from = "verify-work:inspect"
+to = "verify-work:repair"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "inspect-security"
+from = "verify-work:inspect"
+to = "security-review:review"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "inspect-e2e"
+from = "verify-work:inspect"
+to = "e2e-testing:run"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "retry-research-analyze-data"
+from = "research:analyze-data"
+to = "research:analyze-data"
+mode = "transition"
+when = "reason"
+guards = ["failed"]
+
+[[edges]]
+id = "plan-data-analysis"
+from = "plan-project:plan"
+to = "research:analyze-data"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "research-data-analysis"
+from = "research:evidence"
+to = "research:analyze-data"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "data-analysis-experiment"
+from = "research:analyze-data"
+to = "experiment:run"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "data-analysis-review"
+from = "research:analyze-data"
+to = "verify-work:inspect"
+mode = "call"
+when = "reason"
+guards = []
+
+[[edges]]
+id = "data-analysis-document"
+from = "research:analyze-data"
+to = "docs-maintenance:sync"
+mode = "call"
+when = "reason"
+guards = []

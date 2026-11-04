@@ -5,7 +5,7 @@ name = "check"
 when = "구현 결과의 요구·오류·공유 경계·회귀를 확인할 때"
 kind = "review"
 inputs = ["request", "design", "alignment"]
-documents = [".agents/skills/verify-work/references/evidence.md"]
+documents = [".agents/skills/verify-work/references/acceptance.md", ".agents/skills/verify-work/references/evidence.md"]
 validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 결과·남은 한계를 대조한다. 실행·증거 연결만으로 내용의 진위를 자동 승인하지 않는다."
 evidence_types = ["check"]
 required_calls = []
@@ -31,6 +31,7 @@ validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 
 evidence_types = ["check"]
 required_calls = ["verify-work:check"]
 finish = false
+finish_when = "documents_unchanged"
 entry_checks = ["alignment"]
 [[routes.steps]]
 id = "scope"
@@ -42,3 +43,23 @@ instruction = "허용된 범위를 수정하고 관련 회귀를 실행한다"
 id = "inspect"
 instruction = "수정 후 결과와 남은 발견을 재검토한다"
 
+
+[[routes]]
+name = "inspect"
+when = "검증해줘 등 기존 결과물/현재 작업을 기본 계약으로 검증할 때"
+kind = "review"
+inputs = ["request"]
+documents = [".agents/skills/verify-work/references/acceptance.md"]
+validation = "현재 대상의 적용 가능한 실행·정상/실패·회귀·구조·보안·E2E와 실제 근거·미확인을 대조한다. 검사 계획/정적 통과를 실제 앱 검증으로 바꾸지 않는다."
+evidence_types = ["artifact"]
+required_calls = []
+finish = true
+[[routes.steps]]
+id = "scope"
+instruction = "현재 대상·유지 조건·명시 제한과 적용할 기본 검증 범위를 정한다"
+[[routes.steps]]
+id = "execute"
+instruction = "관련 실제 실행/검사·구조/보안·필요한 E2E를 수행하고 허용된 수리는 준비 입력을 연결한다"
+[[routes.steps]]
+id = "inspect"
+instruction = "각 적용 항목의 실제 근거·실패/skip·미실행·남은 한계를 대조한다"

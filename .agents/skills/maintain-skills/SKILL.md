@@ -15,6 +15,8 @@ description: Create or improve native repository skills from a concrete workflow
 5. 실제 요청의 정상·오류·경계 사례에서 선택된 원문과 결과를 확인한다. 문법 통과와 작업 판단 품질을 구분한다.
 6. AGENTS 지도·설명서를 갱신하고 doctor·context·행동 검증 근거를 남긴다.
 
+여러 증거 등록과 리뷰 초안은 [완료 도구](../../../tools/harness/docs/completion.md)의 evidence import·inspect·review-template --output을 사용한다. 경로·해시·실행 수를 다시 타이핑하거나 작업마다 등록 스크립트를 새로 만들지 않는다. 내용·기준별 판단·독립성은 실제 검토자가 작성한다. 같은 결과 설명은 정본 한 곳에 두고 notes/리뷰에서는 근거 ID와 해당 기준의 판단을 연결한다.
+
 Git 이력은 후보 근거 중 하나다. 커밋 빈도만으로 좋은 규칙이라고 정하지 않는다.
 커밋이 없으면 요구·코드·검증된 해결 기록을 사용한다. 생성을 위해 커밋·PR·외부 계정 연결을 만들지 않는다.
 원본 지식의 대체·조건 변경을 추적해 생성한 스킬도 유지한다.

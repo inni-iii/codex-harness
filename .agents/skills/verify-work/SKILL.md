@@ -1,9 +1,11 @@
 ---
 name: verify-work
-description: Verify substantive changes, follow through on discovered defects in the same request, retain regression evidence and assess completion against requirements and affected boundaries.
+description: Verify work when asked to check, test or validate it, including short requests such as 검증해줘, 확인해줘 or 테스트해줘. Select relevant execution, normal/failure, regression, structure, security and E2E checks; follow through on authorized fixes and report actual evidence.
 ---
 
 # 요구와 전체 영향에서 검증하기
+
+“검증해줘”·“확인해줘”·“테스트해줘”처럼 범위를 덧붙이지 않은 요청도 [기본 검증 계약](references/acceptance.md)을 적용한다. 현재 대화의 대상·유지 조건·제약을 복원해 필요한 실행·정상/실패·회귀·구조·보안·관련 E2E를 선택한다. 사용자가 같은 요구를 긴 프롬프트로 반복하게 하지 않는다.
 
 먼저 무엇을 증명해야 하는지 정한다. 이 스킬과 실행 도구는 프로젝트에 오류가 없음을 보장하지 않는다.
 
@@ -16,6 +18,8 @@ description: Verify substantive changes, follow through on discovered defects in
 7. 필요한 검사가 통과하고 발견 사항이 처리된 최종 상태를 다시 검토한 뒤 완료 기준별 근거·미확인·남은 범위를 보고한다. 상위 계획이 있으면 [프로젝트 진행](../plan-project/references/project-lifecycle.md)에 따라 관련 갭의 전후 변화·근거를 연결한다. 작업 완료를 마일스톤 전체 달성으로 확대하지 않는다.
 
 코드의 실질적인 완료 검토에는 요구 충족과 결함·회귀를 나누어 리뷰한다. 유효한 검사 결과는 재사용한다.
+
+프로젝트 설명을 유지하는 작업은 [설명 누적 절차](../plan-project/references/project-explanation.md)에 따라 실제 검사 결과·보장 범위·미확인을 관련 절에 반영한다. 구현 도중에는 설명만 갱신하고, 문답은 최종 정리에서만 현재 코드·결정·검사 근거로 작성한다.
 
 ## 필요한 상세 자료만 읽는다
 

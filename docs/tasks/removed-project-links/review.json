@@ -1,0 +1,78 @@
+{
+  "version": 2,
+  "task_contract": "722f09630b68f4316a9d782177a1e0bc4d30efc0b4be2b46e3d67f7a4ae43b68",
+  "evidence_digest": "4f64402132cb76d2a7ecbc15446a72b3c6a33fd4ebc5e80d18f159aae0d90ab6",
+  "reviewer": "Codex",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "accepted",
+      "reason": "실제 docs 하위 폴더를 확인했고 삭제된 projects 지도 항목 제거 후 doctor가 종료 코드 0·오류 0으로 통과했다.",
+      "evidence": [
+        "FIX"
+      ]
+    }
+  ],
+  "limitations": [
+    "문서 링크 수정에 행동 check가 비적용이나 debug 완료 계약은 check 증거를 요구하므로 task 완료는 보류"
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "삭제된 docs/projects 링크 두 행과 현재 docs 문서 지도",
+    "areas": [
+      {
+        "name": "reproduction",
+        "result": "passed",
+        "reason": "삭제 후 doctor의 링크 오류 3건을 재현하고 두 행 수정 후 같은 검사에서 오류 0건을 확인했다. 문서 링크 변경으로 코드 테스트·E2E는 비적용이다."
+      },
+      {
+        "name": "cause",
+        "result": "passed",
+        "reason": "삭제 후 doctor의 링크 오류 3건을 재현하고 두 행 수정 후 같은 검사에서 오류 0건을 확인했다. 문서 링크 변경으로 코드 테스트·E2E는 비적용이다."
+      },
+      {
+        "name": "fix_scope",
+        "result": "passed",
+        "reason": "삭제 후 doctor의 링크 오류 3건을 재현하고 두 행 수정 후 같은 검사에서 오류 0건을 확인했다. 문서 링크 변경으로 코드 테스트·E2E는 비적용이다."
+      },
+      {
+        "name": "regressions",
+        "result": "passed",
+        "reason": "삭제 후 doctor의 링크 오류 3건을 재현하고 두 행 수정 후 같은 검사에서 오류 0건을 확인했다. 문서 링크 변경으로 코드 테스트·E2E는 비적용이다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "삭제된 projects 지도 링크가 남음",
+        "cause": "폴더 삭제 뒤 상위 지도 미동기화",
+        "status": "fixed",
+        "regression": "FIX"
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "converged",
+        "reason": "동일 doctor 검사 통과, 현재 폴더와 지도 일치",
+        "evidence": [
+          "FIX"
+        ]
+      }
+    ]
+  },
+  "observations": [
+    {
+      "id": "FIX",
+      "type": "artifact",
+      "path": ".runtime/removed-project-links/doctor.json",
+      "sha256": "e23d376bd73b8c527dc5c6de286cf64363009269e254993130f6a4a89637a697"
+    }
+  ]
+}

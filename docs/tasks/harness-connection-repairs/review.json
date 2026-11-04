@@ -1,0 +1,140 @@
+{
+  "version": 2,
+  "task_contract": "96c772a0bb82900b2c3fead498b981af8a2f6e39b9369595cd4554c4681e708d",
+  "evidence_digest": "34cd9b105c6ad035041a02cf57ff1b8a6233ab326683fe4e37f7b9a09ceee63a",
+  "reviewer": "Codex self-review",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "정확히 inventory.json/observations.json만 등록했다. 같은 F1 반례가 RED에서는 실패/FINAL에서는 통과했고 다른 임의 JSON/도움 코드가 여전히 미등록으로 차단되는 부정 사례도 통과했다. 실제 전체 검사4개가 실행됐다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "RETENTION",
+        "PLAN",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "기존 이식성2개가 RED 실패 후 FINAL 통과했다. 원래 RED bytes/로그3개/원래 task와 review를 보존하고 로그 경로만 바꾼 점을 원문 대조로 확인했다. 원래 worktree 읽기를 금지한 현재 doctor도 통과하며 당시 completed_at/계약/리뷰 판단은 유지했다.",
+      "evidence": [
+        "MIGRATION",
+        "PROOF",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "main 통합 전에 소유 파일 SHA를 비교했다. 현재 통합 고정 소스의 check --full --snapshot은 live_source_changed=false이며 doctor·agent-config·secret-patterns·Python441/실패0/skip1 통과했다. 현재 요구·실패·공유 경계와 근거를 다시 대조했고 새 결함을 발견하지 못했다.",
+      "evidence": [
+        "FINAL",
+        "DOCS"
+      ]
+    }
+  ],
+  "limitations": [
+    "전체441개 중 실행 sandbox가 프로세스 그룹 신호를 금지하는 기존 subcase1개를 건너뛰었다. 신규 등록 검사와 이식성2개는 실행되어 통과했다.",
+    "과거63개 근거 이관은 이번 승인 범위 밖으로 미수행이다.",
+    "기존 Docker 완료 판정은 당시 이력으로 보존했다. 경로 이관이 현재 재실행/독립 평가라는 뜻은 아니며 현재 상태는 이 task의 FINAL로 확인했다.",
+    "UI/API/DB 동작 변경이 없어 앱/브라우저 E2E는 비적용이다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "전체 검사 등록 누락 F1 및 완료 RED의 worktree 의존 F2를 좁게 수정하고 실제 RED/GREEN·현재 전체 검사·원문 보존을 검토한다.",
+    "areas": [
+      {
+        "name": "reproduction",
+        "result": "checked",
+        "reason": "두 결함을 고치기 전 고정 snapshot에서 F1 신규 회귀1개와 기존 이식성2개가 실제 실패했다. source-only doctor 실패와 full 계획 uncovered도 확인했다."
+      },
+      {
+        "name": "cause",
+        "result": "checked",
+        "reason": "F1은 조사 결과 두 JSON의 명시 등록 누락이다. F2는 완료 RED의 상대 경로와 활성 로그 경로가 source-only 복사에서 없는 worktree에 묶인 탓이다."
+      },
+      {
+        "name": "fix_scope",
+        "result": "checked",
+        "reason": "정확한 두 JSON 등록, 원래 보고서/로그/리뷰 보존과 활성 로그 경로/완료 검토 해시 갱신만 수행했다. 원래 판정·실행 위치·시각·원격·F3은 바꾸지 않았다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "같은 F1/기존 이식성 파일 해시에서 실패→통과를 확인했다. 임의 JSON/코드 차단을 유지하고 전체4검사 및441개/실패0/skip1, 이전 worktree 접근 금지 doctor를 확인했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "조사 JSON2개가 미등록이어서 전체 검사 실행 전에 차단",
+        "cause": "공유 coverage에 해당 근거 산출물의 명시 경로가 없었다. 두 파일만 좁게 등록했고 무관 JSON/코드 차단은 유지했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_connection_repairs.py",
+          "test_id": "test_survey_artifacts_allow_full_checks_without_exempting_other_json",
+          "sha256": "bb264b79770985c36597fe8ef0e7c224679fd27c7170501e0bba32ed4abe287d",
+          "check": "python",
+          "before": "RED",
+          "after": "FINAL"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "완료 RED의 worktree 의존 경로 때문에 source-only doctor/이식성2개 실패",
+        "cause": "실패 근거와 활성 로그 경로를 worktree 안에 둬 이식할 수 없었다. 원문/로그·판정과 원래 기록을 보존하고 표준 로컬 경로로 옮겨 완료 근거/리뷰 서명을 일관되게 갱신했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_layout.py",
+          "test_id": "test_source_archive_supports_context_generation_and_offline_routing",
+          "sha256": "fd4c8a2eac68abcc1501d7d9f8fd31ef845be5e7c21f4fd5f39c23f1483d4678",
+          "check": "python",
+          "before": "RED",
+          "after": "FINAL"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "수정 전 실제441개 검사에서 동일 반례3개 실패와 source-only doctor 오류를 확인했다.",
+        "evidence": [
+          "RED",
+          "RETENTION"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "정확한 등록·근거/로그 이관 후 같은 회귀가 통과했다. 원문/판정/기존 완료 시각 보존과 현재 전체4검사441/실패0/skip1을 확인했고 추가 결함이 없었다.",
+        "evidence": [
+          "FINAL",
+          "MIGRATION",
+          "PROOF",
+          "PLAN",
+          "DOCS"
+        ]
+      }
+    ]
+  }
+}

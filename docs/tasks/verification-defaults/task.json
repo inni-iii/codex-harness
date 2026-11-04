@@ -1,0 +1,149 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "검증해줘 같은 짧은 요청을 대상에 맞는 실행·정상/실패·회귀·구조·보안·관련 E2E의 기본 검증 계약으로 연결한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/verification-defaults/request.md",
+      "sha256": "66493a9c4190be99e3071df604cbff06366bd8e1a0a06406730d1f154e36bee8",
+      "description": "현재 사용자 정정과 기본 검증 동작 계약",
+      "recorded_at": "2026-11-04T07:18:41.044648+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/verification-defaults/design.md",
+      "sha256": "5d81bed4faf0a7f3bea1e8fbc30869af2af79f1fc4b9bdc52b78fca1834d0168",
+      "description": "현재 사용자 정정과 기본 검증 동작 계약",
+      "recorded_at": "2026-11-04T07:18:41.114210+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/verification-defaults/alignment.json",
+      "sha256": "ef1cf5ceeb0233c433774f63e15a7f052d1282f6e3c0cacf95a7c8f18d277364",
+      "description": "현재 기본 검증 계약의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T07:18:41.240073+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/checks/530e1de76cbd44fb85cfda1feaa2a791/report.json",
+      "sha256": "21eae4eca1bd2ebcbd16c2f6788b6d2130161b4dbc37ae8e2f47fdb9230d7c5e",
+      "description": "동일 회귀 파일의 기본 참조 선택/inspect 진입 부재가 실제 실패한443개 검사 보고서",
+      "recorded_at": "2026-11-04T07:23:56.740431+00:00"
+    },
+    "RETENTION": {
+      "type": "artifact",
+      "path": ".runtime/verification-defaults/red-retention.json",
+      "sha256": "79c7468eb446093d2e3ec9d2a39237c2f758df2c5a3bada405c9424766575110",
+      "description": "실제 실패 보고서/동일 로그 보존 출처",
+      "recorded_at": "2026-11-04T07:23:56.799726+00:00"
+    },
+    "SCENARIOS": {
+      "type": "artifact",
+      "path": "docs/tasks/verification-defaults/scenarios.md",
+      "sha256": "ff9babdf327860e20265b466ed1589a5f1565cd9fec5798c10bc5c251f951b69",
+      "description": "기본·문서·UI/API·권한·미등록의 실제 선택과 자체 절차 대조",
+      "recorded_at": "2026-11-04T07:23:56.862731+00:00"
+    },
+    "SELECTION": {
+      "type": "artifact",
+      "path": ".runtime/verification-defaults/selection-scenarios.json",
+      "sha256": "df61dde54dba254dd9515ff99fe658d7e0db24fd7e18d22eea311837a9e97d2c",
+      "description": "기본 참조/E2E/보안 선택 및 실제 미등록 앱 경로 차단",
+      "recorded_at": "2026-11-04T07:23:56.923925+00:00"
+    },
+    "SOURCE": {
+      "type": "artifact",
+      "path": ".runtime/verification-defaults/hooks-source.md",
+      "sha256": "2c131ca283afde9413e81242d66920c37b1ac1400eff0583f31b1c299d75944f",
+      "description": "공식 UserPromptSubmit 원문 확인과 네이티브 절차 선택 근거",
+      "recorded_at": "2026-11-04T07:23:56.987984+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/52ddbb86a4a24b76a5096257e97f70f9/checks/6ac9e1b562684772b49e169c487e8ccf/report.json",
+      "sha256": "d7ab96f3862815332af042c184ec647e8b0e10bf9a66882c9731bb60aefa5a71",
+      "description": "현재 통합 고정 소스 전체4검사·Python443/실패0/skip1 통과",
+      "recorded_at": "2026-11-04T07:26:00.821203+00:00",
+      "check": "python"
+    },
+    "GUARD": {
+      "type": "artifact",
+      "path": ".runtime/verification-defaults/guard-proof.json",
+      "sha256": "86ca91c4bacd466ce680cf6d31e75fe22742d7b5715d50359258f9420f73e5a8",
+      "description": "실제 inspect 시작 및 repair/check의 design/alignment 누락 거부 확인",
+      "recorded_at": "2026-11-04T07:26:01.031568+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/verification-defaults/review.json",
+    "sha256": "5f6ed548c287ba1b7414ea3e520ba3c4129a222f03be9b35e4c46aedde8a85b2"
+  },
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T07:17:50.404435+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents/skills/verify-work/SKILL.md",
+    ".agents/skills/verify-work/references/acceptance.md",
+    ".agents/skills/verify-work/routes.toml",
+    ".agents/context.toml",
+    ".agents/skill-flow.toml",
+    "tools/harness/docs/verification.md",
+    "tools/harness/docs/skill-flows.md",
+    "tools/harness/tests/test_verification_defaults.py",
+    "docs/tasks/verification-defaults/**",
+    "docs/tasks/index.md"
+  ],
+  "constraints": [
+    "현재 요청·명시 제한·원격 읽기 전용·기존 구현 gate를 유지",
+    "새 모델/자동 전환/UserPromptSubmit·추가 훅/검사 worker·매번 전체 검사를 추가하지 않는다",
+    "프로젝트/변경 영향에 맞춰 관련 검사·실행·구조/보안·필요한 E2E를 선택하고 근거 재사용",
+    "문서/단순 질문은 적정 범위, 앱 검사 미등록/미실행을 하네스 자체 통과로 대체하지 않는다"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "범위 없는 검증 요청에서 기본 계약이 발견·선택되고 대상·명시적 제한·문서/코드 차이를 적용한다",
+      "method": "실제 context 기본 review 선택/원문과 스킬 발견 설명 및 시나리오를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "RETENTION",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "설계 입력이 없는 기존 결과물도 읽기 검증 경로로 시작할 수 있고 실제 수리에는 기존 설계/권한 gate를 유지한다",
+      "method": "실제 flow의 request-only 진입과 repair/check의 기존 design/alignment 거부 경계를 확인한다",
+      "status": "passed",
+      "evidence": [
+        "GUARD",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "정상/오류/문서/제약 시나리오와 기존 context/flow·전체 등록 검사를 확인하고 새 모델·훅·검사 루프를 추가하지 않는다",
+      "method": "짧은 요청의 단계/대상별 자체 시나리오와 기존/새 자동 회귀, doctor·전체 등록 검사를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "SCENARIOS",
+        "SELECTION",
+        "SOURCE",
+        "FINAL"
+      ]
+    }
+  ],
+  "next_action": "기본 검증 계약·선택·request-only 검사 진입과 기존 수리 gate 및 현재 전체 검증을 연결했다. 이후 짧은 검증 요청에 현재 대상과 명시 제한을 적용해 사용한다.",
+  "completed_at": "2026-11-04T07:27:00.829826+00:00"
+}

@@ -98,7 +98,21 @@ def clear(root, key=None):
 
 def status(root, key=None):
     key = selected_key(key)
-    state = read(root, key)
+    available = True
+    try:
+        state = read(root, key)
+    except (OSError, ValueError):
+        state, available = {}, False
     validation = state.get("validation", {})
-    return {"status": "passed", "session_key": key, "task": state.get("task"),
-            "last_static_check": {k: validation[k] for k in ("status", "checks", "at") if k in validation}}
+    if not isinstance(validation, dict):
+        validation, available = {}, False
+    from . import hook_recovery
+    return {"status": "passed" if available else "failed", "session_key": key, "task": state.get("task"),
+            "state_available": available,
+            "last_static_check": {k: validation[k] for k in ("status", "checks", "at") if k in validation},
+            **hook_recovery.status(root, key)}
+
+
+def resolve(root, event, failure_sha256, task, ident, key=None):
+    from . import hook_recovery
+    return hook_recovery.resolve(root.resolve(), selected_key(key), event, failure_sha256, task, ident)

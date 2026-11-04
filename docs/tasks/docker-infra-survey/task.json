@@ -1,0 +1,119 @@
+{
+  "version": 2,
+  "kind": "research",
+  "goal": "이 노트북의 접근 가능한 저장소와 Docker 실행 환경을 읽기 전용으로 조사하고 범용 하네스의 컨테이너 인프라 구성안을 근거와 함께 보고한다",
+  "status": "complete",
+  "evidence": {
+    "INVENTORY": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-infra-survey/inventory.json",
+      "sha256": "772154de216ee1cb179d7c4644cd290ada2474f1b09f9efcc2316393b688f11c",
+      "description": "57개 VCS 작업 사본과 178개 Docker 관련 파일의 경로·해시·분류 및 정적 config 결과",
+      "recorded_at": "2026-11-04T05:31:04.845596+00:00"
+    },
+    "LOCAL": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-infra-survey/observations.json",
+      "sha256": "841e8cd931a037327020d2a06b3be105ac59de1f529ac97658ab01376e622280",
+      "description": "Docker 클라이언트/서버·자원·정지 상태 및 실행하지 않은 검사의 경계",
+      "recorded_at": "2026-11-04T05:31:05.254731+00:00"
+    },
+    "SOURCES": {
+      "type": "source",
+      "path": "docs/tasks/docker-infra-survey/sources.md",
+      "sha256": "0f73390019e04a37d9956e127866a0cda1f057ab9b4db1cb4568ce709c22a5d2",
+      "description": "실제로 읽은 로컬/공식 원문·명령·시점·반례와 누락을 연결한 출처 기록",
+      "recorded_at": "2026-11-04T05:31:05.651816+00:00",
+      "origin": "https://docs.docker.com/compose/how-tos/startup-order/",
+      "accessed_at": "2026-11-04"
+    },
+    "REPORT": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-infra-survey/report.md",
+      "sha256": "e5378697402a64446437c7dc2891d94dbd193c1986657b3a9b5dab169a0a9627",
+      "description": "서비스 및 선택 검사 runner 구성안과 4개 외부 저장소 발견 사항/후속 조치를 포함한 조사 보고서",
+      "recorded_at": "2026-11-04T05:31:06.060117+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/docker-infra-survey/review.json",
+    "sha256": "c958f93f95fc478e3b59ff177817b8d37e094c517cc8f59e7e198e1f4a961774"
+  },
+  "findings": [
+    "F1",
+    "F2",
+    "F3",
+    "F4"
+  ],
+  "created_at": "2026-11-04T05:20:20.749558+00:00",
+  "depends_on": [],
+  "inputs": [
+    "현재 사용자 요청: 노트북의 다른 레포를 꼼꼼히 살펴 Docker 인프라 스펙과 재사용 구성을 보고",
+    "현재 하네스 AGENTS.md·구조 문서·환경/연구/보안 스킬"
+  ],
+  "scope": [
+    "접근 가능한 로컬 개발 저장소를 탐색하고 중복·워크트리·제외 경계를 구분한다",
+    "다른 레포의 Docker/Compose·운영 스크립트와 로컬 Docker 메타데이터를 조사하고 구성안을 보고한다"
+  ],
+  "constraints": [
+    "다른 저장소·원격 서버·기존 컨테이너·Docker 설정을 변경하지 않는다",
+    "비밀값·인증·환경 변수 값은 수집/보고하지 않는다",
+    "이번 산출물은 조사 보고서이며 이미지 빌드·컨테이너 실행·인프라 구현은 하지 않는다"
+  ],
+  "decisions": [
+    "현재 요청은 조사·보고로 해석하며 인프라 구현/컨테이너 시작은 별도 후속 작업으로 구분",
+    "사용자 선택 질문은 답변 대기. 사전 고지한 서비스 실행 인프라 중심으로 조사하고 선택적 하네스 runner도 보고"
+  ],
+  "open_questions": [
+    "향후 첫 서비스와 static/SSR·Python/DB 버전·확장·운영 대상",
+    "하네스 검사 runner 자체를 컨테이너화할 범위"
+  ],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "저장소 탐색 범위·중복·제외·누락과 주요 Docker 및 운영 구성 원문을 식별한다",
+      "method": "홈 소스 및 내부 worktree 탐색과 파일 해시·중복·제외·현재 파일 재대조",
+      "status": "passed",
+      "evidence": [
+        "INVENTORY",
+        "SOURCES",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "노트북의 Docker·Compose·아키텍처와 확인 가능한 로컬 런타임 자원을 구분해 보고한다",
+      "method": "로컬 Unix endpoint 확인 후 승인된 info/ps와 호스트 메타데이터를 읽기 전용 대조",
+      "status": "passed",
+      "evidence": [
+        "LOCAL",
+        "SOURCES",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "재사용할 구성·제외할 제품 의존·실제 결함 및 반례를 근거로 비교한다",
+      "method": "다른 레포 Docker 원문과 실제 경로·COPY/ignore·공식 계약·관련 과거 원문을 대조",
+      "status": "passed",
+      "evidence": [
+        "SOURCES",
+        "INVENTORY",
+        "REPORT"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "서비스와 하네스 컨테이너화의 권장 구성·도입 순서·검증 및 미결정을 보고하고 미구현 상태를 명시한다",
+      "method": "현재 하네스 경계와 로컬 사례를 비교해 권장 구성·도입 순서·검증·미결정·미구현을 자체 검토",
+      "status": "passed",
+      "evidence": [
+        "REPORT",
+        "LOCAL",
+        "SOURCES"
+      ]
+    }
+  ],
+  "next_action": "자체 검토 및 완료 근거 검증 후 사용자에게 조사 보고서 전달",
+  "completed_at": "2026-11-04T05:32:08.083891+00:00"
+}

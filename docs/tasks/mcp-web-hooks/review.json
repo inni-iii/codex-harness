@@ -1,0 +1,102 @@
+{
+  "version": 2,
+  "task_contract": "0c08a3fae2c03d0f43ef6c24f647ffbedfba7c092c562a17951330d9f0375f72",
+  "evidence_digest": "5f0a61186393c3e311016a2ee69fb9a4b10b2cda8c6abf62e2ce1ab53d5e3fab",
+  "reviewer": "Codex, 구현자의 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "등록 matcher와 handler가 같은 MCP 이름을 인식한다. 실제 stdin과 정상/오류 입력에서 전후 context가 반환되고 MCP 입력은 셸 가드로 가지 않는다. 직접 isError 오류·비정상 타입·응답 누락은 알림으로 남긴다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "MCP 뒤 watched 변경은 doctor를 수행하고 동일 변경은 재사용한다. busy 상태에서도 context/오류 안내를 유지한다. 합성 비밀/지시문·오류 진단이 출력/상태에 복사되지 않으며 오류와 정적 findings 병합도 통과했다.",
+      "evidence": [
+        "RESULT",
+        "INTEGRATION",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "AGENTS·research·보안 참조와 context 세 주제에서 검색 전후 원문을 발견할 수 있다. 공식 문서 실제 조회와 정상/빈 결과/충돌/민감질의/악성 지시문 시나리오를 대조했다. 새 MCP 서버 등록 없이 내장 웹검색의 호스트 미지원 경계를 표시했다.",
+      "evidence": [
+        "CONTEXT",
+        "WEB",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "메인 최종 등록 검사 passed: Python413개 실패0·기존 환경skip1, doctor/agent-config/secret-patterns 통과. 기존 셸 원격 쓰기와 읽기·생명주기 및6개 신규 MCP 회귀가 포함됐다. 격리 snapshot과 메인 소스 해시도 대조했다.",
+      "evidence": [
+        "TARGET",
+        "WORKTREE",
+        "FINAL"
+      ]
+    }
+  ],
+  "limitations": [
+    "변경된 Pre/Post 정의는 Codex의 정확한 정의 신뢰 검토 뒤 실제 호스트 자동 발생을 별도로 확인해야 한다. 신뢰·승인 설정을 변경하지 않았다.",
+    "MCP 안내와 정적 점검은 외부 응답의 의미상 안전·진실성·인용 일치를 자동 검증하거나 모든 도구를 차단하지 않는다.",
+    "내장 WebSearch는 도구 훅이 없으며 명시적인 에이전트 절차로 적용한다.",
+    "기존 stdin2MiB/깊이 제한·호스트의 일부 경로 제외와 callback 실패 정책이 남는다.",
+    "Python413개 중 기존 sandbox의 프로세스 그룹 신호 권한 제한 하위 사례1개 skip. 앱 UI 변경이 없어 브라우저 E2E 비적용."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "현재 요청의 MCP Pre/Post 안내·오류 구분·정적 변경 감지와 내장 웹검색 전후 절차, 기존 셸/생명주기 소비 경계·문서/context·메인 통합 상태",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "A1-A4의 matcher·실제 stdin·context·문서 시나리오와413개 등록 검사 결과를 대조했다. 새 MCP 서버/호스트 신뢰 변경은 추가하지 않았다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "명시 오류·응답 누락·잘못된 오류상태·busy callback·정적 findings 동시 발생·입력 한도·합성 지시문/비밀 비전파를 확인했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "MCP를 셸 파서와 분리하고 기존 watched·session lock·doctor 계약을 유지했다. 내장 웹검색 미지원과 사용자 권한 경계를 문서화했다. 새 정의의 호스트 신뢰 미확인을 자동 성공으로 바꾸지 않았다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "기존19개와 신규6개를 합한 훅25개·기존 Python407개를 합한 최종413개가 실행됐다. 실패0·환경skip1을 구분했고 메인 최종 상태의 보고서·로그·해시를 검증한다."
+      }
+    ],
+    "findings": [],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [],
+        "closed_findings": [],
+        "outcome": "no_new_findings",
+        "reason": "새 수용 기준과 이전 구현 범위의 차이를 기능 확장으로 다뤘다. 정상·오류·동시성·기존 셸 경계와 문서·실제 원문·최종 메인 검사를 대조한 범위에서 추가 계약 위반을 발견하지 못했다. 콜백/의미 검증의 남은 한계는 별도로 표시했다.",
+        "evidence": [
+          "FINAL",
+          "TARGET",
+          "CONTEXT",
+          "WEB",
+          "INTEGRATION",
+          "RESULT"
+        ]
+      }
+    ]
+  }
+}

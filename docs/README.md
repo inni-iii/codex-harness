@@ -7,7 +7,7 @@
 
 | 위치 | 내용 |
 | --- | --- |
-| [projects/](projects/README.md) | 주제별 개요·규칙·설계·workflow.toml |
+| `docs/<프로젝트>/` | 프로젝트 개요·규칙·workflow.toml과 기능별 `features/<기능>/` 정본 |
 | `tasks/<작업명>/` | task.json의 목표·완료 기준과 notes.md의 근거·인수인계 |
 | `knowledge/catalog.json` | 프로젝트/공통 교훈의 조건·근거·검토·대체 기록. [관리 방법](../tools/harness/docs/knowledge.md) |
 
@@ -21,7 +21,7 @@ python3 tools/harness/run.py task first-feature --kind implement --goal "첫 사
 
 생성된 workflow.toml은 draft다. 실제 검사·문서 연결을 채운 뒤 활성화한다.
 project는 개요·보안 초안·워크플로와 선택 읽기용 `index.md`를 만든다. 설계나 코드까지 자동 생성하지 않는다.
-기존 프로젝트나 작업을 덮어쓰지 않는다.
+기존 프로젝트나 작업을 덮어쓰지 않는다. 문서가 필요한 구현/검증은 같은 기능의 정본을 갱신하고 [문서 저장 명령](../tools/harness/docs/project-documents.md)으로 본문·폴더 지도·선택 조건을 함께 연결한다. 작업 이력은 tasks, 원본 로그는 .runtime에 보존한다.
 
 범용 작업 지침은 [.agents](../.agents/README.md), 하네스 설명과 구현 근거는
 [tools/harness](../tools/harness/README.md)에서 관리한다.

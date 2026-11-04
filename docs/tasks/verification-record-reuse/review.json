@@ -1,0 +1,152 @@
+{
+  "version": 2,
+  "task_contract": "846d08708c9f75d68fcf419bfa7d5bda7efc0a7a46d48553e069a9aac3fc34db",
+  "evidence_digest": "9ca0e512c5e2d2f3a5af3ae0042efe8eed0e936166a24bdbdb7b77d2c066afda",
+  "reviewer": "Codex 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "같은 동결 회귀에서 cache 재사용·완료·flow 무효화를 실패시킨 뒤 실제 기록 추가 후 통과했다. 전체 원본 해시는 그대로 기록하고 독립 opt-in만 제외한다.",
+      "evidence": [
+        "DESIGN",
+        "ALIGN",
+        "REQUEST",
+        "DESIGN2",
+        "ALIGN2",
+        "RED",
+        "ALIGN3",
+        "FINAL",
+        "ASSESS"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "현재 task 입력/범위/근거/선행 작업과 검사 paths/프로젝트 참조를 보호하고 코드·설정·프로젝트 문서·실행 권한·환경·임의 JSON 변경을 검출했다. 기본/과거 보고서와 설정 없는 읽기 flow를 보수적으로 유지했다.",
+      "evidence": [
+        "RED2",
+        "FINAL",
+        "ASSESS"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "인덱스에서 필요한 원문만 고르고 변경 없는 읽기를 재사용하는 지침을 기존 스킬에 반영했다. 정적 검사와 실제14개 관련·최종492개를 대조했고 제품 E2E는 비적용이다.",
+      "evidence": [
+        "ASSESS",
+        "FINAL"
+      ]
+    }
+  ],
+  "limitations": [
+    "자체 검토; 독립 평가 아님",
+    "ignore_task_records는 실제 입력 독립성을 확인한 검사만 선언; 임의 프로젝트 검사는 기본 보수적 비교",
+    "입력 독립성의 의미는 에이전트 판단이며 파일 감시나 자동 의미 판정이 아님",
+    "브라우저 UI 변경 없어 제품 E2E 비적용; sandbox process-group 신호 하위 사례1개 기존 skip"
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "인덱스 우선 읽기와 독립 선언된 코드 검사의 무관한 task 기록 제외; 전체 소스 축소/자동 완료 도입 없음",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "같은 동결 회귀에서 cache 재사용·완료·flow 무효화를 실패시킨 뒤 실제 기록 추가 후 통과했다. 전체 원본 해시는 그대로 기록하고 독립 opt-in만 제외한다. 인덱스에서 필요한 원문만 고르고 변경 없는 읽기를 재사용하는 지침을 기존 스킬에 반영했다. 정적 검사와 실제14개 관련·최종492개를 대조했고 제품 E2E는 비적용이다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "현재 task 입력/범위/근거/선행 작업과 검사 paths/프로젝트 참조를 보호하고 코드·설정·프로젝트 문서·실행 권한·환경·임의 JSON 변경을 검출했다. 기본/과거 보고서와 설정 없는 읽기 flow를 보수적으로 유지했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "검사 캐시·evidence 현재 소스·flow가 같은 정책을 쓰며 기존 원본 로그·전체 소스 해시·알 수 없는 검사/보고서 호환을 유지했다. 첫 통합의 설정 없는 읽기 flow 회귀를 같은 기존 사례로 보완했다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "F1 동일 파일 SHA의 실패3건→통과와 F2 기존 Docker/verify/plan 읽기 회귀 실패→통과를 연결했다. 최종492개 실패0 skip1, 제품 E2E는 비적용이다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "무관한 작업 기록 때문에 cache·현재 완료 근거·flow 검증이 무효화됐다.",
+        "cause": "전체 소스 비교에 입력 독립성 구분이 없었다. 명시 정책과 입력 보호를 세 지점에서 공유하도록 수정했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_record_reuse.py",
+          "test_id": "RecordReuseTests.test_unrelated_new_task_does_not_block_closure",
+          "sha256": "37cb1de02c1c1bd4ff2d1be64706d87faa7ef14333df5ee41ae41e201fa00429",
+          "check": "python",
+          "before": "RED",
+          "after": "FINAL"
+        }
+      },
+      {
+        "id": "F2",
+        "summary": "첫 통합에서 설정 없는 읽기 flow가 새 manifest 요구로 시작하지 못했다.",
+        "cause": "공통 정책을 얻기 위해 flow가 항상 검사 설정을 요구했다. 선언할 설정이 없으면 기존 전체 비교를 유지하도록 수정했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_container_skill.py",
+          "test_id": "ContainerSkillTests.test_configure_needs_design_inputs_while_read_only_routes_can_start",
+          "sha256": "05d0fe8022a02c98b05d5aaa509f3bfbeab6a069481e1ed58cca03b70cc70600",
+          "check": "python",
+          "before": "RED2",
+          "after": "FINAL"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "독립 기록 추가 후 동일8개 중 cache/완료/flow 반례3개 실패를 확인했다.",
+        "evidence": [
+          "REQUEST",
+          "DESIGN2",
+          "RED"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [
+          "F2"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "좁은 수정 후14개는 통과했으나 첫 전체492개에서 설정 없는 읽기 flow3건의 새 호환 회귀를 발견했다.",
+        "evidence": [
+          "RED2",
+          "ASSESS"
+        ]
+      },
+      {
+        "id": "R3",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "보수적 기본 비교를 복구하고 관련26개·전체492개를 다시 대조했다. 영향받는 요구·오류·입력 보호/호환과 원본 무결성에서 추가 결함을 확인하지 못했다.",
+        "evidence": [
+          "FINAL",
+          "ASSESS"
+        ]
+      }
+    ]
+  }
+}

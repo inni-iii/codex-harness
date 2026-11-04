@@ -58,7 +58,7 @@ def load(root: Path) -> dict:
             raise ValueError('each skill needs version 1 and at least one route')
         for route in data['routes']:
             fields(route, ['name', 'when', 'kind', 'inputs', 'documents', 'steps', 'validation',
-                           'evidence_types', 'required_calls', 'finish', 'entry_checks', 'result_checks'],
+                           'evidence_types', 'required_calls', 'finish', 'entry_checks', 'result_checks', 'finish_when'],
                    ['name', 'when', 'kind', 'inputs', 'documents', 'steps', 'validation', 'evidence_types', 'required_calls', 'finish'], 'route')
             names([route['name']], 'route name')
             ident = f'{folder.name}:{route["name"]}'
@@ -103,6 +103,8 @@ def load(root: Path) -> dict:
                 raise ValueError('invalid required calls')
             if not isinstance(route['finish'], bool):
                 raise ValueError('finish must be boolean')
+            if 'finish_when' in route and (route['finish'] or route['finish_when'] != 'documents_unchanged'):
+                raise ValueError('finish_when requires a nonterminal documents_unchanged route')
             entrypoint = f'.agents/skills/{folder.name}/SKILL.md'
             for doc in [entrypoint, *route['documents']]:
                 sources[doc] = sha(local_file(root, doc))

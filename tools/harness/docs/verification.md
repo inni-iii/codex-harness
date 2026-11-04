@@ -19,6 +19,11 @@ Make 사용 환경에서는 make doctor/check/test/check-full/check-staged가 �
 make check-plan은 검사 선택, make check-quick은 edit, make check-feature는 feature checkpoint, make check-reuse는 명시적인 결과 재사용이다.
 Windows 등 Make가 없는 환경은 Python 명령을 사용한다. 다른 OS에서의 실행은 아직 실측하지 않았다.
 
+## 대화에서 검증을 요청할 때
+
+“검증해줘”·“확인해줘”·“테스트해줘”는 [기본 검증 계약](../../../.agents/skills/verify-work/references/acceptance.md)에 따라 현재 대상의 실행·정상/실패·회귀·구조·보안·관련 E2E를 선별하는 요청이다. 명시한 범위/제한을 우선하고 실제 결과·미확인을 보고한다. 새 프로젝트의 앱 검사도 실제 명령에 연결해야 한다.
+이 동작은 네이티브 verify-work의 발견/절차와 review context로 연결한다. 기존 종료 훅의 근거 누락 알림을 유지하며 추가 프롬프트 훅·모델·백그라운드 검사/전체 suite 반복을 만들지 않는다. 기록하는 기존 결과물 검증은 request-only `verify-work:inspect`로 시작하고 실제 수리는 기존 준비 입력을 연결한다.
+
 ## 선택과 결과
 
 - 기본은 staged·unstaged·미추적 변경을 합쳐 선택한다. --paths는 명시한 범위에 한정하며 전체 검증으로 보고하지 않는다.
@@ -171,3 +176,19 @@ Makefile 변경도 Python 동작 검사를 선택하며, 회귀 검사는 임시
 작업의 task.json/review.json은 doctor가 점검하는 기록 메타데이터다. 리뷰 생성 후 후속 검사에서 미등록 코드로 차단하지 않는다.
 같은 작업 폴더의 helper.py와 임의 JSON은 이 예외에 포함하지 않는다.
 작업별 적정 범위·맥락 선택과 오케스트레이션 판단은 [전체 연결 점검](verification-audit.md)을 따른다.
+
+## 문서 폴더 지도 검사
+
+`doctor`는 `docs/`와 `tools/harness/docs/`의 각 폴더에 index.md가 있는지, 직계 Markdown 파일별 상대 링크·별도 역할 설명과 하위 폴더 index 링크가 있는지 검사한다. 빈 설명·TODO·코드 예제/주석 속 링크로 누락을 채우지 않는다. 파일 이름과 지도 본문만 대조하며 실제 문서 본문을 모델에 적재하지 않는다. 설명의 정확성·관련 원문을 고르는 판단은 에이전트의 문서 검토가 맡는다. project/task 생성기는 새 지도와 상위 링크를 만들고, 이후 추가하는 문서는 작성자가 지도를 함께 갱신한다.
+
+## 작업 기록과 코드 검사의 재사용
+
+검사에서 `ignore_task_records = true`를 명시하면 코드 검사가 무관한 `docs/tasks/`의 Markdown·task.json·review.json에 의존하지 않는다는 선언이다. 하네스 Python 검사는 이 선언을 사용한다. 기록의 구조/링크/근거 무결성은 매번 실행하는 doctor가 검사한다. 다른 프로젝트의 검사는 실제 입력 독립성을 확인한 뒤 선언하며 기본값은 false다.
+
+- 캐시·완료 근거·flow는 같은 버전의 제외 기준을 사용한다. 전체 원본 소스/실행 권한 해시는 보고서에 그대로 보존한다.
+- 검사 `paths`에 맞는 기록과 workflow에서 참조하는 기록은 제외하지 않는다. `paths=["**"]`라면 기록도 입력이므로 모두 계속 비교한다.
+- 완료/flow에서는 현재 task 폴더의 원문, task의 inputs·scope·evidence·depends_on에 연결된 기록도 보호한다. 기존 task.json·notes.md·review.json의 자기 기록 예외는 유지한다.
+- 실행 코드·임의 JSON·설정·프로젝트 요구/보안 문서·의존성·실행 권한·환경은 계속 비교한다. `docs/` 전체를 제외하지 않는다.
+- 선택된 동작 검사 중 하나라도 선언이 없으면 기존 전체 비교를 유지한다. 정책 없는 과거 보고서도 기존 보수적 비교를 적용하며 과거 보고서를 다시 쓰지 않는다.
+
+`--reuse`와 cacheable 설정은 여전히 필요하다. 같은 동작 검사를 다시 실행하지 않아도 비캐시 정적 검사는 현재 기록을 검사한다. 이 기능은 파일의 의미를 추론하거나 요구 충족을 자동 승인하지 않는다.

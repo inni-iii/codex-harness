@@ -1,0 +1,150 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "추가 모델 호출·검사 횟수 증가 없이 훅 실패의 단계·원인 코드·시간과 정적 검사 findings/stale를 안전하게 구분한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/request.md",
+      "sha256": "11bba4242f135ffe374b76a3a0f642fb43149f639ba763e1e376e42ffe3d6dd6",
+      "description": "현재 사용자의 비용 조건과 적용 승인",
+      "recorded_at": "2026-11-04T05:29:47.745912+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/hook-diagnostics/design.md",
+      "sha256": "d01b6cffcaaa67b3dc8d02242a9e2903662bc70259e3c33a02b7c0cad884c707",
+      "description": "R1-R3/O1의 제한된 진단·비용·보안 설계",
+      "recorded_at": "2026-11-04T05:29:47.806016+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/alignment.json",
+      "sha256": "cecbeb80cb98a58afbae850381e9e68b71f9289d921f68ab1a5a847d3f4fd2fb",
+      "description": "현재 요청·설계·O1의 자체 정렬 검토",
+      "recorded_at": "2026-11-04T05:29:47.925653+00:00"
+    },
+    "TARGET": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/targeted.log",
+      "sha256": "e5690a996a4225cbddd624b227324e786ada7d75744267be576a133a86df492d",
+      "description": "훅31개 집중 회귀: 추가 검사·정상 출력·새 실패 파일 여부 포함",
+      "recorded_at": "2026-11-04T05:34:23.791256+00:00"
+    },
+    "STDIN": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/stdin.json",
+      "sha256": "9133aae3528cca29a15b96ebca6bceb89635957338c26275177f1f2dd67c8fca",
+      "description": "실제 자식 프로세스의 성공/상태 오류·짧은 출력·기록",
+      "recorded_at": "2026-11-04T05:34:23.858241+00:00"
+    },
+    "REFRESH": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/baseline-refresh.json",
+      "sha256": "c34b1dd6648a42fe0fa65baee575cca2f124c781e3699ce7d4395afd6322f914",
+      "description": "다른 세션 완료 문서와 복사 시점 중간 상태를 대조한 해시",
+      "recorded_at": "2026-11-04T05:34:23.921888+00:00"
+    },
+    "RESULT": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/result.md",
+      "sha256": "bcc949f108ff0af3b3068047b45e9ab65d167ca7822b8d3d96004ae0c206ef40",
+      "description": "구현 범위·실패/정상 비용 경계·실제 검증·한계",
+      "recorded_at": "2026-11-04T05:34:23.984413+00:00"
+    },
+    "INTEGRATION": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/integration.json",
+      "sha256": "a9efde375f8591191652e79c31b0c6f1cb6113b891c838fdc4af5940dc0026e1",
+      "description": "타 세션/이전 변경을 보존한7개 경로 델타의 전후 SHA",
+      "recorded_at": "2026-11-04T05:35:05.927855+00:00"
+    },
+    "SCOPE_LIMIT": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/full-scope-limit.md",
+      "sha256": "9c004aabb4f15cd882022c9f4b44f95569bcfcba79ea3ccf030e963efbe93688",
+      "description": "다른 세션 JSON 미등록으로 전체 검사 선택이 보류된 실제 범위와 관련 검사 유지 근거",
+      "recorded_at": "2026-11-04T05:36:25.446197+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/c63c446800114a40bf72f8733a8814eb/checks/ce039b837f354c90b0f98a324e76ebe5/report.json",
+      "sha256": "25ee22c45c8253a250038a42e734cfd47f7cf21e54ef5b8e879ff0c4f743d613",
+      "description": "현재 소스 snapshot의 관련 등록 검사: Python419개 실패0·기존환경skip1, doctor/secret-patterns 통과",
+      "recorded_at": "2026-11-04T05:38:23.237711+00:00",
+      "check": "python"
+    },
+    "HOST": {
+      "type": "artifact",
+      "path": ".runtime/hook-diagnostics/current-static-record.json",
+      "sha256": "b725cf2a343cdc5b6b98eb06234989ee8771d221cca2b53d2ca4f66a5e4d61fd",
+      "description": "현재 세션 실제 정적 훅 기록의 passed·elapsed_ms·reason_codes 확인",
+      "recorded_at": "2026-11-04T05:38:23.439487+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/hook-diagnostics/review.json",
+    "sha256": "91ff7f23769e02c802e3368378a1e3f400e919005190fc53c3df8a9a885503d7"
+  },
+  "findings": [],
+  "created_at": "2026-11-04T05:29:47.682821+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "tools/harness/harness/lifecycle_hooks.py",
+    "tools/harness/tests/test_lifecycle_hooks.py",
+    "tools/harness/docs/hooks.md",
+    "docs/tasks/index.md",
+    "docs/tasks/hook-diagnostics/**"
+  ],
+  "constraints": [
+    "기존 검사 횟수·모델 호출·외부 네트워크 호출 증가 없음",
+    "정상 출력·권한·훅 이벤트/시간 제한/신뢰 설정 유지",
+    "원문 입력·응답·예외 메시지·원시 세션ID·비밀값 기록 없음",
+    "타 세션 Docker 조사와 이전 Expat/MCP 변경 보존"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "콜백 실패는 단계·고정 원인 코드·소요 시간의 제한된 로컬 기록과 짧은 오류 요약을 남기고 비정상 종료를 유지한다",
+      "method": "실제 main/stdin에서 파싱·검사·상태 저장·기록 실패 및 예기치 않은 예외의 코드·종료·짧은 출력과 파일을 확인한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "STDIN",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "doctor findings와 편집 중 stale를 구분하며 입력·응답·예외 원문을 기록하지 않는다",
+      "method": "합성 민감 문자열을 넣고 findings/stale 코드와 모든 출력/기록에 원문이 없는지 확인한다",
+      "status": "passed",
+      "evidence": [
+        "REFRESH",
+        "RESULT",
+        "HOST",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "정상 출력·검사 횟수·MCP 및 셸/생명주기 동작을 유지하고 관련 회귀가 통과한다",
+      "method": "성공 경로의 출력·진단 무기록·검사 호출 수와 기존 훅 회귀를 확인한다",
+      "status": "passed",
+      "evidence": [
+        "TARGET",
+        "INTEGRATION",
+        "SCOPE_LIMIT",
+        "FINAL"
+      ]
+    }
+  ],
+  "next_action": "현재 요청 완료. 다른 조사 JSON의 전체 검사 등록은 해당 작업의 후속 통합 범위로 남긴다.",
+  "completed_at": "2026-11-04T05:39:13.759047+00:00"
+}

@@ -30,7 +30,7 @@ python3 tools/harness/run.py flow context my-flow --read
 python3 tools/harness/run.py flow status my-flow
 ```
 
-코드 구현/수정과 코드 검증 라우트에는 design/alignment가 필요하다. [REASONS 준비 검사](reasons.md)에서 현재 설계·검토·선택 O·범위를 확인한다. 아래의 일반 입력 예는 각 라우트의 실제 입력으로 바꾼다.
+코드 구현/수정과 구현 후 `verify-work:check`에는 design/alignment가 필요하다. 기존 결과물의 기본 검증은 request-only `verify-work:inspect`로 시작할 수 있고, 실제 수리 호출에는 기존 준비 입력을 연결한다. [REASONS 준비 검사](reasons.md)에서 현재 설계·검토·선택 O·범위를 확인한다. 아래의 일반 입력 예는 각 라우트의 실제 입력으로 바꾼다.
 
 필수 입력 `request`는 연결한 task 계약으로 자동 묶는다. 추가 입력을 요구하는 사용자 정의 라우트는
 `--input design=DESIGN`처럼 **이미 task에 등록한 증거 ID**로 전달한다. 누락·중복·알 수 없는 입력·request 덮어쓰기는 거부한다.
@@ -82,7 +82,7 @@ python3 tools/harness/run.py flow move my-flow plan-backend --reason "현재 요
 
 `transition`은 현재 노드에서 등록된 다음 노드로 진행한다. 선조 호출의 복귀 맥락은 유지한다.
 성공 경로에는 현재 소스에서 유효한 검증 통과가 필요하다. reason만으로 검증을 건너뛰지 않는다.
-구현 라우트는 verify-work:check를 호출해 결과를 대조한 다음 docs-maintenance:sync → 관련 문서 검증 → index로 진행한다.
+구현 라우트는 verify-work:check를 호출해 결과를 대조한다. 문서가 바뀌었거나 기준이 없으면 docs-maintenance:sync → 관련 문서 검증 → index로 진행한다. 등록된 조건부 종료에서 문서 내용이 같고 갱신이 불필요한 이유를 남기면 바로 종료할 수 있다.
 현재 요청에 관련 사실·지식 변화가 있을 때 sync-wiki/sync-learning을 호출한다. 필요 없으면 그 판단을 근거에 남기고 인덱스 경로로 간다.
 문서 편집 라우트는 검증 후 index로 이어지며, 위키 질문·탐색·읽기 감사는 수정 없이 종료할 수 있다.
 루트에서 `finish`가 성공하면 `flow_status=finished`다. **task 완료는 별도의 기존 evidence review/verify/complete 계약을 따른다.**
@@ -145,3 +145,26 @@ checksum은 우발적 손상을 탐지하며 로컬 파일 편집 권한을 가�
 고정된 fixture와 실제 로컬 검사 결과는 제어 계약의 근거다. 임의의 프로젝트에 대한 자동 품질 승인이나 모델 행동의 완전한 보장을 뜻하지 않는다.
 
 entry_checks/result_checks는 design/alignment로 제한된 검사를 선언한다. 입력 역할과 준비/산출물 검사를 구분하고 임의 표현식이나 명령을 실행하지 않는다. 생성한 구현/debug 스킬은 기본 main 라우트에도 현재 design/alignment 입력을 요구한다.
+
+flow의 소스 상태도 [검사 재사용 경계](verification.md#작업-기록과-코드-검사의-재사용)를 사용한다. 명시적으로 독립인 검사만 무관한 task 기록을 제외하며 현재 작업의 원문/입력·증거·선행 작업과 실행/설정은 계속 보호한다.
+
+## 의도 변경과 발견 기록
+
+새 flow 상태는 version=2다. request/contract와 재진입 진행 지문에서 발견 ID를 제외한 `evidence.intent_contract`를 사용한다. 동일한 목표·범위·제약·입력·선행 작업·수용 기준/방법 안에서 findings를 추가해도 완료한 step·호출 결과·현재 위치를 유지하며 restart가 필요 없다. 설계/결정 근거와 소스의 변경 검출은 유지한다. 발견 추가만으로 같은 노드를 무한 재시작할 수도 없다.
+
+완료 리뷰는 발견 목록을 포함하는 기존 계약을 사용하므로 새 결함을 처리하고 회귀와 리뷰를 갱신해야 한다. flow의 위치/정렬 유지와 task의 완료 허용은 별개다.
+이전 version=1 상태는 당시 전체 계약 의미를 유지한다. inspect/context는 원본을 쓰지 않으며, 이유와 현재 입력을 지정한 명시적인 restart에서만 이력은 보존하고 version=2로 전환한다. 이전 v1 alignment가 의도 변경/발견 추가로 오래됐으면 새 v2 정렬 근거를 먼저 연결한다. 원본 상태/정렬/완료 기록을 자동으로 다시 쓰지 않는다.
+
+## 문서 변경에 따른 조건부 종료
+
+Python/Svelte 구현·Postgres change·Docker configure·verify-work repair는 `finish=false`와 기존 문서 continuation을 유지하면서 `finish_when="documents_unchanged"`를 선언한다. 필수 호출·검증·증거와 수용 조건을 충족한 뒤에만 조건부 finish를 사용할 수 있다.
+
+조건부 종료를 사용할 구현 flow는 실제 수정 전에 시작한다. 해당 frame 진입 때 정본 문서의 경로와 SHA-256을 저장한다. Git 변경 목록·커밋·mtime 대신 파일 내용 해시를 비교하므로 Git 없는 폴더에서도 동작한다. 이미 수정한 뒤 만든 기준을 수정 전 상태라고 주장하지 않는다.
+
+- `docs/`와 `tools/harness/docs/`의 정본·설정/문서 자료, 그 밖 Markdown/MDX/RST/AsciiDoc 및 Markdown 양식을 비교한다. `docs/tasks/`의 수행 기록과 runtime 로그는 문서 동기화 대상에서 제외한다.
+- 동일 내용 재저장/시간 변경은 무변경이다. 내용 수정·추가·삭제·이름 변경은 변경이다. `flow status/context`의 `documentation.changed_paths`에서 경로를 확인한다. 형제 원문 전체를 모델에 읽히지 않는다.
+- 변경이 없으면 `flow finish <실행ID> --reason "현재 정본이 그대로 유효해 문서 갱신이 불필요한 구체적 이유"`로 문서 단계를 생략한다. 이유가 없거나 검증/필수 호출이 없으면 거부한다. 이벤트에는 무변경 판정과 이유가 남는다. task 완료는 여전히 별도 완료 계약을 따른다.
+- 변경이 있거나 기준이 없으면 기존 문서 경로로 이어간다. 문서 수정 필요 여부의 의미는 에이전트가 검토한다. 파일이 안 바뀌었다는 사실만으로 요구/사용법이 올바르다고 자동 승인하지 않는다.
+- retry와 명시 restart는 원래 문서 기준을 보존해, 이미 바뀐 문서를 새 기준으로 덮어 숨기지 않는다. 기준 없는 이전 frame은 새 기준을 추측하지 않고 기존 문서 경로를 사용한다. 호출/복귀 때 호출자의 기준도 보존한다.
+
+이 조건은 문서 단계의 불필요한 반복만 줄인다. 코드·설계/근거·권한·환경의 변경 검출과 필수 검사·정상/실패·회귀·완료 리뷰는 유지한다. 등록되지 않은 route의 종료 조건은 바뀌지 않는다.

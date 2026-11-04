@@ -31,8 +31,8 @@ class PortableLayoutTests(unittest.TestCase):
             context = self.command(root, 'context', '--kind', 'plan', '--read')
             self.assertTrue(all(d.get('content') for d in context['documents']))
             project = self.command(root, 'project', 'demo', '--goal', 'A real project goal')
-            self.assertEqual(project['workflow'], 'docs/projects/demo/workflow.toml')
-            self.assertIn('A real project goal', (root / 'docs/projects/demo/brief.md').read_text())
+            self.assertEqual(project['workflow'], 'docs/demo/workflow.toml')
+            self.assertIn('A real project goal', (root / 'docs/demo/brief.md').read_text())
             task = self.command(root, 'task', 'first-step', '--kind', 'research',
                                 '--goal', 'Compare options', '--acceptance', 'Cite primary evidence')
             self.assertEqual(task['task'], 'docs/tasks/first-step/task.json')

@@ -1,0 +1,168 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "다른 프로젝트의 Dockerfile·Compose·실행 환경을 설계·구성·진단·검증하는 재사용 Docker 스킬을 만들고 하네스의 선택·flow·문서에 연결한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-container-skill/request.md",
+      "sha256": "edeffd92da8091e6b55dd66355a125589af418f88025e11097e84408b1497a05",
+      "description": "현재 사용자 의도·정정·범위와 검증 계획",
+      "recorded_at": "2026-11-04T05:39:44.176418+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-container-skill/design.md",
+      "sha256": "ca66c8c11b2b17031a5b9b2fa4fd4e48e1dc0bc560ae50e8546c864b94463512",
+      "description": "Docker 스킬의 소유권·라우트·선택·검증 경계를 정한 REASONS 설계",
+      "recorded_at": "2026-11-04T05:39:44.444451+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/docker-container-skill/alignment.json",
+      "sha256": "193b16dddc4fa260138ab24a21311d4cf9b5fbe33e2883c167bbb1f70b9a6842",
+      "description": "현재 요청·설계·허용 경로·수용 기준에 대한 자체 정렬 검토",
+      "recorded_at": "2026-11-04T05:39:59.684299+00:00"
+    },
+    "ALIGN2": {
+      "type": "artifact",
+      "path": ".runtime/docker-container-skill/alignment-after-finding.json",
+      "sha256": "f468a72fd9cccfdb16c8508002f601e182de91e3bf2b3ea73052dda0060cbff2",
+      "description": "F1과 최신 통합 상태를 반영한 현재 task 계약의 설계 정렬 검토",
+      "recorded_at": "2026-11-04T05:54:36.059336+00:00"
+    },
+    "SKILL": {
+      "type": "artifact",
+      "path": ".agents/skills/docker-containers/SKILL.md",
+      "sha256": "75725f6e0efdde136c99951bc601a248e90e0c0862d862d683084e252ef10f73",
+      "description": "대상 프로젝트의 컨테이너 구성에 사용하는 스킬 본문과 조건별 참조/양식 연결",
+      "recorded_at": "2026-11-04T05:54:36.513842+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/checks/b24f71e95d434b6b9115b3f7cc513675/report.json",
+      "sha256": "2acd6b9daba024ea7171d064b068a4bb7e7140751a4a300d7f111aac6da05df4",
+      "description": "동일 테스트 해시에서 F1 선택 누락 4개 subcase가 실패한 수정 전 실제 보고서; 원본/동일 로그 보존 뒤 표준 로컬 경로로 이관(원래 실행 시점/결과 유지)",
+      "recorded_at": "2026-11-04T05:54:36.933137+00:00"
+    },
+    "SCENARIOS": {
+      "type": "artifact",
+      "path": "docs/tasks/docker-container-skill/scenarios.md",
+      "sha256": "f475e4581752d92152c380d1038742143b1ab3af989b0210851d17258da2f822",
+      "description": "현재 요청·Svelte 비정적·읽기 전용 진단·격리·비밀·선택 회귀·원격 경계를 대조한 자체 시나리오",
+      "recorded_at": "2026-11-04T05:54:37.344628+00:00"
+    },
+    "GREEN": {
+      "type": "check",
+      "path": ".runtime/checks/58215da2dd2c4e1c9ae46a158c013616/report.json",
+      "sha256": "578ae5b0694ff30fb0bae1631cb23cd27bc2b3db7ed9ecb8e473d51dd15c1173",
+      "description": "최신 main 통합 상태에서 427 tests 실패0 skip1 및 등록 검사4개 통과. 신규 Docker 검사8개 모두 실행",
+      "recorded_at": "2026-11-04T05:54:37.753758+00:00",
+      "check": "python"
+    },
+    "MAP": {
+      "type": "artifact",
+      "path": ".runtime/docker-container-skill/map-at-completion.md",
+      "sha256": "49607d74fd35653aa3f1e0ba8a4f7bd5ef4f593c6a90b5ec2e6dbe6f15f5455e",
+      "description": "새 Docker 스킬을 연결하고 다른 세션 규칙을 보존한 현재 작업 지도",
+      "recorded_at": "2026-11-04T05:54:38.230061+00:00"
+    },
+    "RED_ORIGINAL": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/original-red-report.json",
+      "sha256": "6faf15f8f9baae245556ec4da098e1cf311fefd05f1b5d19fe6c84f2fd1e5d32",
+      "description": "이관 전 RED 보고서의 byte-for-byte 원본",
+      "recorded_at": "2026-11-04T06:38:39.182897+00:00"
+    },
+    "RELOCATION": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-repairs/migration.json",
+      "sha256": "22adbf37b12ce0ce878e287e9e6ed0df306c3c8cc7ea88432f69b3ce3fa2595f",
+      "description": "실패 보고서/동일 로그 경로만 옮긴 이관 manifest와 원래 task/review 해시",
+      "recorded_at": "2026-11-04T06:38:39.183000+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/docker-container-skill/review.json",
+    "sha256": "1aeb28db9969cb3121b59cd15e216014e0b408a7ed85390a0065931241a06ff9"
+  },
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T05:37:40.903027+00:00",
+  "depends_on": [],
+  "inputs": [
+    "docs/tasks/docker-container-skill/request.md"
+  ],
+  "scope": [
+    ".agents/skills/docker-containers/**",
+    ".agents/context.toml",
+    ".agents/skill-flow.toml",
+    ".agents/skills/setup-environment/SKILL.md",
+    ".agents/README.md",
+    "AGENTS.md",
+    "README.md",
+    "tools/harness/docs/skill-authoring.md",
+    "tools/harness/docs/reasons.md",
+    "tools/harness/tests/test_container_skill.py",
+    "docs/tasks/index.md",
+    "docs/tasks/docker-container-skill/**"
+  ],
+  "constraints": [
+    "다른 프로젝트의 Docker 작업에 사용하는 스킬만 생성하며 이 레포 실행 인프라를 만들지 않는다",
+    "다른 세션의 변경·Git index·원격·기존 컨테이너·전역 설정을 변경하지 않는다",
+    "Svelte 정적 배포·SvelteKit·Node SSR·ORM·이미지 버전을 강제하지 않는다"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "Docker 전용 네이티브 스킬과 조건별 참조·양식을 제공하고 이 하네스 자체의 컨테이너화나 정적 Svelte 배포를 강제하지 않는다",
+      "method": "SKILL/참조/양식 원문과 사용자 요청을 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN2",
+        "SKILL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "주제 및 실제 Docker 경로로 스킬이 선택되고 무관 작업에서는 선택되지 않으며 inspect/design/configure/diagnose 라우트가 권한·설계·검증 경계를 유지한다",
+      "method": "실제 context topic/path 긍정·부정 및 route 입력/호출/종료를 테스트한다",
+      "status": "passed",
+      "evidence": [
+        "RED",
+        "GREEN",
+        "SKILL"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "기존 스킬과 책임을 연결하고 보안·버전·비밀·격리·DB 복구·실행 검증의 정상/오류/경계 시나리오를 확인한다",
+      "method": "Compose 예제를 환경 파일 값 없이 canonical 검증하고 권한·오류·재사용 시나리오를 자체 평가한다",
+      "status": "passed",
+      "evidence": [
+        "SCENARIOS",
+        "GREEN",
+        "SKILL"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "기존 flow/context·스킬 작성 회귀와 실제 사용 시나리오 및 문서 연결을 검증하고 미실행 서비스 검증을 구분해 보고한다",
+      "method": "영향받는 기존 회귀·doctor·링크와 task evidence를 검증한다",
+      "status": "passed",
+      "evidence": [
+        "GREEN",
+        "MAP",
+        "SCENARIOS"
+      ]
+    }
+  ],
+  "next_action": "요청한 스킬 작성/등록/검증은 완료 검토한다. 이후 실제 대상 프로젝트의 Docker 구성 요청에서 스킬을 사용한다.",
+  "completed_at": "2026-11-04T05:56:19.907032+00:00"
+}

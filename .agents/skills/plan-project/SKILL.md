@@ -1,6 +1,6 @@
 ---
 name: plan-project
-description: Turn human-defined goals and milestones into requirements, success criteria, evidence-based gap assessments and scoped work; replan project work and handoffs as conditions change.
+description: Plan projects and document-based implementation requests, including 구현해줘 or 만들어줘; guide eight reviewable stages, pause for user review, and implement verified feature increments.
 ---
 
 # 프로젝트와 작업 구성
@@ -8,10 +8,14 @@ description: Turn human-defined goals and milestones into requirements, success 
 사람이 정한 목표·아키텍처 경계·마일스톤에서 요구·성공 조건·현재 갭·작업을 도출한다.
 기존 프로젝트의 작은 수정에는 이미 있는 흐름을 이어 쓰며 질문마다 전체 계획을 만들지 않는다.
 
+의미 있는 프로젝트 작업에서는 [프로젝트 설명 누적](references/project-explanation.md)에 따라 한 설명 문서에 구조·선택 이유·실패·검증 근거를 조금씩 갱신한다. 예상 문답은 최종 코드와 기록을 대조하는 마지막 정리에서만 작성한다. 짧은 질문이나 작은 편집에 새 문서를 강제하지 않는다.
+
+요구사항 문서와 함께 “구현해줘”·“만들어줘”처럼 수행을 맡기면 [전체 8단계 안내와 기능 단위 반복](references/task-patterns.md#전체-작업의-8단계-체크리스트)을 기본으로 적용한다. 기본 진행 방식은 단계별 검토다. 처음에는 1단계만 수행하고 결과를 보여준 뒤 멈추며, 사용자가 현재 단계를 확인하고 다음 진행을 지시해야 넘어간다. 구현은 기능 묶음마다 작게 수행하고 실제 검증 결과를 사용자가 본 뒤 다음 작업을 선택한다. 사용자가 명시적으로 자율 진행을 맡긴 범위만 중간 검토 없이 이어 수행한다. 문서만 전달하거나 계획/설계만 요청하면 해당 범위를 지킨다.
+
 1. 사용자 요청·기존 자료·관련 과거 원문에서 확정 요구, 제안, 미결정을 분리한다.
 2. 관련 마일스톤에서 사용자 동작이나 연구 질문 단위의 요구·성공 조건·확인 방법을 도출한다. 새 제품 결정을 기존 요구인 것처럼 확정하지 않는다.
 3. 시작할 때 이전 계획의 갭을 현재 코드·계약·검증 근거와 비교한다. 요청 범위에서 필요한 탐색·설계·실험·구현·검증을 선택하고 앞 결과를 뒤 작업의 입력으로 연결한다.
-4. 코드 위치, 공유 경계, 실제 실행 명령을 프로젝트 프로필에 연결한다.
+4. 새 프로젝트 자료는 `docs/<프로젝트>/`에 생성하고 같은 기능의 정본은 `features/<기능>/`로 묶는다. 코드 위치, 공유 경계, 실제 실행 명령을 프로젝트 프로필에 연결한다. 문서가 필요할 때 기존 정본을 갱신하고 [문서 구조](../docs-maintenance/references/organization.md)의 저장 절차로 지도·읽기 조건도 함께 연결한다.
 5. 기능 묶음을 구현·검증하고 어떤 성공 조건의 갭이 줄었는지 근거를 연결한다. 남은/새 갭과 다음 작업을 갱신한다. 버튼·파일별로 E2E 완료 단위를 나누지 않는다.
 
 | 조건 | 읽을 자료 |

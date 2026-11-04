@@ -1,0 +1,97 @@
+{
+  "version": 2,
+  "task_contract": "e82a41841b6a670d05992ccf0babac97b5f39752a8635ff50a4938b7c24a8e2d",
+  "evidence_digest": "4853d167f722ec8300386782115b15c99b7c66f66227c3c7c3bf88b51f9f4f0a",
+  "reviewer": "Codex, 구현자의 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "실제 main과 자식 stdin에서 파싱·인코딩·크기·doctor 권한·상태 저장·예기치 않은 예외·진단 기록 실패가 단계/고정코드·소요시간과 종료1로 구분됐다. stderr는 짧고 원문이 없으며 실패 파일은0600이다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "STDIN",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "정적 findings의 document_link와 편집 중 stale/source_changed가 구분되고 실제 정적 훅 기록에서 elapsed_ms/reason_codes를 확인했다. 합성 민감 입력·응답·예외·내부 진단 문자열이 새 기록/출력으로 복사되지 않았다.",
+      "evidence": [
+        "REFRESH",
+        "RESULT",
+        "HOST",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "성공 Pre 출력 {} 및 빈 stderr, 실패 파일 미생성, 동일 소스에서 doctor 호출1회/재사용을 확인했다. 기존 셸/MCP/생명주기 및 전체 Python419개 실패0·기존skip1이고 관련 doctor/secret-patterns도 통과했다. 전체 등록 선택의 다른 작업 미등록 문제는 별도로 남겼다.",
+      "evidence": [
+        "TARGET",
+        "INTEGRATION",
+        "SCOPE_LIMIT",
+        "FINAL"
+      ]
+    }
+  ],
+  "limitations": [
+    "전체 --full 선택은 다른 세션의 조사 JSON2개 미등록으로 needs_configuration이며 실행0개다. 이번 경로를 명시한 관련 검사와 기존 Python 전체419개를 실행한 결과만 현재 완료 근거로 사용한다.",
+    "Python419개 중 기존 sandbox 프로세스 그룹 신호 권한 제한 하위 사례1개 skip. 진단·MCP·셸 사례는 실행됐다.",
+    "Python 시작 전/import 실패, 호스트 강제 종료/timeout에서는 콜백 내부 진단 파일이 남지 않을 수 있다.",
+    "고정 이유 코드는 제한된 분류다. 정확한 문법/설정/링크 내용은 기존 doctor/security config로 직접 확인한다.",
+    "성공 경로의 검사 수·출력·새 실패 파일 없음은 회귀로 확인했으며 장기간 성능 비교·모델 전체 주입 내성 평가는 아니다. UI 변경이 없어 브라우저 E2E 비적용."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "현재 요청의 비용 보존 조건·실패 단계/코드/시간·정적 findings/stale·기록 실패와 민감 원문 경계, 기존 셸/MCP/생명주기 및 통합 관련 검사",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "R1-R3·A1-A3을31개 집중 사례·실제 stdin·현재 세션 정적 기록·419개 회귀와 대조했다. 추가 모델/외부 호출·검사 주기 변경은 없다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "파싱/인코딩/입력한도·doctor 권한·state 저장·일반 예외·기록 저장 실패에서 비정상 종료와 안전한 요약을 확인했다. 원문 비전파·과거 실패 레코드 수와권한을 검사했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "기존 runtime_path/atomic·lock·MCP/셸 가드·검사 횟수·정상 출력과 timeout/권한 정의를 유지한다. 다른 세션 Docker 완료 자료와 신규 검사 등록 문제는 보존/구분했다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "집중31개와 현재 소스 snapshot의 기존 Python 전체419개 실패0·환경skip1. 관련 doctor/secret-patterns 통과, live_source_changed=false이며 정상 비용 조건과 오류/소유권 경계를 재검토했다."
+      }
+    ],
+    "findings": [],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [],
+        "closed_findings": [],
+        "outcome": "no_new_findings",
+        "reason": "새 진단 요구를 구현한 뒤 정상·실패·기록 오류·공유 소비자·소유권·증거를 대조했다. 중간 상태로 복사된 다른 문서는 메인의 완료 상태로 갱신했고 전체 선택 미등록은 범위를 명시했다. 이번 수용 기준의 추가 계약 위반은 확인되지 않았다.",
+        "evidence": [
+          "FINAL",
+          "TARGET",
+          "STDIN",
+          "HOST",
+          "RESULT",
+          "REFRESH",
+          "SCOPE_LIMIT",
+          "INTEGRATION"
+        ]
+      }
+    ]
+  }
+}

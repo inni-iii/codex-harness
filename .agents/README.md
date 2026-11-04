@@ -19,6 +19,7 @@ Playwright 예제는 [e2e-testing/assets](skills/e2e-testing/assets)에 있다.
 문서 정리·최신화·위키 관리는 [docs-maintenance](skills/docs-maintenance/SKILL.md)에서 필요한 절차를 고른다. 실제 프로젝트 지식은 `docs/`에 저장한다.
 검토 지식은 [maintain-knowledge](skills/maintain-knowledge/SKILL.md), 스킬 개선은 [maintain-skills](skills/maintain-skills/SKILL.md), 패키지 관리자·설치는 [setup-environment](skills/setup-environment/SKILL.md)를 사용한다.
 양식은 실제 프로젝트에 복사해 작성하고 원본에는 제품별 값을 넣지 않는다.
+대상 프로젝트의 Dockerfile·Compose·컨테이너 실행 환경은 [docker-containers](skills/docker-containers/SKILL.md)에서 조사·설계·구성·진단한다. 설치된 하네스 자체를 컨테이너화하는 기능이나 자동 실행기가 아니다.
 
 명령은 레포 루트에서 실행한다.
 

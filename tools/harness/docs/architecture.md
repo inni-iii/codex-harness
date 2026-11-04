@@ -25,7 +25,7 @@ tools/harness/                   하네스 구현을 모은 위치
   tests/                         하네스 자체 회귀 검사
   docs/                          사용법·설계·도입 근거
 docs/
-  projects/<이름>/               서비스 요구·규칙·workflow.toml
+  <이름>/               서비스 요구·규칙·workflow.toml
   tasks/<이름>/                  작업 목표·근거·인수인계
   knowledge/catalog.json         검토 지식·조건·증거·대체의 정본
 .runtime/                        검사 결과·로그·재사용 캐시
@@ -59,7 +59,8 @@ docs/
 | [harness/flow_catalog.py](../harness/flow_catalog.py), [harness/skill_flows.py](../harness/skill_flows.py), [harness/flow_cli.py](../harness/flow_cli.py) | [스킬 흐름](skill-flows.md). 스킬:라우트의 계약·호출/복귀·조건부 전이·재진입과 지속 위치를 관리한다. 실제 작업·내용 판단은 현재 에이전트가 수행한다. |
 | [harness/context.py](../harness/context.py) | 작업 종류·주제·경로에 맞는 읽기 자료 선택 |
 | [harness/knowledge.py](../harness/knowledge.py), [harness/knowledge_hooks.py](../harness/knowledge_hooks.py) | [학습·공유 계약](knowledge.md). catalog를 CLI에서 검토하고 context/SessionStart가 현재 증거를 가진 항목을 읽는다. 기존 지식 안내·압축 전 메타데이터를 담당한다. |
-| [harness/lifecycle_hooks.py](../harness/lifecycle_hooks.py), [harness/hook_sessions.py](../harness/hook_sessions.py), [harness/remote_guard.py](../harness/remote_guard.py) | [생명주기 훅 계약](hooks.md). .codex/hooks.json → [scripts/knowledge-hook.py](../scripts/knowledge-hook.py)에서 이벤트를 분기한다. 세션별 명시적 task 연결·중단/종료 기록·변경 후 정적 점검·직접 원격 쓰기 분류를 맡는다. |
+| [harness/lifecycle_hooks.py](../harness/lifecycle_hooks.py), [harness/hook_sessions.py](../harness/hook_sessions.py), [harness/remote_guard.py](../harness/remote_guard.py) | [생명주기 훅 계약](hooks.md). .codex/hooks.json → [scripts/knowledge-hook.py](../scripts/knowledge-hook.py)에서 이벤트를 분기한다. 세션별 task·중단/종료 기록·셸/파일 편집/MCP 후 정적 점검·직접 원격 쓰기 분류·MCP 전후 검토 안내를 맡는다. 내장 웹검색은 research의 명시적 절차로 확인한다. |
+| [harness/hook_recovery.py](../harness/hook_recovery.py) | [미해결 진단 소비](hooks.md#실패-기록을-다시-쓰는-절차). 제한된 기록을 모델 맥락으로 전달하고 세션별 미해결 조회·증거/실패 해시 기반 해결을 관리한다. 수정·재검증의 판단과 실행은 에이전트가 맡는다. |
 | [harness/skills.py](../harness/skills.py) | [스킬 작성 계약](skill-authoring.md). maintain-skills → skill create/from-knowledge → SKILL.md와 context 등록. 적용 판단·본문 작성·품질 검토는 에이전트가 맡는다. |
 | [harness/environment.py](../harness/environment.py) | [환경 계약](environment.md). setup-environment → environment inspect/install → 선언/lock 확인·명시적인 고정 설치. setup은 읽기 전용 inspect만 호출한다. |
 | [harness/agent_config.py](../harness/agent_config.py) | [설정 감사 계약](security.md#codex-설정과-선택적-agentshield). security-review → security config. 기본 agent-config 등록 검사와 별도 AgentShield 옵션을 구분한다. |
@@ -91,7 +92,7 @@ docs/
 - AGENTS.md는 기준을 지시한다. 실행기는 명령의 종료 결과와 검사 범위를 기록한다.
 - `check`의 통과는 선택한 등록 검사에 한정된다. 제품 요구 전체의 자동 수용을 뜻하지 않는다.
 - `route`의 ready는 후보 선택이다. 자동 작업 실행·모델 전환·품질 보장을 뜻하지 않는다.
-- 프로젝트 주제는 docs/projects 자료에 저장하고 스택·의존성·API·디자인 선택을 기록한다.
+- 프로젝트 주제는 docs/<프로젝트>/ 자료에 저장하고 스택·의존성·API·디자인 선택을 기록한다.
 - 실제 앱 코드의 위치는 시작 시 정한다. frontend/backend 디렉터리와 별도 서비스 저장소를 미리 만들지 않는다.
 - PostgreSQL 사용은 확정했다. SvelteKit·FastAPI·ORM·DB 버전/확장·클라이언트 생성 도구·색상·서체는 아직 후보 또는 미정이다.
 - 디자인은 [템플릿](../../../.agents/skills/design-first/assets/design-system.md)과 스킬의 절차만 준비했다. 실제 값은 사용자와 정한다.
@@ -116,3 +117,11 @@ docs/
 실행: [검증](verification.md), [작업](workflows.md), [도구와 설치](tools.md).
 기존 모델 라우터의 상세 설계는 [design.md](design.md)를 유지한다.
 초기 라우터의 출처·당시 결정은 [2026-10-22 참고 기록](references.md)에 있다. 현재 사용 계약은 usage/execution이며 초기 기록을 현재 가용성 근거로 쓰지 않는다.
+
+기능 문서의 저장·지도/선택 조건 연결과 새 배치 검사는 `harness/project_documents.py`가 맡는다. 새 생성은 docs/<프로젝트>/이며 legacy 프로필 읽기를 보존한다. [문서 저장 계약](project-documents.md)을 따른다.
+
+문서 폴더 지도 계약은 `harness/document_indexes.py`가 파일 목록과 index 본문으로 검사하며 doctor에 연결한다. project/task 생성기는 기본 지도와 상위 링크를 만들고 context는 선택된 문서의 조상 지도만 본문보다 먼저 포함한다. 문서 루트는 docs/와 tools/harness/docs/이며 상세 작성 규칙은 [선택 읽기](../../../.agents/skills/docs-maintenance/references/navigation.md)를 따른다.
+
+반복 증거 등록과 실행 사실 요약은 `harness/evidence_records.py`, 명시적 단계 시간 관측은 `harness/task_timing.py`가 맡는다. 기존 evidence의 유형별 무결성/완료 검사를 재사용하고 의미 판단·리뷰 통과를 자동 생성하지 않는다. [완료 계약](completion.md)과 [시간 관측](workflows.md#단계별-시간-관측)을 따른다.
+
+문서 단계의 조건부 종료는 `harness/flow_documents.py`가 정본 문서의 내용 해시 기준/차이를 계산하고, skill_flows의 frame/finish가 원래 기준·필수 검증·이유를 확인한다. Git 없이 동작하며 현재 사용법은 [스킬 흐름](skill-flows.md#문서-변경에-따른-조건부-종료)을 따른다.

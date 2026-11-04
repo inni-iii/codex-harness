@@ -11,7 +11,7 @@ from urllib.parse import unquote
 
 from .core import files, manifest, strict_json
 from .tasks import validate as validate_task
-from . import context, flow_catalog, knowledge, workflows
+from . import context, document_indexes, flow_catalog, knowledge, workflows
 
 
 def inspect(root: Path) -> dict:
@@ -90,6 +90,7 @@ def inspect(root: Path) -> dict:
                     errors.append(f"broken/outside link in {relative}: {target}")
         except (OSError, ValueError, SyntaxError, UnicodeError) as exc:
             errors.append(f"{relative}: {exc}")
+    errors.extend(document_indexes.inspect(root)["errors"])
     skills = root / ".agents/skills"
     try:
         knowledge.catalog(root)
@@ -111,10 +112,14 @@ def inspect(root: Path) -> dict:
             flow_catalog.load(root)
         except (OSError, ValueError) as exc:
             errors.append(f"skill flow catalog: {exc}")
-    for profile in sorted((root / "docs/projects").glob("*/workflow.toml")):
+    from . import project_documents
+    for profile in project_documents.profiles(root):
         try:
             relative = profile.relative_to(root).as_posix()
-            workflows.load(root, relative)
+            project_data = workflows.load(root, relative)
+            placement = project_documents.inspect(root, relative, project_data)
+            errors.extend(placement["errors"])
+            notes.extend(placement["notes"])
             manifest(root, relative)
         except (OSError, ValueError) as exc:
             errors.append(f"{profile.relative_to(root)}: {exc}")

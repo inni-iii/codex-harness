@@ -51,6 +51,6 @@ python3 -m unittest discover -s tools/harness/tests -v
 
 ## 라우트 계약 변경
 
-각 스킬은 [스킬 흐름](skill-flows.md)의 routes.toml로 적용 조건·절차·검증·종료를 선언한다. 상세 원문은 소유 스킬에 유지하고 새 라우트/입력/호출을 추가하면 .agents/skill-flow.toml의 허용 경로와 실제 시나리오도 확인한다. doctor/flow catalog는14개 스킬의 계약·문서·호출/종료 연결을 검사한다. 기존 실행은 계약 변경을 감지하므로 status 후 명시적으로 restart한다. 자동 work/model 실행이나 권한 확대로 해석하지 않는다.
+각 스킬은 [스킬 흐름](skill-flows.md)의 routes.toml로 적용 조건·절차·검증·종료를 선언한다. 상세 원문은 소유 스킬에 유지하고 새 라우트/입력/호출을 추가하면 .agents/skill-flow.toml의 허용 경로와 실제 시나리오도 확인한다. doctor/flow catalog는 등록된 스킬의 계약·문서·호출/종료 연결을 검사한다. 기존 실행은 계약 변경을 감지하므로 status 후 명시적으로 restart한다. 자동 work/model 실행이나 권한 확대로 해석하지 않는다.
 
 코드/행동을 바꾸는 라우트에는 [설계 준비](reasons.md)의 필수 입력과 entry_checks를 연결한다. design/alignment 산출물 검사는 result_checks로 구분한다. skill create/from-knowledge에 implement/debug 종류를 주면 기본 main도 준비 입력을 요구한다. 보안/문서 리뷰가 실제 코드 수정으로 넘어가면 적절한 구현 라우트로 진행한다.

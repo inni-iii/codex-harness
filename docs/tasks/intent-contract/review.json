@@ -1,0 +1,125 @@
+{
+  "version": 2,
+  "task_contract": "2d3d53d4a64b1979c0d06cd5c7c74ffeee24d002f3544944a9efe0567ad13ff7",
+  "evidence_digest": "7d04838d8fa9eb3d686d9eb47e8045313d7026763f01f1e31206ed42b2f3f9a1",
+  "reviewer": "Codex 자체 검토",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "네이티브 정렬 원문 바이트와 flow의 검증 step·진행 지문을 유지한 발견 추가가 같은 동결 반례에서 실패→통과했다. 새 alignment/flow는 의도 지문만 쓴다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RED",
+        "FINAL",
+        "ASSESS",
+        "ASSESS2"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "종류·목표·범위·제약·입력·선행 작업·수용 조건/방법 및 설계/결정 근거·소스 변경을 검출했다. 완료 contract는 발견 ID를 유지해 이전/누락 리뷰를 모두 거부했다.",
+      "evidence": [
+        "FINAL",
+        "ASSESS",
+        "ASSESS2"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "v1 원문과 해시 의미를 보존하고 명시 restart에서만 flow v2로 이행했다. 기존103개·동결8개·통합504개와 현재 안내/스킬 참조를 대조했다. 다른 세션의 새 테스트 코드는 원래 실행 사본에 포함됐다고 주장하지 않고 소유 변경의 동일성을 검증한 후 유효한 사본 결과를 재사용했다.",
+      "evidence": [
+        "ASSESS",
+        "FINAL",
+        "ASSESS2"
+      ]
+    }
+  ],
+  "limitations": [
+    "같은 작성자의 자체 검토; 독립 평가 아님",
+    "이전 v1 정렬은 새 템플릿/별도 근거로 한 번 이행해야 발견 분리 의미를 사용한다",
+    "검토/검증 강도·현재 요구/설계·근거·완료 회귀 의무를 줄이지 않았다",
+    "브라우저 UI 변경 없어 E2E 비적용; 기존 sandbox 신호 사례1개 skip",
+    "절감 시간·토큰을 별도로 측정한 성능 실험은 아니다",
+    "통합 검사 후 다른 세션이 test_project_explanation.py를 추가했다. 소유 구현 해시는 그대로여서 실제 실행한 고정 사본에서 완료하고 당시 결과를 재사용했다. 새 타 세션 코드를 검증했다고 표시하지 않는다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "우선1: 의도와 발견 기록 계약 분리; 2/3/4는 후속",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "네이티브 정렬 원문 바이트와 flow의 검증 step·진행 지문을 유지한 발견 추가가 같은 동결 반례에서 실패→통과했다. 새 alignment/flow는 의도 지문만 쓴다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "종류·목표·범위·제약·입력·선행 작업·수용 조건/방법 및 설계/결정 근거·소스 변경을 검출했다. 완료 contract는 발견 ID를 유지해 이전/누락 리뷰를 모두 거부했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "v1 원문과 해시 의미를 보존하고 명시 restart에서만 flow v2로 이행했다. 기존103개·동결8개·통합504개와 현재 안내/스킬 참조를 대조했다. 다른 세션의 새 테스트 코드는 원래 실행 사본에 포함됐다고 주장하지 않고 소유 변경의 동일성을 검증한 후 유효한 사본 결과를 재사용했다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "동일 회귀 파일 SHA의 RED8개 중3건 실패와 최종504개 통과·기존 호출자를 연결했다. E2E는 UI 변경이 없어 비적용이며 기존 sandbox 하위 사례1개는 skip이다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "동일 의도 안의 발견 추가가 설계 정렬과 flow를 오래된 것으로 만들어 재시작을 요구했다.",
+        "cause": "완료용 발견 포함 지문을 설계/flow에도 사용했다. 완료 의미는 보존하고 새 정렬/flow만 별도 의도 지문을 쓰도록 분리했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_intent_contract.py",
+          "test_id": "IntentContractTests.test_generated_alignment_survives_finding_append",
+          "sha256": "a8799d20f18eafff68d0811dccc4a0ac276887c0e9b9afed32d105b90878cc69",
+          "check": "python",
+          "before": "RED",
+          "after": "FINAL"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "기존 네이티브 템플릿/flow에서 발견 추가·명시 이행 반례3건을 같은 동결8개 중 실패로 재현했다.",
+        "evidence": [
+          "REQUEST",
+          "DESIGN",
+          "RED"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "의도/완료 지문을 분리하고 입력/설계/근거·소스 변경·누락 완료 거부·이전 의미를 다시 대조했다. 기존103개·동결8개·통합504개에서 추가 결함을 확인하지 못했다. 이후 새 타 세션 코드는 범위/소유권을 구분하고 원래 검증 사본의 현재 유효성을 재확인했다.",
+        "evidence": [
+          "FINAL",
+          "ASSESS",
+          "ASSESS2"
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,174 @@
+{
+  "version": 2,
+  "kind": "review",
+  "goal": "하네스 지침·스킬·CLI·훅·설정·검증·기록 사이의 끊긴 연결을 현재 근거와 실제 경로로 전반 조사한다",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-audit/request.md",
+      "sha256": "2a09d29604bb8cb7bdbdf98cf0b58c74f55c3007b2767e8a9b4776ada57e82c3",
+      "description": "현재 사용자의 전체 연결 진단 요청과 범위",
+      "recorded_at": "2026-11-04T06:22:41.134093+00:00"
+    },
+    "REPORT": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-audit/report.md",
+      "sha256": "c740e4b95669b6f3fb1e7c9002357be2d66f429cf30c1b40720931685d425a59",
+      "description": "현재 연결 정상/단절/한계와 우선순위",
+      "recorded_at": "2026-11-04T06:26:03.293031+00:00"
+    },
+    "FOLLOWUP": {
+      "type": "artifact",
+      "path": "docs/tasks/harness-connection-audit/followups.md",
+      "sha256": "925f8269b597becef54d8564d8d0ff4f500a8479ab604581aa6987777a33628d",
+      "description": "F1-F3 소유 위치·수정 방향·다시 확인할 조건",
+      "recorded_at": "2026-11-04T06:26:03.375923+00:00"
+    },
+    "STATIC": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/static-audit.json",
+      "sha256": "d960bc6798b5eba1aa2d93038c47583c0e3d70b3af6e24e3edede4a3f8be3c73",
+      "description": "링크/앵커 후보·예제 인자/도달 경로의 실제 검사 결과",
+      "recorded_at": "2026-11-04T06:26:03.459130+00:00"
+    },
+    "CONTEXT": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/context-skills.json",
+      "sha256": "97438f1917850a5ee506a7d2ac13ce97be00d300437cc695e492b8e7e754172f",
+      "description": "15개 스킬의 실제 선택·본문 읽기 결과",
+      "recorded_at": "2026-11-04T06:26:03.532454+00:00"
+    },
+    "PLAN": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/plan.json",
+      "sha256": "a8315a2e928e80c7547ffda22c05e23487395be28f2eeef9e7be6e6c6a05f310",
+      "description": "두 산출물 미등록으로 전체 계획 needs_configuration",
+      "recorded_at": "2026-11-04T06:26:03.604183+00:00"
+    },
+    "ARCHIVE": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/archive-doctor.json",
+      "sha256": "7ac31eeb7f3f465fa1df63dbce5cf9d4c6a4d763f936bf234c627fdd5bff98d8",
+      "description": "새 소스 복사본 doctor의 실제 F2 재현",
+      "recorded_at": "2026-11-04T06:26:03.700290+00:00"
+    },
+    "REUSED": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/reused-suite.json",
+      "sha256": "c6eb8932f7608e8e0ac1937e36fb2204d6e727d8cc8399e45955536f28333e48",
+      "description": "동일 실행/테스트/설정 코드의 전체440개 검사 원본 재사용 범위",
+      "recorded_at": "2026-11-04T06:26:03.791738+00:00"
+    },
+    "PILOT": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/pilot-result.json",
+      "sha256": "b60954eaec64dec576f084b1913712b913d3b6eea555c23300b9e21e3f1a2b93",
+      "description": "현재6종 작업의 합성 연결 파일럿 실제6/6 통과",
+      "recorded_at": "2026-11-04T06:26:03.869345+00:00"
+    },
+    "MCP": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/observations.json",
+      "sha256": "27993416b6346c0c793711da599084f14bfb93720331bdb7b9d2e37982e1c022",
+      "description": "실제 호스트 MCP 응답과 로컬 DNS 한계",
+      "recorded_at": "2026-11-04T06:26:04.073088+00:00"
+    },
+    "PATHS": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/record-paths.json",
+      "sha256": "4d888a7d9768ce0fa4949929dd86d7e2a331f11311ac470e31ae2dbf2dfab384",
+      "description": "현재 누락63개 근거와 worktree 참조 위치",
+      "recorded_at": "2026-11-04T06:26:04.205270+00:00"
+    },
+    "RECOVERY": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/recovery-locations.json",
+      "sha256": "6ffe17ea9d6c295e92384de74de9f1c0af1f9e2cb5032e35d94265d6d82ae72c",
+      "description": "이전 로컬 레포에서63개 등록 해시 일치 확인",
+      "recorded_at": "2026-11-04T06:26:04.303480+00:00"
+    },
+    "FINALSTATIC": {
+      "type": "artifact",
+      "path": ".runtime/harness-connection-audit/static-final.json",
+      "sha256": "a8de7e9f36d68d59cdd27dfebc2b5463a71ed92f8c00c13d365636b4a577e886",
+      "description": "최종 보고서/지도 추가 후159개 Markdown·659개 링크 및173개 예제 검사",
+      "recorded_at": "2026-11-04T06:27:49.365890+00:00"
+    },
+    "DOCSCHECK": {
+      "type": "artifact",
+      "path": ".runtime/checks/b78315fa43ff4863a5fd3ecec6951d01/report.json",
+      "sha256": "8af3cb411734d994dd95ace7924b9927d61fb9e8e6d829c8be111fcb8c56fbe2",
+      "description": "현재 문서 변경 범위 doctor/secret-patterns 실제 통과",
+      "recorded_at": "2026-11-04T06:27:49.426357+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/harness-connection-audit/review.json",
+    "sha256": "7452b7879e7679fde6315748fc417b30cba49db1886072fa6c9794ea924fa251"
+  },
+  "findings": [
+    "F1",
+    "F2",
+    "F3"
+  ],
+  "created_at": "2026-11-04T06:17:01.632392+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "AGENTS.md",
+    ".agents/**",
+    ".codex/**",
+    "tools/harness/**",
+    "docs/**"
+  ],
+  "constraints": [
+    "이번 요청은 전체 연결 진단이며 실행 코드/타 작업/전역 설정을 수정하지 않는다",
+    "원격 셸 쓰기·새 모델 호출·설치·자동 재시도 없음",
+    "기존 유효 검사 결과는 소스/범위 일치를 대조해 재사용한다"
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "진입점부터 소비자까지 등록·참조·실행 경로를 영역별로 대조한다",
+      "method": "현재 catalog·context 선택·링크/CLI 파서·실제 MCP 응답과 소비 코드/기존 회귀의 소스 해시를 대조한다",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "STATIC",
+        "CONTEXT",
+        "REUSED",
+        "PILOT",
+        "MCP"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "실제 결함·의도한 보류·현재 환경의 미확인을 재현과 함께 구분한다",
+      "method": "검사 계획·독립 source-only doctor 재현으로 결함을 확인하고 보류/환경 한계와 구분한다",
+      "status": "passed",
+      "evidence": [
+        "PLAN",
+        "ARCHIVE",
+        "PATHS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "끊긴 연결의 영향·원인·우선순위·후속 위치를 보고하고 기존 변경을 보존한다",
+      "method": "영역별 결과·우선순위·원인·영향·수정 방향·미확인을 명시하고 독립적인 마지막 원문 대조를 수행한다",
+      "status": "passed",
+      "evidence": [
+        "REPORT",
+        "FOLLOWUP",
+        "FINALSTATIC",
+        "DOCSCHECK"
+      ]
+    }
+  ],
+  "next_action": "조사는 완료했다. F1/F2는 소유 작업과 조정해 검사 등록/근거 이식 연결을 먼저 수정하고 F3은 원본 무결성을 보존해 이관한다. 세부 위치와 재확인은 followups.md.",
+  "completed_at": "2026-11-04T06:27:50.512317+00:00"
+}

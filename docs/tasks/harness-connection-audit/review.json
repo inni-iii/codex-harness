@@ -1,0 +1,152 @@
+{
+  "version": 2,
+  "task_contract": "4c633c231d07536a78f5affce3b1b022d0c6bcc19eeb74a1f50055a4311147fa",
+  "evidence_digest": "d2cefee7d0637b84a6e37e5a6cc87a7eb7c8e995dcf109bf1360810371b2c512",
+  "reviewer": "Codex self-review",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "15개 context 실제 선택·36노드 catalog, 링크/CLI 인자 계약·호스트 MCP 응답, 현재6종 파일럿과 코드 불변인 전체 회귀의 실제 소비 경로를 대조했다.",
+      "evidence": [
+        "REQUEST",
+        "STATIC",
+        "CONTEXT",
+        "REUSED",
+        "PILOT",
+        "MCP"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "F1 전체 검사 미등록, F2 새 source-only 사본 doctor 실패, F3 이전 원본63개 해시 일치를 재현하고 의도한 보류/DNS 한계와 구분했다.",
+      "evidence": [
+        "PLAN",
+        "ARCHIVE",
+        "PATHS",
+        "RECOVERY"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "보고서/후속에 영향·원인·우선순위·소유 위치/다시 확인할 조건을 연결하고 마지막 링크·명령·현재 문서 검사를 통과했다. 구현 코드·다른 task·전역 설정은 수정하지 않았다.",
+      "evidence": [
+        "REPORT",
+        "FOLLOWUP",
+        "FINALSTATIC",
+        "DOCSCHECK"
+      ]
+    }
+  ],
+  "limitations": [
+    "진단 요청으로 F1/F2의 코드·타 작업 수정 및 F3 원본 이관은 수행하지 않았다.",
+    "실제 앱/DB/브라우저 E2E와 새 모델 실행은 비적용/미실행이다.",
+    "현재 host MCP 도구 응답은 확인했고 로컬 mcp-check는 DNS 제약으로 unavailable이다.",
+    "기존 전체440개 중2실패/1skip을 숨기지 않고 소스 해시 일치 범위만 재사용했다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "현재 하네스의 등록→선택→실행→검증→근거/재개 연결 전반 조사. 확인한 단절 수정은 후속 범위로 명시.",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "15개 context 실제 선택·36노드 catalog, 링크/CLI 인자 계약·호스트 MCP 응답, 현재6종 파일럿과 코드 불변인 전체 회귀의 실제 소비 경로를 대조했다."
+      },
+      {
+        "name": "defects",
+        "result": "checked",
+        "reason": "F1 전체 검사 미등록, F2 새 source-only 사본 doctor 실패, F3 이전 원본63개 해시 일치를 재현하고 의도한 보류/DNS 한계와 구분했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "전체 검사 등록과 소스 이식·과거 근거·현재 MCP/훅 호스트 경계를 별도로 대조했다. 정상 링크/인자 계약과 실제 환경 오류를 구분했다."
+      },
+      {
+        "name": "evidence",
+        "result": "checked",
+        "reason": "명령/종료 코드·스냅샷 원본·코드 해시·MCP 응답 메타데이터·이전 원본 등록 해시를 보존하고 실패 결과를 통과로 바꾸지 않았다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "조사 JSON2개가 전체 검사에 미등록",
+        "cause": "두 산출물과 검사/coverage 선언 연결 누락. 검사기는 의도대로 차단한다. 현재 요청은 전체 조사이며 실제 수정/이관은 후속으로 남긴다.",
+        "status": "out_of_scope",
+        "follow_up": "FOLLOWUP",
+        "regression": null
+      },
+      {
+        "id": "F2",
+        "summary": "완료 근거의 worktree 경로로 소스 복사본 doctor 실패",
+        "cause": "RED artifact가 source-only 복사에 없는 .worktrees 내부를 참조한다. 현재 요청은 전체 조사이며 실제 수정/이관은 후속으로 남긴다.",
+        "status": "out_of_scope",
+        "follow_up": "FOLLOWUP",
+        "regression": null
+      },
+      {
+        "id": "F3",
+        "summary": "과거 로컬 근거63개가 현재 레포에 없음",
+        "cause": "이전 레포 원본/해시는63개 모두 있으나 현재 레포로 이관되지 않았다. 현재 요청은 전체 조사이며 실제 수정/이관은 후속으로 남긴다.",
+        "status": "out_of_scope",
+        "follow_up": "FOLLOWUP",
+        "regression": null
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1",
+          "F2"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "실제 전체 계획 차단과 새 소스 복사본 doctor 오류를 확인했다.",
+        "evidence": [
+          "PLAN",
+          "ARCHIVE",
+          "REUSED"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [
+          "F3"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "현재 근거 누락을 확인하고 원본을 추적해 이전 레포63개 해시 일치를 확인했다.",
+        "evidence": [
+          "PATHS",
+          "RECOVERY"
+        ]
+      },
+      {
+        "id": "R3",
+        "new_findings": [],
+        "closed_findings": [
+          "F1",
+          "F2",
+          "F3"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "수정 완료로 닫지 않고 현재 조사 범위 밖 후속으로 분류했다. 마지막 문서·링크·인자/호스트·파일럿 근거 대조에서 추가 단절을 찾지 못했다.",
+        "evidence": [
+          "REPORT",
+          "FOLLOWUP",
+          "FINALSTATIC",
+          "DOCSCHECK",
+          "PILOT",
+          "MCP"
+        ]
+      }
+    ]
+  }
+}

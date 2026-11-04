@@ -7,7 +7,7 @@
 python3 tools/harness/run.py task compare-api-clients --kind research --goal "API 클라이언트 후보 비교" --acceptance "공식 근거와 제약을 비교한다"
 ```
 
-docs/tasks/compare-api-clients/task.json과 notes.md를 생성하며 기존 파일은 덮어쓰지 않는다.
+docs/tasks/compare-api-clients/task.json·notes.md·index.md를 생성하고 상위 문서 지도에 연결한다. 기존 작업 폴더와 지도 본문은 덮어쓰지 않는다. 이후 추가하는 Markdown 결과물은 같은 폴더 index에 역할·읽을 조건을 함께 적는다.
 입력·범위·제약·선행 작업·결정·미해결 질문·완료 기준별 확인 방법과 근거를 기록한다.
 태스크의 원문·결과는 공유 파일이므로 비밀값·개인 인증·무관한 세션 내용을 넣지 않는다.
 민감한 상세 자료는 Git 제외 경로에 두고 공유 가능한 근거만 연결한다.
@@ -65,3 +65,21 @@ doctor는 구조와 완료 기록의 무결성을 확인하지만, 연구 결론
 context --kind review --topic learning으로 규칙 보완 절차를 읽고, 프로젝트에 남길 내용은 context.rules로 연결한다.
 검토 상태·공유·조건별 조회는 [지식 관리](knowledge.md)의 catalog로 연결한다. workflow 문서는 프로젝트 사실/진행 자료, catalog는 재사용 교훈을 담당하며 같은 규칙의 별도 정본을 만들지 않는다.
 기존 학습 훅은 안내와 메타데이터만 처리한다. 대화 수집·백그라운드 학습·개인 전역 승격을 추가하지 않으며 자동 사실 판정·규칙 채택으로 표현하지 않는다.
+
+## 구현·검증과 프로젝트 문서
+
+문서가 필요한 변경이면 `docs/<프로젝트>/features/<기능>/`의 기존 정본을 갱신한다. [문서 저장 명령](project-documents.md)은 기능 본문·폴더/조상 지도·workflow 경로/주제 조건을 함께 연결한다. 공통 설계·결정·운영도 해당 섹션의 지도/조건을 같은 작업에서 갱신한다. 작은 내부 수정이나 매 검사마다 별도 Markdown 보고서를 추가하지 않는다. task/notes가 수행 이력, .runtime이 원본 로그를 맡는다.
+
+## 단계별 시간 관측
+
+레포 루트에서 기존 task에 `timing mark <task> <단계>`를 실행하면 그 시점부터의 단계를 .runtime/task-timing에 기록한다. 단계는 research/implement/verify/record 등 짧은 소문자 이름을 사용하며 정해진 모든 단계를 강제하지 않는다. 같은 단계의 연속 mark는 중복 기록하지 않는다.
+
+```sh
+python3 tools/harness/run.py timing mark demo implement
+python3 tools/harness/run.py timing mark demo verify
+python3 tools/harness/run.py timing report demo
+```
+
+report는 task 생성부터 현재 또는 완료 시각까지의 wall_seconds와 단계별 phase_seconds를 구분한다. 첫 mark 이전은 unclassified이며 실제 활동을 추측해 채우지 않는다. 단계 전환이 빠지면 마지막 단계에 포함되므로 CPU/사고 시간의 정밀 측정이 아니다. 병행 작업은 한 시점의 단계로 표시한다.
+
+등록된 check evidence의 보고서별 실행 시간은 recorded_check_seconds로 따로 보여 준다. 동일 보고서를 여러 ID/기준에 연결해도 중복 합산하지 않는다. 체크 실행은 단계 시간과 겹치므로 둘을 더하지 않는다. reused=true의 시간은 원래 실행의 기록이며 이번 실행 비용으로 쓰지 않는다. 미등록 검사·도구 대기·과거 세션 시간은 자동 수집하지 않는다. 전체 요청 응답 시간과 task 등록 이후 시간도 구분한다. 예전 작업은 mark가 없음을 명시하고 원문 시각으로 별도 추정한다.

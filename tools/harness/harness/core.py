@@ -119,6 +119,8 @@ def files(root: Path):
         if any((Path(parent) / d).is_symlink() for d in dirs):
             raise ValueError("source directory symlinks need explicit verification support")
         for name in sorted(names):
+            if name == ".git":
+                continue  # Worktree Git pointers are metadata, like .git directories.
             path = Path(parent) / name
             if path.is_symlink():
                 raise ValueError("source file symlinks need explicit verification support")
@@ -165,7 +167,7 @@ def validate_checks(root: Path, checks: list[dict]) -> None:
         if not isinstance(check, dict):
             raise ValueError("check must be a table")
         allowed = {"id", "command", "cwd", "paths", "cacheable", "always", "covers_behavior",
-                   "timeout", "max_output_bytes", "allow_flaky", "tier", "run_at", "test_summary"}
+                   "timeout", "max_output_bytes", "allow_flaky", "tier", "run_at", "test_summary", "ignore_task_records"}
         if set(check) - allowed:
             raise ValueError("unknown check fields: " + ", ".join(sorted(set(check) - allowed)))
         name = check.get("id", "")
@@ -179,7 +181,7 @@ def validate_checks(root: Path, checks: list[dict]) -> None:
         if not isinstance(check.get("cwd", "."), str):
             raise ValueError(f"invalid working directory: {name}")
         inside(root, check.get("cwd", "."))
-        for field in ("cacheable", "always", "covers_behavior"):
+        for field in ("cacheable", "always", "covers_behavior", "ignore_task_records"):
             if not isinstance(check.get(field, False), bool):
                 raise ValueError(f"invalid {field} setting: {name}")
         timeout = check.get("timeout", 120)
@@ -283,12 +285,15 @@ def changed_paths(root: Path, staged: bool = False) -> list[str]:
     return sorted(paths)
 
 
-def fingerprint(root: Path) -> str:
+def fingerprint(root: Path, *, record_policy=None) -> str:
     digest = hashlib.sha256()
     # Conservative reuse: source, tests, ignored .env files, inherited environment,
     # interpreter and platform. Runtime outputs are excluded.
+    from . import record_scope
     for path in files(root):
         relative = path.relative_to(root).as_posix()
+        if not record_scope.select({relative: None}, record_policy):
+            continue
         content_hash = hashlib.sha256()
         with path.open('rb') as stream:
             while chunk := stream.read(1024 * 1024):

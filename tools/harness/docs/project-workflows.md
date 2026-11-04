@@ -8,10 +8,10 @@
 
 ```sh
 python3 tools/harness/run.py project demo --goal "프로젝트의 실제 목표"
-python3 tools/harness/run.py context --kind plan --project docs/projects/demo/workflow.toml --read
+python3 tools/harness/run.py context --kind plan --project docs/demo/workflow.toml --read
 ```
 
-project는 docs/projects/demo/index.md·brief.md·security.md와 draft workflow.toml을 만든다. 기존 폴더를 덮어쓰지 않는다.
+project는 docs/demo/index.md·brief.md·security.md와 draft workflow.toml을 만든다. 기존 폴더를 덮어쓰지 않는다. 생성한 프로젝트는 docs/index.md에도 연결한다. 새 프로필은 `[documentation] layout = "feature-folders"`를 선언하며 기능 문서·공통 섹션의 배치와 선택 조건을 doctor로 검사한다. 기능 정본의 저장·갱신은 [문서 저장 계약](project-documents.md)에 따라 본문·지도·읽기 조건을 함께 연결한다. 각 문서 폴더의 index에는 직계 Markdown 파일별 역할과 하위 지도 링크를 두며 doctor가 누락을 검사한다.
 security.md는 보호 자원·권한·비신뢰 경계·검증 조건을 채울 초안이며 생성만으로 보안 설계가 완료되지는 않는다.
 상세 작성 절차와 로컬 검사는 [보안 관리](security.md)를 따른다.
 코드 scaffold·설치·모델 호출·프로필 활성화는 하지 않는다.
@@ -31,28 +31,28 @@ state = "draft"
 
 [security]
 state = "draft"
-document = "docs/projects/demo/security.md"
+document = "docs/demo/security.md"
 document_sha256 = ""
 assets = []
 trust_boundaries = []
 controls = []
 
 [context]
-documents = ["docs/projects/demo/brief.md"]
+documents = ["docs/demo/brief.md"]
 
 [[context.rules]]
 paths = ["backend/**"]
-documents = ["docs/projects/demo/domain-rules.md"]
+documents = ["docs/demo/features/items/spec.md"]
 
 # Both documents below must exist before adding these rules.
 [[context.rules]]
 topics = ["resume", "handoff"]
-documents = ["docs/projects/demo/checkpoint.md"]
+documents = ["docs/tasks/first-feature/notes.md"]
 when = "Restore decisions, failed approaches and verification state."
 
 [[context.rules]]
 kinds = ["debug"]
-documents = ["docs/projects/demo/lessons.md"]
+documents = ["docs/demo/operations/lessons.md"]
 
 [[checks]]
 id = "app-backend"
@@ -168,7 +168,7 @@ not_applicable에는 paths/checks를 넣지 않는다. 공개 정적 사이트 �
 문서 해시는 레포 루트에서 다음처럼 계산한다. 도구가 검토 상태를 자동 승인하지는 않는다.
 
 ```sh
-python3 -c "import hashlib,pathlib; print(hashlib.sha256(pathlib.Path('docs/projects/demo/security.md').read_bytes()).hexdigest())"
+python3 -c "import hashlib,pathlib; print(hashlib.sha256(pathlib.Path('docs/demo/security.md').read_bytes()).hexdigest())"
 ```
 
 검토 문서가 바뀌면 해시 불일치를 미결로 기록한다. 일반 구현과 로컬 검사는 계속하고, 검토 후 해시와 controls를 갱신한다.
@@ -216,15 +216,15 @@ checks_passed_security_pending은 task 완료 증거로 첨부할 수 없다. CL
 
 ```sh
 python3 tools/harness/run.py doctor
-python3 tools/harness/run.py check --project docs/projects/demo/workflow.toml --plan
-python3 tools/harness/run.py check --project docs/projects/demo/workflow.toml
+python3 tools/harness/run.py check --project docs/demo/workflow.toml --plan
+python3 tools/harness/run.py check --project docs/demo/workflow.toml
 ```
 
 기본 프로젝트로 쓰려면 tools/harness/harness.toml에 다음을 넣는다.
 
 ```toml
 [project]
-workflow = "docs/projects/demo/workflow.toml"
+workflow = "docs/demo/workflow.toml"
 ```
 
 --project가 있으면 기본 선택보다 우선한다. staging 검사에서도 내보낸 index의 프로필과 소스를 사용한다.
@@ -234,7 +234,7 @@ workflow = "docs/projects/demo/workflow.toml"
 ## 규칙을 찾아 읽는 방법
 
 ```sh
-python3 tools/harness/run.py context --kind implement --paths backend/items/service.py --topic api --project docs/projects/demo/workflow.toml
+python3 tools/harness/run.py context --kind implement --paths backend/items/service.py --topic api --project docs/demo/workflow.toml
 python3 tools/harness/run.py context --kind debug --paths frontend/src/Search.svelte --topic async --read
 ```
 

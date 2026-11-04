@@ -1,0 +1,187 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "프로젝트 설명을 작업 중 누적하고 최종 상태에서 근거 기반 문답을 작성하는 절차 연결",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/request.md",
+      "sha256": "d36a160a9dda5937e406544be41d831d4cd40fa75e9416eac843d59d20b619e0",
+      "description": "Current request boundaries without example content",
+      "recorded_at": "2026-11-04T09:37:25.848442+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/project-explanation/design.md",
+      "sha256": "76807efe35b78e0aaea4d93bd259cc2292e4c7ea9e8da8c81b0fea987677e267",
+      "description": "Generic explanation workflow design and scope",
+      "recorded_at": "2026-11-04T09:37:26.532401+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/alignment.json",
+      "sha256": "6ba4a2872bc9fc97c02dbb4ef3aade96661fbd0c44c73e6aba668d45171f9a92",
+      "description": "Self-reviewed current intent and O1 alignment",
+      "recorded_at": "2026-11-04T09:37:44.396603+00:00"
+    },
+    "RESULT": {
+      "type": "artifact",
+      "path": "docs/tasks/project-explanation/results.md",
+      "sha256": "9e58c065e1bd18459f755f326c704ab6ce94348741f3131c633a1a756df334d4",
+      "description": "Implemented connections and source-linked self-review scenarios",
+      "recorded_at": "2026-11-04T09:44:29.506406+00:00"
+    },
+    "RED": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/regression-report-before.json",
+      "sha256": "0980c6d65b89a08331f49253721c599d5e7fd9331b40d1e01d778b05cd84a39e",
+      "description": "Same final test file fails in an isolated copy with invalid route owner registration",
+      "recorded_at": "2026-11-04T09:44:29.581404+00:00"
+    },
+    "GREEN": {
+      "type": "artifact",
+      "path": ".runtime/checks/9d0f39243c754bc496d4e2952e2853e6/report.json",
+      "sha256": "ab0fad5d448aba0336104e6a63fd255b0c5c636f425e4c9fbdcad898d7605448",
+      "description": "Historical passing run before concurrent shared-source changes; retained as an artifact, not current check evidence.",
+      "recorded_at": "2026-11-04T09:45:22.787176+00:00"
+    },
+    "LATEST": {
+      "type": "artifact",
+      "path": ".runtime/check-snapshots/f98a8772c1df474d8d7ecdddd9549f83/checks/00d1bd1348444e629affe59b7719d31a/report.json",
+      "sha256": "f38fa47f442d5ef81e1e4212713d54e9c6549e0fb58f327370db0ad217e576bb",
+      "description": "Passing 520-test fixed-source run; retained as historical after unrelated task-map change",
+      "recorded_at": "2026-11-04T09:51:51.784105+00:00"
+    },
+    "CURRENT": {
+      "type": "artifact",
+      "path": ".runtime/checks/84ecf1a9e8074564baa6432a7c769dc3/report.json",
+      "description": "Historical four-case passing run before concurrent flow implementation changes; preserved without current reuse.",
+      "sha256": "9a1357d1b79c3e80547624040fc2f5686dbf91deaae54a9a195b98b8608e06b5",
+      "recorded_at": "2026-11-04T09:53:24.974943+00:00"
+    },
+    "OWNER_RED": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/regression-current-before.json",
+      "description": "Same unchanged test file fails with invalid route ownership in isolated copy",
+      "sha256": "78d512ef1b5726ab864bc10308f9a71e3b1c479da74cdfb3b649a3e943b2fe42",
+      "recorded_at": "2026-11-04T09:53:25.111388+00:00"
+    },
+    "RECORD_CASE": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/bookkeeping-case.md",
+      "description": "Expected registered-reference boundary",
+      "sha256": "0435ed4f347d1a9b373dc398aef7901b05b167538e91e323f8c1223048fc7a0f",
+      "recorded_at": "2026-11-04T09:53:25.112289+00:00"
+    },
+    "RECORD_BEFORE": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/bookkeeping-before.md",
+      "description": "Observed transient unknown-reference error",
+      "sha256": "924c195130330ea15f37438dca6de0ee49325b4a236119cd3e629969f3d00d1a",
+      "recorded_at": "2026-11-04T09:53:25.113035+00:00"
+    },
+    "RECORD_AFTER": {
+      "type": "artifact",
+      "path": ".runtime/project-explanation/bookkeeping-after.md",
+      "description": "Observed reference repair and guarded atomic registration",
+      "sha256": "83071f504287e9f61fce00c9acb9465c5bee79029b2067bbfb737e018d79ca82",
+      "recorded_at": "2026-11-04T09:53:25.113770+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/checks/3cb632f8320543859f33a6fe2f3f483a/report.json",
+      "sha256": "3389d1ff22ade49cc7dd662ba89414cb096fbea71da115f2ceeaab71f9d12d40",
+      "description": "Current final scoped checks after concurrent flow edits",
+      "recorded_at": "2026-11-04T09:56:35.567574+00:00",
+      "check": "project-explanation"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/project-explanation/review.json",
+    "sha256": "c54ca3923675efe4c0b01b1ca324c7c57bb8dc499b5348e1172edc31c630c4ba"
+  },
+  "findings": [
+    "F1",
+    "F2"
+  ],
+  "created_at": "2026-11-04T09:36:44.109675+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    "AGENTS.md",
+    ".agents/context.toml",
+    ".agents/skills/plan-project/**",
+    ".agents/skills/verify-work/SKILL.md",
+    ".agents/skills/verify-work/references/acceptance.md",
+    ".agents/skills/verify-work/routes.toml",
+    ".agents/skills/docs-maintenance/references/synchronization.md",
+    "tools/harness/tests/test_project_explanation.py",
+    "docs/tasks/project-explanation/**",
+    "docs/tasks/index.md"
+  ],
+  "constraints": [
+    "Use current checkout and preserve unrelated changes.",
+    "Generic procedure only; no supplied example content.",
+    "Questions and answers only at final review; no intermediate question generation."
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "작업 중 설명과 결정 근거를 누적하고 최종 정리에서만 프로젝트별 문답을 작성한다",
+      "method": "Actual context/flow reads and project-scoped selection plus source-linked scenario review; doctor and related regression checks.",
+      "status": "passed",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "RESULT",
+        "CURRENT",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "한 설명 문서의 저장·지도·조건부 읽기·세션 재개와 실제 근거 구분을 연결한다",
+      "method": "Actual context/flow reads and project-scoped selection plus source-linked scenario review; doctor and related regression checks.",
+      "status": "passed",
+      "evidence": [
+        "RESULT",
+        "CURRENT",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A3",
+      "condition": "계획·구현·검증의 실제 context와 flow가 관련 절차를 읽고 기존 단계별 검토 경계를 유지한다",
+      "method": "Actual context/flow reads and project-scoped selection plus source-linked scenario review; doctor and related regression checks.",
+      "status": "passed",
+      "evidence": [
+        "RED",
+        "RESULT",
+        "LATEST",
+        "CURRENT",
+        "OWNER_RED",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A4",
+      "condition": "특정 사례 문항 없이 범용 절차와 양식을 제공하고 관련 회귀·정적 검사와 시나리오를 확인한다",
+      "method": "Actual context/flow reads and project-scoped selection plus source-linked scenario review; doctor and related regression checks.",
+      "status": "passed",
+      "evidence": [
+        "RESULT",
+        "CURRENT",
+        "RECORD_CASE",
+        "RECORD_BEFORE",
+        "RECORD_AFTER",
+        "FINAL"
+      ]
+    }
+  ],
+  "next_action": "Implement generic guidance and verify real selection, scoped reading and final-only question generation.",
+  "completed_at": "2026-11-04T09:56:39.054232+00:00"
+}

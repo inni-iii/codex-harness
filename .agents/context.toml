@@ -34,12 +34,12 @@ paths = ["docs/**", "tools/harness/docs/**", "README.md", ".agents/skills/docs-m
 file = ".agents/skills/docs-maintenance/references/navigation.md"
 when = "작은 인덱스에서 관련 원문 선택·누락 검색·읽기 비용 확인"
 topics = ["docs-index", "docs-navigation"]
-paths = ["docs/index.md", "docs/projects/*/index.md", "docs/tasks/index.md", "tools/harness/docs/index.md"]
+paths = ["docs/index.md", "docs/*/index.md", "docs/*/features/*/index.md", "docs/projects/*/index.md", "docs/tasks/index.md", "tools/harness/docs/index.md"]
 
 [[skills.references]]
 file = ".agents/skills/docs-maintenance/references/organization.md"
 when = "문서 분류·목차·중복·병합·분할·이동과 원본 내용 보존"
-topics = ["docs-organization", "docs-restructure"]
+topics = ["docs-organization", "docs-restructure", "project-documents"]
 paths = [".agents/skills/docs-maintenance/references/organization.md"]
 
 [[skills.references]]
@@ -67,9 +67,9 @@ paths = [".agents/skills/docs-maintenance/references/validation.md"]
 
 [[skills]]
 name = "research"
-when = "조사 질문·도구 비교"
+when = "조사 질문·도구 비교와 CSV/JSON 데이터의 질문 기반 분석"
 kinds = ["research"]
-topics = ["research","technical-choice","reuse"]
+topics = ["research","technical-choice","reuse","data-analysis","dataset-analysis","eda","data-quality"]
 
 [[skills.references]]
 file = ".agents/skills/research/references/evidence.md"
@@ -86,6 +86,17 @@ topics = ["reuse","technical-choice"]
 file = ".agents/skills/research/references/retrieval.md"
 when = "큰 자료 집합·복합 질문·검색 누락 또는 RAG의 근거/평가를 다룰 때"
 topics = ["retrieval","rag","knowledge-base","research-search"]
+
+[[skills.references]]
+file = ".agents/skills/research/references/web-search.md"
+when = "내장 웹검색·MCP 조회 전후에 질의·오류·원문·날짜·인용·실행 권한을 확인"
+topics = ["web-search", "mcp-results", "source-verification"]
+
+[[skills.references]]
+file = ".agents/skills/research/references/data-analysis.md"
+when = "CSV/JSON 데이터의 질문·품질·관측 단위·방법 선택·해석·민감도·재현을 확인"
+topics = ["data-analysis", "dataset-analysis", "eda", "data-quality"]
+paths = [".agents/skills/research/references/data-analysis.md", ".agents/skills/research/assets/data-analysis.md"]
 
 [[skills]]
 name = "experiment"
@@ -114,13 +125,13 @@ topics = ["skill-flow","planning","workflow","handoff","resume","context","quali
 file = ".agents/skills/plan-project/references/reasons-canvas.md"
 when = "코드 전에 의도·개념·접근·책임/작업 경계와 설계 정렬을 검토"
 topics = ["reasons", "intent-alignment", "design-contract"]
-paths = ["docs/projects/*/design/*.md"]
+paths = ["docs/*/features/*/design.md", "docs/*/architecture/*.md", "docs/projects/*/design/*.md"]
 
 [[skills.references]]
 file = ".agents/skills/plan-project/references/project-lifecycle.md"
 when = "사람이 정한 목표·마일스톤에서 요구·갭·작업을 연결하고 시작/종료 때 재평가"
 topics = ["project-lifecycle", "project-start", "implementation-order", "top-down", "goal-planning", "milestones", "gap-analysis"]
-paths = [".agents/skills/plan-project/references/project-lifecycle.md", ".agents/skills/plan-project/assets/project-plan.md", ".agents/skills/plan-project/assets/project-brief.md", "docs/projects/*/plan.md"]
+paths = [".agents/skills/plan-project/references/project-lifecycle.md", ".agents/skills/plan-project/assets/project-plan.md", ".agents/skills/plan-project/assets/project-brief.md", "docs/*/architecture/plan.md", "docs/projects/*/plan.md"]
 
 [[skills.references]]
 file = ".agents/skills/plan-project/references/collaboration.md"
@@ -136,9 +147,9 @@ topics = ["workflow"]
 
 [[skills.references]]
 file = ".agents/skills/plan-project/references/task-patterns.md"
-when = "작업 종류별 입력·수행·완료"
-kinds = ["plan"]
-topics = ["planning","handoff"]
+when = "요구 문서 기반 8단계 사용자 검토·단계별 대기와 기능 단위 구현/검증·다음 작업 선택"
+kinds = ["plan", "implement"]
+topics = ["planning", "handoff", "document-delivery", "incremental-delivery"]
 
 [[skills.references]]
 file = ".agents/skills/plan-project/references/context-retrieval.md"
@@ -150,6 +161,13 @@ topics = ["context","handoff"]
 file = ".agents/skills/plan-project/references/handoff.md"
 when = "단계 전환·다른 세션/노트북에서 이어갈 상태와 근거를 남길 때"
 topics = ["handoff","resume"]
+
+[[skills.references]]
+file = ".agents/skills/plan-project/references/project-explanation.md"
+when = "프로젝트 설명·결정·검증 근거를 누적하고 마지막 정리에서만 문답을 작성"
+kinds = ["plan", "design", "implement"]
+topics = ["project-explanation", "final-explanation", "handoff", "resume"]
+paths = ["docs/*/architecture/explanation-guide.md"]
 
 [[skills.references]]
 file = ".agents/skills/plan-project/references/quality-requirements.md"
@@ -296,15 +314,22 @@ paths = ["*test*database*.py","*test*postgres*.py","*alembic*","*migrations/**"]
 name = "verify-work"
 when = "요구 충족·변경 영향·완료 근거 확인"
 kinds = ["implement","debug","review"]
-topics = ["verification","testing","api","browser","commit","security","auth","uploads","secrets","review","ci","work-unit","regression","repair-loop","completion","task-evidence","code-review","code-verification"]
+topics = ["verification-defaults","acceptance-verification","verification","testing","api","browser","commit","security","auth","uploads","secrets","review","ci","work-unit","regression","repair-loop","completion","task-evidence","code-review","code-verification"]
 paths = ["docs/tasks/*/review.json", "tools/harness/harness/completion_review.py"]
+
+[[skills.references]]
+file = ".agents/skills/verify-work/references/acceptance.md"
+when = "검증해줘 등 짧은 요청의 대상·기본 검증 범위·명시 제한·실제 결과를 확인"
+kinds = ["review"]
+topics = ["verification-defaults", "acceptance-verification"]
+requires_skill = true
 
 [[skills.references]]
 file = ".agents/skills/verify-work/references/follow-through.md"
 when = "한 요청 안의 검토·보완 반복과 확인한 결함의 회귀 증거 보존"
 topics = ["verification","regression","repair-loop","completion","code-verification"]
 requires_skill = true
-paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile", "docs/tasks/*/review.json", "tools/harness/harness/completion_review.py"]
+paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/*/workflow.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile", "docs/tasks/*/review.json", "tools/harness/harness/completion_review.py"]
 
 [[skills.references]]
 file = ".agents/skills/verify-work/references/completion.md"
@@ -317,21 +342,21 @@ file = ".agents/skills/verify-work/references/checkpoints.md"
 when = "의미 있는 기능 묶음·검증 범위 사전 안내·E2E checkpoint"
 topics = ["verification","work-unit","code-verification"]
 requires_skill = true
-paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
+paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/*/workflow.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
 
 [[skills.references]]
 file = ".agents/skills/verify-work/references/impact.md"
 when = "공유 경계·회귀의 검사 범위"
 topics = ["verification","api","security","code-verification"]
 requires_skill = true
-paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
+paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/*/workflow.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
 
 [[skills.references]]
 file = ".agents/skills/verify-work/references/evidence.md"
 when = "종료 코드·테스트 수·보고서·캐시·index"
 topics = ["verification","testing","commit","code-verification"]
 requires_skill = true
-paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
+paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/*/workflow.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
 
 [[skills.references]]
 file = ".agents/skills/verify-work/references/review.md"
@@ -339,7 +364,7 @@ when = "코드 완료 검토에서 요구 충족과 결함·회귀를 구분할 
 topics = ["code-review"]
 requires_skill = true
 requires_kinds = ["review"]
-paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
+paths = ["*.py", "*.svelte", "*.ts", "*.tsx", "*.js", "*.jsx", "*.mjs", "*.cjs", "*.sql", "*.sh", "AGENTS.md", ".agents/**", ".codex/**", ".github/workflows/**", "tools/harness/harness.toml", "docs/*/workflow.toml", "docs/projects/*/workflow.toml", "*package.json", "*package-lock.json", "*pnpm-lock.yaml", "*yarn.lock", "*bun.lock", "*bun.lockb", "*pyproject.toml", "*requirements*.txt", "*uv.lock", "*poetry.lock", "*Dockerfile", "*Makefile"]
 
 [[skills.references]]
 file = ".agents/skills/verify-work/references/browser.md"
@@ -412,3 +437,29 @@ file = ".agents/skills/design-first/references/contracts.md"
 when = "디자인 권위·토큰·컴포넌트 API·공통 UI"
 topics = ["design","ui","ui-design","design-system"]
 paths = ["*tokens*","*theme*"]
+
+[[skills]]
+name = "docker-containers"
+when = "Design, configure, inspect or diagnose Dockerfiles, Compose stacks and container environments for a target project, including images, networking, volumes, secrets, readiness and verification. Use for Docker/container infrastructure work; do not containerize the harness or force static Svelte deployment by default."
+topics = ["docker", "containers", "compose", "container-infrastructure", "docker-images", "dockerfile", "container-verification", "container-diagnosis"]
+paths = ["Dockerfile*", "**/Dockerfile*", "*.dockerfile", "**/*.dockerfile", "*.Dockerfile", "**/*.Dockerfile", "compose*.yml", "compose*.yaml", "**/compose*.yml", "**/compose*.yaml", "docker-compose*.yml", "docker-compose*.yaml", "**/docker-compose*.yml", "**/docker-compose*.yaml", ".dockerignore", "**/.dockerignore", ".agents/skills/docker-containers/**"]
+
+[[skills.references]]
+file = ".agents/skills/docker-containers/references/images.md"
+when = "Docker 이미지·context·ignore·lock·platform·실행 사용자/명령을 작성하거나 조사"
+requires_skill = true
+topics = ["docker-images", "dockerfile"]
+paths = ["Dockerfile*", "**/Dockerfile*", "*.dockerfile", "**/*.dockerfile", "*.Dockerfile", "**/*.Dockerfile", ".dockerignore", "**/.dockerignore"]
+
+[[skills.references]]
+file = ".agents/skills/docker-containers/references/compose.md"
+when = "Compose topology·네트워크·준비/migration·secret·volume·격리·자원/복구를 구성"
+requires_skill = true
+topics = ["compose", "container-infrastructure"]
+paths = ["compose*.yml", "compose*.yaml", "**/compose*.yml", "**/compose*.yaml", "docker-compose*.yml", "docker-compose*.yaml", "**/docker-compose*.yml", "**/docker-compose*.yaml"]
+
+[[skills.references]]
+file = ".agents/skills/docker-containers/references/verification.md"
+when = "컨테이너 구성의 실제 검증 또는 build/start/통신/저장 실패 원인을 진단"
+requires_skill = true
+topics = ["container-verification", "container-diagnosis"]

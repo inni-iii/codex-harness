@@ -10,6 +10,7 @@ validation = "요청·관련 절차에서 정한 정상/오류/경계와 실제 
 evidence_types = ["check"]
 required_calls = ["verify-work:check"]
 finish = false
+finish_when = "documents_unchanged"
 entry_checks = ["alignment"]
 [[routes.steps]]
 id = "scope"

@@ -13,6 +13,7 @@
 | 모델 추천 설정·목록·정책 | [추천기 사용법](usage.md) | catalog/route 구성 |
 | 선택한 모델로 작업 수행 | [실행 안내](execution.md) | run/chat·인수인계·실패 처리 |
 | 새 프로젝트와 문서/검사 연결 | [프로젝트 워크플로](project-workflows.md) | project 생성·context 규칙·검사·보안 범위 |
+| 기능 문서의 저장·갱신·지도/선택 조건 연결 | [프로젝트 문서](project-documents.md) | 직접 경로·기능별 정본·document upsert·legacy 이동 |
 | 목표·마일스톤에서 다음 작업 선택 | [프로젝트 진행](../../../.agents/skills/plan-project/references/project-lifecycle.md) | 요구·성공 조건·갭의 전후 평가·bottom-up 발견·계획 정본 |
 | 작업 생성·진행·인수인계 | [작업 흐름](workflows.md) | task/notes·연구/구현 연결 |
 | 코드 전 의도·경계·REASONS·설계/정렬 준비 | [설계와 구현 진입](reasons.md) | 분석/설계/정렬·typed 근거·작은 수정·변경 분류 |

@@ -1,6 +1,6 @@
 # REASONS 설계와 구현 진입
 
-스킬14개를 유지하며 plan-project의 analysis/design/alignment와 docs-maintenance의 intent-update/implementation-sync를 연결한다. 기존 모델 추천 route, call/transition/steps_complete/user_choice/reason 의미는 유지한다.
+plan-project의 analysis/design/alignment와 docs-maintenance의 intent-update/implementation-sync를 연결한다. 기존 모델 추천 route, call/transition/steps_complete/user_choice/reason 의미는 유지한다.
 
 ## 실행 흐름과 책임
 
@@ -8,7 +8,7 @@
 의도/개념·대안·책임·R/O는 [계획 절차](../../../.agents/skills/plan-project/references/reasons-canvas.md), 문서의 권위·변경 방향·정본/인덱스는 [명세 유지](../../../.agents/skills/docs-maintenance/references/specifications.md)를 따른다.
 UI 디자인 시스템은 design-first, 세부 구현/보안/검증은 해당 기존 스킬이 맡는다.
 
-현재 Python/Svelte/PostgreSQL 구현, maintain-skills:maintain, verify-work:repair/check는 필수 design/alignment 입력과 entry_checks=["alignment"]를 사용한다.
+현재 Python/Svelte/PostgreSQL 구현, docker-containers:configure, maintain-skills:maintain, verify-work:repair/check는 필수 design/alignment 입력과 entry_checks=["alignment"]를 사용한다. Docker의 읽기 전용 inspect/diagnose와 설계만의 design은 구성 변경과 구분한다.
 모든 활성 준비 검사는 공통 frame 생성에서 수행하므로 start·transition·call·restart에 적용된다. 실행 중에도 같은 입력/역할·현재 참조를 다시 확인한다. reason만으로 우회하지 않는다.
 등록된 다른 작성 경로에서 실제 코드/행동을 바꿀 때도 관련 구현 라우트로 진행한다. flow API 밖의 파일 편집을 OS 수준으로 차단하는 기능은 아니다.
 
@@ -41,7 +41,7 @@ reference에는 재사용하는 의도/규칙/계약 정본을 둔다. 이번에
 명령은 레포 루트의 정상 Python으로 실행하고 실제 task/criterion/method/경로/증거 ID로 바꾼다. task의 방법·scope를 먼저 확정한다.
 
 ```sh
-python3 tools/harness/run.py evidence add my-task --id DESIGN --type artifact --path docs/projects/my-project/design/my-feature.md --criterion A1 --method "실제 기준별 확인 방법" --description "현재 요구·R/O·경계를 기록한 설계"
+python3 tools/harness/run.py evidence add my-task --id DESIGN --type artifact --path docs/my-project/features/my-feature/design.md --criterion A1 --method "실제 기준별 확인 방법" --description "현재 요구·R/O·경계를 기록한 설계"
 python3 tools/harness/run.py flow alignment-template --task my-task --design DESIGN --operation O1 --basis REQUEST --output .runtime/my-task/alignment.json
 ```
 
@@ -49,9 +49,9 @@ python3 tools/harness/run.py flow alignment-template --task my-task --design DES
 
 | alignment 필드 | 확인할 것 |
 |---|---|
-| version / kind | 정수1 / reasons-alignment |
+| version / kind | 정수2 / reasons-alignment; 정수1은 이전 의미로 읽기 호환 |
 | design | 현재 design artifact의 path/sha256 |
-| task_contract | 현재 task의 goal/scope/제약/입력/수용 기준·방법 계약 해시; 생성 시 현재 값 제공 |
+| task_contract | v2는 종류·목표·범위·제약·입력·선행 작업·수용 기준/방법의 의도 해시; 발견 ID는 포함하지 않음 |
 | operations | 이번에 실행할 O. 선행 O가 먼저 오는 순서 |
 | coverage | 모든 task 수용 기준 ID → 선택 O 목록. 빠진 기준/선택 O가 없어야 함 |
 | basis | 실제 요청·기존 결정/원문의 기존 artifact/source 증거 ID. 설계/검토 자신으로 대체하지 않음 |
@@ -59,6 +59,10 @@ python3 tools/harness/run.py flow alignment-template --task my-task --design DES
 | reviewer | name, type(agent/human), independent(실제 독립성) |
 | decision / reason | 실제 판단 ready와 관측 이유. 아직 판단하지 못했으면 ready로 바꾸지 않음 |
 | completed_dependencies | 선택하지 않았지만 완료를 확인한 선행 O → 기존 증거 ID |
+
+v2 정렬은 `evidence.intent_contract(task)`에 묶는다. 현재 의도 안에서 findings ID·진행 기록만 추가하면 기존 정렬을 유지한다. 목표·범위·수용 조건/방법이나 설계 SHA·결정 근거가 달라지면 재정렬한다. 결함이 새로운 요구나 범위를 드러냈다면 실제 계약도 갱신해야 하며 발견 기록으로 우회하지 않는다.
+완료 리뷰는 기존 `evidence.contract(task)`를 계속 사용해 발견 ID 전체를 묶는다. 새 결함은 리뷰/회귀 근거에 반영해야 하고, flow가 유효하다는 이유로 결함을 누락한 완료를 허용하지 않는다.
+이전 v1 alignment는 발견 ID를 포함했던 전체 해시 의미로 계속 읽는다. 원본을 자동 변환하거나 다시 서명하지 않는다. 새 템플릿으로 현재 원문/근거를 대조해 v2를 만들고 별도 evidence ID로 연결한다.
 
 basis나 완료 dependency의 원본·entry를 다른 유효한 파일로 바꿔도 검토 당시 서명과 다르면 거부한다. 실제 완료 dependency를 추가할 때도 그 entry 서명을 함께 묶는다.
 선택 O에 영향을 주는 open/proposed 결정은 막는다. 다른 O에만 관련된 미결정은 독립된 현재 작업을 막지 않는다.

@@ -1,0 +1,133 @@
+{
+  "version": 2,
+  "task_contract": "8a3eb8cc318875521c443752fe3a6c47fa2a535c1d30b96252edbce5c5a8ccc9",
+  "evidence_digest": "2c46666da47c832a759cebcc869754512cdca3d42e784475b910e72a50dfdfa6",
+  "reviewer": "현재 작업 에이전트",
+  "reviewer_type": "agent",
+  "independent": false,
+  "criteria": [
+    {
+      "id": "A1",
+      "decision": "passed",
+      "reason": "누락·설명 부재·하위 지도·이동·가짜 코드 링크·symlink 경계의 실제 회귀와 현재 doctor를 대조했다.",
+      "evidence": [
+        "REQUEST",
+        "DESIGN",
+        "ALIGN",
+        "DESIGN2",
+        "ALIGN2",
+        "GREEN",
+        "SCENARIOS",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A2",
+      "decision": "passed",
+      "reason": "현재 문서 폴더26곳 감사와 새 task/project·상위 지도 생성 및 기존 본문/폴더 보존 회귀가 통과했다.",
+      "evidence": [
+        "OBSERVED",
+        "GREEN",
+        "SCENARIOS"
+      ]
+    },
+    {
+      "id": "A3",
+      "decision": "passed",
+      "reason": "관련 조상 지도만 선택하고 무관한 운영 지도/큰 본문을 제외하는 실행 사례가 통과했다. 시작·환경·재개 절차에도 지도 우선 읽기를 연결했다.",
+      "evidence": [
+        "SCENARIOS",
+        "GREEN",
+        "OBSERVED"
+      ]
+    },
+    {
+      "id": "A4",
+      "decision": "passed",
+      "reason": "같은 회귀 파일 해시에서 수정 전 누락 실패와 수정 후 현재 통합456개 검사 실패0·skip1을 확인했다. 인덱스19개와 필수 등록 검사4개가 통과했다.",
+      "evidence": [
+        "RED",
+        "GREEN",
+        "SCENARIOS",
+        "OBSERVED"
+      ]
+    }
+  ],
+  "limitations": [
+    "인덱스 설명의 존재·연결만 자동 검사하며 의미·사실성은 자체 문서 검토다. 독립 평가나 모델 토큰 절감률을 측정하지 않았다.",
+    "앱 변경이 없어 브라우저 E2E는 비적용이다. 기존 process group signal 권한 제한의 1개 skip이 있으며 인덱스 관련19개는 모두 실행됐다.",
+    "과거 완료 작업의 로컬 로그 일부는 현재 환경에 없고 당시 완료 이력으로 유지한다. 이번 현재 검사 결과와 혼동하지 않는다."
+  ],
+  "blockers": [],
+  "verification": {
+    "scope": "문서 루트의 필수 폴더별 지도·문서 역할/하위 연결·생성·선택 읽기와 실제 하네스 통합 검사",
+    "areas": [
+      {
+        "name": "requirements",
+        "result": "checked",
+        "reason": "사용자의 필수 인덱스와 선택 읽기 요구를 현재 코드·지도·절차에 대조했다."
+      },
+      {
+        "name": "failure_paths",
+        "result": "checked",
+        "reason": "인덱스/항목/역할/하위 지도 누락, 이동, 코드/주석 가짜 링크, symlink와 경로 경계를 실제 테스트로 확인했다."
+      },
+      {
+        "name": "shared_boundaries",
+        "result": "checked",
+        "reason": "doctor·context·task/project 생성기와 기존 필수/보안 읽기·완료 이력·다른 세션 변경을 보존했다."
+      },
+      {
+        "name": "regressions",
+        "result": "checked",
+        "reason": "같은 F1 회귀 해시의 RED/GREEN과 통합456개 검사, 현재 폴더26개 감사를 확인했다."
+      }
+    ],
+    "findings": [
+      {
+        "id": "F1",
+        "summary": "문서 폴더 지도·문서별 역할·하위 지도 연결의 누락을 doctor가 검사하지 않았다.",
+        "cause": "기존 doctor는 개별 링크 존재만 검사했고 폴더/파일 목록과 지도 커버리지를 대조하지 않았다. 공통 검사기와 생성/읽기 경계를 연결했다.",
+        "status": "fixed",
+        "regression": {
+          "mode": "automated",
+          "test_path": "tools/harness/tests/test_document_index_contract.py",
+          "test_id": "test_doctor_rejects_missing_folder_index",
+          "sha256": "dc1545523032bb9958bed4cfe4ef70e51cb75e32681f27f937fa2d93e2320b16",
+          "check": "python",
+          "before": "RED",
+          "after": "GREEN"
+        }
+      }
+    ],
+    "rounds": [
+      {
+        "id": "R1",
+        "new_findings": [
+          "F1"
+        ],
+        "closed_findings": [],
+        "outcome": "new_findings",
+        "reason": "기존 구현이 폴더 index 누락을 보고하지 않는 회귀 실패와 현재 지도 누락을 확인했다.",
+        "evidence": [
+          "RED",
+          "REQUEST"
+        ]
+      },
+      {
+        "id": "R2",
+        "new_findings": [],
+        "closed_findings": [
+          "F1"
+        ],
+        "outcome": "no_new_findings",
+        "reason": "수정 후 실제 요구·오류·생성·선택 경계와 현재 전체 검사를 다시 대조했다. 새 확인 결함은 없고 의미 판단/토큰 측정 한계는 명시했다.",
+        "evidence": [
+          "GREEN",
+          "SCENARIOS",
+          "OBSERVED"
+        ]
+      }
+    ]
+  }
+}

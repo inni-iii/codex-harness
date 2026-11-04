@@ -1,0 +1,147 @@
+{
+  "version": 2,
+  "kind": "implement",
+  "goal": "요구 문서의 8단계를 사용자 검토마다 멈추고 기능 단위 구현·검증을 안내하는 기본 절차",
+  "status": "complete",
+  "evidence": {
+    "REQUEST": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/request.md",
+      "sha256": "1392faa03c910319341f22994f0cc4230e42af68f47a2776249013e0e540c81b",
+      "description": "현재 사용자 요청",
+      "recorded_at": "2026-11-04T08:36:37.526432+00:00"
+    },
+    "DESIGN": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/design.md",
+      "sha256": "ca38fad55c735ead25316f3dc0c65464b76c4359bf6ce3cfbaf8147a67856291",
+      "description": "8단계와 증분 수행의 변경 경계",
+      "recorded_at": "2026-11-04T08:36:37.527748+00:00"
+    },
+    "ALIGN": {
+      "type": "artifact",
+      "path": ".runtime/document-delivery-defaults/alignment.json",
+      "sha256": "20a84c55aca83289ab7f0a6c4ad28571f7e38fd2a66c597f12dea052a877b5bc",
+      "description": "현재 요청·설계·선택 O1의 정렬 자체 검토",
+      "recorded_at": "2026-11-04T08:36:57.908624+00:00"
+    },
+    "SCENARIOS": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/results.md",
+      "sha256": "5c84631747ca21dd87cf7d6da2f0089e0a9ab4b060606f827a7cf452b6fcaf5b",
+      "description": "기본 연결 관측과 제한 시나리오 자체 검토; 실제 모델 완주 평가는 아님",
+      "recorded_at": "2026-11-04T08:39:59.466435+00:00"
+    },
+    "REQUEST_STAGE": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/request-stage-review.md",
+      "sha256": "9dfcc78cefbbb47a762bfcf8f3a5fddc3a2667e54123367b71fbe5ac4fc4ddb7",
+      "description": "현재 단계별 사용자 검토 요청/설계",
+      "recorded_at": "2026-11-04T08:43:38.146338+00:00"
+    },
+    "DESIGN_STAGE": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/design-stage-review.md",
+      "sha256": "600f704f0b3e0b51adf958faa0cc6f065ef2b21ad3623c5b80c5e7bfef45e5d9",
+      "description": "현재 단계별 사용자 검토 요청/설계",
+      "recorded_at": "2026-11-04T08:43:38.147831+00:00"
+    },
+    "FOLLOWUP": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/follow-up.md",
+      "sha256": "604ede6f73bccda2956b56f8b3b6c06052ed643df01d62474e7a2b6fc0625982",
+      "description": "이번 범위 밖 lifecycle fixture 오류와 다음 행동",
+      "recorded_at": "2026-11-04T08:43:38.149236+00:00"
+    },
+    "ALIGN_STAGE": {
+      "type": "artifact",
+      "path": ".runtime/document-delivery-defaults/alignment-stage.json",
+      "sha256": "d766884479432d1ff19a1ab5dfbef18bbdec602600791b9b9d8f0c70ad4fc4b3",
+      "description": "최신 단계별 검토 원문의 의도·범위 정렬",
+      "recorded_at": "2026-11-04T08:44:01.262323+00:00"
+    },
+    "STAGE_SCENARIOS": {
+      "type": "artifact",
+      "path": "docs/tasks/document-delivery-defaults/stage-review-results.md",
+      "sha256": "d333ab1d35c88b094ad7db86ade1d907c5225eb1adb358a7987574b60501a5d2",
+      "description": "現在の段階別停止・検討境界の自己シナリオ確認",
+      "recorded_at": "2026-11-04T08:44:41.432727+00:00"
+    },
+    "FINAL": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/da3f6bc2c622436cb8b61e79d79cac77/checks/718238b23ef84b8caebd69486a1f5a1a/report.json",
+      "sha256": "05c203f76fe6d7b68e33151a6e3cdfc8712ad4fbdab28b59345a7adae906fec2",
+      "description": "현재 소스의 기본 읽기/라우트/구현 gate 및 전체 등록 회귀",
+      "recorded_at": "2026-11-04T08:48:43.987240+00:00",
+      "check": "python"
+    },
+    "FINAL_BOUNDARIES": {
+      "type": "check",
+      "path": ".runtime/check-snapshots/da3f6bc2c622436cb8b61e79d79cac77/checks/718238b23ef84b8caebd69486a1f5a1a/report.json",
+      "sha256": "05c203f76fe6d7b68e33151a6e3cdfc8712ad4fbdab28b59345a7adae906fec2",
+      "description": "현재 소스의 기본 읽기/라우트/구현 gate 및 전체 등록 회귀",
+      "recorded_at": "2026-11-04T08:48:44.111178+00:00",
+      "check": "python"
+    },
+    "EARLIER_FULL": {
+      "type": "artifact",
+      "path": ".runtime/check-snapshots/b3779008757840c9b5a3ffb15e43c299/checks/fbf2483521714da19462aac9390de4d3/report.json",
+      "sha256": "7e397012158ee3e9df86606ec21f1d2b90ef0dc25c9942f7c1bb26b83aed5a3a",
+      "description": "이전 lifecycle fixture 오류가 관측된 당시 고정 사본 보고서; 현재 통과 근거 아님",
+      "recorded_at": "2026-11-04T08:48:44.209575+00:00"
+    }
+  },
+  "review": {
+    "path": "docs/tasks/document-delivery-defaults/review.json",
+    "sha256": "62290d1ed03de40914d376c09de634b8940cd7c57400cb51eb555ee76387b1f2"
+  },
+  "findings": [
+    "F1"
+  ],
+  "created_at": "2026-11-04T08:35:47.659297+00:00",
+  "depends_on": [],
+  "inputs": [],
+  "scope": [
+    ".agents/skills/plan-project/SKILL.md",
+    ".agents/skills/plan-project/references/task-patterns.md",
+    ".agents/context.toml",
+    ".agents/skills/plan-project/routes.toml",
+    "tools/harness/tests/test_project_delivery_defaults.py",
+    ".agents/skills/plan-project/references/project-lifecycle.md"
+  ],
+  "constraints": [
+    "현재 작업 공간에서 수행하라는 최신 사용자 지시를 적용하고 타 세션 변경을 보존한다.",
+    "새 모델·훅·자동 실행기·원격 쓰기를 추가하지 않는다.",
+    "지침 연결 검증을 실제 서비스 완주 품질의 증명으로 확대하지 않는다."
+  ],
+  "decisions": [],
+  "open_questions": [],
+  "acceptance": [
+    {
+      "id": "A1",
+      "condition": "문서 기반 프로젝트 구현은 8단계를 안내로 사용하되 기본으로 1단계만 수행하고 각 단계 결과를 사용자에게 보여준 뒤 다음 지시를 기다린다",
+      "method": "기본 plan/implement 및 계획 라우트의 원문 선택 회귀와 8단계 대기/사용자 응답 경계 자체 시나리오 대조",
+      "status": "passed",
+      "evidence": [
+        "REQUEST_STAGE",
+        "DESIGN_STAGE",
+        "ALIGN_STAGE",
+        "FINAL"
+      ]
+    },
+    {
+      "id": "A2",
+      "condition": "기능 구현·검증·다음 선택을 사용자 검토 경계로 나누고 명시적 자율 위임·설계 전용·수정 요청·무응답·실패·시간 부족의 범위를 유지한다",
+      "method": "구현 준비 gate·무관한 종류 비선택 회귀 및 단계별/자율 전환·검토/수정·종료 시나리오 자체 검토",
+      "status": "passed",
+      "evidence": [
+        "FOLLOWUP",
+        "STAGE_SCENARIOS",
+        "FINAL_BOUNDARIES",
+        "EARLIER_FULL"
+      ]
+    }
+  ],
+  "next_action": "최신 단계별 사용자 검토 요구로 스킬을 수정하고 연결 및 관련 회귀를 확인한다.",
+  "completed_at": "2026-11-04T08:48:58.644637+00:00"
+}
